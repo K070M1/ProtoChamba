@@ -1,0 +1,370 @@
+
+/* CONTENEDOR */
+.container-cards{
+  width: 100%;
+}
+
+/* TARJETA */
+.box{
+  position: relative;
+  max-width: 350px;
+  padding: 15px;
+  border: 1px solid rgb(203, 203, 204);
+  border-radius: 8px;
+  margin: 10px auto;
+  margin-bottom: 20px;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease;
+  color: black;
+}
+/* .box{
+  border: 1px solid rgb(96, 50, 139);
+  background: rgb(104, 78, 128);
+  color: rgb(226, 217, 204);
+} */
+.box:hover{
+  transform: scale(1.02);
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.2);
+}
+/* .box:hover{
+  transform: scale(1.03);
+  box-shadow: 0 0 20px 4px rgba(0,0,0,0.4);
+  border: 1px solid rgb(96, 50, 139);
+  background: rgb(104, 78, 128);
+  color: rgb(226, 217, 204);
+} */
+/* .box .descripcion,
+.box .descripcion .info-user a{
+  color: rgb(236, 232, 226) !important;
+}
+.box .descripcion .services{
+  color: #b7dde9;
+} */
+
+/* DATOS DEL USUARIO */
+.user-data{
+  color: inherit;
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+}
+
+/* CONTENIDO DE LA CALIFICACIÓN */
+.user-data .califications{
+  display: flex;
+  justify-content: space-between;
+  background: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 15px 0 15px;
+}
+
+.califications span{
+  margin-left: 0.5em;
+  text-shadow: 0;
+  color: inherit;
+}
+
+
+/* LEVEL USUARIO */
+.heading .level{
+  position: relative;
+  text-transform: capitalize;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  color: inherit;
+}
+
+/* REACCIONES */
+.reactions{
+  position: relative;
+  border-radius: inherit;
+  padding: 0;
+}
+
+.reactions i{
+  color: rgb(236, 183, 10);
+  font-weight: 500;
+}
+.reactions i.active{
+  font-weight: 600;
+}
+
+
+/* PERFIL DE USUARIO */
+.box .profile-user{
+  position: relative;
+  display: block;
+  width: 180px;
+  height: 180px;
+  margin: auto;
+  padding: 5px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.1);
+}
+.box .profile-user img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: inherit;
+  background: linear-gradient(90deg, white, rgb(124, 121, 121), white);
+}
+.box .profile-user .hover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.box .profile-user .hover h4{
+  color: rgba(243, 243, 242, 0.877);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  margin: auto;
+}
+.box .profile-user:hover{
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  background: #b7dde9;
+  padding: 0;
+}
+.box .profile-user:hover .hover{
+  opacity: 0.9;
+}
+
+/* CABECERA Y DESCRIPCIÓN */
+.box .heading,
+.box .descripcion{
+  width: 100%;
+}
+.box .heading{
+  text-align: left;
+}
+
+
+/* NOMBRE, SERVICIOS y MONEDA*/
+.name, .services{
+  text-transform: uppercase;
+  white-space: wrap;
+  max-width: 100%;
+  text-overflow: inherit;
+}
+.name{
+  font-size: 17px;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.2);
+
+}
+.name:hover{
+  color: #3a98b4;
+  text-shadow: none;
+
+}
+.services{
+  color: rgb(26, 116, 116);
+  font-size: 14px;
+  line-height: 1.2em;
+}
+.money{
+  text-align: center;
+  font-style: italic;
+  color: #247e24e5;
+}
+/* DESCRIPCIÓN */
+.box .descripcion{
+  margin-top: 0.3em;
+  border-top: 1px solid rgb(196, 192, 192);
+  font-style: italic;
+}
+.box .descripcion .info-user{
+  max-height: 120px;
+  margin: 7px 0;
+}
+
+.user-data a,
+.descripcion .info-user a{
+  background: transparent;
+  color: initial;
+  padding: 0;
+  display: inline-block;
+}
+/* REDES SOCIALES */
+.social{
+  position: relative;
+  text-align: left;
+}
+.social a{
+  padding: 5px 10px;
+}
+
+/* ENLACES DE TIPO BOTONES */
+a.btn-social{
+  display: inline-block;
+  background: #33837ce5;
+  color: white;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: transform 0.5s ease;
+}
+a.btn-social:hover{
+  background: rgba(0,0,0,0.4);
+  text-decoration: inherit;
+  background: inherit;
+  color: inherit;
+  transform: scale(1.4);
+  color: rgb(226, 95, 43);
+}
+
+@media (min-width:700px){
+  .container-cards{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
+    gap: 1em;
+  }
+  .box{
+    max-width: 480px;
+    width: 400px;
+    height: auto;
+    padding: 15px;
+    margin-bottom: 0;
+    align-self: flex-start;
+  }
+  /*  CABECERA */
+  .box .heading{
+    display: flex;
+    float: left;
+    flex-flow: column nowrap;
+    justify-content: left;
+    width: 30%;
+    height: auto;
+  }
+
+  /* DATOS*/
+  .box .user-data{
+    float: right;
+    width: 70%;
+    padding-left: 3px;
+  }
+  .box .user-data span{
+    display: inline-block;
+    line-height: 1.2em;
+  }
+
+  /* IMG PERFIL */
+  .box .profile-user{
+    position: relative;
+    display: flex;
+    width: 90px;
+    height: auto;
+    margin-top: 5px;
+    padding: 0;
+    border-radius: 50%;
+    float: left;
+    transition: all 0.5s ease;
+    background: inherit;
+  }
+  .box .profile-user img{
+    object-fit: cover;
+    object-position: center center;
+  }
+  .box .profile-user .hover{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .box .profile-user .hover h4{
+    color: #f2f2f2;
+    margin: auto;
+    font-size: 15px;
+    font-weight: 600;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  }
+  .box .profile-user:hover{
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.2);
+    background: #b7dde9;
+    padding: 0;
+  }
+
+  /* CONTENIDO DE LA CALIFICACIÓN */
+  .box .califications{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: inherit;
+    color: inherit;
+    padding: 0;
+    width: 100%;
+    height: fit-content;
+    border-radius: 0;
+    font-size: 10px;
+  }
+
+  /* LEVEL USUARIO */
+  .level{
+    position: relative;
+    text-align: center;
+    text-transform: capitalize;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    color: inherit;
+    margin-top: 0.5em;
+  }
+
+  /* CALIFICACIONES */
+  .reactions{
+    position: relative;
+    border-radius: inherit;
+    text-align: left;
+    line-height: 1.2em;
+  }
+  .reactions span{
+    display: inline-block;
+    text-align: center;
+    bottom: 0;
+  }
+  .name{
+    max-width: 95%;
+    font-size: 18px;
+  }
+  .services{
+    font-size: 14px;
+    max-height: 40px;
+    overflow: hidden;
+  }
+  .box .descripcion{
+    display: inline-block;
+    border-top: 1px solid #cacacae5;
+  }
+
+  .social{
+    position: relative;
+    text-align: right;    
+  }
+  /* .social a{
+    background: inherit;
+    color: inherit;
+  } */
+}
