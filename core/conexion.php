@@ -34,7 +34,4 @@ class Conexion{
 
 }
 
-$cone = new Conexion();
-$cone->connectServer();
-
 ?>

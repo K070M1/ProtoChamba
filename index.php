@@ -232,7 +232,13 @@
               <li class="nav-item">
                 <a href="javascript:void(0)" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Demo1</p>
+                  <p>Demo 1</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Demo 2</p>
                 </a>
               </li>
             </ul>
@@ -370,8 +376,6 @@
 <script>
   $(document).ready(function (){
     var view = getParam("view");
-    console.log(view);
-
     if (view != false)
       $("#content-data").load(`views/${view}.php`);
     else

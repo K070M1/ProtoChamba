@@ -17,7 +17,7 @@
                     </button>
             </div>
             <div class="modal-body">
-                <form id="form-save-schedule">
+                <form id="form-save-schedule" autocomplete="off">
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="title">Titulo</label>
@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="description">Descripción</label>
-                            <textarea id="description" cols="30" rows="3" class="form-control rounded-0" placeholder=""></textarea>
+                            <textarea id="description" cols="30" rows="3" class="form-control form-control-border rounded-0" placeholder=""></textarea>
                         </div>
                     </div>
                     <div class="row">

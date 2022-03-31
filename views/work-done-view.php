@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="plugins/video-js/video.min.css">
 <link rel="stylesheet" href="dist/css/pages/style-video.css">
 <!-- styles -->
-<link rel="stylesheet" href="dist/css/pages/services.css" />
 <link rel="stylesheet" href="dist/css/pages/service-qualification.css" />
 
 <!-- SCRIPTS -->
@@ -17,65 +16,15 @@
 <div class="container-services row">
   <!-- Recomendados -->
   <div class="content-filter-recommended col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <h4 class="title">Otros servicios secomendados</h4>
     <div class="container-cards">
-
-      <div class="box card card-outline card-cyan">
-        <div class="heading">
+      <div class="card card-outline card-primary">
+        <div class="card-header">
           <a href="#" class="profile-user">
-            <img src="dist/img/avatar4.png" />
-            <div class="hover">
-              <h4>Perfil</h4>
-            </div>
+            <img class="imng-circle" src="dist/img/avatar4.png" />
           </a>
           <!-- <span class="level">Intermedio</span> -->
         </div>
-        <div class="user-data">
-            <div class="califications">
-                <div class="reactions">
-                  <i class="fa fa-star active"></i>
-                  <i class="fa fa-star active"></i>
-                  <i class="fa fa-star active"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                </div>
-                <!-- <span class="valoration">45.3K</span> -->
-            </div>
-            <a href="#" class="name">Alfonso Patricio Magallanes Salazar</a>
-            <div class="services">
-                <span>
-                    Diseñador, Carpintero, Animador, Analista, otros.
-                </span>
-            </div>
-            <!-- <span class="money text-muted">
-                <i class="fa fa-solid fa-money"></i> 
-                Entre: S/ 250.00 y S/ 450.00
-            </span> -->
-            
-        </div>
-        <div class="descripcion">
-          <div class="info-user">
-            
-            <a href="#" class="card-text text-dark"
-              ><i class="fa fa-regular fa-compass"></i> Ubicación del
-              establecimiento</a
-            >
-            <a href="#" class="card-text text-dark">
-                <i class="fa fa-regular fa-street-view"></i> 
-                Dirección personal
-            </a>
-          </div>
-        </div>
-        <div class="social">
-          <a href="#" class="btn-social"><i class="fa fab fa-facebook"></i></a>
-          <a href="#" class="btn-social"><i class="fa fab fa-instagram"></i></a>
-          <a href="#" class="btn-social"><i class="fa fab fa-twitter"></i></a>
-          <a href="#" class="btn-social"><i class="fa fab fa-envelope"></i></a>
-          <a href="#" class="btn-social"><i class="fa fab fa-whatsapp"></i></a>
-          <a href="#" class="btn-social"><i class="fa fab fa-phone"></i></a>
-        </div>
       </div>
-
     </div>
   </div>
 
@@ -92,8 +41,36 @@
           <div class="user-block-publication">
             <img class="img-circle" src="dist/img/user1-128x128.jpg" alt="User Image">
             <button type="button" class="btn btn-publication btn-primary" data-toggle="modal" data-target="#modal-publication">
-              Agregar publicación
+              Crear publicación
             </button>
+          </div>
+        </div>
+
+        <!-- Crear publicación -->
+        <div class="collapse" id="collapse-create-piblication">
+          <div class="card-body">
+            <form autocomplete="off">
+              <div class="form-group">
+                <label for="titulo">Titulo:</label>
+                <input type="text" id="titulo" class="form-control form-control-border">
+              </div>
+              <div class="form-group">
+                <label for="descripcion" class="col-form-label">Descripción:</label>
+                <textarea class="form-control form-control-border" id="descripcion"></textarea>
+              </div>
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-info">Subir imagen</button>
+                    <button type="button" class="btn btn-outline-info">Subir video</button>
+                  </div>
+                </div>
+                <div class="col-md-6 form-group text-right">
+                  <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-create-piblication">Cancelar</button>
+                  <button type="button" class="btn btn-primary">Publicar</button>      
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -371,6 +348,43 @@
   </div>
 </div>
 
+<!-- Modal PUBLICACIÓN DE TRABAJOS-->
+<div class="modal fade" id="modal-publication" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear una nueva publicación de trabajo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+      <form autocomplete="off">
+          <div class="form-group">
+            <label for="titulo">Titulo:</label>
+            <input type="text" id="titulo" class="form-control form-control-border">
+          </div>
+          <div class="form-group">
+            <label for="descripcion" class="col-form-label">Descripción:</label>
+            <textarea class="form-control rounded-0" id="descripcion"></textarea>
+          </div>
+          <div class="form-group">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success">Subir imagen</button>
+              <button type="button" class="btn btn-info">Subir video</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Publicar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Modal REPORTAR-->
 <div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="Modal reporte" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -417,27 +431,5 @@
     </div>
   </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="modal-publication" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body">
-        Body
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 

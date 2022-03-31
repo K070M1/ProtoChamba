@@ -20,7 +20,7 @@
   max-height: 100%;
   padding: 0;
   position: sticky;
-  top: 0;
+  top: 56px;
   left: 0;
   border: 0;
 }
@@ -36,7 +36,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   height: 90vh;
-  padding: 15px 0;
+  /* padding: 15px 0; */
 }
 .container-cards::-webkit-scrollbar {
   width: 10px;
@@ -75,7 +75,7 @@
 .content-service .target-service {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 6px;
-  margin-bottom: 2em;
+  /* margin-bottom: 2em; */
   width: 100%;
 }
 .target-service .target-header {
@@ -351,6 +351,7 @@
   width: 100%;
   height: auto;
   margin: auto;
+  padding: 0;
 }
 .option-menu ul li {
   position: relative;
