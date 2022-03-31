@@ -236,8 +236,4 @@ document.addEventListener('DOMContentLoaded', function() {
       //console.log(splitHourAndMinute("15:85"))
       addEventCalendar()
   })
-
-  function getDataCalendar(){
-
-  }
 });

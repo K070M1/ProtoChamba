@@ -1,27 +1,11 @@
 #calendar {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
 }
-
-/* #title{
-  color: #9c27b0;
-  font-weight: 800;
-  border-bottom: 3px solid coral;
-  background: #ccc;
-  padding: 8px 30px;
-} */
-
-/****************/
-input {
-  display: none;
-}
-
 
 .fc-content{
   color: #fff !important;
 }
-
-
 
 #btnCerrar{
   color:crimson;
@@ -156,8 +140,12 @@ input {
 .fc-col-header-cell{
   padding: 5px 0px;
   vertical-align: middle;
-  background: rgba(0,0,0,0.05);
   background: #f2f2f2;
+}
+
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number{
+  color: inherit;
 }
 
 .fc-col-header-cell div a::first-letter,

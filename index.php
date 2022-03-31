@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="dist/css/themes.css">
   <link rel="stylesheet" href="dist/css/switch-dark-mode.css">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -230,9 +230,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php?view=work-done-view" class="nav-link">
+                <a href="javascript:void(0)" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Trabajos publicados</p>
+                  <p>Demo1</p>
                 </a>
               </li>
             </ul>
@@ -248,7 +248,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link">
+            <a href="index.php?view=work-done-view" class="nav-link">
+              <i class="fas fa-briefcase nav-icon"></i>
+              <p>Trabajos publicados</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="index.php?view=calendario-view" class="nav-link">
               <i class="nav-icon fas fa-chart-area"></i>
               <p>
                 Graficos
@@ -269,12 +275,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard v2</h1>
+            <h1 class="m-0">Listado de datos</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item active">Calendario</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -364,11 +370,12 @@
 <script>
   $(document).ready(function (){
     var view = getParam("view");
+    console.log(view);
 
     if (view != false)
       $("#content-data").load(`views/${view}.php`);
     else
-      $("#content-data").load(`views/index.php`);
+      $("#content-data").load(`views/welcome.php`);
   });
 </script>
 </body>
