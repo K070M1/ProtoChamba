@@ -104,8 +104,8 @@ CREATE TABLE `comentarios` (
 /*Data for the table `comentarios` */
 
 insert  into `comentarios`(`idcomentario`,`idtrabajo`,`idusuario`,`comentario`,`fechacomentado`,`fechamodificado`,`estado`) values 
-(1,1,1,'Muy buen trabajo','2022-03-29 21:22:47',NULL,''),
-(2,1,2,'Pesimo trabajo','2022-03-29 21:22:47',NULL,'');
+(1,1,1,'Muy buen trabajo','2022-03-30 13:10:39',NULL,''),
+(2,1,2,'Pesimo trabajo','2022-03-30 13:10:39',NULL,'');
 
 /*Table structure for table `departamentos` */
 
@@ -1686,22 +1686,24 @@ CREATE TABLE `empresas` (
   `idempresa` int(11) NOT NULL AUTO_INCREMENT,
   `establecimiento` varchar(30) NOT NULL,
   `ruc` char(11) NOT NULL,
-  `ubicacion` varchar(70) NOT NULL,
-  `referencia` varchar(70) DEFAULT NULL,
+  `tipocalle` char(2) NOT NULL,
+  `nombrecalle` varchar(60) NOT NULL,
+  `numerocalle` varchar(5) DEFAULT NULL,
+  `referencia` varchar(70) NOT NULL,
   `latitud` float(10,8) NOT NULL,
   `longitud` float(10,8) NOT NULL,
   PRIMARY KEY (`idempresa`),
-  UNIQUE KEY `uk_empresas_ruc` (`ruc`)
+  UNIQUE KEY `uk_emp_ruc` (`ruc`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `empresas` */
 
-insert  into `empresas`(`idempresa`,`establecimiento`,`ruc`,`ubicacion`,`referencia`,`latitud`,`longitud`) values 
-(1,'Mecanina pilon motors','12452585696','Calle molina N°25','Pasando la segunda cuadra',-12.06710052,-77.03235626),
-(2,'Electricista ZORNOMAZ','12452585626','Urb. Leon de Vivero MZ:13 LT:16 Pueblo Nuevo, 11701','Antes de ',-12.06710052,-77.03235626),
-(3,'ABOGADOS CHINCHA','12452582696','C. Lima, Chincha Alta 11702','',-12.06720066,-77.03835297),
-(4,'Soldadura ferrrer','12452565696','Chincha baja Litardoo, baja','',-12.08560085,-77.03235626),
-(5,'NADIRA Centro Masoterapista','12452580696','15725 ROMA Municipalidad Metropolitana de Lima LIMA, 01','',-12.09560108,-77.03235626);
+insert  into `empresas`(`idempresa`,`establecimiento`,`ruc`,`tipocalle`,`nombrecalle`,`numerocalle`,`referencia`,`latitud`,`longitud`) values 
+(1,'Mecanina pilon motors','12452585696','CA','molina','25','Pasando la segunda cuadra',-12.06710052,-77.03235626),
+(2,'Electricista ZORNOMAZ','12452585626','UR','Leon de Vivero','11701','Antes de ',-12.06710052,-77.03235626),
+(3,'ABOGADOS CHINCHA','12452582696','CA','Lima, Chincha Alta','1102','',-12.06720066,-77.03835297),
+(4,'Soldadura ferrrer','12452565696','CA','Chincha baja Litardoo,',NULL,'',-12.08560085,-77.03235626),
+(5,'NADIRA Centro Masoterapista','12452580696','AV','Municipalidad Metropolitana de Lima LIMA','01','',-12.09560108,-77.03235626);
 
 /*Table structure for table `especialidades` */
 
@@ -1735,7 +1737,7 @@ CREATE TABLE `galerias` (
   `idgaleria` int(11) NOT NULL AUTO_INCREMENT,
   `idalbum` int(11) NOT NULL,
   `idtrabajo` int(11) DEFAULT NULL,
-  `tipo` char(1) NOT NULL DEFAULT 'F',
+  `tipo` char(1) NOT NULL,
   `titulo` varchar(45) NOT NULL,
   `archivo` varchar(100) NOT NULL,
   `fechaalta` datetime NOT NULL DEFAULT current_timestamp(),
@@ -1751,8 +1753,8 @@ CREATE TABLE `galerias` (
 /*Data for the table `galerias` */
 
 insert  into `galerias`(`idgaleria`,`idalbum`,`idtrabajo`,`tipo`,`titulo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,NULL,'F','Foto de electricista','012555454545448599','2022-03-29 21:20:26',NULL,''),
-(2,3,1,'V','Video de electricista','012555454545447852','2022-03-29 21:20:26',NULL,'');
+(1,1,NULL,'F','Foto de electricista','012555454545448599','2022-03-30 13:09:51',NULL,''),
+(2,3,1,'V','Video de electricista','012555454545447852','2022-03-30 13:09:51',NULL,'');
 
 /*Table structure for table `personas` */
 
@@ -1760,25 +1762,28 @@ DROP TABLE IF EXISTS `personas`;
 
 CREATE TABLE `personas` (
   `idpersona` int(11) NOT NULL AUTO_INCREMENT,
+  `iddistrito` varchar(6) NOT NULL,
   `apellidos` varchar(40) NOT NULL,
   `nombres` varchar(40) NOT NULL,
   `fechanac` date NOT NULL,
   `telefono` char(11) DEFAULT NULL,
   `tipocalle` char(2) NOT NULL,
   `nombrecalle` varchar(60) NOT NULL,
-  `numerocalle` varchar(5) NOT NULL,
+  `numerocalle` varchar(5) DEFAULT NULL,
   `pisodepa` varchar(5) DEFAULT NULL,
-  PRIMARY KEY (`idpersona`)
+  PRIMARY KEY (`idpersona`),
+  KEY `fk_per_iddistrito` (`iddistrito`),
+  CONSTRAINT `fk_per_iddistrito` FOREIGN KEY (`iddistrito`) REFERENCES `distritos` (`iddistrito`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `personas` */
 
-insert  into `personas`(`idpersona`,`apellidos`,`nombres`,`fechanac`,`telefono`,`tipocalle`,`nombrecalle`,`numerocalle`,`pisodepa`) values 
-(1,'Magallanes Perez','Luis Enrique','1998-05-25','05695674856','AV','Las palmeras','25','5'),
-(2,'Hernandez Monterroza','Adriana Carolina','1999-05-14','05695674858','CA','Los Sauces','150','3'),
-(3,'Carvajal Vargas','Alexander','1999-05-14','05695674558','JR','Las Lomas','5','2'),
-(4,'Blanca Concha','Angelica Maria','1999-05-14','05695604858','PJ','Cartajena','250','3'),
-(5,'Ospina Alfonso','Catherine','1999-05-14','05695674858','AV','Prada N°258','255','2');
+insert  into `personas`(`idpersona`,`iddistrito`,`apellidos`,`nombres`,`fechanac`,`telefono`,`tipocalle`,`nombrecalle`,`numerocalle`,`pisodepa`) values 
+(1,'010607','Magallanes Perez','Luis Enrique','1998-05-25','05695674856','AV','Las palmeras','25','5'),
+(2,'010608','Hernandez Monterroza','Adriana Carolina','1999-05-14','05695674858','CA','Los Sauces','150','3'),
+(3,'010609','Carvajal Vargas','Alexander','1999-05-14','05695674558','JR','Las Lomas','5','2'),
+(4,'010610','Blanca Concha','Angelica Maria','1999-05-14','05695604858','PJ','Cartajena','250','3'),
+(5,'010611','Ospina Alfonso','Catherine','1999-05-14','05695674858','AV','Prada N°258','255','2');
 
 /*Table structure for table `provincias` */
 
@@ -2033,7 +2038,7 @@ CREATE TABLE `reportes` (
 /*Data for the table `reportes` */
 
 insert  into `reportes`(`idreporte`,`idcomentario`,`motivo`,`descripcion`,`fotografia`,`fechareporte`) values 
-(1,2,'Mesaje indebido','Mala calificación del trabajo','011555555959258','2022-03-29 21:23:31');
+(1,2,'Mesaje indebido','Mala calificación del trabajo','011555555959258','2022-03-30 13:11:01');
 
 /*Table structure for table `seguidores` */
 
@@ -2056,8 +2061,8 @@ CREATE TABLE `seguidores` (
 /*Data for the table `seguidores` */
 
 insert  into `seguidores`(`idseguidor`,`idfollowing`,`idfollower`,`fechafollower`,`fechabaja`,`estado`) values 
-(1,1,2,'2022-03-29 21:06:59',NULL,''),
-(2,1,3,'2022-03-29 21:06:59',NULL,'');
+(1,1,2,'2022-03-30 13:05:09',NULL,''),
+(2,1,3,'2022-03-30 13:05:09',NULL,'');
 
 /*Table structure for table `servicios` */
 
@@ -2087,7 +2092,7 @@ CREATE TABLE `trabajos` (
   `idtrabajo` int(11) NOT NULL AUTO_INCREMENT,
   `idespecialidad` int(11) NOT NULL,
   `idusuario` int(11) NOT NULL,
-  `titulo` varchar(40) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
   `descripcion` mediumtext NOT NULL,
   `fechapublicado` datetime NOT NULL DEFAULT current_timestamp(),
   `fechamodificado` datetime DEFAULT NULL,
@@ -2103,8 +2108,8 @@ CREATE TABLE `trabajos` (
 /*Data for the table `trabajos` */
 
 insert  into `trabajos`(`idtrabajo`,`idespecialidad`,`idusuario`,`titulo`,`descripcion`,`fechapublicado`,`fechamodificado`,`fechaeliminado`,`estado`) values 
-(1,1,1,'Servicio de electricista','Trabajo realizado en etc..','2022-03-29 21:11:27',NULL,NULL,''),
-(2,2,1,'Electrista de cableado','Trabajo realizado en ..','2022-03-29 21:11:27',NULL,NULL,'');
+(1,1,1,'Servicio de electricista','Trabajo realizado en etc..','2022-03-30 13:07:48',NULL,NULL,''),
+(2,2,1,'Electrista de cableado','Trabajo realizado en ..','2022-03-30 13:07:48',NULL,NULL,'');
 
 /*Table structure for table `usuarios` */
 
@@ -2115,12 +2120,11 @@ CREATE TABLE `usuarios` (
   `idpersona` int(11) NOT NULL,
   `idempresa` int(11) DEFAULT NULL,
   `descripcion` mediumtext DEFAULT NULL,
-  `horarioatencion` varchar(50) NOT NULL,
-  `nivelusuario` char(1) NOT NULL,
+  `horarioatencion` varchar(70) NOT NULL,
   `rol` char(1) NOT NULL DEFAULT 'U',
   `email` varchar(70) NOT NULL,
   `emailrespaldo` varchar(70) DEFAULT NULL,
-  `clave` varchar(80) NOT NULL,
+  `clave` varchar(100) NOT NULL,
   `fechaalta` datetime NOT NULL DEFAULT current_timestamp(),
   `fechabaja` datetime DEFAULT NULL,
   `estado` bit(1) NOT NULL DEFAULT b'1',
@@ -2135,10 +2139,10 @@ CREATE TABLE `usuarios` (
 
 /*Data for the table `usuarios` */
 
-insert  into `usuarios`(`idusuario`,`idpersona`,`idempresa`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,NULL,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','','U','Luis@gmail.com',NULL,'12345','2022-03-29 21:05:07',NULL,''),
-(2,2,NULL,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','','U','Adriana@gmail.com',NULL,'12345','2022-03-29 21:05:07',NULL,''),
-(3,3,1,'Uno de sus profesores en la Universidad de Pensilvania era director ejecutivo de una empresa en Los Gatos, Silicon Valley, dedicada a investigar ultracondensadores electrolíticos destinados a vehículos eléctricos. Elon Musk trabajó un verano en la empresa Pinnacle Research. Esos ultracondensadores tenían una densidad energética muy alta, pero sus componentes químicos eran carísimos y se vendían por miligramos porque había muy pocas minas que los extrajeran. No eran escalables para su producción en masa.11','Atención de Lunes a Viernes de 08:00 AM a 09:00 PM','','U','Alenxander@gmail.com',NULL,'12345','2022-03-29 21:05:07',NULL,'');
+insert  into `usuarios`(`idusuario`,`idpersona`,`idempresa`,`descripcion`,`horarioatencion`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
+(1,1,NULL,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','U','Luis@gmail.com',NULL,'12345','2022-03-30 13:03:33',NULL,''),
+(2,2,NULL,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','U','Adriana@gmail.com',NULL,'12345','2022-03-30 13:03:33',NULL,''),
+(3,3,1,'Uno de sus profesores en la Universidad de Pensilvania era director ejecutivo de una empresa en Los Gatos, Silicon Valley, dedicada a investigar ultracondensadores electrolíticos destinados a vehículos eléctricos. Elon Musk trabajó un verano en la empresa Pinnacle Research. Esos ultracondensadores tenían una densidad energética muy alta, pero sus componentes químicos eran carísimos y se vendían por miligramos porque había muy pocas minas que los extrajeran. No eran escalables para su producción en masa.11','Atención de Lunes a Viernes de 08:00 AM a 09:00 PM, Sabados y domingos','U','Alenxander@gmail.com',NULL,'12345','2022-03-30 13:03:33',NULL,'');
 
 /* Procedure structure for procedure `spu_albunes_eliminar` */
 
@@ -2285,6 +2289,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_usuarios_fila` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_fila` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_fila`(in _idusuario int)
+begin
+	SELECT * FROM vs_usuarios_listar
+		where idusuario = _idusuario;
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_usuarios_listar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_listar` */;
@@ -2399,17 +2416,16 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
  `idusuario` int(11) ,
  `apellidos` varchar(40) ,
  `nombres` varchar(40) ,
- `direccion` varchar(76) ,
+ `direccion` varchar(86) ,
  `descripcion` mediumtext ,
- `horarioatencion` varchar(50) ,
- `nivelusuario` char(1) ,
+ `horarioatencion` varchar(70) ,
  `rol` char(1) ,
  `email` varchar(70) ,
  `emailrespaldo` varchar(70) ,
- `clave` varchar(80) ,
+ `clave` varchar(100) ,
  `establecimiento` varchar(30) ,
  `ruc` char(11) ,
- `ubicacion` varchar(70) ,
+ `ubicacion` varchar(80) ,
  `referencia` varchar(70) ,
  `latitud` float(10,8) ,
  `longitud` float(10,8) 
@@ -2427,7 +2443,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
 /*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`prs`.`apellidos` AS `apellidos`,`prs`.`nombres` AS `nombres`,concat(`prs`.`tipocalle`,' ',`prs`.`nombrecalle`,' #',`prs`.`numerocalle`,' ',`prs`.`pisodepa`) AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`usu`.`nivelusuario` AS `nivelusuario`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`emp`.`establecimiento` AS `establecimiento`,`emp`.`ruc` AS `ruc`,`emp`.`ubicacion` AS `ubicacion`,`emp`.`referencia` AS `referencia`,`emp`.`latitud` AS `latitud`,`emp`.`longitud` AS `longitud` from ((`usuarios` `usu` join `personas` `prs` on(`prs`.`idpersona` = `usu`.`idpersona`)) left join `empresas` `emp` on(`emp`.`idempresa` = `usu`.`idempresa`)) where `usu`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`prs`.`apellidos` AS `apellidos`,`prs`.`nombres` AS `nombres`,concat(case when `prs`.`tipocalle` like 'CA' then 'Calle' when `prs`.`tipocalle` like 'JR' then 'Jirón' when `prs`.`tipocalle` like 'AV' then 'Avenida' when `prs`.`tipocalle` like 'PJ' then 'Pasaje' when `prs`.`tipocalle` like 'UR' then 'Urbanización' end,' ',`prs`.`nombrecalle`,' #',`prs`.`numerocalle`,' ',`prs`.`pisodepa`) AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`emp`.`establecimiento` AS `establecimiento`,`emp`.`ruc` AS `ruc`,concat(case when `emp`.`tipocalle` like 'CA' then 'Calle' when `emp`.`tipocalle` like 'JR' then 'Jirón' when `emp`.`tipocalle` like 'AV' then 'Avenida' when `emp`.`tipocalle` like 'PJ' then 'Pasaje' when `emp`.`tipocalle` like 'UR' then 'Urbanización' end,' ',`emp`.`nombrecalle`,' #',`emp`.`numerocalle`) AS `ubicacion`,`emp`.`referencia` AS `referencia`,`emp`.`latitud` AS `latitud`,`emp`.`longitud` AS `longitud` from ((`usuarios` `usu` join `personas` `prs` on(`prs`.`idpersona` = `usu`.`idpersona`)) left join `empresas` `emp` on(`emp`.`idempresa` = `usu`.`idempresa`)) where `usu`.`estado` = 1 */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

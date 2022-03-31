@@ -4,6 +4,13 @@
  */
 
 // evento keydown de la caja de comentario
+$(".text-input-auto").keydown(function (event){
+  if (event.keyCode == 13) { 
+    event.preventDefault();
+  }
+});
+
+// Comentario 1
 $("#text-input-1").keydown(function (event){
   if (event.keyCode == 13) { 
     event.preventDefault()
@@ -44,13 +51,13 @@ function removeClassActive(){
 }
 
 /**
- * VIDEO PLAYER iNICIAR
+ * VIDEO PLAYER iNICIAR 
  */
 var reproductor = videojs('fm-video', {
   fluid: false,
   autoplay: false
 })
-
+// video player
 
 /**
  * MODAL REPORTE
