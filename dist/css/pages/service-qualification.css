@@ -78,16 +78,19 @@
   /* margin-bottom: 2em; */
   width: 100%;
 }
-.target-service .target-header {
+/* .target-service .target-header {
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
   align-items: flex-start;
   padding: 15px;
   padding-bottom: 5px;
-}
+} */
 .card .card-header{
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.target-service .target-header{
+  padding: 10px 15px;
 }
 .target-service .target-header .content-califications {
   width: 100%;
@@ -122,6 +125,9 @@
 .target-header .user-block {
   float: left;
 }
+.target-header .user-block-right{
+  float: right;
+}
 
 .target-header .user-block img {
   float: left;
@@ -148,6 +154,57 @@
   font-size: 13px;
   margin-top: -3px;
 }
+
+/* Inicio list config */
+.target-header .user-block-right .list-public-config{
+  position: absolute;
+  list-style: none;
+  right: 10px;
+  padding: 6px;
+  max-width: 250px;
+  width: auto;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  /* background: rgba(0, 0, 0, 0.1);
+  background: #fff;
+  color: #5a5a5a; */
+  display: none;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, 0.09);
+  transition: all 0.8s ease-in-out;
+}
+.target-header .user-block-right .list-public-config .item-public-config{
+  display: block;
+}
+
+.list-public-config .item-public-config a{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  color: inherit;
+  border-radius: 6px;
+  padding: 3px 5px;
+}
+.list-public-config .item-public-config a i{
+  width: 20px;
+}
+.list-public-config .item-public-config a:hover{
+  background: rgba(0, 0, 0, 0.08);
+  color: #050505;
+  color: #badff5;
+}
+.target-header .user-block-right .btn-show-config{
+  padding: 4px;
+  cursor: pointer;
+}
+
+.user-block-right .list-public-config.show-list{
+  opacity: 1;
+  display: block;
+}
+/* fin list config */
 
 /* CONTENIDO DE GALERIA */
 .content-galeria {

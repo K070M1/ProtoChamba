@@ -70,6 +70,11 @@ var reproductor = videojs('fm-video', {
 /**
  * MODAL REPORTE
  */
+// Abrir
+$(".report").click(function(){
+  $("#modal-report").modal("show");
+});
+
 var isDeleteImage = false;
 $("#btn-subir-imagen").click(function (){
   toggleBetweenUploadAndDelete(isDeleteImage)

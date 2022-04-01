@@ -21,13 +21,13 @@ USE `reactivacion`;
 DROP TABLE IF EXISTS `actividades`;
 
 CREATE TABLE `actividades` (
-  `idactividad` int(11) NOT NULL AUTO_INCREMENT,
-  `idespecialidad` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
-  `titulo` varchar(45) NOT NULL,
-  `descripcion` varchar(90) DEFAULT NULL,
-  `direccion` varchar(80) DEFAULT NULL,
+  `idactividad` INT(11) NOT NULL AUTO_INCREMENT,
+  `idespecialidad` INT(11) NOT NULL,
+  `fecha` DATE NOT NULL,
+  `hora` TIME NOT NULL,
+  `titulo` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(90) DEFAULT NULL,
+  `direccion` VARCHAR(80) DEFAULT NULL,
   PRIMARY KEY (`idactividad`),
   CONSTRAINT `fk_actividades_idespecialidad` FOREIGN KEY (`idactividad`) REFERENCES `especialidades` (`idespecialidad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;

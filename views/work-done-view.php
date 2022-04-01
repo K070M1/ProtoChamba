@@ -45,34 +45,6 @@
             </button>
           </div>
         </div>
-
-        <!-- Crear publicación -->
-        <div class="collapse" id="collapse-create-piblication">
-          <div class="card-body">
-            <form autocomplete="off">
-              <div class="form-group">
-                <label for="titulo">Titulo:</label>
-                <input type="text" id="titulo" class="form-control form-control-border">
-              </div>
-              <div class="form-group">
-                <label for="descripcion" class="col-form-label">Descripción:</label>
-                <textarea class="form-control form-control-border" id="descripcion"></textarea>
-              </div>
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-outline-info">Subir imagen</button>
-                    <button type="button" class="btn btn-outline-info">Subir video</button>
-                  </div>
-                </div>
-                <div class="col-md-6 form-group text-right">
-                  <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse-create-piblication">Cancelar</button>
-                  <button type="button" class="btn btn-primary">Publicar</button>      
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -85,10 +57,36 @@
             <span class="username"><a href="#">Nombre del usuario.</a></span>
             <span class="description">Fecha de la publicación - 7:30 PM Ayer</span>
           </div>
+          <div class="user-block-right">
+            <span class="text-black btn-show-config">
+              <i class="fas fa-ellipsis-h"></i>
+            </span>
+            <ul class="list-public-config bg-secondary">
+              <li class="item-public-config">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-pen"></i>
+                  <span>Editar publicación</span>
+                </a>
+              </li>
+              <li class="item-public-config">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-eye-slash"></i>
+                  <span>Ocultar publicación</span>
+                </a>
+              </li>
+              <li class="item-public-config">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-ban"></i>
+                  <span>Eliminar publicación</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="target-header card-body">
           <h4 class="job-title">Construcción de vivienda - 4 pisos, 6 habitaciones</h4>
           
+          <!-- Contenido de las calificaciones realizadas -->
           <div class="content-califications">
             <span class="text-muted">Calificación:</span>
             <div class="califications">
@@ -100,8 +98,10 @@
             </div>
             <span class="text-muted">(85 reacciones)</span>
           </div>
+          <!-- /. Contenido de las calificaciones realizadas -->
         </div>
         <div class="target-body card-body">
+          <!-- Descripción de la publicación -->
           <p class="text-service">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, eum
             at architecto, ea omnis neque repudiandae provident ratione enim
@@ -110,6 +110,9 @@
             voluptatibus quam voluptatum nobis modi adipisci ab consectetur
             accusantium minus, ex eaque culpa quia porro.
           </p>
+          <!-- /. Descripción de la publicación -->
+
+          <!-- Contenido de las galerias -->
           <div class="content-galeria">
             <img src="dist/img/photo1.png"/>
             <img src="dist/img/photo2.png"/>
@@ -117,8 +120,11 @@
             <img src="dist/img/photo4.jpg"/>
             <img src="dist/img/photo4.jpg"/>
           </div>
+          <!-- /. Contenido de las galerias -->
         </div>
         <div class="target-footer card-footer">
+
+          <!-- menu (comentarios, calificaciones) -->
           <div class="option-menu">
             <ul>
               <li id="btn-collapse1"><a href="#comentario1" data-toggle="collapse" role="button" aria-expanded="false"><span>25</span> Comentarios</a></li>
@@ -139,7 +145,9 @@
               </li>
             </ul>
           </div>
+          <!-- /. menu (comentarios, calificaciones) -->
   
+          <!-- Contenido de los comentarios -->
           <div class="content-comments collapse" id="comentario1">
             <!-- Comentario 1 -->
             <div class="box-comment">
@@ -155,7 +163,7 @@
                   Quia illum mollitia dolores sit vero sint minima incidunt,
                   fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-report" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="report">Denunciar</a>
               </div>
             </div>
   
@@ -199,7 +207,9 @@
               </div>
             </div>
           </div>
+          <!-- /. Contenido de los comentarios -->
   
+          <!-- Escribir comentario -->
           <div class="write-comment">
             <img src="dist/img/avatar5.png" alt="" />
             <div class="text-auto-height">
@@ -209,6 +219,7 @@
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>
+          <!-- /. Escribir comentario -->
         </div>
       </div>
   
@@ -219,6 +230,31 @@
             <img class="img-circle" src="dist/img/user1-128x128.jpg" alt="User Image">
             <span class="username"><a href="#">Nombre del usuario.</a></span>
             <span class="description">Fecha de la publicación - 7:30 PM Ayer</span>
+          </div>
+          <div class="user-block-right">
+            <span class="text-black btn-show-config">
+              <i class="fas fa-ellipsis-h"></i>
+            </span>
+            <ul class="list-public-config bg-secondary">
+              <li class="item-public-config">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-pen"></i>
+                  <span>Editar publicación</span>
+                </a>
+              </li>
+              <li class="item-public-config">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-eye-slash"></i>
+                  <span>Ocultar publicación</span>
+                </a>
+              </li>
+              <li class="item-public-config">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-ban"></i>
+                  <span>Eliminar publicación</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="target-header card-body">
@@ -349,8 +385,8 @@
 </div>
 
 <!-- Modal PUBLICACIÓN DE TRABAJOS-->
-<div class="modal fade" id="modal-publication" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="modal-publication" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Crear una nueva publicación de trabajo</h5>
@@ -431,5 +467,15 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+    $(".btn-show-config").click(function(){
+      //$(".btn-show-config").next("ul.list-public-config").hide();
+      $(this).next("ul.list-public-config").toggle();
+
+    });
+  });
+</script>
 
 

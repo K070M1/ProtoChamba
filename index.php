@@ -221,7 +221,7 @@
           
           <li class="nav-header">MENU</li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Demos
@@ -354,17 +354,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Listado de datos</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
-              <li class="breadcrumb-item active">Calendario</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
+        
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -448,7 +438,6 @@
 <!-- Config theme -->
 <script src="dist/js/config.js"></script>
 
-
 <script>
   $(document).ready(function (){
     var view = getParam("view");
@@ -456,6 +445,14 @@
       $("#content-data").load(`views/${view}.php`);
     else
       $("#content-data").load(`views/welcome.php`);
+
+    $(".nav-link").click(function(){
+      $(".nav-link").removeClass('active');
+      //$(".nav-link + .nav-treeview").addClass('d-none');
+      $(this).addClass('active');
+      //$(".nav-link.active + .nav-treeview").removeClass('d-none');
+      console.log($(this))
+    });
   });
 </script>
 </body>

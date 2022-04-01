@@ -1,9 +1,9 @@
 /*CONTENIDO DEL PERFIL*/
 
-.perfil-usuario {
+/* .perfil-usuario {
   background: linear-gradient(rgb(207, 207, 207), transparent);
   color: #333;
-}
+} */
 .perfil-usuario .sombra {
   position: absolute;
   display: block;
