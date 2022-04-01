@@ -55,7 +55,15 @@ function removeClassActive(){
  */
 var reproductor = videojs('fm-video', {
   fluid: false,
-  autoplay: false
+  autoplay: false,
+  muted: false,
+  aspectRatio: '16:9',
+  responsive: true,
+  playbackRates: [0.5, 1, 1.5, 2],
+  fullscreen: {options: {navigationUI: 'hide'}},
+  userActions: {
+    click: true
+  }
 })
 // video player
 

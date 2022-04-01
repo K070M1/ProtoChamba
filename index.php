@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="dist/css/themes.css">
   <link rel="stylesheet" href="dist/css/switch-dark-mode.css">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -204,14 +204,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Nombre del usuario</a>
         </div>
-      </div> -->
+      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -221,7 +221,7 @@
           
           <li class="nav-header">MENU</li>
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Demos
@@ -239,6 +239,81 @@
                 <a href="javascript:void(0)" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Demo 2</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Aldair
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?view=perfil-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Perfil</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?view=geolocalizacion-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Geolocalización</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Jesus
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?view=inicio-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inicio</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?view=blarga-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Filtrado</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Najhely
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?view=admin-permissions-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Permisos de admin</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?view=report-history-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Historial de reportes</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?view=graficos-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Graficos</p>
                 </a>
               </li>
             </ul>
@@ -285,7 +360,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+              <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
               <li class="breadcrumb-item active">Calendario</li>
             </ol>
           </div><!-- /.col -->
@@ -372,6 +447,7 @@
 
 <!-- Config theme -->
 <script src="dist/js/config.js"></script>
+
 
 <script>
   $(document).ready(function (){

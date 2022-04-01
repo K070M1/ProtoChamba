@@ -1,0 +1,274 @@
+:root {
+    --primary: #0d6efd;
+    --dark: #21252f;
+    --body: #888;
+    --white: #ffffff;
+    --box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Lora', serif;
+    line-height: 1.7;
+    width: 100%;
+}
+
+h2,h3,h4,h5,h6,
+.display-4 {
+    color: var(--dark);
+    font-weight: 700;
+}
+
+a {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+
+.navbar {
+    box-shadow: var(--box-shadow);
+}
+
+.navbar .nav-link {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.hero {
+    background-image: url(../img/banner.jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    z-index: 2;
+}
+
+.hero::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(21, 20, 51, 0.8);
+    z-index: -1;
+}
+
+.grupo-input{
+  position: relative;
+}
+
+
+.grupo-input img{
+  position: absolute;
+  top: 5%;
+  left: 2%;
+}
+
+.grupo-input input{
+  outline: none;
+  padding: 5px 48px ;
+}
+
+/* Estilos para el area de servicios */
+.servicios{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 1%;
+  margin-left: 1%;
+  
+}
+
+.servicios .recomendados{
+  margin-top: 3%;
+}
+
+.servicios .contenedor {
+	max-width: 1600px;
+	width: 100%;
+	margin: auto;
+}
+
+.card-filtro{
+  border-radius: 50%;
+  width: 70%;
+  margin-top: 45px;
+  margin-left: 40%;
+  align-items: center;
+}
+
+.card-filtro .card-body .form-check-input{
+  margin-right: 0%;
+}
+
+.card-filtro .card-body .form-check-label{
+  margin-right: 72%;
+}
+
+
+
+
+
+
+.card-blarga {
+  margin-left: 20%;
+  margin-top: 3%;
+  
+}
+
+
+
+/* Estilos para la cabecera del card */
+.servicios .card-content .header{
+  margin-top:15px;
+  margin-bottom: 5px;
+  background-color: rgb(27, 27, 27);
+  
+}
+
+/* Estilos de la imagen de perfil */
+.card-blarga img{
+  margin-left: 5%;
+  width: 86%;
+}
+
+
+/* Estilos para el icono de calificacion */
+.servicios .card-content .iconos{
+  margin-left: 0%;
+  margin-right: 50%;
+  margin-bottom: 5%;
+  margin-top: 14px;
+}
+
+.card-blarga .iconos i{
+  font-size: 18px;
+
+  margin-left: 0px;
+  color: #eeca00;
+}
+
+.card-blarga .iconos {
+  font-size: 18px;
+  margin-left: 70%;
+  color: #eeca00;
+}
+
+.servicios .card-content .servicio{
+  margin-top: 9px;
+  margin-left: 0px;
+  margin-right: 25px;
+}
+
+.servicios .card-content .card-body {
+  margin-left: 5%;
+  
+}
+
+.servicios .card-content .card-body h6{
+    margin-right: 30%;
+    background-color: #244289;
+}
+
+
+/* Estilos para el footer del card */
+.card-content .card-footer {
+  background-color: rgb(27, 27, 27);
+}
+
+
+.card-footer .redes-sociales{
+  margin-left: 60%;
+  padding: 0%;
+  
+}
+
+.card-footer .redes-sociales i{
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 24px;
+  color: rgb(247, 245, 245);
+} 
+
+.mapa img{
+  margin-top: 20px;
+  width: 50%;
+  margin-left: 25%;
+}
+
+
+
+  /* Footer */
+  .footer{
+    background-color: #24262b;
+      padding: 70px 0;
+  }
+  .footer-col{
+     width: 25%;
+     padding: 0 15px;
+  }
+  .footer-col h4{
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+  }
+  .footer-col h4::before{
+    content: '';
+    position: absolute;
+    left:0;
+    bottom: -10px;
+    background-color: #e91e63;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+  }
+  .footer-col ul li:not(:last-child){
+    margin-bottom: 10px;
+  }
+  .footer-col ul li a{
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  .footer-col ul li a:hover{
+    color: #ffffff;
+    padding-left: 8px;
+  }
+  .footer-col .social-links a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255,255,255,0.2);
+    margin:0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+  }
+  .footer-col .social-links a:hover{
+    color: #24262b;
+    background-color: #ffffff;
+  }
+  
+  /*responsive*/
+  @media(max-width: 767px){
+    .footer-col{
+      width: 50%;
+      margin-bottom: 30px;
+  }
+  }
+  @media(max-width: 574px){
+    .footer-col{
+      width: 100%;
+  }
+  }
+
