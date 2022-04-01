@@ -1,10 +1,11 @@
-CREATE DATABASE REACTIVACION;
+DROP DATABASE REACTIVACION;
 
 USE REACTIVACION;
 
 CREATE TABLE personas
 (
 	idpersona		INT AUTO_INCREMENT PRIMARY KEY,
+	iddistrito	VARCHAR(6)		NOT NULL,
 	apellidos		VARCHAR(40)		NOT NULL, 
 	nombres			VARCHAR(40)		NOT NULL,
 	fechanac		DATE 					NOT NULL,
@@ -12,7 +13,8 @@ CREATE TABLE personas
 	tipocalle 	CHAR(2)				NOT NULL, -- AV(Avenida), CA(Calle), JR(Jiron), PJ(Pasaje)
 	nombrecalle VARCHAR(60)		NOT NULL,
 	numerocalle VARCHAR(5) 		NULL,
-	pisodepa  	VARCHAR(5)		NULL
+	pisodepa  	VARCHAR(5)		NULL,
+	CONSTRAINT fk_per_iddistrito FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito)
 	
 )ENGINE = INNODB;
 
@@ -21,7 +23,9 @@ CREATE TABLE empresas
 	idempresa 			INT AUTO_INCREMENT PRIMARY KEY,
 	establecimiento	VARCHAR(30)		NOT NULL,
 	ruc							CHAR(11)			NOT NULL,
-	ubicacion				VARCHAR(70)		NOT NULL,
+	tipocalle 			CHAR(2) 			NOT NULL,
+  nombrecalle 		VARCHAR(60) 	NOT NULL,
+  numerocalle 		VARCHAR(5) 		NULL,
 	referencia			VARCHAR(70)		NULL,
 	latitud					FLOAT(10, 8)	NOT NULL,
 	longitud				FLOAT(10, 8)	NOT NULL,
@@ -31,23 +35,23 @@ CREATE TABLE empresas
 CREATE TABLE usuarios
 (
 	idusuario 			INT AUTO_INCREMENT PRIMARY KEY,
-	idpersona				INT 				NOT NULL,
-	idempresa				INT 				NULL,
-	descripcion			MEDIUMTEXT	NULL,
-	horarioatencion	VARCHAR(50) NOT NULL, 
-	nivelusuario		CHAR(1) 		NOT NULL, -- E = Estandar, I = Intermedio, A = Avanzado
-	rol 						CHAR(1)			NOT NULL DEFAULT 'U', -- U = Usuario, A = Administrador
-	email						VARCHAR(70)	NOT NULL,
-	emailrespaldo		VARCHAR(70)	NULL,
-	clave						VARCHAR(80)	NOT NULL,
-	fechaalta				DATETIME		NOT NULL DEFAULT NOW(),
-	fechabaja				DATETIME		NULL,
-	estado					BIT					NOT NULL DEFAULT 1,
+	idpersona				INT 					NOT NULL,
+	idempresa				INT 					NULL,
+	descripcion			MEDIUMTEXT		NULL,
+	horarioatencion	VARCHAR(70) 	NOT NULL, 
+	rol 						CHAR(1)				NOT NULL DEFAULT 'U', -- U = Usuario, A = Administrador
+	email						VARCHAR(70)		NOT NULL,
+	emailrespaldo		VARCHAR(70)		NULL,
+	clave						VARCHAR(80)		NOT NULL,
+	fechaalta				DATETIME			NOT NULL DEFAULT NOW(),
+	fechabaja				DATETIME			NULL,
+	estado					BIT						NOT NULL DEFAULT 1,
 	CONSTRAINT fk_usuarios_idpersona FOREIGN KEY (idpersona) REFERENCES personas (idpersona),
 	CONSTRAINT fk_usuarios_idempresa FOREIGN KEY (idempresa) REFERENCES empresas (idempresa),
 	CONSTRAINT uk_usuarios_email UNIQUE (email),
 	CONSTRAINT uk_usuarios_emailrespaldo UNIQUE(emailrespaldo)
 )ENGINE = INNODB;
+
 
 CREATE TABLE redessociales
 (
@@ -168,7 +172,7 @@ CREATE TABLE comentarios
 CREATE TABLE reportes
 (
 	idreporte 		INT AUTO_INCREMENT PRIMARY KEY,
-	idcomentario 	INT 			NOT NULL,
+	idcomentario 	INT 					NOT NULL,
 	motivo 				VARCHAR(30) 	NOT NULL,
 	descripcion 	MEDIUMTEXT 		NOT NULL,
 	fotografia		VARCHAR(100) 	NULL,
