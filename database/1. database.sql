@@ -10,7 +10,7 @@ CREATE TABLE personas
 	nombres			VARCHAR(40)		NOT NULL,
 	fechanac		DATE 					NOT NULL,
 	telefono		CHAR(11)			NULL,
-	tipocalle 	CHAR(2)				NOT NULL, -- AV(Avenida), CA(Calle), JR(Jiron), PJ(Pasaje)
+	tipocalle 	CHAR(2)				NOT NULL, -- AV(Avenida), CA(Calle), JR(Jiron), PJ(Pasaje), UR (Urbanización)
 	nombrecalle VARCHAR(60)		NOT NULL,
 	numerocalle VARCHAR(5) 		NULL,
 	pisodepa  	VARCHAR(5)		NULL,
@@ -42,7 +42,7 @@ CREATE TABLE usuarios
 	rol 						CHAR(1)				NOT NULL DEFAULT 'U', -- U = Usuario, A = Administrador
 	email						VARCHAR(70)		NOT NULL,
 	emailrespaldo		VARCHAR(70)		NULL,
-	clave						VARCHAR(80)		NOT NULL,
+	clave						VARCHAR(100)	NOT NULL,
 	fechaalta				DATETIME			NOT NULL DEFAULT NOW(),
 	fechabaja				DATETIME			NULL,
 	estado					BIT						NOT NULL DEFAULT 1,

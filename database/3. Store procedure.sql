@@ -16,12 +16,12 @@ CREATE PROCEDURE spu_usuario_registrar
 	IN _idpersona 			INT,
 	IN _idempresa 			INT,
 	IN _descripcion 		MEDIUMTEXT,
-	IN _horarioatencion VARCHAR(50),
+	IN _horarioatencion VARCHAR(70),
 	IN _nivelusuario 		CHAR(1),
 	IN _rol 						CHAR(1),
 	IN _email 					VARCHAR(70),
 	IN _emailrespaldo		VARCHAR(70),
-	IN _clave	 					VARCHAR(80)
+	IN _clave	 					VARCHAR(100)
 )
 BEGIN
 	IF _idempresa = '' OR _idempresa < 1 THEN SET _idempresa = NULL; END IF;
@@ -33,18 +33,25 @@ BEGIN
 END $$
 
 DELIMITER $$
+CREATE PROCEDURE spu_usuario_fila(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+		WHERE idusuario = _idusuario;
+END $$
+
+DELIMITER $$
 CREATE PROCEDURE spu_usuarios_modificar
 (
 	IN _idusuario 			INT,
 	IN _idpersona 			INT,
 	IN _idempresa 			INT,
 	IN _descripcion 		MEDIUMTEXT,
-	IN _horarioatencion VARCHAR(50),
+	IN _horarioatencion VARCHAR(70),
 	IN _nivelusuario 		CHAR(1),
 	IN _rol 						CHAR(1),
 	IN _email 					VARCHAR(70),
 	IN _emailrespaldo		VARCHAR(70),
-	IN _clave	 					VARCHAR(80)
+	IN _clave	 					VARCHAR(100)
 )
 BEGIN
 	UPDATE usuarios SET 
@@ -74,6 +81,13 @@ BEGIN
 		WHERE email = _email;
 END $$
 
+-- POR TERMINAR - filtrados
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_filtrar()
+BEGIN
+	SELECT * FROM vs_usuarios_listar;
+END $$
+
 
 -- =============================================================================================================
 -- TABLA ALBUNES
@@ -83,6 +97,13 @@ CREATE PROCEDURE spu_albunes_listar()
 BEGIN
 	SELECT * FROM albunes;
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_albunes_fila(IN _idalbum INT)
+BEGIN
+	SELECT * FROM albunes WHERE idalbum = _idalbum;
+END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_albunes_registrar
@@ -128,6 +149,13 @@ BEGIN
 END $$
 
 DELIMITER $$
+CREATE PROCEDURE spu_galerias_fila(IN _idgaleria INT)
+BEGIN
+	SELECT * FROM vs_galerias_listar WHERE idgaleria = _idgaleria;
+END $$
+
+
+DELIMITER $$
 CREATE PROCEDURE spu_galerias_registrar
 (
 	IN _idalbum 	INT,
@@ -148,18 +176,12 @@ CREATE PROCEDURE spu_galerias_modificar
 (
 	IN _idgaleria INT,
 	IN _idalbum 	INT,
-	IN _idtrabajo INT,
-	IN _tipo 			CHAR(1),
-	IN _titulo 		VARCHAR(45),
-	IN _archivo 	VARCHAR(100)
+	IN _titulo 		VARCHAR(45)
 )
 BEGIN
 	UPDATE galerias SET
 		idalbum 	= _idalbum,
-		idtrabajo = _idtrabajo,
-		tipo 			= _tipo,
-		titulo 		= _titulo,
-		archivo 	= _archivo
+		titulo 		= _titulo
 	WHERE idgaleria = _idgaleria;
 END $$
 
@@ -171,24 +193,11 @@ BEGIN
 END $$
 
 
-/*
 DELIMITER $$
-CREATE PROCEDURE spu_()
+CREATE PROCEDURE spu_galerias_filtrar(IN _idalbum INT)
 BEGIN
-
+	SELECT * FROM vs_galerias_listar WHERE idalbum = _idalbum;
 END $$
-*/
-
-SELECT * FROM personas;
-SELECT * FROM albunes;
-SELECT * FROM usuarios;
-
-CALL spu_galerias_listar();
-CALL spu_usuarios_listar();
-CALL spu_usuarios_eliminar(5);
-CALL spu_usuario_registrar(4, 0, '', 'Atención de lunes a sabados 8:00', 'I', 'A', 'angelica@gmail.com', '', '12345');
-CALL spu_usuarios_modificar(5, 4, 4, 'Soldador', 'Atención de lunes a sabados', 'A', 'U', 'Angelica@gmail.com', '', '12345');
-CALL spu_usuarios_login('Adriana@gmail.com');
 
 
 
