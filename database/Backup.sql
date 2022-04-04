@@ -3473,35 +3473,6 @@ SELECT * FROM seguidores WHERE idfollower = _idusuario;
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_servicios_eliminar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_eliminar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_eliminar`(
-    IN _idservicio INT
-)
-BEGIN 
-    DELETE FROM servicios WHERE idservicio = _idservicio;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_servicios_filtrar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_filtrar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_filtrar`(
-	IN _search VARCHAR(50)
-)
-BEGIN 
-    SELECT * FROM servicios WHERE 
-			nombreservicio LIKE _search;
-END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `spu_servicios_listar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_listar` */;
@@ -3759,18 +3730,6 @@ BEGIN
 		emailrespaldo 	= _emailrespaldo,
 		clave 					= _clave
 	WHERE idusuario = _idusuario;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuarios_nroservicios` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_nroservicios` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_nroservicios`(IN _idusuario INT)
-BEGIN
-   SELECT COUNT(idservicio) AS nroservicios FROM especialidades WHERE idusuario = _idusuario;
 END */$$
 DELIMITER ;
 
