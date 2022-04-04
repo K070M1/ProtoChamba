@@ -78,7 +78,7 @@ CREATE VIEW vs_galerias_listar AS
 					GLR.titulo AS 'nombrefoto', GLR.archivo,
 					GLR.fechaalta
 		FROM 	galerias GLR
-		LEFT JOIN albunes ALB ON ALB.idalbum = GLR.idalbum
+		LEFT JOIN albumes ALB ON ALB.idalbum = GLR.idalbum
 		INNER JOIN vs_usuarios_listar VUL ON VUL.idusuario = GLR.idusuario
 		LEFT JOIN trabajos TBJ ON TBJ.idtrabajo = GLR.idtrabajo
 		WHERE GLR.estado = 1;

@@ -73,7 +73,6 @@ END $$
 -- =============================================================================================================
 -- TABLA USUARIOS
 -- -------------------------------------------------------------------------------------------------------------
-
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_listar()
 BEGIN
@@ -151,6 +150,7 @@ BEGIN
 		WHERE idusuario = _idusuario;
 END $$
 
+-- modificar
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
@@ -250,46 +250,46 @@ END $$
 -- TABLA ALBUNES
 -- -------------------------------------------------------------------------------------------------------------==
 DELIMITER $$
-CREATE PROCEDURE spu_albunes_listar_usuario(IN _idusuario INT)
+CREATE PROCEDURE spu_albumes_listar_usuario(IN _idusuario INT)
 BEGIN
-	SELECT * FROM albunes 
+	SELECT * FROM albumes 
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_albunes_getdata(IN _idalbum INT)
+CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
 BEGIN
-	SELECT * FROM albunes 
+	SELECT * FROM albumes 
 		WHERE idalbum = _idalbum AND estado = 1;
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_albunes_registrar
+CREATE PROCEDURE spu_albumes_registrar
 (
 	IN _idusuario 	INT,
 	IN _nombrealbum VARCHAR(30)
 )
 BEGIN
-	INSERT INTO albunes (idusuario, nombrealbum) VALUES
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, _nombrealbum);
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_albunes_modificar
+CREATE PROCEDURE spu_albumes_modificar
 (
 	IN _idalbum			INT,
 	IN _nombrealbum VARCHAR(30)
 )
 BEGIN
-	UPDATE albunes SET 
+	UPDATE albumes SET 
 		nombrealbum = _nombrealbum
 	WHERE idalbum = _idalbum;
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_albunes_eliminar(IN _idalbum INT)
+CREATE PROCEDURE spu_albumes_eliminar(IN _idalbum INT)
 BEGIN
-	UPDATE albunes SET 
+	UPDATE albumes SET 
 		estado = 0
 	WHERE idalbum = _idalbum;
 END $$

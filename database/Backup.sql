@@ -38,11 +38,11 @@ insert  into `actividades`(`idactividad`,`idespecialidad`,`fecha`,`hora`,`titulo
 (1,1,'2022-03-25','08:45:00','Trabajo 1','Descripción opcional','Calle Ica N°58'),
 (2,1,'2022-03-27','08:45:00','Trabajo 2','Descripción opcional','Calle Ica N°58');
 
-/*Table structure for table `albunes` */
+/*Table structure for table `albumes` */
 
-DROP TABLE IF EXISTS `albunes`;
+DROP TABLE IF EXISTS `albumes`;
 
-CREATE TABLE `albunes` (
+CREATE TABLE `albumes` (
   `idalbum` int(11) NOT NULL AUTO_INCREMENT,
   `idusuario` int(11) NOT NULL,
   `nombrealbum` varchar(30) NOT NULL,
@@ -52,9 +52,9 @@ CREATE TABLE `albunes` (
   CONSTRAINT `fk_alb_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
-/*Data for the table `albunes` */
+/*Data for the table `albumes` */
 
-insert  into `albunes`(`idalbum`,`idusuario`,`nombrealbum`,`estado`) values 
+insert  into `albumes`(`idalbum`,`idusuario`,`nombrealbum`,`estado`) values 
 (1,1,'Perfil',''),
 (2,1,'Portada',''),
 (3,1,'Publicaciones',''),
@@ -2139,7 +2139,7 @@ CREATE TABLE `galerias` (
   KEY `fk_gal_idalbum` (`idalbum`),
   KEY `fk_gal_idusuario` (`idusuario`),
   KEY `fk_gal_idtrabajo` (`idtrabajo`),
-  CONSTRAINT `fk_gal_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albunes` (`idalbum`),
+  CONSTRAINT `fk_gal_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albumes` (`idalbum`),
   CONSTRAINT `fk_gal_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_gal_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
@@ -2540,6 +2540,79 @@ insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,
 (3,3,'Albañil','Miercoles y Viernes','E','U','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'1'),
 (7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'1');
 
+/* Procedure structure for procedure `spu_albumes_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_eliminar`(IN _idalbum INT)
+BEGIN
+	UPDATE albumes SET 
+		estado = 0
+	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_getdata`(IN _idalbum INT)
+BEGIN
+	SELECT * FROM albumes 
+		WHERE idalbum = _idalbum AND estado = 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_listar_usuario`(IN _idusuario INT)
+BEGIN
+	SELECT * FROM albumes 
+		WHERE idusuario = _idusuario AND estado = 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_modificar`(
+	IN _idalbum			INT,
+	IN _nombrealbum VARCHAR(30)
+)
+BEGIN
+	UPDATE albumes SET 
+		nombrealbum = _nombrealbum
+	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_registrar`(
+	IN _idusuario 	INT,
+	IN _nombrealbum VARCHAR(30)
+)
+BEGIN
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, _nombrealbum);
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_albunes_eliminar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_albunes_eliminar` */;
@@ -2551,65 +2624,6 @@ BEGIN
 	UPDATE albunes SET 
 		estado = 0
 	WHERE idalbum = _idalbum;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_albunes_getdata` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_albunes_getdata` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albunes_getdata`(IN _idalbum INT)
-BEGIN
-	SELECT * FROM albunes 
-		WHERE idalbum = _idalbum and estado = 1;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_albunes_listar_usuario` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_albunes_listar_usuario` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albunes_listar_usuario`(in _idusuario int)
-BEGIN
-	SELECT * FROM albunes 
-		where idusuario = _idusuario and estado = 1;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_albunes_modificar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_albunes_modificar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albunes_modificar`(
-	IN _idalbum			INT,
-	IN _nombrealbum VARCHAR(30)
-)
-BEGIN
-	UPDATE albunes SET 
-		nombrealbum = _nombrealbum
-	WHERE idalbum = _idalbum;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_albunes_registrar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_albunes_registrar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albunes_registrar`(
-	IN _idusuario 	INT,
-	IN _nombrealbum VARCHAR(30)
-)
-BEGIN
-	INSERT INTO albunes (idusuario, nombrealbum) VALUES
-		(_idusuario, _nombrealbum);
 END */$$
 DELIMITER ;
 
@@ -4014,7 +4028,7 @@ DROP TABLE IF EXISTS `vs_usuarios_servicio`;
 /*!50001 DROP TABLE IF EXISTS `vs_galerias_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_galerias_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_galerias_listar` AS select `glr`.`idgaleria` AS `idgaleria`,`alb`.`idalbum` AS `idalbum`,`alb`.`nombrealbum` AS `nombrealbum`,`vul`.`idusuario` AS `idusuario`,`vul`.`apellidos` AS `apellidos`,`vul`.`nombres` AS `nombres`,`tbj`.`idtrabajo` AS `idtrabajo`,`tbj`.`titulo` AS `titulo`,`glr`.`tipo` AS `tipo`,`glr`.`titulo` AS `nombrefoto`,`glr`.`archivo` AS `archivo`,`glr`.`fechaalta` AS `fechaalta` from (((`galerias` `glr` left join `albunes` `alb` on(`alb`.`idalbum` = `glr`.`idalbum`)) join `vs_usuarios_listar` `vul` on(`vul`.`idusuario` = `glr`.`idusuario`)) left join `trabajos` `tbj` on(`tbj`.`idtrabajo` = `glr`.`idtrabajo`)) where `glr`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_galerias_listar` AS select `glr`.`idgaleria` AS `idgaleria`,`alb`.`idalbum` AS `idalbum`,`alb`.`nombrealbum` AS `nombrealbum`,`vul`.`idusuario` AS `idusuario`,`vul`.`apellidos` AS `apellidos`,`vul`.`nombres` AS `nombres`,`tbj`.`idtrabajo` AS `idtrabajo`,`tbj`.`titulo` AS `titulo`,`glr`.`tipo` AS `tipo`,`glr`.`titulo` AS `nombrefoto`,`glr`.`archivo` AS `archivo`,`glr`.`fechaalta` AS `fechaalta` from (((`galerias` `glr` left join `albumes` `alb` on(`alb`.`idalbum` = `glr`.`idalbum`)) join `vs_usuarios_listar` `vul` on(`vul`.`idusuario` = `glr`.`idusuario`)) left join `trabajos` `tbj` on(`tbj`.`idtrabajo` = `glr`.`idtrabajo`)) where `glr`.`estado` = 1 */;
 
 /*View structure for view vs_listar_actividades */
 
