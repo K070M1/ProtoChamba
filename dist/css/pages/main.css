@@ -38,32 +38,42 @@
     z-index: -1;
 }
 
-/* Estilos del titulo sobre la imagen */
-.grupo-input{
+/* input-group */
+.input-group{
   position: relative;
-  margin-top: 5%;
-  margin-bottom: 0%;
+  margin-left:26%;
+  width: 50%;
+  margin-top: 3%;
+  
 }
 
-
-.grupo-input img{
+.input-group i{
   position: absolute;
   top: 5%;
   left: 2%;
+  font-size: 30px;
 }
 
-.grupo-input input{
+
+#iconowork{
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  font-size: 30px;
+}
+
+#iconolocation{
+  position: absolute;
+  top: 5%;
+  left: 43%;
+  font-size: 30px;
+}
+
+.input-group input{
   outline: none;
   padding: 5px 48px ;
 }
 
-/* .indice{
-  background-color: #b8d0f3;
-  width: 75%;
-  height: 65px;
-  margin-left: 10%;
-}
- */
 
 /* Estilos para el area de servicios */
 .servicios{
