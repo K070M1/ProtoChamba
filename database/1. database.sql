@@ -165,7 +165,7 @@ CREATE TABLE trabajos
 	CONSTRAINT fk_trab_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios(idusuario)
 )ENGINE = INNODB;
 
-CREATE TABLE albunes
+CREATE TABLE albumes
 (
 	idalbum			INT AUTO_INCREMENT PRIMARY KEY,
 	idusuario		INT 					NOT NULL,
