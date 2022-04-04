@@ -26,9 +26,9 @@
               </div>
       <div class="input-group">
           <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
-          <i class="fa-solid fa-briefcase" id="iconowork"></i>
+            <i class="fas fa-briefcase" id="iconowork"></i>
           <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
-          <i class="fa-solid fa-location-dot" id="iconolocation"></i>
+            <i class="fas fa-map-marker-alt" id="iconolocation"></i>
           <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
     </div>
 
