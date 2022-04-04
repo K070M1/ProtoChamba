@@ -557,15 +557,6 @@ END $$
 
 
 DELIMITER $$
-CREATE PROCEDURE spu_especialidades_eliminar
-(
-    IN _idespecialidad	 INT
-)
-BEGIN 
-    DELETE FROM especialidades WHERE idespecialidad = _idespecialidad;
-END $$
-
-DELIMITER $$
 CREATE PROCEDURE spu_especialidades_modificar
 (
     IN _idespecialidad	INT,
@@ -589,15 +580,6 @@ END $$
 -- =============================================================================================================
 -- TABLA TRABABJOS
 -- -------------------------------------------------------------------------------------------------------------
-
-/* LISTAR */
-DELIMITER $$
-CREATE PROCEDURE spu_trabajos_listar()
-BEGIN
-	SELECT * FROM vs_trabajos_listar
-		ORDER BY idtrabajo DESC;
-END $$
-
 DELIMITER $$
 CREATE PROCEDURE spu_trabajos_listar_usuario(IN _idusuario INT)
 BEGIN
@@ -717,15 +699,6 @@ END $$
 -- -------------------------------------------------------------------------------------------------------------
 
 /* LISTAR */
--- Corregir consulta
-DELIMITER $$
-CREATE PROCEDURE spu_calificaciones_listar_trabajo(IN _idtrabajo INT)
-BEGIN 
-	SELECT * FROM vs_calificaciones_listar
-		WHERE idtrabajo = _idtrabajo
-		ORDER BY idcalificacion DESC;
-END $$
-
 /* REGISTRAR */
 DELIMITER $$
 CREATE PROCEDURE spu_calificaciones_registrar
@@ -762,12 +735,12 @@ END $$
 
 /* PROCEDIMIENTO PARA CONTAR LAS PUNTUACIONES*/
 DELIMITER $$
-CREATE PROCEDURE spu_total_calificaciones
+CREATE PROCEDURE spu_total_calificaciones_trabajo
 (
 	IN _idtrabajo INT
 )
 BEGIN 
-	SELECT CALI.idcalificacion,CONCAT (PERS.nombres , ' ', PERS.apellidos) AS 'empleado' ,idtrabajo , 
+	SELECT CALI.idcalificacion,CONCAT (PERS.nombres , ' ', PERS.apellidos) AS 'usuario', idtrabajo , 
 				 SUM(CALI.puntuacion) AS 'totalpuntuacion', COUNT(*) AS 'totalpersona'
 		FROM calificaciones CALI
 		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
@@ -900,7 +873,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_grafico_reportes()
 BEGIN
-	SELECT MONTHNAME(fechareporte)AS'Mes', COUNT(idreporte)AS 'Reportes'
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY MONTHNAME(fechareporte)
 	ORDER BY MONTH(fechareporte) ASC;
@@ -911,7 +884,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_grafico_reportes_year()
 BEGIN
-	SELECT YEAR(fechareporte)AS'Año', COUNT(idreporte)AS 'Reportes'
+	SELECT YEAR(fechareporte) AS 'year', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY YEAR(fechareporte)
 	ORDER BY 1 ASC;
@@ -922,11 +895,10 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_grafico_niveles_usu()
 BEGIN
-	SELECT nivelusuario , COUNT(idusuario) AS 'TotalUsuarios'
+	SELECT nivelusuario , COUNT(idusuario) AS 'totalusuario'
 		FROM usuarios
 	GROUP BY nivelusuario;
 END $$
-
 
 -- SERVICIOS POPULARES (Según su calificación) --
 DELIMITER $$
