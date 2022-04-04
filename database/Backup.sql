@@ -3461,6 +3461,18 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_seguidos_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidos_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidos_listar_usuario`(IN _idusuario INT)
+BEGIN
+SELECT * FROM seguidores WHERE idfollower = _idusuario;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_servicios_eliminar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_eliminar` */;

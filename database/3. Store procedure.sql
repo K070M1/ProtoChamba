@@ -433,6 +433,12 @@ BEGIN
 	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
 END $$
 
+-- ===============LISTAR SEGUIDOS================
+DELIMITER $$
+CREATE PROCEDURE spu_seguidos_listar_usuario(IN _idusuario INT)
+BEGIN
+SELECT * FROM seguidores WHERE idfollower = _idusuario;
+END $$
 
 -- =============================================================================================================
 -- TABLA FOROS
