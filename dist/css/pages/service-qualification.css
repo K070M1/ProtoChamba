@@ -545,13 +545,9 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.box-content-commented .report {
-  font-size: 14px;
-  color: rgb(196, 44, 82);
-}
-.box-content-commented .report:hover {
-  text-decoration: underline;
-  color: rgb(151, 45, 72);
+/* ENLACES PARA MODIFICAR EL COMENTARIO */
+.box-content-commented .comment-text + a{
+  margin-right: 1em;
 }
 
 /* ESCRIBIR MENSJAE */
@@ -601,6 +597,23 @@
   border: 2px solid rgba(40, 130, 165, 0.5);
 }
 
+/* MODIFICAR COMENTARIO CON CONTENTEDITABLE */
+p.comment-text[contenteditable=true]{
+  background: wheat;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid #3f9b9e;
+  padding: 5px;
+  border-radius: 6px;
+  /* max-height: 5em;
+  overflow-x: hidden;
+  overflow-y: auto; */
+}
+p.comment-text[contenteditable=true]:active,
+p.comment-text[contenteditable=true]::selection,
+p.comment-text[contenteditable=true]:focus{
+  outline: none;
+}
+
 /* TEXTO QUE AUMENTA SU ALTURA DE FORNMA AUTOMATICA */
 .text-auto-height {
   position: relative;
@@ -628,10 +641,12 @@
   color: #2b7fb8;
   background: #000;
 }
+p.comment-text[contenteditable=true]::-webkit-scrollbar,
 .text-input-auto::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+p.comment-text[contenteditable=true]::-webkit-scrollbar-track,
 .text-input-auto::-webkit-scrollbar-track {
   background-color: transparent;
   background: rgba(0, 0, 0, 0.06);
@@ -641,6 +656,7 @@
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
+p.comment-text[contenteditable=true]::-webkit-scrollbar-thumb,
 .text-input-auto::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: inherit;
@@ -760,4 +776,3 @@
 .container-image .hover-image a:hover{
   opacity: 1;
 }
-

@@ -1,16 +1,16 @@
-
 <!-- videojs -->
 <link rel="stylesheet" href="plugins/video-js/video.min.css">
 <link rel="stylesheet" href="dist/css/pages/style-video.css">
 <!-- styles -->
 <link rel="stylesheet" href="dist/css/pages/service-qualification.css" />
+<link rel="stylesheet" href="dist/css/uploadFile.css">
 
 <!-- SCRIPTS -->
 <!-- video viewer -->
 <script src="plugins/video-js/video.min.js"></script>
 <!-- Demos -->
 <script src="dist/js/pages/demo-service-qualification.js"></script>
-
+<script src="dist/js/uploadFile.js"></script>
 
 <!-- Contenidos -->
 <div class="container-services row">
@@ -163,7 +163,9 @@
                   Quia illum mollitia dolores sit vero sint minima incidunt,
                   fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="text-primary edit-comment">Editar</a>
+                <a href="javascript:void(0)" class="text-info cancel-edit-comment d-none">Cancelar</a>
+                <a href="javascript:void(0)" class="text-danger delete-comment">Eliminar</a>
               </div>
             </div>
   
@@ -183,11 +185,11 @@
                   adipisicing elit. Quia illum mollitia dolores sit vero sint
                   minima incidunt, fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="text-danger  report-comment">Denunciar</a>
               </div>
             </div>
   
-            <!-- Comentario 2 -->
+            <!-- Comentario 3 -->
             <div class="box-comment">
               <img src="dist/img/avatar2.png" alt="" />
   
@@ -203,7 +205,7 @@
                   adipisicing elit. Quia illum mollitia dolores sit vero sint
                   minima incidunt, fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="text-danger  report-comment">Denunciar</a>
               </div>
             </div>
           </div>
@@ -324,7 +326,7 @@
                   Quia illum mollitia dolores sit vero sint minima incidunt,
                   fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="text-danger  report-comment">Denunciar</a>
               </div>
             </div>
   
@@ -344,11 +346,11 @@
                   adipisicing elit. Quia illum mollitia dolores sit vero sint
                   minima incidunt, fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="text-danger  report-comment">Denunciar</a>
               </div>
             </div>
   
-            <!-- Comentario 2 -->
+            <!-- Comentario 3 -->
             <div class="box-comment">
               <img src="dist/img/avatar2.png" alt="" />
   
@@ -364,7 +366,7 @@
                   adipisicing elit. Quia illum mollitia dolores sit vero sint
                   minima incidunt, fugiat quos ullam.
                 </p>
-                <a href="javascript:void(0)" class="report">Denunciar</a>
+                <a href="javascript:void(0)" class="text-danger  report-comment">Denunciar</a>
               </div>
             </div>
           </div>
@@ -402,11 +404,26 @@
           </div>
           <div class="form-group">
             <label for="descripcion" class="col-form-label">Descripción:</label>
-            <textarea class="form-control rounded-0" id="descripcion"></textarea>
+            <textarea class="form-control form-control-border rounded-0" id="descripcion"></textarea>
           </div>
+          <!-- Images -->
+          <div class="container-images">
+            <section id="images">
+              <form id="form-upload-file">
+                <!-- Agregar capa nueva aquí -->
+                <div  id="add-photo-container">
+                  <div class="add-new-photo first" id="add-photo">
+                    <span><i class="fas fa-camera"></i></span>
+                  </div>
+                  <input type="file" hidden multiple id="add-new-photo" >
+                </div>
+              </form> 
+            </section>
+          </div>
+          <!-- /. Images -->
           <div class="form-group">
             <div class="btn-group">
-              <button type="button" class="btn btn-success">Subir imagen</button>
+              <button type="button" id="btn-load-image" class="btn btn-success">Subir imagen</button>
               <button type="button" class="btn btn-info">Subir video</button>
             </div>
           </div>
@@ -470,10 +487,77 @@
 
 <script>
   $(document).ready(function(){
+
+    // Mostrar el menu de ellipsis por cada trabajo publicado
     $(".btn-show-config").click(function(){
       //$(".btn-show-config").next("ul.list-public-config").hide();
       $(this).next("ul.list-public-config").toggle();
 
+    });
+
+    // Convierte la etiqueta P en una sección editable 
+    $('.edit-comment').click(function(){
+      var isEditable = $(this).prev('p.comment-text').attr('contenteditable', true);
+
+      // habilitar botones
+      $(this).next('.cancel-edit-comment').removeClass('d-none');
+      $(this).next('.cancel-edit-comment').next('.delete-comment').addClass('d-none');
+      $(this).html('Actualizar');
+    });
+
+    // Cancela la edición del comentario
+    $('.cancel-edit-comment').click(function(){
+      $(this).prevAll('p.comment-text').attr('contenteditable', false);
+      //$(this).prev('p.comment-text').removeAttr('contenteditable');
+
+      // habilitar botones
+      $(this).next('.delete-comment').removeClass('d-none');
+      $(this).addClass('d-none');
+      $(this).prev('.edit-comment').html('Editar');
+    });
+
+   
+    // Cargar imagenes
+    // Abrir el inspector de archivos
+    $(document).on("click", "#add-photo", function(){
+        $("#add-new-photo").click();
+    });
+
+    $(document).on("click", "#btn-load-image", function(){
+      console.log('hello');
+        $("#add-new-photo").click();
+    });
+    // -> Abrir el inspector de archivos
+
+    // Cachamos el evento change
+    $(document).on("change", "#add-new-photo", function () {
+    
+        //console.log(this.files);
+        var files = this.files;
+        var element;
+        var supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif", "video/mp4"];
+        var isNoValidate = false;
+
+        for (var i = 0; i < files.length; i++) {
+            element = files[i];
+            
+            if (supportedImages.indexOf(element.type) != -1) {
+                
+                if(element.type == "video/mp4"){
+                    createPreviewVideo(element, i.toString());
+                }else{
+                    createPreviewImages(element);
+                }
+            }
+            else {
+              isNoValidate = true;
+            }
+        }
+    });
+    
+    // Eliminar previsualizaciones
+    $(document).on("click", "#images .image-container", function(e){
+        $(this).parent().remove();
     });
   });
 </script>

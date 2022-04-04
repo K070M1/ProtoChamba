@@ -71,7 +71,7 @@ var reproductor = videojs('fm-video', {
  * MODAL REPORTE
  */
 // Abrir
-$(".report").click(function(){
+$(".report-comment").click(function(){
   $("#modal-report").modal("show");
 });
 

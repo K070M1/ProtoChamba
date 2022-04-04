@@ -149,3 +149,12 @@
     display: none;
   }
 }
+
+
+.profile-der{
+  background: var(--blue) !important;
+}
+
+.dark-mode .profile-der{
+  background: #002c59!important;
+}
