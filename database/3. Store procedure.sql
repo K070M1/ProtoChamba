@@ -488,23 +488,12 @@ END $$
 -- =============================================================================================================
 -- TABLA SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
-
 DELIMITER $$
 CREATE PROCEDURE spu_servicios_listar()
 BEGIN
    SELECT idservicio, nombreservicio
       FROM servicios
       ORDER BY idservicio DESC;
-END $$
-
--- ????????????????????????????????????
-DELIMITER $$
-CREATE PROCEDURE spu_servicios_filtrar(
-	IN _search VARCHAR(50)
-)
-BEGIN 
-    SELECT * FROM servicios WHERE 
-			nombreservicio LIKE _search;
 END $$
 
 
