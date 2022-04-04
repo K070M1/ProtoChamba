@@ -19,7 +19,7 @@
 
 /* Estilos del banner */
 .hero {
-    background-image: url(../img/banner.jpg);
+    background-image: url(../../img/banner.jpg);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -38,39 +38,52 @@
     z-index: -1;
 }
 
-/* Estilos del titulo sobre la imagen */
-.grupo-input{
+/* input-group */
+.input-group{
   position: relative;
-  margin-top: 5%;
-  margin-bottom: 0%;
+  margin-left:26%;
+  width: 50%;
+  margin-top: 3%;
+  
 }
 
-
-.grupo-input img{
+.input-group i{
   position: absolute;
   top: 5%;
   left: 2%;
+  font-size: 30px;
 }
 
-.grupo-input input{
+
+#iconowork{
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  font-size: 30px;
+}
+
+#iconolocation{
+  position: absolute;
+  top: 5%;
+  left: 43%;
+  font-size: 30px;
+}
+
+.input-group input{
   outline: none;
   padding: 5px 48px ;
 }
 
-/* .indice{
-  background-color: #b8d0f3;
-  width: 75%;
-  height: 65px;
-  margin-left: 10%;
-}
- */
+/* Estilos para el dseño del wave */
+.wave{
+  position:absolute;
+  width: 100%;
+  bottom: 0;
+ }
 
 /* Estilos para el area de servicios */
 .servicios{
-  margin-top: 30px;
-  margin-bottom: 20px;
-
-  
+  margin-top: 30px;  
 }
 
 .servicios .recomendados{
@@ -93,7 +106,7 @@
 .servicios .card-content .header{
   margin-top:15px;
   margin-bottom: 5px;
-  background-color: #244289;
+  background: linear-gradient(45deg, #392e6d, #2e3881);
 }
 
 /* Estilos de la imagen de perfil */
@@ -133,7 +146,7 @@
 
 /* Estilos para el footer del card */
 .card-footer {
-  background-color: #244289;
+  background: linear-gradient(45deg, #392e6d, #2e3881);
 }
 
 
@@ -251,78 +264,4 @@
   margin-right: 90px;
 }
 
-
-  /* Footer */
-  .footer{
-    background-color: #24262b;
-      padding: 70px 0;
-  }
-  .footer-col{
-     width: 25%;
-     padding: 0 15px;
-  }
-  .footer-col h4{
-    font-size: 18px;
-    color: #fffafa;
-    text-transform: capitalize;
-    margin-bottom: 35px;
-    font-weight: 500;
-    position: relative;
-  }
-  .footer-col h4::before{
-    content: '';
-    position: absolute;
-    left:0;
-    bottom: -10px;
-    background-color: #e91e63;
-    height: 2px;
-    box-sizing: border-box;
-    width: 50px;
-  }
-  .footer-col ul li:not(:last-child){
-    margin-bottom: 10px;
-  }
-  .footer-col ul li a{
-    font-size: 16px;
-    text-transform: capitalize;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 300;
-    color: #bbbbbb;
-    display: block;
-    transition: all 0.3s ease;
-  }
-  .footer-col ul li a:hover{
-    color: #ffffff;
-    padding-left: 8px;
-  }
-  .footer-col .social-links a{
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    background-color: rgba(255,255,255,0.2);
-    margin:0 10px 10px 0;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 50%;
-    color: #ffffff;
-    transition: all 0.5s ease;
-  }
-  .footer-col .social-links a:hover{
-    color: #24262b;
-    background-color: #ffffff;
-  }
-  
-  /*responsive*/
-  @media(max-width: 767px){
-    .footer-col{
-      width: 50%;
-      margin-bottom: 30px;
-  }
-  }
-  @media(max-width: 574px){
-    .footer-col{
-      width: 100%;
-  }
-  }
 

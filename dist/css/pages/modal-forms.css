@@ -1,0 +1,213 @@
+/*Login Form*/
+
+.navbar-nav > .login-form > .dropdown-menu {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    padding: 1px 0 0 0;
+    border-top-width: 0;
+    width: 280px;
+}
+
+.navbar-nav > .login-form > .dropdown-menu{
+    padding: 15px;
+}
+
+.navbar-nav > .login-form > .dropdown-menu > .login-tittle{
+    text-align: center;
+    font-size: 20px;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 10px;
+}
+
+.navbar-nav > .login-form > .dropdown-menu > .login-password-lnk{
+    text-align: center;
+    margin: 10px;
+}
+
+.navbar-nav > .login-form > .dropdown-menu > form > .form-check{
+    margin-bottom: 10px;
+}
+
+/*Fin del login form*/
+
+
+/*Modal foto de Perfil*/
+body > .modal > .md-perfil{
+    width: 500px;
+} 
+
+body > .modal > .modal-dialog > .modal-content > .m-ft-pf > div.ft-pf> div.btn-file-up{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+body > .modal > .modal-dialog > .modal-content > .m-ft-pf > div.ft-pf > div.btn-file-up > .inpt-file{
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+body > .modal > .modal-dialog > .modal-content > .m-ft-pf > div.ft-pf > div.btn-file-up > button.btn-upload{
+    border-radius: 50%;
+    transition: all 0.3s ease 0s;
+    padding: 10px 15px;
+}
+
+body > .modal > .modal-dialog > .modal-content > .m-ft-pf > div.ft-pf > div.btn-file-up{
+    bottom: 120px;
+    right: 200px;
+    transform: translate(50%, 50%);
+    position: absolute;
+    display: block;
+}
+
+body> .modal >.modal-dialog > .modal-content > .m-ft-pf> div.btn-omitir{
+    margin: 15px;
+}
+
+body> .modal >.modal-dialog > .modal-content > .m-ft-pf> div.btn-omitir button{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+body > .modal > .modal-dialog > .modal-content > .modal-header{
+    border-bottom: none;
+}
+/*Fin del modal foto de perfil*/
+
+/*Cambios en el orden*/
+body > .modal > .modal-dialog > .modal-content > .modal-header > .close{
+    font-size: 30px;
+}
+
+body > .modal > .modal-dialog > .modal-content > .modal-body > .md-quest-lb{
+    font-size: 30px;
+}
+
+ body > .modal > .modal-dialog > .modal-content > .quest-md,
+ body > .modal > .modal-dialog > .modal-content > .quest-md > p,
+ body > .modal > .modal-dialog > .modal-content > .quest-md > input,
+ body > .modal > .modal-dialog > .modal-content > .quest-md > a
+ {
+    font-size: 15px;
+    text-align: center;
+}
+/*Fin de los cambios en el orden*/
+
+
+/*Modales de  restablecimiento*/
+body> .modal > .modal-dialog > .modal-content > .m-res >  div#back-icon > a >i{
+    font-size: 25px;
+    color: black;
+}
+
+body> .modal > .modal-dialog > .modal-content > .m-res >  div#back-icon {
+    color: black;
+    text-align: left;
+    padding-left: 20px;
+}
+
+body> .modal > .modal-dialog > .modal-content > .m-res{
+    font-size: 15px;
+}
+
+body> .modal > .modal-dialog > .modal-content > .m-res > h3{
+    text-align: center;
+}
+
+body> .modal > .modal-dialog > .modal-content > .m-res > div#btn-gen-res{
+    text-align: end;
+    padding-right: 20px;
+}
+
+body> .modal > .modal-dialog > .modal-content > .m-res > div#btn-gen-res > button{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+body> .modal > .modal-dialog > .modal-content > .m-res > .cnt-res,
+body> .modal > .modal-dialog > .modal-content > .m-res > span{
+    padding-left: 20px;
+}
+
+body> div#modal-res-contra2 > .modal-dialog > .modal-content > .m-res{
+    text-align: center;
+}
+
+body> div#modal-res-contra2 > .modal-dialog > .modal-content > .m-res > form#form-res-c2 {
+    padding-top: 20px;
+}
+
+body> div#modal-res-contra3 > .modal-dialog > .modal-content > .m-res{
+    text-align: center;
+}
+
+/*Fin de los Modales de restablecimiento*/
+
+/*Adecuación solo del contador*/
+body> .modal > .modal-dialog > .modal-content > .m-res >  div#back-icon > div#contador-pass{
+    margin-right: 0;
+    padding-right: 0;
+    float: right;
+    padding-right: 50px;
+}
+/*Fin de la adecuación solo contador*/
+
+/*Estilo del temporizador*/
+.base-timer {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    
+}
+  
+.base-timer__svg {
+    transform: scaleX(-1);
+}
+  
+.base-timer__circle {
+    fill: none;
+    stroke: none;
+}
+  
+.base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+}
+  
+.base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+}
+  
+.base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+}
+  
+.base-timer__path-remaining.orange {
+    color: orange;
+}
+  
+.base-timer__path-remaining.red {
+    color: red;
+}
+  
+.base-timer__label {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+/*Fin del estilo del temporizador*/

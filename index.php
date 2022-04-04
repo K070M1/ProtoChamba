@@ -14,6 +14,10 @@
   <link rel="stylesheet" href="dist/css/adminlte.css">
   <link rel="stylesheet" href="dist/css/themes.css">
   <link rel="stylesheet" href="dist/css/switch-dark-mode.css">
+
+  <!--Estilos de los modales y formularios-->
+  <link rel="stylesheet" href="dist/css/pages/modal-forms.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
@@ -172,6 +176,46 @@
             </div>
           </li>
         </ul>
+      </li>
+
+      <!--Login Form-->
+      <li class="nav-item dropdown login-form">
+        <a href="#" class="nav-link" data-toggle="dropdown">Iniciar de sesión</a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <div class="login-tittle">
+            <label >Inicio Sesión</label>
+          </div>     
+          <form>
+
+            <div class="form-group">
+              <label>Correo electronico:</label>
+              <input type="email" placeholder="Correo electronico" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label>Contraseña:</label>
+              <input type="password" placeholder="Contraseña" class="form-control"  required>
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input">               
+              <label class="form-check-label">Recordar cuenta</label>
+            </div>
+
+            <div>
+              <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-question" >Acceder</button>
+            </div>
+
+          </form>
+          <div class="login-password-lnk">
+            <a href="#" data-toggle="modal" data-target="#modal-res-contra1" >¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+      </li>
+
+      <!--Register modal-->
+      <li class="nav-item">
+        <a href="#" data-toggle="modal" data-target="#modalRegister" class="nav-link">Registrarse</a>
       </li>
 
       <!-- Full screen -->
@@ -421,6 +465,229 @@
 </div>
 <!-- ./wrapper -->
 
+<!--Modal de registro-->
+  <div class="modal fade" id="modalRegister"  data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title font-weight-bold">Creación de cuenta</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <div class="col-sm-6"> 
+                <label for="">Apellidos:</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="col-sm-6">
+                <label for="">Nombres:</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <div class=" form-group row">
+              <div class="col-sm-6"> 
+                <label for="">Fecha de nacimiento:</label>
+                <input type="date" class="form-control">
+              </div>
+              <div class="col-sm-6">
+                <label for="">Telefono:</label>
+                <input type="tel" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="">Dirección:</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="">Correo Electrónico:</label>
+                <input type="email" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6"> 
+                <label for="">Contraseña:</label>
+                <input type="password" class="form-control">
+              </div>
+              <div class="col-sm-6">
+                <label for="">Repetir contraseña:</label>
+                <input type="password" class="form-control">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="btn-regist-opn" >Registrarse</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--./Modal de registro-->
+
+<!--Modal de foto de perfil-->
+  <div class="modal fade" id="modal-perfil-img" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered md-perfil" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body text-center m-ft-pf">
+          <h2>TE DAMOS LA BIENVENIDA...!!</h2>
+          <p>Seleccione su foto de perfil </p>
+          <div class="ft-pf">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle">
+              <div class="btn-file-up">
+                <button class="btn-upload"><i class="fas fa-upload"></i></button>
+                <input class="inpt-file" type="file">
+              </div>
+          </div>
+          <div class="btn-omitir">
+            <button type="button"  class="btn btn-secondary" id="btn-omt-prf" >Omitir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--./Modal de foto de perfil-->
+
+<!--Modal de preguntas de seguridad -->
+  <div class="modal fade" id="modal-question" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body quest-md">
+          <div>
+            <img src="./dist/img/user1-128x128.jpg" class="img-circle">
+          </div>
+          <label class="md-quest-lb">@USERNAME</label>
+          <p>Para verificar que realmente eres tú, responde la siguiente pregunta</p>
+          <form class="form-horizontal">
+            <div class="form-group row">
+              <select class="form-control col-sm-6">
+                <option selected>Seleccionar pregunta</option>
+                <option value="1">¿Cuando es mi cumpleaños?</option>
+                <option value="2">¿El nombre de mi perro es..?</option>
+              </select>
+              <div class="col-sm-6">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+          </form>
+          <div class="form-group">
+            <button class="btn btn-primary" data-dismiss="modal">INGRESAR</button>
+          </div>
+          <a href="" data-dismiss="modal" >Este no soy yo, cambiar de cuenta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--./Modal de preguntas de seguridad -->
+
+<!--Modales Restablecimiento de contraseña-->
+  <!-- Modal de restablecimiento primer paso -->
+    <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <h3 class="font-weight-bold">He olvidado mi contraseña...!</h3>
+            <span><label>Suarez*********@gmail.com</label></span>
+            <div class="cnt-res">
+              <h5>Obtener un código de verificación</h5>
+              <p>Se enviará un código de verificación temporal al correo indicado</p>
+            </div>
+          <div id="btn-gen-res">
+            <button type="button"  class="btn btn-secondary"  id="btnRes1">Generar Código</button>
+          </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  <!--./Modal de restablecimiento primer paso -->
+
+  <!---Modal de restablecimiento segundo paso-->
+    <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+              <div id="contador-pass"></div>
+            </div>
+            <h3 class="font-weight-bold">Validar el código de verificación</h3>
+            <span><label>Suarez*********@gmail.com</label></span>
+            <form id="form-horizontal"">
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <label for="">Ingrese el código enviado:</label>
+                </div>
+                <div class="col-sm-7">
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+            </form>
+            <div id="btn-gen-res">
+              <button type="button"  class="btn btn-secondary" id="btnRes2">Validar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!---./Modal de restablecimiento segundo paso-->
+
+  <!-- Modal de restablecimiento tercer paso -->
+    <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <h3 class="font-weight-bold">Crear nueva contraseña</h3>
+            <span><label for="">Suarez*********@gmail.com</label></span>
+            <form class="form-horizontal">
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <label for="">Nueva contraseña:</label>
+                </div>
+                <div class="col-sm-7">
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-5">
+                  <label for="">Repetir contraseña:</label>
+                </div>
+                <div class="col-sm-7">
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+            </form>
+            <div id="btn-gen-res">
+              <button type="button"  class="btn btn-secondary" id="btnRes3">Crear contraseña</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- ./Modal de restablecimiento tercer paso -->
+<!--./Modales Restablecimiento de contraseña-->
+
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -438,6 +705,9 @@
 <!-- Config theme -->
 <script src="dist/js/config.js"></script>
 
+<!--Configuración del temporizador-->
+<script src="dist/js/pages/md-restabl-temporizador.js"></script>
+
 <script>
   $(document).ready(function (){
     var view = getParam("view");
@@ -451,7 +721,38 @@
       //$(".nav-link + .nav-treeview").addClass('d-none');
       $(this).addClass('active');
       //$(".nav-link.active + .nav-treeview").removeClass('d-none');
-      console.log($(this))
+    
+    $("#btn-regist-opn").click(function(){
+      $("#modal-perfil-img").modal('toggle');
+      $("#modalRegister").modal('hide');
+    });
+
+    $("#btn-omt-prf").click(function(){
+      $("#modal-perfil-img").modal('hide');
+    });
+
+    /* Movimiento entre modales */
+    $("#btnRes1").click(function(){
+      $("#modal-res-contra1").modal("hide");
+      $("#modal-res-contra2").modal("toggle");
+    });
+
+    $("#btnRes2").click(function(){
+      $("#modal-res-contra2").modal("hide");
+      $("#modal-res-contra3").modal("toggle");
+    });
+
+    $("#btnRes3").click(function(){
+      $("#modal-res-contra3").modal("hide");
+    });
+
+    /* ./Movimiento entre modales */
+
+    /*Temporizador*/
+    $("#btnRes1").click(function(){
+      startTimer();
+    });
+    /*./Temporizador */
     });
   });
 </script>
