@@ -2640,20 +2640,6 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_calificaciones_listar_trabajo` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_calificaciones_listar_trabajo` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_calificaciones_listar_trabajo`(in _idtrabajo int)
-BEGIN 
-	SELECT * FROM vs_calificaciones_listar
-		where idtrabajo = _idtrabajo
-		ORDER BY idcalificacion DESC;
-END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `spu_calificaciones_modificar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_calificaciones_modificar` */;
@@ -2750,6 +2736,30 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_departamentos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_departamentos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_departamentos_listar`()
+BEGIN
+	SELECT * FROM departamentos;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_distritos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_distritos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_distritos_listar`(IN _idprovincia VARCHAR(4))
+BEGIN
+	SELECT * FROM distritos WHERE idprovincia = _idprovincia;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_eliminar_actividades` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_eliminar_actividades` */;
@@ -2759,20 +2769,6 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_eliminar_actividades`(IN _idactividad INT)
 BEGIN
 	DELETE FROM actividades WHERE idactividad = _idactividad;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_especialidades_eliminar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_eliminar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_eliminar`(
-    IN _idespecialidad	 INT
-)
-BEGIN 
-    DELETE FROM especialidades WHERE idespecialidad = _idespecialidad;
 END */$$
 DELIMITER ;
 
@@ -3160,7 +3156,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_niveles_usu`()
 BEGIN
-	SELECT nivelusuario , COUNT(idusuario) AS 'TotalUsuarios'
+	SELECT nivelusuario , COUNT(idusuario) AS 'totalusuario'
 		FROM usuarios
 	GROUP BY nivelusuario;
 END */$$
@@ -3191,7 +3187,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_reportes`()
 BEGIN
-	SELECT MONTHNAME(fechareporte)AS'Mes', COUNT(idreporte)AS 'Reportes'
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY MONTHNAME(fechareporte)
 	ORDER BY MONTH(fechareporte) ASC;
@@ -3206,7 +3202,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_reportes_year`()
 BEGIN
-	SELECT YEAR(fechareporte)AS'Año', COUNT(idreporte)AS 'Reportes'
+	SELECT YEAR(fechareporte) AS 'year', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY YEAR(fechareporte)
 	ORDER BY 1 ASC;
@@ -3358,6 +3354,18 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_provincias_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_provincias_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_provincias_listar`(in _iddepartamento	VARCHAR(2))
+BEGIN
+	SELECT * FROM provincias where iddepartamento = _iddepartamento;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_redessociales_eliminar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_eliminar` */;
@@ -3449,15 +3457,27 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_seguidores_listar_usuario` */
+/* Procedure structure for procedure `spu_seguidores_listar` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidores_listar_usuario` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidores_listar` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidores_listar_usuario`(in _idusuario int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidores_listar`(IN _idusuario INT)
 BEGIN 
-	SELECT * FROM seguidores where idfollowing = _idusuario;
+	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_seguidos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidos_listar`(IN _idusuario INT)
+BEGIN
+SELECT * FROM seguidores WHERE idfollower = _idusuario;
 END */$$
 DELIMITER ;
 
@@ -3519,18 +3539,18 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_total_calificaciones` */
+/* Procedure structure for procedure `spu_total_calificaciones_trabajo` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_total_calificaciones` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_total_calificaciones_trabajo` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_total_calificaciones`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_total_calificaciones_trabajo`(
 	IN _idtrabajo INT
 )
 BEGIN 
-	SELECT CALI.idcalificacion,CONCAT (PERS.nombres , ' ', PERS.apellidos) AS 'empleado' ,idtrabajo , 
-				 SUM(CALI.puntuacion) AS 'totalpuntuacion', count(*) AS 'totalpersona'
+	SELECT CALI.idcalificacion,CONCAT (PERS.nombres , ' ', PERS.apellidos) AS 'usuario', idtrabajo , 
+				 SUM(CALI.puntuacion) AS 'totalpuntuacion', COUNT(*) AS 'totalpersona'
 		FROM calificaciones CALI
 		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
 		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
@@ -3548,19 +3568,6 @@ DELIMITER $$
 BEGIN 
 	UPDATE trabajos SET estado = 0
 		WHERE idtrabajo = _idtrabajo;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_trabajos_listar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_listar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_listar`()
-BEGIN
-	SELECT * FROM vs_trabajos_listar
-		ORDER BY idtrabajo DESC;
 END */$$
 DELIMITER ;
 
@@ -3698,7 +3705,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_login`(IN _email VARCHAR(70))
 BEGIN
-	SELECT * FROM vs_usuarios_listar
+	select * from usuarios
 		WHERE email = _email;
 END */$$
 DELIMITER ;

@@ -3,10 +3,9 @@ use PHPMailer\PHPMailer\PHPMailer;  // Core (Nucleo)
 use PHPMailer\PHPMailer\Exception;  // Contralador de expecepiones(Errores)
 use PHPMailer\PHPMailer\SMTP;       // Administra protocolo envio correo
 
-// Archivos requeridos ::  estan incluidos en la Clase Chat.php
-/* require '../libs/PHPMailer/src/Exception.php';
+require '../libs/PHPMailer/src/Exception.php';
 require '../libs/PHPMailer/src/PHPMailer.php';
-require '../libs/PHPMailer/src/SMTP.php'; */
+require '../libs/PHPMailer/src/SMTP.php';
 
 class SendEmail{
   // Atributo

@@ -1,6 +1,28 @@
 USE REACTIVACION;
 
 -- =============================================================================================================
+-- UBIGEO
+-- -------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE spu_departamentos_listar()
+BEGIN
+	SELECT * FROM departamentos;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_provincias_listar(IN _iddepartamento	VARCHAR(2))
+BEGIN
+	SELECT * FROM provincias WHERE iddepartamento = _iddepartamento;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_distritos_listar(IN _idprovincia VARCHAR(4))
+BEGIN
+	SELECT * FROM distritos WHERE idprovincia = _idprovincia;
+END $$
+
+
+-- =============================================================================================================
 -- TABLA PERSONAS
 -- -------------------------------------------------------------------------------------------------------------
 -- REGISTRAR PERSONAS--
@@ -150,11 +172,10 @@ BEGIN
 		WHERE idusuario = _idusuario;
 END $$
 
--- modificar
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
-	SELECT * FROM vs_usuarios_listar
+	SELECT * FROM usuarios
 		WHERE email = _email;
 END $$
 
@@ -428,14 +449,14 @@ END $$
 
 -- ===============LISTAR SEGUIDORES================
 DELIMITER $$
-CREATE PROCEDURE spu_seguidores_listar_usuario(IN _idusuario INT)
+CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
 BEGIN 
 	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
 END $$
 
 -- ===============LISTAR SEGUIDOS================
 DELIMITER $$
-CREATE PROCEDURE spu_seguidos_listar_usuario(IN _idusuario INT)
+CREATE PROCEDURE spu_seguidos_listar(IN _idusuario INT)
 BEGIN
 SELECT * FROM seguidores WHERE idfollower = _idusuario;
 END $$
