@@ -507,17 +507,6 @@ BEGIN
       VALUES (_nombreservicio);
 END $$
 
-
-DELIMITER $$
-CREATE PROCEDURE spu_servicios_eliminar
-(
-    IN _idservicio INT
-)
-BEGIN 
-    DELETE FROM servicios WHERE idservicio = _idservicio;
-END $$
-
-
 DELIMITER $$
 CREATE PROCEDURE spu_servicios_modificar
 (
