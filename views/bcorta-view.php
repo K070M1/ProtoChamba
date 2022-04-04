@@ -1,58 +1,38 @@
-   <!-- NAVBAR -->
-   <nav class="navbar navbar-expand-lg py-3 sticky-top navbar-light bg-white">
-    <div class="container">
+<!-- ===== Link del Swiper ===== -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+<!-- Link de los iconos de fontawesome -->
+<script src="https://kit.fontawesome.com/e58c03f22e.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
+<link rel="stylesheet" href="dist/css/pages/bcorta.css">
+
+
+  
+ <!-- NAVBAR -->
+ <nav class="navbar navbar-expand p-2" style="background: linear-gradient(45deg, #392e6d, #2e3881);">
         <a class="navbar-brand" href="#">
-           <h2>Q'TAL CHAMBA</h2>
+           <h2 class="text-white" style="margin-left:20%">Q'TAL CHAMBA</h2>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <button class="btn ms-lg-3" style="background-color: #244289; color: aliceblue;">Iniciar Sesion</button>
-              <button class="btn  ms-lg-3" style="background-color: #244289; color: aliceblue;">Registrarse</button>
-            </ul>
-            
-        </div>
-    </div>
   </nav><!-- //NAVBAR -->
     
 
-    <!-- HERO -->
-    <div class="hero vh-100 d-flex align-items-center" id="home">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-7 mx-auto text-center">
-                  <h1 class="display-3 text-white">Bienvenido a Q'tal Chamba</h1>
-                  <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>
+         <!-- HERO -->
+    <div class="hero align-items-center" style="height: 50vh;"id="home">
+            <div class="titulos mt-0">
+                  <h1 class=" text-center display-3 text-white mt-0 " >Bienvenido a Q'tal Chamba</h1> 
+                  <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>  
               </div>
-              <div class="indice">
-                <div class="row">
-                  <div class="col-md-3">      
-                  </div>
-                  <div class="col-md-3">
-                    <div class="grupo-input">
-                      <input type="text" class="form-control" placeholder="Ingrese el servicio"><br>
-                      <img src="./img/work.png" alt="">
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="grupo-input">
-                      <input type="text" class="form-control" placeholder="Ingrese la Locacion"><br>
-                      <img src="./img/location.png" alt="">
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <a href="#" class="btn btn-outline-light " style="margin-top: 5%;">Buscar Servicios</a>
-                  </div>
-                </div>
-              </div>
-             
-             
-          </div>
-            
-      </div>
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
+          <i class="fa-solid fa-briefcase" id="iconowork"></i>
+          <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
+          <i class="fa-solid fa-location-dot" id="iconolocation"></i>
+          <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
+    </div>
+
+      
+      <div class= "wave" style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,4.47 C149.99,150.00 406.31,104.13 503.38,-5.41 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(255, 255, 255);"></path></svg></div>
     </div><!-- //HERO -->
     
         <!-- SERVICES -->

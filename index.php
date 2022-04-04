@@ -18,6 +18,10 @@
   <!--Estilos de los modales y formularios-->
   <link rel="stylesheet" href="dist/css/pages/modal-forms.css">
 
+  <!-- Glider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
@@ -326,11 +330,18 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?view=blarga-view" class="nav-link">
+                <a href="index.php?view=bcorta-view" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Filtrado</p>
+                  <p>Filtrado V-corta</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="index.php?view=blarga-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Filtrado V-Larga</p>
+                </a>
+              </li>
+              
             </ul>
           </li>
           <li class="nav-item">
@@ -707,6 +718,10 @@
 
 <!--Configuración del temporizador-->
 <script src="dist/js/pages/md-restabl-temporizador.js"></script>
+
+<!-- Script glider -->
+<script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
+<script src="dist/js/pages/ap.js"></script>
 
 <script>
   $(document).ready(function (){

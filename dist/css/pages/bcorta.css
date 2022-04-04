@@ -7,36 +7,10 @@
     --box-shadow: 0 8px 22px rgba(0,0,0,0.1);
 }
 
-body {
-    font-family: 'Lora', serif;
-    line-height: 1.7;
-    width: 100%;
-}
-
-h2,h3,h4,h5,h6,
-.display-4 {
-    color: var(--dark);
-    font-weight: 700;
-}
-
-a {
-    color: var(--dark);
-    text-decoration: none;
-}
-
-
-.navbar {
-    box-shadow: var(--box-shadow);
-}
-
-.navbar .nav-link {
-    font-size: 18px;
-    font-weight: 700;
-}
 
 
 .hero {
-    background-image: url(../img/banner.jpg);
+    background-image: url(../../img/banner.jpg);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
