@@ -334,6 +334,7 @@
 
 
 
+/* Mobile */
 
 @media (max-width: 1000px) {
   .profile-info{
@@ -388,6 +389,7 @@
 
 }
 
+/* Mobile */
 @media (max-width: 400px) {
   
   .container1 h6{
