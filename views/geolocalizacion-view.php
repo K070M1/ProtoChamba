@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="dist/css/pages/geos.css">
+<link rel="stylesheet" href="./dist/css/pages/geos.css">
 <script src="https://kit.fontawesome.com/9db627a8a9.js" crossorigin="anonymous"></script>    
 
 <div class="geo">
