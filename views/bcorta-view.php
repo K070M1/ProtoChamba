@@ -4,17 +4,17 @@
     
   <!-- HERO -->
 <div class="hero align-items-center" style="height: 50vh;"id="home">
-<div class="titulos mt-0">
- <h1 class=" text-center display-3 text-white mt-0 " >Bienvenido a Q'tal Chamba</h1> 
- <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>  
-</div>
-<div class="input-group">
-   <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
-     <i class="fas fa-briefcase" id="iconowork"></i>
-   <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
-     <i class="fas fa-map-marker-alt" id="iconolocation"></i>
-   <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
-</div>
+  <div class="titulos mt-0">
+  <h1 class=" text-center display-3 text-white mt-0 " >Bienvenido a Q'tal Chamba</h1> 
+  <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>  
+  </div>
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
+      <i class="fas fa-briefcase" id="iconowork"></i>
+    <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
+      <i class="fas fa-map-marker-alt" id="iconolocation"></i>
+    <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
+  </div>
 
 </div><!-- //HERO -->
 
@@ -601,4 +601,4 @@
 </div> <!-- fin del row principal -->
  
   
-</div><!-- Fin de la seccion servivcios -->
+</div><!-- Fin de la seccion servivcios --> 
