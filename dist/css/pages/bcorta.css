@@ -96,7 +96,6 @@
 }
 
 .caja{
-  border: 2px solid red;
   overflow:auto;
   height: 70vh;
 }
