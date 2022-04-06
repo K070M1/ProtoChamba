@@ -1,14 +1,7 @@
 
 <link rel="stylesheet" href="dist/css/pages/bcorta.css">
   
- <!-- NAVBAR -->
- <nav class="navbar navbar-expand p-1" style="background: linear-gradient(45deg, #392e6d, #2e3881);">
-        <a class="navbar-brand" href="#">
-           <h2 class="text-white" style="margin-left:20%">Q'TAL CHAMBA</h2>
-        </a>
-  </nav><!-- //NAVBAR -->
     
-
          <!-- HERO -->
     <div class="hero align-items-center" style="height: 50vh;"id="home">
       <div class="titulos mt-0">
@@ -23,8 +16,6 @@
           <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
       </div>
 
-      
-      <div class= "wave" style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,4.47 C149.99,150.00 406.31,104.13 503.38,-5.41 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(255, 255, 255);"></path></svg></div>
     </div><!-- //HERO -->
     
         <!-- SERVICES -->
@@ -45,10 +36,7 @@
             <option>Gasfitero</option>
           </select>
           </div>
-          <div class="col-md-2">
-            <i class="fas fa-list" id="icono-lista"></i>
-            <i class="fas fa-th" id="icono-grid"></i>
-          </div>
+         
         </div>
       </div>
          
@@ -137,23 +125,390 @@
             
       <div class="col-md 8">
         <div class="caja">
-          <div class="category_list">
-            <a href="" id="categoryItem" cayegory="all">Resultados</a>
-            <a href="" id="categoryItem" category="lista">
-              <i class="fas fa-list" id="icono-lista"></i>
-            </a>
-            <a href="" id="categoryItem" category="grid">
-              <i class="fas fa-th" id="icono-grid"></i>
-            </a>
-          </div><!-- Fin del category-list -->
-          <div class="content-flex">
-            <div class="card-content">
-                <div class="header"><!-- Inicio del header -->
-                  <div class="row">
-                    <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+          
+          <ul class="nav nav-pills" style="margin-left:80%;" id="pills-tab" role="tablist">
+              
+          <li class="nav-item " role="presentation">
+              <a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-th" id="icono-grid"></i></a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-list" id="icono-lista"></i></a>
+            </li>
+          </ul>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="content-flex">
+              <div class="card-content">
+                  <div class="header"><!-- Inicio del header -->
+                    <div class="row">
+                      <div class="col-md-4">                  
+                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      </div>
+                      <div class="col-md-8">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="nombre-servicio">
+                          <h5 class="text-white">Jesus Peve Andazabal</h5>
+                          <h6 class="text-white">Electricista</h6>
+                        </div>
+                      </div><!-- Fin del row de la cabecera -->   
+                    </div><!-- Fin del col-md-8 -->
+                  </div><!-- Fin del header -->
+                      
+                  <div class="card-body"><!-- Inicio del cuerpo del card-->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <h6>senatite2022@senati.pe</h6>
+                      </div>
+                    </div> <!-- Fin del row 1 -->
+                    <div class="row"><!-- Inicio del row 2 -->
+                      <div class="col-md-1">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Comunicarse</h6>
+                      </div>
+                      <div class="col-md-3"> 
+                      </div>
+                    </div><!-- Fin del row 2 -->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Ubicacion Est</h6>
+                      </div>
+                    </div><!-- Fin del row 3 -->
+                  </div><!-- Fin del cuerpo del card -->
+                  
+                  <div class="card-footer"><!-- Inicio del pie del card -->
+                    <div class="redes-sociales">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-whatsapp"></i>
                     </div>
-                    <div class="col-md-8">
+                  </div><!-- Fin del footer -->
+              </div><!-- Fin del card -->
+              
+              <div class="card-content">
+                  <div class="header"><!-- Inicio del header -->
+                    <div class="row">
+                      <div class="col-md-4">                  
+                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      </div>
+                      <div class="col-md-8">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="nombre-servicio">
+                          <h5 class="text-white">Jesus Peve Andazabal</h5>
+                          <h6 class="text-white">Electricista</h6>
+                        </div>
+                      </div><!-- Fin del row de la cabecera -->   
+                    </div><!-- Fin del col-md-8 -->
+                  </div><!-- Fin del header -->
+                      
+                  <div class="card-body"><!-- Inicio del cuerpo del card-->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <h6>senatite2022@senati.pe</h6>
+                      </div>
+                    </div> <!-- Fin del row 1 -->
+                    <div class="row"><!-- Inicio del row 2 -->
+                      <div class="col-md-1">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Comunicarse</h6>
+                      </div>
+                      <div class="col-md-3"> 
+                      </div>
+                    </div><!-- Fin del row 2 -->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Ubicacion Est</h6>
+                      </div>
+                    </div><!-- Fin del row 3 -->
+                  </div><!-- Fin del cuerpo del card -->
+                  
+                  <div class="card-footer"><!-- Inicio del pie del card -->
+                    <div class="redes-sociales">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-whatsapp"></i>
+                    </div>
+                  </div><!-- Fin del footer -->
+              </div><!-- Fin del card -->
+            </div>
+            <div class="content-flex">
+              <div class="card-content">
+                  <div class="header"><!-- Inicio del header -->
+                    <div class="row">
+                      <div class="col-md-4">                  
+                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      </div>
+                      <div class="col-md-8">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="nombre-servicio">
+                          <h5 class="text-white">Jesus Peve Andazabal</h5>
+                          <h6 class="text-white">Electricista</h6>
+                        </div>
+                      </div><!-- Fin del row de la cabecera -->   
+                    </div><!-- Fin del col-md-8 -->
+                  </div><!-- Fin del header -->
+                      
+                  <div class="card-body"><!-- Inicio del cuerpo del card-->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <h6>senatite2022@senati.pe</h6>
+                      </div>
+                    </div> <!-- Fin del row 1 -->
+                    <div class="row"><!-- Inicio del row 2 -->
+                      <div class="col-md-1">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Comunicarse</h6>
+                      </div>
+                      <div class="col-md-3"> 
+                      </div>
+                    </div><!-- Fin del row 2 -->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Ubicacion Est</h6>
+                      </div>
+                    </div><!-- Fin del row 3 -->
+                  </div><!-- Fin del cuerpo del card -->
+                  
+                  <div class="card-footer"><!-- Inicio del pie del card -->
+                    <div class="redes-sociales">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-whatsapp"></i>
+                    </div>
+                  </div><!-- Fin del footer -->
+              </div><!-- Fin del card -->
+              
+              <div class="card-content">
+                  <div class="header"><!-- Inicio del header -->
+                    <div class="row">
+                      <div class="col-md-4">                  
+                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      </div>
+                      <div class="col-md-8">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="nombre-servicio">
+                          <h5 class="text-white">Jesus Peve Andazabal</h5>
+                          <h6 class="text-white">Electricista</h6>
+                        </div>
+                      </div><!-- Fin del row de la cabecera -->   
+                    </div><!-- Fin del col-md-8 -->
+                  </div><!-- Fin del header -->
+                      
+                  <div class="card-body"><!-- Inicio del cuerpo del card-->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <h6>senatite2022@senati.pe</h6>
+                      </div>
+                    </div> <!-- Fin del row 1 -->
+                    <div class="row"><!-- Inicio del row 2 -->
+                      <div class="col-md-1">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Comunicarse</h6>
+                      </div>
+                      <div class="col-md-3"> 
+                      </div>
+                    </div><!-- Fin del row 2 -->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Ubicacion Est</h6>
+                      </div>
+                    </div><!-- Fin del row 3 -->
+                  </div><!-- Fin del cuerpo del card -->
+                  
+                  <div class="card-footer"><!-- Inicio del pie del card -->
+                    <div class="redes-sociales">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-whatsapp"></i>
+                    </div>
+                  </div><!-- Fin del footer -->
+              </div><!-- Fin del card -->
+            </div>
+            <div class="content-flex">
+              <div class="card-content">
+                  <div class="header"><!-- Inicio del header -->
+                    <div class="row">
+                      <div class="col-md-4">                  
+                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      </div>
+                      <div class="col-md-8">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="nombre-servicio">
+                          <h5 class="text-white">Jesus Peve Andazabal</h5>
+                          <h6 class="text-white">Electricista</h6>
+                        </div>
+                      </div><!-- Fin del row de la cabecera -->   
+                    </div><!-- Fin del col-md-8 -->
+                  </div><!-- Fin del header -->
+                      
+                  <div class="card-body"><!-- Inicio del cuerpo del card-->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <h6>senatite2022@senati.pe</h6>
+                      </div>
+                    </div> <!-- Fin del row 1 -->
+                    <div class="row"><!-- Inicio del row 2 -->
+                      <div class="col-md-1">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Comunicarse</h6>
+                      </div>
+                      <div class="col-md-3"> 
+                      </div>
+                    </div><!-- Fin del row 2 -->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Ubicacion Est</h6>
+                      </div>
+                    </div><!-- Fin del row 3 -->
+                  </div><!-- Fin del cuerpo del card -->
+                  
+                  <div class="card-footer"><!-- Inicio del pie del card -->
+                    <div class="redes-sociales">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-whatsapp"></i>
+                    </div>
+                  </div><!-- Fin del footer -->
+              </div><!-- Fin del card -->
+              
+              <div class="card-content">
+                  <div class="header"><!-- Inicio del header -->
+                    <div class="row">
+                      <div class="col-md-4">                  
+                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      </div>
+                      <div class="col-md-8">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="nombre-servicio">
+                          <h5 class="text-white">Jesus Peve Andazabal</h5>
+                          <h6 class="text-white">Electricista</h6>
+                        </div>
+                      </div><!-- Fin del row de la cabecera -->   
+                    </div><!-- Fin del col-md-8 -->
+                  </div><!-- Fin del header -->
+                      
+                  <div class="card-body"><!-- Inicio del cuerpo del card-->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-envelope"></i>
+                      </div>
+                      <div class="col-md-11">
+                        <h6>senatite2022@senati.pe</h6>
+                      </div>
+                    </div> <!-- Fin del row 1 -->
+                    <div class="row"><!-- Inicio del row 2 -->
+                      <div class="col-md-1">
+                        <i class="fas fa-phone-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Comunicarse</h6>
+                      </div>
+                      <div class="col-md-3"> 
+                      </div>
+                    </div><!-- Fin del row 2 -->
+                    <div class="row">
+                      <div class="col-md-1">
+                        <i class="fas fa-map-marker-alt"></i>
+                      </div>
+                      <div class="col-md-8">
+                        <h6>Ubicacion Est</h6>
+                      </div>
+                    </div><!-- Fin del row 3 -->
+                  </div><!-- Fin del cuerpo del card -->
+                  
+                  <div class="card-footer"><!-- Inicio del pie del card -->
+                    <div class="redes-sociales">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-whatsapp"></i>
+                    </div>
+                  </div><!-- Fin del footer -->
+              </div><!-- Fin del card -->
+            </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="card-blarga">
+                <div class="row">
+                  <div class="col-md-4" style="background-color: black;">
+                    <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
                       <div class="iconos">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -161,111 +516,85 @@
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                       </div>
-                      <div class="nombre-servicio">
-                        <h5 class="text-white">Jesus Peve Andazabal</h5>
-                        <h6 class="text-white">Electricista</h6>
-                      </div>
-                    </div><!-- Fin del row de la cabecera -->   
-                  </div><!-- Fin del col-md-8 -->
-                </div><!-- Fin del header -->
-                    
-                <div class="card-body"><!-- Inicio del cuerpo del card-->
+                      <div class="info-servicios">
+                        <h4 class="text-white">Jesus Peve Andazabal</h4>
+                        <h6 class="text-white">Carpintero - Gasfitero</h6>
+                        <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                        <hr style="background-color:white;">
+                        <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                        <div class="redes-sociales">
+                          <i class="fab fa-facebook-f"></i>
+                          <i class="fab fa-instagram"></i>
+                          <i class="fab fa-whatsapp"></i>
+                        </div>
+                      </div><!-- Fin del info-srvicios -->
+                    </div><!-- fin del card-body --> 
+                  </div><!-- Fin del col--md-8 -->
+                </div><!-- fin del row -->
+              </div><!-- Fin del card -->
+
+              <div class="card-blarga">
                   <div class="row">
-                    <div class="col-md-1">
-                      <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="col-md-11">
-                      <h6>senatite2022@senati.pe</h6>
-                    </div>
-                  </div> <!-- Fin del row 1 -->
-                  <div class="row"><!-- Inicio del row 2 -->
-                    <div class="col-md-1">
-                      <i class="fas fa-phone-alt"></i>
+                    <div class="col-md-4" style="background-color: black;">
+                      <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
-                      <h6>Comunicarse</h6>
-                    </div>
-                    <div class="col-md-3"> 
-                    </div>
-                  </div><!-- Fin del row 2 -->
+                      <div class="card-body">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="info-servicios">
+                          <h4 class="text-white">Jesus Peve Andazabal</h4>
+                          <h6 class="text-white">Carpintero - Gasfitero</h6>
+                          <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                          <hr style="background-color:white;">
+                          <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                          <div class="redes-sociales">
+                            <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-whatsapp"></i>
+                          </div>
+                        </div><!-- Fin del info-srvicios -->
+                      </div><!-- fin del card-body --> 
+                    </div><!-- Fin del col--md-8 -->
+                  </div><!-- fin del row -->
+              </div><!-- Fin del card -->
+          
+              <div class="card-blarga">
                   <div class="row">
-                    <div class="col-md-1">
-                      <i class="fas fa-map-marker-alt"></i>
+                    <div class="col-md-4" style="background-color: black;">
+                      <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-8">
-                      <h6>Ubicacion Est</h6>
-                    </div>
-                  </div><!-- Fin del row 3 -->
-                </div><!-- Fin del cuerpo del card -->
-                
-                <div class="card-footer"><!-- Inicio del pie del card -->
-                  <div class="redes-sociales">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-whatsapp"></i>
-                  </div>
-                </div><!-- Fin del footer -->
-            </div><!-- Fin del card -->
-            
-            <div class="card-content">
-                <div class="header"><!-- Inicio del header -->
-                  <div class="row">
-                    <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
-                    </div>
-                    <div class="col-md-8">
-                      <div class="iconos">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <i class="far fa-star"></i>
-                      </div>
-                      <div class="nombre-servicio">
-                        <h5 class="text-white">Jesus Peve Andazabal</h5>
-                        <h6 class="text-white">Electricista</h6>
-                      </div>
-                    </div><!-- Fin del row de la cabecera -->   
-                  </div><!-- Fin del col-md-8 -->
-                </div><!-- Fin del header -->
-                    
-                <div class="card-body"><!-- Inicio del cuerpo del card-->
-                  <div class="row">
-                    <div class="col-md-1">
-                      <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="col-md-11">
-                      <h6>senatite2022@senati.pe</h6>
-                    </div>
-                  </div> <!-- Fin del row 1 -->
-                  <div class="row"><!-- Inicio del row 2 -->
-                    <div class="col-md-1">
-                      <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="col-md-8">
-                      <h6>Comunicarse</h6>
-                    </div>
-                    <div class="col-md-3"> 
-                    </div>
-                  </div><!-- Fin del row 2 -->
-                  <div class="row">
-                    <div class="col-md-1">
-                      <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="col-md-8">
-                      <h6>Ubicacion Est</h6>
-                    </div>
-                  </div><!-- Fin del row 3 -->
-                </div><!-- Fin del cuerpo del card -->
-                
-                <div class="card-footer"><!-- Inicio del pie del card -->
-                  <div class="redes-sociales">
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-whatsapp"></i>
-                  </div>
-                </div><!-- Fin del footer -->
-            </div><!-- Fin del card -->
+                      <div class="card-body">
+                        <div class="iconos">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i>
+                        </div>
+                        <div class="info-servicios">
+                          <h4 class="text-white">Jesus Peve Andazabal</h4>
+                          <h6 class="text-white">Carpintero - Gasfitero</h6>
+                          <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                          <hr style="background-color:white;">
+                          <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                          <div class="redes-sociales">
+                            <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-whatsapp"></i>
+                          </div>
+                        </div><!-- Fin del info-srvicios -->
+                      </div><!-- fin del card-body --> 
+                    </div><!-- Fin del col--md-8 -->
+                  </div><!-- fin del row -->
+              </div><!-- Fin del card -->
+            </div>
           </div>
         </div>   <!-- Fin de la caja que contiene los cards -->
       </div><!-- Fin del col-md-8 -->
