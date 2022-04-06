@@ -34,7 +34,7 @@ class User extends ModelMaster{
   }
 
   // Actualizar rol del usuario
-  public function updatUserRole(array $data){
+  public function updateUserRole(array $data){
     try{
       parent::execProcedure($data, "spu_usuarios_edit_rol", false);
     }

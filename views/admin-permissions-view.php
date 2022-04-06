@@ -1,6 +1,6 @@
 <!-- Small boxes (Stat box) -->
-<div class="row">
-  <div class="col-md-4">
+<div class="row container-permissions">
+  <div class="col-md-4 content-filter">
     <div class="card direct-chat direct-chat-primary">
       <div class="card-header ui-sortable-handle">
         <h3 class="card-title">Filtros</h3>
@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8 content-users">
     <div class="card">
       <div class="card-header ui-sortable-handle">
         <h3 class="card-title">Lista de usuarios</h3>
@@ -61,7 +61,7 @@
           <tbody>
             <tr>
               <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                <img src="dist/img/default_profile_avatar.svg" alt="Product 1" class="img-circle img-size-32 mr-2">
               </td>
               <td>Ruth Najhely Gutierrez Castro</td>
               <td>2018-05-14 05:46:45</td>
@@ -80,8 +80,8 @@
               <td>2018-05-14 05:46:45</td>
               <td align="center">
                 <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
+                  <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                  <label class="custom-control-label" for="customSwitch2"></label>
                 </div>
               </td>
             </tr>
@@ -210,18 +210,19 @@
 </div>
 
 <script>
-    $(function () {
-      $("input[data-bootstrap-switch]").each(function () {
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
-      })
-      $('#tbl-usuarios').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
+  $(function () {
+    $("input[data-bootstrap-switch]").each(function () {
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
     })
-  </script>
+
+    /* $('#tbl-usuarios').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true
+    }); */
+  })
+</script>

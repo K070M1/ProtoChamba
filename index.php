@@ -716,6 +716,9 @@
 <!-- Config theme -->
 <script src="dist/js/config.js"></script>
 
+<!-- Sweetalert2 -->
+<script src="./plugins/sweetalert2/sweetalert2.all.js"></script>
+
 <!--Configuración del temporizador-->
 <script src="dist/js/pages/md-restabl-temporizador.js"></script>
 
