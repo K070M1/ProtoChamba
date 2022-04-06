@@ -725,9 +725,11 @@
 <!-- Script glider -->
 <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
 <script src="dist/js/pages/ap.js"></script>
+<script src="dist/js/pages/galeria.js"></script>
 
 <script>
   $(document).ready(function (){
+    
     var view = getParam("view");
     if (view != false)
       $("#content-data").load(`views/${view}.php`);
@@ -739,7 +741,8 @@
       //$(".nav-link + .nav-treeview").addClass('d-none');
       $(this).addClass('active');
       //$(".nav-link.active + .nav-treeview").removeClass('d-none');
-    
+    });
+
     $("#btn-regist-opn").click(function(){
       $("#modal-perfil-img").modal('toggle');
       $("#modalRegister").modal('hide');
@@ -763,7 +766,6 @@
     $("#btnRes3").click(function(){
       $("#modal-res-contra3").modal("hide");
     });
-
     /* ./Movimiento entre modales */
 
     /*Temporizador*/
@@ -771,7 +773,6 @@
       startTimer();
     });
     /*./Temporizador */
-    });
   });
 </script>
 </body>
