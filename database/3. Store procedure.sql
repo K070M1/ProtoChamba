@@ -15,6 +15,8 @@ BEGIN
 	SELECT * FROM provincias WHERE iddepartamento = _iddepartamento;
 END $$
 
+CALL spu_provincias_listar('01');
+
 DELIMITER $$
 CREATE PROCEDURE spu_distritos_listar(IN _idprovincia VARCHAR(4))
 BEGIN
@@ -100,9 +102,8 @@ DELIMITER $$
 CREATE PROCEDURE spu_usuarios_listar()
 BEGIN
 	SELECT * FROM vs_usuarios_listar
-		ORDER BY rol ASC;
+		ORDER BY idusuario DESC;
 END $$
-
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_registrar
@@ -206,24 +207,6 @@ CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
 	SELECT * FROM usuarios
 		WHERE email = _email;
-END $$
-
-select * from usuarios;
-
-DELIMITER $$
-CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
-BEGIN
-	SELECT * FROM vs_usuarios_listar
-		WHERE rol = _rol;
-END $$
-
-
-DELIMITER $$
-CREATE PROCEDURE spu_usuarios_search(IN _search VARCHAR(40))
-BEGIN
-	SELECT * FROM vs_usuarios_listar
-		WHERE nombres LIKE CONCAT('%', _search, '%') OR 
-					apellidos LIKE CONCAT('%', _search, '%');
 END $$
 
 DELIMITER $$
@@ -500,8 +483,6 @@ CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
 BEGIN 
 	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
 END $$
-
-call spu_seguidores_listar(1);
 
 -- ===============LISTAR SEGUIDOS================
 DELIMITER $$
@@ -821,6 +802,20 @@ END $$
 -- =============================================================================================================
 -- TABLA REPORTES
 -- -------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE spu_reportes_registrar
+(
+	IN _idcomentario INT,
+	IN _motivo 			 VARCHAR(30),
+	IN _descripcion	 MEDIUMTEXT,
+	IN _fotografia 	 VARCHAR(100)
+)
+BEGIN
+IF _fotografia = '' THEN SET _fotografia = NULL; END IF;
+
+INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
+	VALUES(_idcomentario, _motivo, _descripcion, _fotografia);
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_reportes()
@@ -980,16 +975,4 @@ BEGIN
 		INNER JOIN especialidades ESP ON ESP.idespecialidad = TRA.idespecialidad
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio
 	GROUP BY SER.nombreservicio;
-END $$
-
-
-					-- MODIFICAR FOTOGRAFIA DE PERFIL --
-DELIMITER $$
-CREATE PROCEDURE spu_usuarios_fotografiausu
-(
- IN _idusuario INT,
- IN _fotografiausu VARCHAR(70)
-)
-BEGIN
-	UPDATE usuarios SET fotografiausu = _fotografiausu WHERE idusuario = _idusuario;
 END $$
