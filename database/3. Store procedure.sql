@@ -21,8 +21,12 @@ BEGIN
 	SELECT * FROM distritos WHERE idprovincia = _idprovincia;
 END $$
 
+<<<<<<< HEAD
 
 
+=======
+SELECT * FROM personas;
+>>>>>>> 418a16f35c9ceb9ae42cf7659e1e83fe70622d73
 -- =============================================================================================================
 -- TABLA PERSONAS
 -- -------------------------------------------------------------------------------------------------------------
@@ -102,6 +106,7 @@ BEGIN
 	SELECT * FROM vs_usuarios_listar
 		ORDER BY idusuario DESC;
 END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_registrar
@@ -206,6 +211,8 @@ BEGIN
 	SELECT * FROM usuarios
 		WHERE email = _email;
 END $$
+
+select * from usuarios;
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_filtrar
@@ -481,6 +488,8 @@ CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
 BEGIN 
 	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
 END $$
+
+call spu_seguidores_listar(1);
 
 -- ===============LISTAR SEGUIDOS================
 DELIMITER $$
@@ -800,20 +809,6 @@ END $$
 -- =============================================================================================================
 -- TABLA REPORTES
 -- -------------------------------------------------------------------------------------------------------------
-DELIMITER $$
-CREATE PROCEDURE spu_reportes_registrar
-(
-	IN _idcomentario INT,
-	IN _motivo 			 VARCHAR(30),
-	IN _descripcion	 MEDIUMTEXT,
-	IN _fotografia 	 VARCHAR(100)
-)
-BEGIN
-IF _fotografia = '' THEN SET _fotografia = NULL; END IF;
-
-INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
-	VALUES(_idcomentario, _motivo, _descripcion, _fotografia);
-END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_reportes()
@@ -973,4 +968,16 @@ BEGIN
 		INNER JOIN especialidades ESP ON ESP.idespecialidad = TRA.idespecialidad
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio
 	GROUP BY SER.nombreservicio;
+END $$
+
+
+					-- MODIFICAR FOTOGRAFIA DE PERFIL --
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_fotografiausu
+(
+ IN _idusuario INT,
+ IN _fotografiausu VARCHAR(70)
+)
+BEGIN
+	UPDATE usuarios SET fotografiausu = _fotografiausu WHERE idusuario = _idusuario;
 END $$

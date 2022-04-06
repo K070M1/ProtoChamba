@@ -6,24 +6,25 @@
     
       <!--Contenido-->
       <section class="perfil-usuario align-items-end">
-        <div class="contenedor-perfil">
+        <div class="contenedor-perfil"> 
           <div class="portada-perfil">
             
-            <div class="sombra"></div>
+          <div class="sombra"></div>
             <div class="avatar-perfil">
               <img src="./dist/img/user1.jpg" alt="">
               <!-- <i class="fa-solid fa-camera"></i> -->
-              <a href="#" class="cambiar-foto">
-                  <i class="fas fa-camera"></i> 
-                  <span>Cambiar foto</span>
-                  <div type="file"></div>
-              </a>
+            </div>
+            <div class="btn-pe">
+              <button class="btn btn-outline-secondary btn-sm " id="fileSelector"><i class="fas fa-camera"></i>  Perfil</button>
+            </div>
+            <div class="btnfile" style="display: none;">
+              <input type="file" id="fileFotografia" accept=".jpg" name="archivoImagen">
             </div>
             <div class="datos-perfil">
-              <h4 class="titulo-usuario">Nombre de Usuario</h4> 
+              <h4 class="titulo-usuario" id="nombreUsu">nombreUsuario</h4> 
             </div>
             <div class="opcciones-perfil">
-              <button type="">Galeria</button>
+              <button type=""><i class="fas fa-camera"></i>  Portada</button>
             </div>
           </div>
         </div>
@@ -226,6 +227,25 @@
                   <li><i class="fas fa-calendar-check"></i> Fecha nacimiento:</li>
                   <hr> 
                 </ul>
+                <!-- <form>
+                <div class="form-group">
+                  <label for="numero de contacto">Correo electronico:</label>
+                  <input type="text" class="form-control" id="numero">
+                </div>
+                <div class="form-group">
+                  <label for="correo">Correo electronico:</label>
+                  <input type="text" class="form-control" id="correo">
+                </div>
+                <div class="form-group">
+                  <label for="sexo">Sexo:</label>
+                  <input type="text" class="form-control" id="sexo">
+                </div>
+                <div class="form-group">
+                  <label for="fechanaci">Fecha Naci:</label>
+                  <input type="text" class="form-control" id="fechanaci">
+                </div>
+
+                </form> -->
               </div>
               <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                 <h6><i class="fas fa-plus-circle"></i> Agregar red social</h6>
@@ -250,7 +270,7 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <ul style="margin: auto;">
+            <!-- <ul style="margin: auto;">
               <li><i class="fas fa-male"></i>Flores Palomino Jesus Manuel</li>
               <hr>
               <li><i class="fas fa-female"></i>Anton Quispe Maria Anabel</li>
@@ -260,7 +280,7 @@
               <li><i class="fas fa-female"></i>Garcia Perez Lucia</li>
               <hr>
               <li><i class="fas fa-male"></i>Carbajal Flores Miguel Fernando</li>
-            </ul>
+            </ul> -->
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             <ul>
@@ -298,7 +318,7 @@
       
       <!-- configuración nav -->
       <div class="tab-pane fade" id="nav-servicios" role="tabpanel" aria-labelledby="nav-servicios-tab">
-        ADS
+        ADSservicios 
       </div>
       <!-- fin configuración nav -->
 
@@ -610,5 +630,4 @@
 <!--./Modales-->
 
 
-  <script src="./dist/js/pages/perfil.js"></script>
-  <script src="./dist/js/pages/galeria.js"></script>
+<script src="./dist/js/pages/perfil.js"></script>

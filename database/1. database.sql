@@ -1,5 +1,9 @@
 CREATE DATABASE REACTIVACION;
 
+USE paga_pe;
+
+SELECT * FROM usuarios;
+
 USE REACTIVACION;
 
 -- UBIGEO YA INCORPORADO
@@ -65,6 +69,13 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_emailrespaldo UNIQUE(emailrespaldo),
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
+
+
+/*Fotografia de usuarios*/
+ ALTER TABLE usuarios
+  ADD fotografiausu VARCHAR(100) 	NULL;
+  
+  SELECT * FROM usuarios;
 
 CREATE TABLE establecimientos
 (
