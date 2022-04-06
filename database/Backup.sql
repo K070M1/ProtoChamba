@@ -3457,6 +3457,26 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_reportes_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_reportes_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reportes_registrar`(
+	in _idcomentario int,
+	in _motivo 			 varchar(30),
+	in _descripcion	 mediumtext,
+	in _fotografia 	 varchar(100)
+)
+BEGIN
+if _fotografia = '' then set _fotografia = null; end if;
+
+INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
+	values(_idcomentario, _motivo, _descripcion, _fotografia);
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_seguidores_listar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidores_listar` */;
