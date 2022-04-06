@@ -1,6 +1,6 @@
 <!-- Small boxes (Stat box) -->
-<div class="row container-permissions">
-  <div class="col-md-4 content-filter">
+<div class="row">
+  <div class="col-md-4">
     <div class="card direct-chat direct-chat-primary">
       <div class="card-header ui-sortable-handle">
         <h3 class="card-title">Filtros</h3>
@@ -16,11 +16,11 @@
         <div class="row">
           <div class="col-md-12 mb-1">
             <div class="form-group">
-              <label>Por tipo</label>
-              <select class="custom-select">
+              <label for="typeuser">Por tipo</label>
+              <select class="custom-select" id="typeuser">
                 <option value="">Ambos</option>
-                <option>Solo Administradores</option>
-                <option>Solo Usuarios</option>
+                <option value="A">Solo Administradores</option>
+                <option value="U">Solo Usuarios</option>
               </select>
             </div>
           </div>
@@ -28,11 +28,11 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label for="">Buscar</label>
+              <label for="input-search">Buscar</label>
               <div class="input-group">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id="input-search" maxlength="20" autocomplete="off">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-primary">
+                  <button type="button" class="btn btn-primary" id="btn-search">
                     <i class="fas fa-search"></i>
                   </button>
                 </div>
@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-8 content-users">
+  <div class="col-md-8">
     <div class="card">
       <div class="card-header ui-sortable-handle">
         <h3 class="card-title">Lista de usuarios</h3>
@@ -58,150 +58,8 @@
               <th>Admin</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default_profile_avatar.svg" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                  <label class="custom-control-label" for="customSwitch2"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-              </td>
-              <td>Ruth Najhely Gutierrez Castro</td>
-              <td>2018-05-14 05:46:45</td>
-              <td align="center">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1"></label>
-                </div>
-              </td>
-            </tr>
+          <tbody id="tbl-permissions-user">
+            <!-- cargados de forma asincrono -->
           </tbody>
         </table>
       </div>
@@ -215,14 +73,92 @@
       $(this).bootstrapSwitch('state', $(this).prop('checked'));
     })
 
-    /* $('#tbl-usuarios').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true
-    }); */
+    // DECLARACIÓN DE VARIABLES
+    var data = {op: 'getUsers'}; // dato enviando al controler
+
+    // Listar todos los usuarios
+    function loadUsersTable($data){
+
+      // Enviando datos al controller usando ajax
+      $.ajax({
+        url: 'controller/user.controller.php',
+        type: 'GET',
+        data: $data,
+        success: function(e){
+
+          if(e != ''){
+            // // Reiniciar dataTable
+            $("#tbl-usuarios").DataTable().destroy();
+  
+            // Agregar datos en cuerpo de la tabla usuario
+            $("#tbl-permissions-user").html(e);
+  
+            // Volver a generar el dataTable
+            $("#tbl-usuarios").DataTable({
+              paging: true,
+              lengthChange: true,
+              language: { url : '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'},
+              searching: true,
+              ordering: true,
+              info: true,
+              autoWidth: false,
+              responsive: true
+            });
+          }
+        }
+      });
+    }
+
+    // Por tipo
+    $("#typeuser").change(function(){
+      var role = $(this).val();
+      if(role == '')
+        data = {op: 'getUsers'};
+      else
+        data = {op: 'usersFilteredByRlole', rol: role};
+      loadUsersTable(data);
+    });
+
+    // Busqueda realizada por nombres o apellidos
+    $("#input-search").keyup(function(e){
+      var valueInput = $(this).val();
+      
+      if(valueInput == ''){
+        buttonPrimary();
+      }
+      else{
+        buttonDanger();
+        data = {
+          op: 'searchUsersByNames',
+          search: valueInput
+        };
+        loadUsersTable(data);
+      }
+    });
+
+    // Limpiar texto de busqueda
+    $("#btn-search").click(function(){
+      buttonPrimary();
+      $("#input-search").val('');
+      $("#input-search").focus();
+
+      data = {op: 'getUsers'};
+      loadUsersTable(data);
+    });
+
+    // Boton rojo
+    function buttonDanger(){
+      $("#btn-search").removeClass('btn-primary').addClass('btn-danger');
+      $("#btn-search i").removeClass().addClass('fas').addClass('fa-times');
+    }
+
+    //Botón azul
+    function buttonPrimary(){
+      $("#btn-search").removeClass('btn-danger').addClass('btn-primary');
+      $("#btn-search i").removeClass().addClass('fas').addClass('fa-search');
+    }
+
+    // Ejecutar y listar todos los usuarios
+    loadUsersTable(data);
   })
 </script>

@@ -38,7 +38,7 @@ CREATE VIEW vs_usuarios_listar AS
 							WHEN EST.tipocalle LIKE 'PJ' THEN 'Pasaje'
 							WHEN EST.tipocalle LIKE 'JR' THEN 'Jirón'
 						END, ' ', EST.nombrecalle, ' #', EST.numerocalle) AS 'ubicacion', 
-					EST.referencia, EST.latitud, EST.longitud, USU.estado
+					EST.referencia, EST.latitud, EST.longitud, USU.fechaalta, USU.estado
 		FROM usuarios USU
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
 		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
@@ -112,7 +112,7 @@ CREATE VIEW vs_comentarios_listar AS
 -- VISTA PARA LISTAR REPORTES
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_listar_reportes AS 
-	SELECT REP.idreporte, COM.idcomentario, CONCAT(PRS.apellidos, ' ', PRS.nombres) AS usuario, 
+	SELECT REP.idreporte, COM.idcomentario, CONCAT(' ', PRS.nombres, ' ', PRS.apellidos) AS usuario, 
 				 REP.motivo, REP.descripcion, REP.fechareporte, REP.fotografia
 		FROM comentarios COM
 		INNER JOIN reportes REP ON REP.idcomentario = COM.idcomentario

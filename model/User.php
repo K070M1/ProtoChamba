@@ -73,10 +73,30 @@ class User extends ModelMaster{
     }
   }
 
+  // Buscar usuario por nombre o apellidos
+  public function searchUsersByNames(array $data){
+    try{
+      return parent::execProcedure($data, "spu_usuarios_search", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Filtrar usuario por idservicio y iddepartamento
   public function filteredUsers(array $data){
     try{
       return parent::execProcedure($data, "spu_usuarios_filtrar", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Filtrar usuario por el tipo de rol (Admin, Uusuario)
+  public function usersFilteredByRlole(array $data){
+    try{
+      return parent::execProcedure($data, "spu_usuarios_filtrar_rol", true);
     }
     catch(Exception $error){
       die($error->getMessage());

@@ -81,13 +81,10 @@
             locale: 'es',
             height: 680,
             contentHeight: 680,
-            /* aspectRatio: 1.5,
-            businessHours: false, */
             timeFormat: 'H(:mm)',
             nowIndicator: true,
             initialView: 'dayGridMonth',
             firstDay: 1,
-            //initialDate: '2022-03-12',
             navLinks: true, // can click day/week names to navigate views
             editable: true,
             dayMaxEvents: true,
@@ -96,7 +93,9 @@
             selectHelper: false,
             droppable: true,
             resourceAreaHeaderContent: 'Rooms',
-            selectMirror: false,
+            selectMirror: true,
+            buttonIcons: true,
+            weekNumbers: false,
             customButtons: {
                 myCustomButton: {
                     text: 'Agregar evento',
@@ -126,6 +125,9 @@
                 element
                     .find(".fc-content")
                     .prepend("<span id='btnCerrar'; class='closeon material-icons'>&#xe5cd;</span>");
+
+                var html = `<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>`;
+                $(this).append(html);
                     $el.popover({
                         title: event.title,
                         content: event.description,
@@ -173,7 +175,7 @@
                 $('#color').val(data.backgroundColor)
 
                 $('#modal-calendar').modal('show')
-
+                
                 //console.log(data)
                 /* console.log(info.event)
                 console.log(data) */
@@ -188,6 +190,9 @@
                     arg.event.remove()
                 } 
                 */
+            },
+            dayClick: function (date, jsEvent, view) {
+                alert('Has hecho click en: '+ date.format());
             },
             dayMaxEventRows: false, // for all non-TimeGrid views
             eventSources: [{

@@ -10,6 +10,10 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="./plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="./plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.css">
   <link rel="stylesheet" href="dist/css/themes.css">
@@ -346,9 +350,9 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="fas fa-solid fa-user-tie nav-icon"></i>
               <p>
-                Najhely
+                Rol administrador
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -712,6 +716,15 @@
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Cargar pagina incrustada -->
 <script src="dist/js/loadweb.js"></script>
+
+<!-- plugins - Datatable -->
+<!-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
+<script src="./plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="./plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="./plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="./plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="./plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<!-- /. plugins - Datatable -->
 
 <!-- Config theme -->
 <script src="dist/js/config.js"></script>

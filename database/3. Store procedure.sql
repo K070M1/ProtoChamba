@@ -99,7 +99,7 @@ DELIMITER $$
 CREATE PROCEDURE spu_usuarios_listar()
 BEGIN
 	SELECT * FROM vs_usuarios_listar
-		ORDER BY idusuario DESC;
+		ORDER BY rol ASC;
 END $$
 
 DELIMITER $$
@@ -177,6 +177,22 @@ CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
 	SELECT * FROM usuarios
 		WHERE email = _email;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+		WHERE rol = _rol;
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_search(IN _search VARCHAR(40))
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+		WHERE nombres LIKE CONCAT('%', _search, '%') OR 
+					apellidos LIKE CONCAT('%', _search, '%');
 END $$
 
 DELIMITER $$

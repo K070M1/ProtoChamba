@@ -443,7 +443,7 @@
           <!-- Formulario contiene los inputs (imagen / video)-->
           <form id="form-upload-file">
             <input type="file" id="input-new-image" accept="image/*" max="5" multiple hidden/>
-            <input type="file" id="input-new-video" accept="video/*" size="150" hidden />
+            <input type="file" id="input-new-video" accept="video/*" size="150" hidden/>
           </form> 
           <!-- /. Formulario de etiquetas inputs -->
 
@@ -673,8 +673,8 @@
       let videoSrc = document.querySelector("#video-source");
       videoSrc.src = '';
       videoSrc.parentElement.load();
-      //$("#form-upload-file")[1].reset();
-      document.getElementById('form-upload-file').reset();
+      $("#input-new-video").val('');
+      //document.getElementById('form-upload-file').reset();
     });
     // Fin cargar video
 
