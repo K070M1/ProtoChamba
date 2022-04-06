@@ -6,7 +6,7 @@
     
       <!--Contenido-->
       <section class="perfil-usuario align-items-end">
-        <div class="contenedor-perfil">
+        <div class="contenedor-perfil"> 
           <div class="portada-perfil">
             
             <div class="sombra"></div>

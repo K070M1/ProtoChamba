@@ -338,14 +338,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Filtrado V-corta</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?view=blarga-view" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Filtrado V-Larga</p>
-                </a>
-              </li>
-              
+              </li>          
             </ul>
           </li>
           <li class="nav-item">

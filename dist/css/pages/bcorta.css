@@ -55,12 +55,7 @@
   padding: 5px 48px ;
 }
 
-/* Estilos para el dseño del wave */
-.wave{
-  position:absolute;
-  width: 100%;
-  bottom: 0;
- }
+
 
  /* Estilos para los iconos de busqueda */
 
@@ -77,6 +72,10 @@
   margin-left: 10px;
   cursor: pointer;
   color: #244289;
+}
+
+.servicios{
+  margin-top: 4%;
 }
 
 .card-content{
@@ -104,7 +103,7 @@
 .card-content .header{
   margin-top:15px;
   margin-bottom: 5px;
-  background-color: #244289;
+  background: linear-gradient(45deg, #392e6d, #2e3881);
   
 }
 
@@ -148,7 +147,7 @@
 
 /* Estilos para el footer del card */
 .card-content .card-footer {
-  background-color: #244289;
+  background: linear-gradient(45deg, #392e6d, #2e3881);
 }
 
 
@@ -171,79 +170,42 @@
   margin-left: 25%;
 }
 
+/* Estilos para el card version larga */
+.card-blarga{
+  background: linear-gradient(45deg, #392e6d, #2e3881);
+  width: 90%;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+  margin: auto;
+  margin-top: 2%;
+}
 
 
-  /* Footer */
-  .footer{
-    background-color: #24262b;
-      padding: 70px 0;
-  }
-  .footer-col{
-     width: 25%;
-     padding: 0 15px;
-  }
-  .footer-col h4{
-    font-size: 18px;
-    color: #ffffff;
-    text-transform: capitalize;
-    margin-bottom: 35px;
-    font-weight: 500;
-    position: relative;
-  }
-  .footer-col h4::before{
-    content: '';
-    position: absolute;
-    left:0;
-    bottom: -10px;
-    background-color: #e91e63;
-    height: 2px;
-    box-sizing: border-box;
-    width: 50px;
-  }
-  .footer-col ul li:not(:last-child){
-    margin-bottom: 10px;
-  }
-  .footer-col ul li a{
-    font-size: 16px;
-    text-transform: capitalize;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 300;
-    color: #bbbbbb;
-    display: block;
-    transition: all 0.3s ease;
-  }
-  .footer-col ul li a:hover{
-    color: #ffffff;
-    padding-left: 8px;
-  }
-  .footer-col .social-links a{
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    background-color: rgba(255,255,255,0.2);
-    margin:0 10px 10px 0;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 50%;
-    color: #ffffff;
-    transition: all 0.5s ease;
-  }
-  .footer-col .social-links a:hover{
-    color: #24262b;
-    background-color: #ffffff;
-  }
+
+
+/* Estilos para el icono de calificacion */
+
+.card-blarga .iconos {
+  font-size: 18px;
+  margin-left: 70%;
+
+}
+
+.card-blarga .iconos i{
+  font-size: 18px;
+  margin-right: 10px;
+  color: #eeca00;
+}
+
+
+.card-blarga .redes-sociales{
+  margin-left: 76%;
+  padding: 0%;
   
-  /*responsive*/
-  @media(max-width: 767px){
-    .footer-col{
-      width: 50%;
-      margin-bottom: 30px;
-  }
-  }
-  @media(max-width: 574px){
-    .footer-col{
-      width: 100%;
-  }
-  }
+}
 
+.card-blarga .redes-sociales i{
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 24px;
+  color: rgb(255, 255, 255);
+} 
