@@ -227,11 +227,6 @@
               </div><!-- fin del row -->
           </div><!-- Fin del card -->
 
-
-
-
-
-
         </div>   <!-- Fin de la caja que contiene los cards -->
       </div><!-- Fin del col-md-8 -->
     </div> <!-- fin del row principal -->

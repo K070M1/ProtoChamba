@@ -28,7 +28,7 @@
     </div><!-- //HERO -->
     
         <!-- SERVICES -->
-    <div class="servicios">
+  <div class="servicios">
       <div class="recomendados">
         <div class="row">
           <div class = "col-md-6">
@@ -272,4 +272,4 @@
     </div> <!-- fin del row principal -->
         
          
-    </div><!-- Fin de la seccion servivcios -->
+  </div><!-- Fin de la seccion servivcios -->
