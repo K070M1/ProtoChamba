@@ -140,3 +140,30 @@ iframe{
   width: 100%;
 }
 
+
+
+@media (max-width: 780px) {
+  .geo-info{
+    display: block;
+  }
+
+}
+
+
+.dark-mode .txt{
+  background: var(--gray-dark);
+  box-shadow: 1px 1px 20px var(--dark);
+
+}
+
+.dark-mode .geo-intro{
+  background: var(--gray-dark);
+  box-shadow: 1px 1px 20px var(--dark);
+
+}
+
+.dark-mode .geo-der{
+  background: var(--gray-dark);
+  box-shadow: 1px 1px 20px var(--dark);
+
+}

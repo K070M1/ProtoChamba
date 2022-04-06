@@ -1,42 +1,6 @@
 
-:root {
-    --primary: #0d6efd;
-    --dark: #21252f;
-    --body: #888;
-    --white: #ffffff;
-    --box-shadow: 0 8px 22px rgba(0,0,0,0.1);
-}
-
-body {
-    font-family: 'Lora', serif;
-    line-height: 1.7;
-    width: 100%;
-}
-
-h2,h3,h4,h5,h6,
-.display-4 {
-    color: var(--dark);
-    font-weight: 700;
-}
-
-a {
-    color: var(--dark);
-    text-decoration: none;
-}
-
-
-.navbar {
-    box-shadow: var(--box-shadow);
-}
-
-.navbar .nav-link {
-    font-size: 18px;
-    font-weight: 700;
-}
-
-
 .hero {
-    background-image: url(../img/banner.jpg);
+    background-image: url(../../img/banner.jpg);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -55,72 +19,90 @@ a {
     z-index: -1;
 }
 
-.grupo-input{
+/* input-group */
+.input-group{
   position: relative;
+  margin-left:26%;
+  width: 50%;
+  margin-top: 3%;
+  
 }
 
-
-.grupo-input img{
+.input-group i{
   position: absolute;
   top: 5%;
   left: 2%;
+  font-size: 30px;
 }
 
-.grupo-input input{
+
+#iconowork{
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  font-size: 30px;
+}
+
+#iconolocation{
+  position: absolute;
+  top: 5%;
+  left: 43%;
+  font-size: 30px;
+}
+
+.input-group input{
   outline: none;
   padding: 5px 48px ;
 }
 
-/* Estilos para el area de servicios */
-.servicios{
-  margin-top: 30px;
-  margin-bottom: 20px;
-  margin-left: 1%;
-  margin-left: 1%;
-  
+/* Estilos para el dseño del wave */
+.wave{
+  position:absolute;
+  width: 100%;
+  bottom: 0;
+ }
+
+ /* Estilos para los iconos de busqueda */
+
+#icono-lista{
+  font-size: 25px;
+  margin-top: 5px;
+  cursor: pointer;
+  color: #244289;
 }
 
-.servicios .recomendados{
-  margin-top: 3%;
+#icono-grid{
+  font-size: 25px;
+  margin-top: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #244289;
 }
-
-.servicios .contenedor {
-	max-width: 1600px;
-	width: 100%;
-	margin: auto;
-}
-
-.card-filtro{
-  border-radius: 50%;
-  width: 70%;
-  margin-left: 50%;
-  margin-top: 5%;
-  align-items: center;
-}
-
-
 
 .card-content{
-  width: 94%;
-  margin-left: 59%;
+  width: 50%;
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
 }
 
-.servicios-cortos {
-  overflow-y: auto;
-  overflow-x: auto;
+/* Estilos para el contendio de grid */
+.content-flex{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 3em;
+  padding: 15px;
+  width: 80%;
+  margin: auto;
 }
 
-.card-filtro .card-body .form-check-input{
-  margin-right: 0%;
-}
-
-.card-filtro .card-body .form-check-label{
-  margin-right: 72%;
+.caja{
+  border: 2px solid red;
+  overflow:auto;
+  height: 70vh;
 }
 
 /* Estilos para la cabecera del card */
-.servicios .card-content .header{
+.card-content .header{
   margin-top:15px;
   margin-bottom: 5px;
   background-color: #244289;
