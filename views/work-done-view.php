@@ -11,6 +11,7 @@
 <!-- Demos -->
 <script src="dist/js/pages/demo-service-qualification.js"></script>
 <script src="dist/js/uploadFile.js"></script>
+<script src="dist/js/videoReader.js"></script>
 
 <!-- Contenidos -->
 <div class="container-services row">
@@ -66,12 +67,6 @@
                 <a href="javascript:void(0)">
                   <i class="fas fa-pen"></i>
                   <span>Editar publicación</span>
-                </a>
-              </li>
-              <li class="item-public-config">
-                <a href="javascript:void(0)">
-                  <i class="fas fa-eye-slash"></i>
-                  <span>Ocultar publicación</span>
                 </a>
               </li>
               <li class="item-public-config">
@@ -215,7 +210,7 @@
           <div class="write-comment">
             <img src="dist/img/avatar5.png" alt="" />
             <div class="text-auto-height">
-              <div class="text-input-auto" id="text-input-1" contenteditable="true" maxlength="10"> </div>
+              <div class="text-input-auto contenteditable" id="text-input-1"  contenteditable="true" maxlength="250"> </div>
             </div>
             <button type="button" class="btn btn-primary" id="btn-send-1">
               <i class="fas fa-paper-plane"></i>
@@ -242,12 +237,6 @@
                 <a href="javascript:void(0)">
                   <i class="fas fa-pen"></i>
                   <span>Editar publicación</span>
-                </a>
-              </li>
-              <li class="item-public-config">
-                <a href="javascript:void(0)">
-                  <i class="fas fa-eye-slash"></i>
-                  <span>Ocultar publicación</span>
                 </a>
               </li>
               <li class="item-public-config">
@@ -374,7 +363,7 @@
           <div class="write-comment">
             <img src="dist/img/avatar5.png" alt="" />
             <div class="text-auto-height">
-              <div class="text-input-auto" id="text-input-1" contenteditable="true" maxlength="10" placeholder="Escribe un comentario"> </div>
+              <div class="text-input-auto contenteditable" id="text-input-1" contenteditable="true" maxlength="250" > </div>
             </div>
             <button type="button" class="btn btn-primary" id="btn-send-1">
               <i class="fas fa-paper-plane"></i>
@@ -397,7 +386,7 @@
           </button>
       </div>
       <div class="modal-body">
-      <form autocomplete="off">
+        <form autocomplete="off">
           <div class="form-group">
             <label for="titulo">Titulo:</label>
             <input type="text" id="titulo" class="form-control form-control-border">
@@ -406,25 +395,62 @@
             <label for="descripcion" class="col-form-label">Descripción:</label>
             <textarea class="form-control form-control-border rounded-0" id="descripcion"></textarea>
           </div>
-          <!-- Images -->
-          <div class="container-images">
-            <section id="images">
-              <form id="form-upload-file">
-                <!-- Agregar capa nueva aquí -->
-                <div  id="add-photo-container">
-                  <div class="add-new-photo first" id="add-photo">
-                    <span><i class="fas fa-camera"></i></span>
-                  </div>
-                  <input type="file" hidden multiple id="add-new-photo" >
-                </div>
-              </form> 
-            </section>
+
+          <!-- Contenido de Images previas -->
+          <div class="container-images" id="container-images" >
+            <!-- Aquì se cargan las imagenes previas -->
+            <!-- Icono agregar imagen -->
+            <div  id="content-load-file">
+              <div class="add-new-photo" id="add-file" title="Seleccionar imagen">
+                <span><i class="fas fa-camera"></i></span>
+              </div>
+            </div>
+            <!-- /. Icono agregar imagen -->
           </div>
-          <!-- /. Images -->
+          <!-- /. Contenido de Images previas -->
+
+          <!-- Contenido del video vista previa -->
+          <div class="container-video" id="container-video">
+            <div class="row">
+              <div class="col-12">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 10%;" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <span id="label-video-size">0 MB</span>
+                <span id="label-video-maxsize">0 MB</span>
+              </div>
+              <div class="col-md-12 text-right">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" id="btn-add-video">Seleccionar video</button>
+                  <button type="button" class="btn btn-danger" id="btn-delete-video">Eliminar</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <video controls id="video-tag">
+                  <source id="video-source" src="">
+                </video>
+              </div>
+            </div>
+          </div>
+          <!-- /. Contenido del video vista previa -->
+
+          <!-- Formulario contiene los inputs (imagen / video)-->
+          <form id="form-upload-file">
+            <input type="file" id="input-new-image" accept="image/*" max="5" multiple hidden/>
+            <input type="file" id="input-new-video" accept="video/*" size="150" hidden />
+          </form> 
+          <!-- /. Formulario de etiquetas inputs -->
+
           <div class="form-group">
             <div class="btn-group">
-              <button type="button" id="btn-load-image" class="btn btn-success">Subir imagen</button>
-              <button type="button" class="btn btn-info">Subir video</button>
+              <button type="button" id="btn-image" class="btn btn-success" >Imagenes</button>
+              <button type="button" id="btn-video" class="btn btn-info" >Video</button>
             </div>
           </div>
         </form>
@@ -488,6 +514,10 @@
 <script>
   $(document).ready(function(){
 
+    // Varaibles
+    // Contador de imagenes
+    var cont = 0;
+
     // Mostrar el menu de ellipsis por cada trabajo publicado
     $(".btn-show-config").click(function(){
       //$(".btn-show-config").next("ul.list-public-config").hide();
@@ -519,46 +549,192 @@
    
     // Cargar imagenes
     // Abrir el inspector de archivos
-    $(document).on("click", "#add-photo", function(){
-        $("#add-new-photo").click();
-    });
-
-    $(document).on("click", "#btn-load-image", function(){
-      console.log('hello');
-        $("#add-new-photo").click();
+    $(document).on("click", "#add-file", function(){
+      cont = 0;
+      $("#input-new-image").click();
     });
     // -> Abrir el inspector de archivos
 
     // Cachamos el evento change
-    $(document).on("change", "#add-new-photo", function () {
+    $(document).on("change", "#input-new-image", function (event) {
     
         //console.log(this.files);
+        var max = $(this).attr('max');
         var files = this.files;
         var element;
-        var supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif", "video/mp4"];
-        var isNoValidate = false;
+        var supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+        var isValid = true;
+        
+        if(files.length > max){
+          alert("Se excedio el maximo de archivo permitido");
+        }
+        else{
 
-        for (var i = 0; i < files.length; i++) {
+          // recorre y mostrar los archivos subidos
+          for (var i = 0; i < files.length && cont <= 4; i++) {
             element = files[i];
             
             if (supportedImages.indexOf(element.type) != -1) {
-                
-                if(element.type == "video/mp4"){
-                    createPreviewVideo(element, i.toString());
-                }else{
-                    createPreviewImages(element);
-                }
+              createPreviewImages(element);
+
+              cont = $(".image-new").toArray().length; // actualizar valor del contador
+              if(cont >= 5){
+                $("#content-load-file").hide();
+              }
             }
             else {
-              isNoValidate = true;
-            }
+              isValid = false;
+            }          
+          }
+          console.log(cont);
+        }
+
+        if(!isValid){
+          alert("1 Archivo no permitido");
         }
     });
+
+    // Subir video 
     
     // Eliminar previsualizaciones
-    $(document).on("click", "#images .image-container", function(e){
-        $(this).parent().remove();
+    $(document).on("click", ".image-new", function(e){
+        //$(this).parent().remove();
+        $(this).remove();
+        cont--;
+        if(cont < 5){
+          $("#content-load-file").show();
+        }
     });
+    // fin cargar imagenes
+
+
+    // cargar video
+    $("#btn-add-video").click(function(){
+      $("#input-new-video").click();
+    });
+
+    // Evento change de subir video
+    $("#input-new-video").change(function (event){
+      let videoSrc = document.querySelector("#video-source");
+
+      // Obtener el tamaño del archivo subido
+      var sizeByte = event.target.files[0].size;
+      var sizeKilobyte = parseInt(sizeByte / 1024);
+      var sizeMegabyte = parseInt(sizeKilobyte / 1024);
+
+      // Valor del atributo size
+      var valueSize = $(this).attr("size");
+
+      // Iniciar en 0
+      var percentLoad = 0;
+      $("#label-video-size").html('0 MB');
+      $("#label-video-maxsize").html("  (" +valueSize + " MB)");
+      $(".progress .progress-bar").html('0 %');
+      $(".progress .progress-bar").addClass("progress-bar-animated").addClass("progress-bar-striped");
+
+      // Validar tamaño del archivo
+      if(valueSize < sizeMegabyte){
+        alert("Supera el tamaño maximo permitido (" + valueSize + " MB)");
+      }
+      else{
+        // es aceptable
+        if (event.target.files && event.target.files[0]) {
+          var reader = new FileReader();      // instancia Objeto reader
+          var file = event.target.files[0];   // leer el video subido
+  
+          reader.onload = function(e) {
+            videoSrc.src = e.target.result
+            videoSrc.parentElement.load()
+          }.bind(this)
+  
+          // Leer el contenido de file
+          reader.readAsDataURL(file);
+
+          // progreso de carga
+          reader.onprogress = function(e){
+            percentLoad = Number.parseInt(e.loaded * 100 / e.total); // calculando porcentaje
+            $(".progress .progress-bar").html('Cargando...' +percentLoad + ' %');
+            $(".progress .progress-bar").css('width', percentLoad + '%');
+          }
+          
+          // carga completa
+          reader.onloadend = function(e){
+            $("#label-video-size").html(sizeMegabyte + ' MB');
+            $("#label-video-maxsize").html("  (" +valueSize + " MB)");
+            $(".progress .progress-bar").html('Carga completa ' + percentLoad + ' %');
+            $(".progress .progress-bar").removeClass("progress-bar-animated").removeClass("progress-bar-striped");
+          }
+        }
+      }
+    });
+
+    // Eliminar video
+    $("#btn-delete-video").click(function(){
+      let videoSrc = document.querySelector("#video-source");
+      videoSrc.src = '';
+      videoSrc.parentElement.load();
+      //$("#form-upload-file")[1].reset();
+      document.getElementById('form-upload-file').reset();
+    });
+    // Fin cargar video
+
+    // Bloquear el maximo de escritura en el comentario de tipo contenteditable
+    $(".contenteditable").keypress(function (event) {
+      var maxlength = $(this).attr('maxlength');
+
+      //var dom = document.createElement('p');
+      //$(this).append("<p class='text-danger'>No exceder de 250 carateres</p>");
+      //$(this).after("<p>Hello world!</p>");
+      //$(this).before("<p>Hello world!</p>");
+      //$(this).appendTo("p");
+      //$(this).clone().append("body");
+      
+      if ($(this).html().length == maxlength) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    // Bloquear el pegar contenido dentro del contenteditable
+    $(".contenteditable").on('paste', function(e){
+      e.preventDefault();
+      //alert('Esta acción está prohibida');
+    })
+    
+    // Bloquear el copiar contenido dentro del contenteditable
+    $(".contenteditable").on('copy', function(e){
+      e.preventDefault();
+      alert('Esta acción está prohibida');
+    })
+
+    // Ocultar video
+    $("#container-video").hide();
+
+    // Mostrar Imagen
+    $("#btn-image").click(function(){
+      if($("#container-video").is(':visible')) $("#container-video").hide();
+      
+      if($("#container-images").is(':hidden')){
+        $("#container-images").show('slow');
+      }else{
+        $("#container-images").hide('slow');
+      }
+    });
+    
+    // Mostrar Video
+    $("#btn-video").click(function(){
+
+      if($("#container-images").is(':visible')) $("#container-images").hide();
+
+      if($("#container-video").is(':hidden')){
+        $("#container-video").show('slow');
+      }
+      else{
+        $("#container-video").hide('slow');
+      }
+    });
+    
   });
 </script>
 

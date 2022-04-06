@@ -1,8 +1,8 @@
 //Genera las previsualizaciones
 function createPreviewImages(file) {
     var imgCodified = URL.createObjectURL(file);
-    var img = $('<div class="image-container"> <figure> <img src="' + imgCodified + '"> <figcaption> <i class="fas fa-ban"></i> </figcaption> </figure> </div>');
-    $(img).insertBefore("#add-photo-container");
+    var img = $('<div class="image-new"> <figure> <img src="' + imgCodified + '"> <figcaption title="Eliminar"> <i class="fas fa-ban"></i> </figcaption> </figure> </div>');
+    $(img).insertBefore("#content-load-file");
 }
 
 // Crear previsualizador de videos
@@ -15,24 +15,5 @@ function createPreviewVideo(file, id) {
         video += "<source src='" + videoCodified + "' type='video/mp4'> ";
         video += "</video> ";
 
-    $(video).insertBefore("#add-photo-container");
-    initVideo('fm-video-' + id);
-    console-console.log(id);
-
-}
-
-// Inicializar los videos cargados
-function initVideo(video){
-    var reproductor = videojs(video, {
-      fluid: true,
-      //autoplay: false,
-      muted: true,
-      aspectRatio: '16:9',
-      responsive: true,
-      playbackRates: [0.5, 1, 1.5, 2],
-      fullscreen: {options: {navigationUI: 'hide'}},
-      userActions: {
-        click: true
-      }
-    });
+    $(video).insertBefore("#content-load-file");
 }
