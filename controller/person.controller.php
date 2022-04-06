@@ -12,7 +12,7 @@ if (isset($_GET['op'])){
     if ($data){
       echo json_encode($data);
     }else{
-      echo "no existe";
+      echo "La persona no existe";
     }
 
   }
