@@ -37,6 +37,16 @@ if (isset($_POST['op'])){
     ]);
   }
 
+  //foto perfil
+  if($_POST['op'] == 'perfilFotografia'){
+
+    $user->perfilFotografia([
+      "idusuario"     =>  $_POST["idusuario"],
+      "fotografiausu" =>  $_POST["fotografiausu"]
+    ]);
+ 
+  }
+
 
 
 }

@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+  //ABRIR IMAGEN PERFIL
+  function abrirImagen(){
+    $("input[name='archivoImagen']").trigger("click");
+  }
+
+
   $("#btnborrar").click(function(){
     Swal.fire({
         icon: 'question',
@@ -109,5 +115,7 @@ $(document).ready(function(){
 
   });
 
+
+  $("#fileSelector").click(abrirImagen);
 
 });

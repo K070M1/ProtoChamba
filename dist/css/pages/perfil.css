@@ -54,8 +54,9 @@
   box-shadow: 0 0 12px 2px rgba(0, 0, 0, .2);
 }
 .perfil-usuario .avatar-perfil img{
-  width: 14em;
+  width: 15em;
 }
+
 
 
 .perfil-usuario .cambiar-foto {
@@ -79,10 +80,10 @@
   margin-bottom: .5rem;
   font-size: 2rem;
 }
-.perfil-usuario .avatar-perfil:hover .cambiar-foto {
+/* .perfil-usuario .avatar-perfil:hover .cambiar-foto {
   transform: translateY(0);
   opacity: 1;
-}
+} */
 .perfil-usuario .datos-perfil {
   position: absolute;
   display: block;
@@ -94,6 +95,8 @@
   padding-bottom: 1rem;
   padding-right: 1rem;
 }
+
+
 .perfil-usuario .titulo-usuario {
   font-size: 2.3rem;
   white-space: nowrap;
@@ -107,6 +110,20 @@
   position: absolute;
   right: 2rem;
   top: 1rem;
+}
+.perfil-usuario .btn-pe {
+  display: block;
+  position: absolute;
+  left: 9rem;
+  top: 20rem;
+}
+.perfil-usuario .btn-pe button {
+  border: 0;
+  padding: 8px 20px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, .5);
+  color: #fff;
+  cursor: pointer;
 }
 .perfil-usuario .opcciones-perfil button {
   border: 0;
@@ -140,6 +157,11 @@
   }
   .perfil-usuario .portada-perfil {
       height: 28rem;
+  }
+
+  .perfil-usuario .btn-pe {
+    left: 14rem;
+    top: 28rem;
   }
 
 }
@@ -389,6 +411,7 @@
 
 }
 
+
 /* Mobile */
 @media (max-width: 400px) {
   
@@ -414,6 +437,12 @@
   .row .col-xs-6{
     width: 150px;
   }
+
+  .perfil-usuario .btn-pe {
+    left: 8rem;
+    top: 28rem;
+  }
+
 
 }
 
@@ -451,9 +480,6 @@
   background: #3498db;
 }
 
-.dark-mode .profile-intro i{
-  color: #fff;
-}
 
 
 
