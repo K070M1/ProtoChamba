@@ -23,7 +23,7 @@ class Gallery extends ModelMaster{
   }
 
   // Listar galerias por trabajo
-  public function getGalleriesByJob(array $data){
+  public function getGalleriesByWork(array $data){
     try{
       return parent::execProcedure($data, "spu_galerias_listar_trabajo", true);
     }

@@ -217,181 +217,44 @@
   align-items: stretch;
   gap: 1px;
   margin-top: 0.5em;
+  border-radius: 6px;
+  overflow: hidden;
 }
 
 .content-galeria img {
   background-size: cover;
   box-sizing: border-box; /* DEFINIR TAMAÑO con padding y margin */
-  max-width: 370px;
-  width: auto;
+  /* max-width: 300px; */
+  width: 33.233333%;
   height: auto;
   object-fit: cover;
   object-position: center center;
-  flex: 3 3 450px; /* Aumenta 2 tercio, reduce 2 tercio, tamaño inicial */
+  flex: 4 4 220px; /* Aumenta 2 tercio, reduce 2 tercio, tamaño inicial */
   border-radius: 0;
   margin: 0;
 }
 
-/* CONTROLAR ELEMENTOS HIJOS */
-.content-galeria img:nth-child(1n) {
-  width: fit-content;
-  height: 250px;
-}
-.content-galeria img:nth-child(2n) {
-  max-width: 100%;
-  width: auto;
-}
-.content-galeria img:first-child {
-  width: auto;
-}
 .content-galeria img:last-child {
-  max-height: 250px;
+  max-height: auto;
   max-width: 100%;
 }
 
-@media (max-width: 1615px) {
-  .content-galeria img {
-    max-height: fit-content;
-    max-width: 250px;
-    flex: 3 3 380px; /* Aumetnta 2 tercio, reduce 2 tercio tamaño 250px */
-  }
-
-  .content-galeria img:first-child {
-    width: auto;
-  }
-  .content-galeria img:last-child {
-    max-width: 100%;
-  }
-}
-@media (max-width: 1457px) {
-  .content-galeria img {
-    max-height: fit-content;
-    max-width: 350px;
-    flex: 3 3 280px; /* Aumetnta 2 tercio, reduce 2 tercio tamaño 250px */
-  }
-
-  .content-galeria img:nth-child(1n) {
-    max-width: 33.15%;
-    width: fit-content;
-    height: 250px;
-  }
-  .content-galeria img:nth-child(2n) {
-    max-width: 33.15%;
-  }
-  .content-galeria img:first-child {
-    width: auto;
-  }
-  .content-galeria img:last-child {
-    max-height: 250px;
-    max-width: 100%;
-    width: auto;
-  }
-}
-@media (max-width: 1230px) {
-  .content-galeria img {
-    max-height: fit-content;
-    max-width: 250px;
-    flex: 3 3 300px; /* Aumetnta 2 tercio, reduce 2 tercio tamaño 250px */
-  }
-
-  .content-galeria img:first-child {
-    width: auto;
-  }
-  .content-galeria img:last-child {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 997px) {
-  .content-galeria img {
-    max-width: fit-content;
-    max-height: fit-content;
-    width: auto;
-    height: auto;
-    flex: 3 3 200px; /* Aumetnta 2 tercio, reduce 2 tercio tamaño 250px */
-  }
-
-  .content-galeria img:first-child {
-    width: auto;
-  }
-  .content-galeria img:last-child {
-    max-height: 100%;
-  }
-}
-@media (max-width: 857px) {
-  .content-galeria img {
-    max-width: 200px;
-    max-height: max-content;
-    width: auto;
-    height: auto;
-    flex: 3 3 250px; /* Aumetnta, reduce , tamaño  */
-  }
-  .content-galeria img:nth-child(1n) {
-    max-width: 100%;
-  }
-  .content-galeria img:nth-child(2n) {
-    max-width: 100%;
-  }
-  .content-galeria img:first-child {
-    width: auto;
-  }
-  .content-galeria img:last-child {
-    width: auto;
-    max-height: 250px;
-  }
-}
 @media (max-width: 657px) {
   .content-galeria img {
-    max-width: 200px;
-    max-height: 150px;
+    /* max-width: 200px;
+    max-height: 150px; */
     width: 120px;
+    width: 32%;
     height: auto;
-    flex: 2 2 120px; /* Aumetnta, reduce , tamaño  */
-    flex: content;
+    flex: 1 1 80px;
   }
-  .content-galeria img:nth-child(odd) {
-    width: fit-content;
-    max-width: 40px;
-  }
-  .content-galeria img:nth-child(even) {
-    width: max-content;
-  }
-  .content-galeria img:first-child {
-    width: auto;
-  }
+
   .content-galeria img:last-child {
+    max-height: auto;
     max-width: 100%;
-    max-height: 250px;
-    width: auto;
   }
 }
-@media (max-width: 457px) {
-  .content-galeria img {
-    max-width: 80px;
-    max-height: 90px;
-    width: 100%;
-    height: 100%;
-    flex: content;
-    flex: 2 2 45px; /* Aumetnta, reduce , tamaño  */
-  }
-  .content-galeria img:nth-child(odd) {
-    max-width: 80px;
-    width: 100%;
-  }
-  .content-galeria img:nth-child(even) {
-    max-width: 80px;
-    width: 100%;
-  }
-  /* .content-galeria img:first-child{
-        width: auto;
-    }
-    .content-galeria img:last-child{
-        max-width: 90px;
-        max-height: 250px;
-        width: auto;
-    } 
-    */
-}
+
 
 /* OPCIONES  */
 .option-menu {

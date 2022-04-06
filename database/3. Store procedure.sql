@@ -772,6 +772,20 @@ END $$
 -- =============================================================================================================
 -- TABLA REPORTES
 -- -------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE spu_reportes_registrar
+(
+	IN _idcomentario INT,
+	IN _motivo 			 VARCHAR(30),
+	IN _descripcion	 MEDIUMTEXT,
+	IN _fotografia 	 VARCHAR(100)
+)
+BEGIN
+IF _fotografia = '' THEN SET _fotografia = NULL; END IF;
+
+INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
+	VALUES(_idcomentario, _motivo, _descripcion, _fotografia);
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_reportes()
