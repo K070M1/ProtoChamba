@@ -346,14 +346,7 @@ session_start();
                   <i class="far fa-circle nav-icon"></i>
                   <p>Filtrado V-corta</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?view=blarga-view" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Filtrado V-Larga</p>
-                </a>
-              </li>
-              
+              </li>          
             </ul>
           </li>
           <li class="nav-item">
@@ -736,7 +729,7 @@ session_start();
 
 <!-- Script glider -->
 <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
-<script src="dist/js/pages/ap.js"></script>
+
 
 <script>
   $(document).ready(function (){
