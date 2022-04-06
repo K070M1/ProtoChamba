@@ -21,7 +21,12 @@ BEGIN
 	SELECT * FROM distritos WHERE idprovincia = _idprovincia;
 END $$
 
+<<<<<<< HEAD
 
+
+=======
+SELECT * FROM personas;
+>>>>>>> 418a16f35c9ceb9ae42cf7659e1e83fe70622d73
 -- =============================================================================================================
 -- TABLA PERSONAS
 -- -------------------------------------------------------------------------------------------------------------
@@ -73,13 +78,13 @@ BEGIN
 	UPDATE personas SET
 		iddistrito 	= _iddistriro,
 		apellidos 	= _apellidos, 
-		nombres 		= _nombres, 
-		fechanac 		= _fechanac,
-		telefono 		= _telefono,
+		nombres 	= _nombres, 
+		fechanac 	= _fechanac,
+		telefono 	= _telefono,
 		tipocalle 	= _tipocalle,
 		nombrecalle = _nombrecalle,
 		numerocalle = _numerocalle,
-		pisodepa 		= _pisodepa
+		pisodepa 	= _pisodepa
 	WHERE idpersona = _idpersona; 
 END $$
 
@@ -102,6 +107,7 @@ BEGIN
 		ORDER BY rol ASC;
 END $$
 
+
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_registrar
 (
@@ -118,6 +124,33 @@ BEGIN
 
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
+END $$
+
+-- REGISTRO DE USUARIO Y PERSONA AL MISMO TIEMPO
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_reg_per
+(
+	IN _apellidos 			VARCHAR(40),
+	IN _nombres				VARCHAR(40),
+	IN _fechanac			DATE,
+	IN _telefono			CHAR(11),
+	IN _tipocalle 			CHAR(2),	
+	IN _nombrecalle 		VARCHAR(60),
+	IN _numerocalle 		VARCHAR(5),
+	IN _pisodepa  			VARCHAR(5),
+	IN _descripcion 		MEDIUMTEXT,
+	IN _horarioatencion 	VARCHAR(80),
+	IN _email				VARCHAR(70),
+	IN _emailrespaldo		VARCHAR(70),
+	IN _clave	 			VARCHAR(80)
+)
+BEGIN
+	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
+	IF _numerocalle = ''  THEN SET _numerocalle  = NULL; END IF;
+	IF _pisodepa = '' THEN SET _pisodepa = NULL; END IF;
+	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
+	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+	
 END $$
 
 -- EDITAR ROL DEL USUARIO (A -> ADMIN, U -> USUARIO)
@@ -178,6 +211,8 @@ BEGIN
 	SELECT * FROM usuarios
 		WHERE email = _email;
 END $$
+
+select * from usuarios;
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
@@ -469,6 +504,8 @@ CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
 BEGIN 
 	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
 END $$
+
+call spu_seguidores_listar(1);
 
 -- ===============LISTAR SEGUIDOS================
 DELIMITER $$
@@ -788,20 +825,6 @@ END $$
 -- =============================================================================================================
 -- TABLA REPORTES
 -- -------------------------------------------------------------------------------------------------------------
-DELIMITER $$
-CREATE PROCEDURE spu_reportes_registrar
-(
-	IN _idcomentario INT,
-	IN _motivo 			 VARCHAR(30),
-	IN _descripcion	 MEDIUMTEXT,
-	IN _fotografia 	 VARCHAR(100)
-)
-BEGIN
-IF _fotografia = '' THEN SET _fotografia = NULL; END IF;
-
-INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
-	VALUES(_idcomentario, _motivo, _descripcion, _fotografia);
-END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_reportes()
@@ -961,4 +984,16 @@ BEGIN
 		INNER JOIN especialidades ESP ON ESP.idespecialidad = TRA.idespecialidad
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio
 	GROUP BY SER.nombreservicio;
+END $$
+
+
+					-- MODIFICAR FOTOGRAFIA DE PERFIL --
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_fotografiausu
+(
+ IN _idusuario INT,
+ IN _fotografiausu VARCHAR(70)
+)
+BEGIN
+	UPDATE usuarios SET fotografiausu = _fotografiausu WHERE idusuario = _idusuario;
 END $$

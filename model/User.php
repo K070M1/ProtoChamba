@@ -43,6 +43,17 @@ class User extends ModelMaster{
     }
   }
 
+  // Agregar foto
+  public function perfilFotografia(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_fotografiausu", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+
   // Obtener un registro de usuario
   public function getAUser(array $data){
     try{

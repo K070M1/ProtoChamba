@@ -16,7 +16,7 @@ class Ubigeo extends ModelMaster{
 
   /**
    * @param array asociativo contiene el iddepartamento a filtrar
-   * @return array asociativo de provincias fitrados por el departamento
+   * @return array asociativo de provincias filtrados por el departamento
    */
   public function getProvinces(array $data){
     try{

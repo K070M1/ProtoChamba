@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 require_once '../model/User.php';
@@ -136,4 +137,11 @@ if(isset($_GET['op'])){
   }
 }
 
+=======
+<?php 
+
+require_once '../model/User.php';
+
+
+>>>>>>> 7ce7b8a3c16ca800c2feabfa2275154cde1de74f
 ?>

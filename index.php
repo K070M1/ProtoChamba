@@ -1,3 +1,15 @@
+<?php
+session_start();
+//Sesion aperturada TRUE
+// if ($_SESSION['login'] == false){
+//   header('location:index.php');    
+// }   
+// }else{
+//   $fotografia =  $_SESSION['fotografia'];
+//   $usuario = $_SESSION['nombreusuario'];
+// }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -487,44 +499,65 @@
           <form>
             <div class="form-group row">
               <div class="col-sm-6"> 
-                <label for="">Apellidos:</label>
-                <input type="text" class="form-control">
+                <label for="inApellidos">Apellidos:</label>
+                <input type="text" class="form-control form-control-border" id="inApellidos" placeholder="Apellidos">
               </div>
               <div class="col-sm-6">
-                <label for="">Nombres:</label>
-                <input type="text" class="form-control">
+                <label for="inNombres">Nombres:</label>
+                <input type="text" class="form-control form-control-border" id="inNombres"  placeholder="Nombres">
               </div>
             </div>
             <div class=" form-group row">
               <div class="col-sm-6"> 
-                <label for="">Fecha de nacimiento:</label>
-                <input type="date" class="form-control">
+                <label for="inFechaNac">Fecha de nacimiento:</label>
+                <input type="date" class="form-control form-control-border" id="inFechaNac">
               </div>
               <div class="col-sm-6">
-                <label for="">Telefono:</label>
-                <input type="tel" class="form-control">
+                <label for="inTelef">Telefono:</label>
+                <input type="tel" class="form-control form-control-border" id="inTelef"  placeholder="Telefono">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div div class="col-sm-4">
+                <label for="slcDepartReg">Departamento:</label>
+                <select id="slcDepartReg" class="custom-select form-control-border">
+
+                </select>
+                <!-- <input type="text" class="form-control"> -->
+              </div>
+              <div class="col-sm-4">
+                <label for="slcProvinReg">Provincia:</label>
+                <select id="slcProvinReg" class="custom-select form-control-border">
+
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <label for="slcDistrReg">Distrito:</label>
+                <select id="slcDistrReg" class="custom-select form-control-border">
+                  
+                </select>
               </div>
             </div>
             <div class="form-group row">
               <div class="col-sm-12">
-                <label for="">Dirección:</label>
-                <input type="text" class="form-control">
+                <label for="inDirecc">Dirección:</label>
+                <input type="text" class="form-control form-control-border" id="inDirecc"  placeholder="Direccion">
               </div>
             </div>
             <div class="form-group row">
               <div class="col-sm-12">
-                <label for="">Correo Electrónico:</label>
-                <input type="email" class="form-control">
+                <label for="inCorreoE">Correo Electrónico:</label>
+                <input type="email" class="form-control form-control-border" id="inCorreoE"  placeholder="Correo Electronico">
               </div>
             </div>
             <div class="row">
               <div class="col-sm-6"> 
-                <label for="">Contraseña:</label>
-                <input type="password" class="form-control">
+                <label for="inPass1">Contraseña:</label>
+                <input type="password" class="form-control form-control-border" id="inPass1"  placeholder="Contraseña">
               </div>
               <div class="col-sm-6">
-                <label for="">Repetir contraseña:</label>
-                <input type="password" class="form-control">
+                <label for="inPass2">Repetir contraseña:</label>
+                <input type="password" class="form-control form-control-border" id="inPass2"  placeholder="Repetir Contraseña">
               </div>
             </div>
           </form>
@@ -730,10 +763,13 @@
 
 <!-- Script glider -->
 <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
+<script src="dist/js/pages/ap.js"></script>
+<script src="dist/js/pages/galeria.js"></script>
 
 
 <script>
   $(document).ready(function (){
+    
     var view = getParam("view");
     if (view != false)
       $("#content-data").load(`views/${view}.php`);
@@ -745,7 +781,8 @@
       //$(".nav-link + .nav-treeview").addClass('d-none');
       $(this).addClass('active');
       //$(".nav-link.active + .nav-treeview").removeClass('d-none');
-    
+    });
+
     $("#btn-regist-opn").click(function(){
       $("#modal-perfil-img").modal('toggle');
       $("#modalRegister").modal('hide');
@@ -769,7 +806,6 @@
     $("#btnRes3").click(function(){
       $("#modal-res-contra3").modal("hide");
     });
-
     /* ./Movimiento entre modales */
 
     /*Temporizador*/
@@ -777,7 +813,55 @@
       startTimer();
     });
     /*./Temporizador */
-    });
+
+
+    /* Registrar usuario */
+
+      // Cargar datos de departamentos
+      function slclstDepartm(){
+        $.ajax({
+          url: 'controller/ubigeo.controller.php',
+          type: 'GET',
+          data: 'op=getDepartments',
+          success: function(e){
+            $("#slcDepartReg").html(e);
+          }
+        });
+      }
+
+      // Cargar datos de provincias
+      $("#slcDepartReg").change(function(){
+        let iddepart = $(this).val();
+
+        $.ajax({
+          url: 'controller/ubigeo.controller.php',
+          type: 'GET',
+          data: 'op=getProvinces&iddepartamento=' + iddepart,
+          success: function(e){
+            $("#slcProvinReg").html(e);
+          }
+        });
+
+      });
+
+      //Cargar datos de distritos
+      $("#slcProvinReg").change(function(){
+        let idprovin = $(this).val();
+
+        $.ajax({
+          url: 'controller/ubigeo.controller.php',
+          type: 'GET',
+          data: 'op=getDistricts&idprovincia=' + idprovin,
+          success: function(e){
+            $("#slcDistrReg").html(e);
+          }
+        });
+      });
+
+
+
+      slclstDepartm();
+    /*./Registrar usuario */
   });
 </script>
 </body>
