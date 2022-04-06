@@ -2537,7 +2537,7 @@ CREATE TABLE `usuarios` (
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
 (1,1,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','Luis@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
 (2,2,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','Adriana@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
-(3,3,'Albañil','Miercoles y Viernes','E','U','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'1'),
+(3,3,'Albañil','Miercoles y Viernes','E','A','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'1'),
 (7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'1');
 
 /* Procedure structure for procedure `spu_albumes_eliminar` */
@@ -3017,7 +3017,6 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_foros_modificar`(
 	IN _idforo			INT,
 	IN _consulta		MEDIUMTEXT
-
 )
 BEGIN
 	UPDATE foros SET
@@ -3342,7 +3341,6 @@ DELIMITER $$
 	in _nombrecalle VARCHAR(60),
 	in _numerocalle VARCHAR(5),
 	in _pisodepa  	VARCHAR(5)
-
 )
 BEGIN
 	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
@@ -3408,7 +3406,6 @@ DELIMITER $$
 	IN _idredsocial		INT,
 	IN _redsocial			CHAR(1),
 	IN _vinculo				MEDIUMTEXT
-
 )
 BEGIN
 	UPDATE productos SET
@@ -3428,7 +3425,6 @@ DELIMITER $$
 	IN _idusuario	INT,
 	IN _redsocial	CHAR(1), -- F = Facebook, I = Instagram, W = Whatsapp, T = Twitter, Y = Youtube, K = Tik Tok
 	IN _vinculo	MEDIUMTEXT
-
 )
 BEGIN 
 	INSERT INTO redessociales (idusuario, redsocial, vinculo)
@@ -3471,7 +3467,6 @@ DELIMITER $$
 )
 BEGIN
 if _fotografia = '' then set _fotografia = null; end if;
-
 INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
 	values(_idcomentario, _motivo, _descripcion, _fotografia);
 END */$$
@@ -3691,6 +3686,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_usuarios_filtrar_rol` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_filtrar_rol` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_filtrar_rol`(in _rol char(1))
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+		where rol = _rol;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_usuarios_getdata` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_getdata` */;
@@ -3713,7 +3721,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_listar`()
 BEGIN
 	SELECT * FROM vs_usuarios_listar
-		ORDER BY idusuario DESC;
+		ORDER BY rol asc;
 END */$$
 DELIMITER ;
 
@@ -3777,9 +3785,22 @@ DELIMITER $$
 BEGIN
 	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
 	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
-
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_search` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_search` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_search`(IN _search varchar(40))
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+		WHERE nombres like concat('%', _search, '%') or 
+					apellidos like concat('%', _search, '%');
 END */$$
 DELIMITER ;
 
@@ -3964,6 +3985,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
  `referencia` varchar(80) ,
  `latitud` float(10,8) ,
  `longitud` float(10,8) ,
+ `fechaalta` datetime ,
  `estado` char(1) 
 )*/;
 
@@ -4040,7 +4062,7 @@ DROP TABLE IF EXISTS `vs_usuarios_servicio`;
 /*!50001 DROP TABLE IF EXISTS `vs_listar_reportes` */;
 /*!50001 DROP VIEW IF EXISTS `vs_listar_reportes` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_listar_reportes` AS select `rep`.`idreporte` AS `idreporte`,`com`.`idcomentario` AS `idcomentario`,concat(`prs`.`apellidos`,' ',`prs`.`nombres`) AS `usuario`,`rep`.`motivo` AS `motivo`,`rep`.`descripcion` AS `descripcion`,`rep`.`fechareporte` AS `fechareporte`,`rep`.`fotografia` AS `fotografia` from (((`comentarios` `com` join `reportes` `rep` on(`rep`.`idcomentario` = `com`.`idcomentario`)) join `usuarios` `usu` on(`usu`.`idusuario` = `com`.`idusuario`)) join `personas` `prs` on(`prs`.`idpersona` = `usu`.`idusuario`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_listar_reportes` AS select `rep`.`idreporte` AS `idreporte`,`com`.`idcomentario` AS `idcomentario`,concat(`prs`.`nombres`,' ',`prs`.`apellidos`) AS `usuario`,`rep`.`motivo` AS `motivo`,`rep`.`descripcion` AS `descripcion`,`rep`.`fechareporte` AS `fechareporte`,`rep`.`fotografia` AS `fotografia` from (((`comentarios` `com` join `reportes` `rep` on(`rep`.`idcomentario` = `com`.`idcomentario`)) join `usuarios` `usu` on(`usu`.`idusuario` = `com`.`idusuario`)) join `personas` `prs` on(`prs`.`idpersona` = `usu`.`idusuario`)) */;
 
 /*View structure for view vs_personas_listar */
 
@@ -4061,7 +4083,7 @@ DROP TABLE IF EXISTS `vs_usuarios_servicio`;
 /*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`est`.`idestablecimiento` AS `idestablecimiento`,`est`.`establecimiento` AS `establecimiento`,`est`.`ruc` AS `ruc`,concat(case when `est`.`tipocalle` like 'CA' then 'Calle' when `est`.`tipocalle` like 'AV' then 'Avenida' when `est`.`tipocalle` like 'UR' then 'Urbanización' when `est`.`tipocalle` like 'PJ' then 'Pasaje' when `est`.`tipocalle` like 'JR' then 'Jirón' end,' ',`est`.`nombrecalle`,' #',`est`.`numerocalle`) AS `ubicacion`,`est`.`referencia` AS `referencia`,`est`.`latitud` AS `latitud`,`est`.`longitud` AS `longitud`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`est`.`idestablecimiento` AS `idestablecimiento`,`est`.`establecimiento` AS `establecimiento`,`est`.`ruc` AS `ruc`,concat(case when `est`.`tipocalle` like 'CA' then 'Calle' when `est`.`tipocalle` like 'AV' then 'Avenida' when `est`.`tipocalle` like 'UR' then 'Urbanización' when `est`.`tipocalle` like 'PJ' then 'Pasaje' when `est`.`tipocalle` like 'JR' then 'Jirón' end,' ',`est`.`nombrecalle`,' #',`est`.`numerocalle`) AS `ubicacion`,`est`.`referencia` AS `referencia`,`est`.`latitud` AS `latitud`,`est`.`longitud` AS `longitud`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 */;
 
 /*View structure for view vs_usuarios_servicio */
 
