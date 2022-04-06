@@ -20,7 +20,7 @@
               </a>
             </div>
             <div class="datos-perfil">
-              <h4 class="titulo-usuario">Nombre de Usuario</h4> 
+              <h4 class="titulo-usuario" id="nombreUsu"><</h4> 
             </div>
             <div class="opcciones-perfil">
               <button type="">Galeria</button>
@@ -226,6 +226,25 @@
                   <li><i class="fas fa-calendar-check"></i> Fecha nacimiento:</li>
                   <hr> 
                 </ul>
+                <!-- <form>
+                <div class="form-group">
+                  <label for="numero de contacto">Correo electronico:</label>
+                  <input type="text" class="form-control" id="numero">
+                </div>
+                <div class="form-group">
+                  <label for="correo">Correo electronico:</label>
+                  <input type="text" class="form-control" id="correo">
+                </div>
+                <div class="form-group">
+                  <label for="sexo">Sexo:</label>
+                  <input type="text" class="form-control" id="sexo">
+                </div>
+                <div class="form-group">
+                  <label for="fechanaci">Fecha Naci:</label>
+                  <input type="text" class="form-control" id="fechanaci">
+                </div>
+
+                </form> -->
               </div>
               <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                 <h6><i class="fas fa-plus-circle"></i> Agregar red social</h6>
@@ -314,4 +333,4 @@
 
 
   <script src="./dist/js/pages/perfil.js"></script>
-  
+
