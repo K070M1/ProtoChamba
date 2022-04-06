@@ -44,6 +44,8 @@ CREATE TABLE personas
 	
 )ENGINE = INNODB;
 
+SELECT * FROM personas;
+
 CREATE TABLE usuarios
 (
 	idusuario 			INT AUTO_INCREMENT PRIMARY KEY,
