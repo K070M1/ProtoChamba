@@ -1,5 +1,5 @@
-	let span = document.getElementsByClassName('navegar');
-	let product = document.getElementsByClassName('caja');
+let span = document.getElementsByClassName('navegar');
+	let product = document.getElementsByClassName('caja')
 	let product_page = Math.ceil(product.length/4);
 	let l = 0;
 	let movePer = 25.34;

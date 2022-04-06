@@ -98,16 +98,6 @@
   transition: 0.5s;
 }
 
-@media (max-width: 768px) {
-  .recomendados p span{
-    font-size: 30px;
-  }
-  .carrusel .caja {
-    min-width: 49%;
-    margin:  0 10px  0 0;
-  }
-
-}
 
 /* Estilos del card */
 

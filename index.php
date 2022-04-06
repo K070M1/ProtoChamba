@@ -763,7 +763,7 @@ session_start();
 
 <!-- Script glider -->
 <script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
-<script src="dist/js/pages/ap.js"></script>
+
 <script src="dist/js/pages/galeria.js"></script>
 
 
