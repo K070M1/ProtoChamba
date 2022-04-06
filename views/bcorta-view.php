@@ -116,10 +116,6 @@
         </div><!-- Fin del card -->
         </div><!-- Fin del col-md-4 -->        
                 
-        <div class="mapa p-2">
-          <img src="./img/mapa.webp" style="margin-left: 55%;" alt=""><br>
-          <button type="button" style="margin-left: 70%; background-color: #244289; color: aliceblue;" class="btn">Ver en el mapa</button>
-        </div>
       </div><!-- Fin del row 4 -->
             
       <div class="col-md 8">
@@ -141,7 +137,7 @@
                   <div class="header"><!-- Inicio del header -->
                     <div class="row">
                       <div class="col-md-4">                  
-                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                         <!-- Imagen de Perfil -->
                       </div>
                       <div class="col-md-8">
                         <div class="iconos">
@@ -201,7 +197,7 @@
                   <div class="header"><!-- Inicio del header -->
                     <div class="row">
                       <div class="col-md-4">                  
-                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                         <!-- Imagen de Perfil -->
                       </div>
                       <div class="col-md-8">
                         <div class="iconos">
@@ -262,7 +258,7 @@
                   <div class="header"><!-- Inicio del header -->
                     <div class="row">
                       <div class="col-md-4">                  
-                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                         <!-- Imagen de Perfil -->
                       </div>
                       <div class="col-md-8">
                         <div class="iconos">
@@ -322,7 +318,7 @@
                   <div class="header"><!-- Inicio del header -->
                     <div class="row">
                       <div class="col-md-4">                  
-                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                         <!-- Imagen de Perfil -->
                       </div>
                       <div class="col-md-8">
                         <div class="iconos">
@@ -383,7 +379,7 @@
                   <div class="header"><!-- Inicio del header -->
                     <div class="row">
                       <div class="col-md-4">                  
-                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                         <!-- Imagen de Perfil -->
                       </div>
                       <div class="col-md-8">
                         <div class="iconos">
@@ -443,7 +439,7 @@
                   <div class="header"><!-- Inicio del header -->
                     <div class="row">
                       <div class="col-md-4">                  
-                        <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                         <!-- Imagen de Perfil -->
                       </div>
                       <div class="col-md-8">
                         <div class="iconos">
@@ -504,7 +500,7 @@
               <div class="card-blarga">
                 <div class="row">
                   <div class="col-md-4" style="background-color: black;">
-                    <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
+                    
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
@@ -533,65 +529,65 @@
               </div><!-- Fin del card -->
 
               <div class="card-blarga">
-                  <div class="row">
-                    <div class="col-md-4" style="background-color: black;">
-                      <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <div class="iconos">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                          <i class="far fa-star"></i>
+                <div class="row">
+                  <div class="col-md-4" style="background-color: black;">
+                    
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <div class="iconos">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <div class="info-servicios">
+                        <h4 class="text-white">Jesus Peve Andazabal</h4>
+                        <h6 class="text-white">Carpintero - Gasfitero</h6>
+                        <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                        <hr style="background-color:white;">
+                        <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                        <div class="redes-sociales">
+                          <i class="fab fa-facebook-f"></i>
+                          <i class="fab fa-instagram"></i>
+                          <i class="fab fa-whatsapp"></i>
                         </div>
-                        <div class="info-servicios">
-                          <h4 class="text-white">Jesus Peve Andazabal</h4>
-                          <h6 class="text-white">Carpintero - Gasfitero</h6>
-                          <h6 class="text-white">Tarifa estimada : s/250.00</h6>
-                          <hr style="background-color:white;">
-                          <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
-                          <div class="redes-sociales">
-                            <i class="fab fa-facebook-f"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-whatsapp"></i>
-                          </div>
-                        </div><!-- Fin del info-srvicios -->
-                      </div><!-- fin del card-body --> 
-                    </div><!-- Fin del col--md-8 -->
-                  </div><!-- fin del row -->
+                      </div><!-- Fin del info-srvicios -->
+                    </div><!-- fin del card-body --> 
+                  </div><!-- Fin del col--md-8 -->
+                </div><!-- fin del row -->
               </div><!-- Fin del card -->
           
               <div class="card-blarga">
-                  <div class="row">
-                    <div class="col-md-4" style="background-color: black;">
-                      <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <div class="iconos">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                          <i class="far fa-star"></i>
+                <div class="row">
+                  <div class="col-md-4" style="background-color: black;">
+                    
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <div class="iconos">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <div class="info-servicios">
+                        <h4 class="text-white">Jesus Peve Andazabal</h4>
+                        <h6 class="text-white">Carpintero - Gasfitero</h6>
+                        <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                        <hr style="background-color:white;">
+                        <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                        <div class="redes-sociales">
+                          <i class="fab fa-facebook-f"></i>
+                          <i class="fab fa-instagram"></i>
+                          <i class="fab fa-whatsapp"></i>
                         </div>
-                        <div class="info-servicios">
-                          <h4 class="text-white">Jesus Peve Andazabal</h4>
-                          <h6 class="text-white">Carpintero - Gasfitero</h6>
-                          <h6 class="text-white">Tarifa estimada : s/250.00</h6>
-                          <hr style="background-color:white;">
-                          <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
-                          <div class="redes-sociales">
-                            <i class="fab fa-facebook-f"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-whatsapp"></i>
-                          </div>
-                        </div><!-- Fin del info-srvicios -->
-                      </div><!-- fin del card-body --> 
-                    </div><!-- Fin del col--md-8 -->
-                  </div><!-- fin del row -->
+                      </div><!-- Fin del info-srvicios -->
+                    </div><!-- fin del card-body --> 
+                  </div><!-- Fin del col--md-8 -->
+                </div><!-- fin del row -->
               </div><!-- Fin del card -->
             </div>
           </div>

@@ -44,7 +44,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -106,7 +106,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -168,7 +168,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -230,7 +230,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -292,7 +292,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -354,7 +354,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -416,7 +416,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -478,7 +478,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -540,7 +540,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -602,7 +602,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -664,7 +664,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -726,7 +726,7 @@
                 <div class="header"><!-- Inicio del header -->
                   <div class="row">
                     <div class="col-md-4">                  
-                      <img src="./img/user2.png" alt=""> <!-- Imagen de Perfil -->
+                      
                     </div>
                     <div class="col-md-8">
                       <div class="iconos">
@@ -738,7 +738,7 @@
                       </div>
                       <div class="nombre-servicio">
                         <h5 class="text-white">Jesus Peve Andazabal</h5>
-                        <h6 class="text-white">Mecanico</h6>
+                        <h6 class="text-white">Electricista</h6>
                       </div>
                     </div><!-- Fin del row de la cabecera -->   
                   </div><!-- Fin del col-md-8 -->
