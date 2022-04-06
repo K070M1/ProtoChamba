@@ -631,3 +631,4 @@
 
 
 <script src="./dist/js/pages/perfil.js"></script>
+<script src="dist/js/pages/galeria.js"></script>
