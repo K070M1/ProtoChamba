@@ -1,10 +1,7 @@
-
 <!-- Link de los iconos de fontawesome -->
 <script src="https://kit.fontawesome.com/e58c03f22e.js" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="dist/css/pages/main.css">
-
-<script type ="text/javascript" src="dist/js/pages/ap.js"></script>
 
 <div class="wrapper-main">
     <!-- HERO -->
@@ -794,4 +791,3 @@
 </div>  
 
 <script type ="text/javascript" src="dist/js/pages/ap.js"></script>
-
