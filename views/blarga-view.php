@@ -1,256 +1,235 @@
-<!-- Libreria para el glider -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
+
 <link rel="stylesheet" href="dist/css/pages/blarga.css">
 
-<!-- Script glider -->
-<script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
-<script src="dist/js/pages/ap.js"></script>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg py-3 sticky-top navbar-light bg-white">
-<div class="container">
-<a class="navbar-brand" href="#">
-    <h2>Q'TAL CHAMBA</h2>
-</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ms-auto">
-      <button class="btn ms-lg-3">Iniciar Sesion</button>
-      <button class="btn btn-primary ms-lg-3">Registrarse</button>
-    </ul>
-    
-</div>
-</div>
-</nav><!-- //NAVBAR -->
+ <!-- NAVBAR -->
+ <nav class="navbar navbar-expand p-1" style="background: linear-gradient(45deg, #392e6d, #2e3881);">
+        <a class="navbar-brand" href="#">
+           <h2 class="text-white" style="margin-left:20%">Q'TAL CHAMBA</h2>
+        </a>
+  </nav><!-- //NAVBAR -->
 
 
-<!-- HERO -->
-<div class="hero vh-100 d-flex align-items-center" id="home">
-<div class="container">
-  <div class="row">
-      <div class="col-lg-7 mx-auto text-center">
-          <h1 class="display-3 text-white">Bienvenido a Q'tal Chamba</h1>   
+         <!-- HERO -->
+    <div class="hero align-items-center" style="height: 50vh;"id="home">
+      <div class="titulos mt-0">
+        <h1 class=" text-center display-3 text-white mt-0 " >Bienvenido a Q'tal Chamba</h1> 
+        <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>  
       </div>
-      <div class="indice">
-        <div class="row">
-          <div class="col-md-3">      
-          </div>
-          <div class="col-md-3">
-            <div class="grupo-input">
-              <input type="text" class="form-control" placeholder="Ingrese el servicio"><br>
-              <img src="./img/work.png" alt="">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="grupo-input">
-              <input type="text" class="form-control" placeholder="Ingrese la Locacion"><br>
-              <img src="./img/location.png" alt="">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <a href="#" class="btn btn-outline-light " style="margin-top: 5%;">Buscar Servicios</a>
-          </div>
-        </div>
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
+            <i class="fas fa-briefcase" id="iconowork"></i>
+          <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
+            <i class="fas fa-map-marker-alt" id="iconolocation"></i>
+          <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
       </div>
+
       
-      <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>
-  </div>
-    
-</div>
-</div><!-- //HERO -->
+      <div class= "wave" style="height: 150px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,4.47 C149.99,150.00 406.31,104.13 503.38,-5.41 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(255, 255, 255);"></path></svg></div>
+    </div><!-- //HERO -->
 
-<!-- SERVICES -->
-<div class="servicios">
-  <div class="recomendados">
-    <div class="row">
-      <div class = "col-md-6">
-        <h3 class="text-center" style="margin-right: 43%;">Coincidencias Encontradas</h3>
-      </div>
-      <div class="col-md-2">
-        <h4 class="text-center" style="margin-left: 40%;">Ordenar por :</h4>
-      </div>
-      <div class="col-md-2">
-        <select class="form-select" aria-label="Default select example">
+            <!-- SERVICES -->
+  <div class="servicios">
+      <div class="recomendados">
+        <div class="row">
+          <div class = "col-md-6">
+            <h3 class="text-center" style="margin-right: 43%;">Coincidencias Encontradas</h3>
+          </div>
+          <div class="col-md-2">
+            <h4 class="text-center" style="margin-left: 40%;">Ordenar por :</h4>
+          </div>
+          <div class="col-md-2">
+          <select class="form-control" id="exampleFormControlSelect1">
             <option selected>Seleccione</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+            <option>Electiricistas</option>
+            <option>Mecanicos</option>
+            <option>Gasfitero</option>
+          </select>
+          </div>
+          <div class="col-md-2">
+            <i class="fas fa-list" id="icono-lista"></i>
+            <i class="fas fa-th" id="icono-grid"></i>
+          </div>
+        </div>
       </div>
-      <div class="col-md-2">
-        <i class="fa-solid fa-list"></i>
-        <i class="fa-solid fa-list"></i> 
-      </div>
-    </div>
-  </div>
+         
   
-<div class="row">
+    <div class="row">
       <div class="col-md-4">
-        <div class="card-filtro">
-          <div class="card text-center">
-              <div class="card-header">
-                <h5>Filtrar</h5>
+        <div class="card">
+          <h5 class="card-header text-center">Filtrar</h5>
+          <div class="card-body">
+            <div class="row">
+              
+              <div class="col-6">
+                <div class="list-group" id="list-tab" role="tablist">
+                  <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Nivel de Estrellas</a>
+                  <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Tarifas</a>
+                </div>
               </div>
-              <div class="card-body">
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Nivel de Estrellas
-                      </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            1 estrellas
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            2 estrellas
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            3 estrellas
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            4 estrellas
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            5 estrellas
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- Fin del primer item -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingTwo">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Tarifas
-                      </button>
-                    </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                      <div class="accordion-body">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            50-86
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            87-150
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                          <label class="form-check-label" for="flexCheckDefault">
-                            160-250
-                          </label>
-                        </div>
-                  
-                      </div>
-                    </div>
+
+              <div class="col-6">
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      1 estrella
+                    </label>
                   </div>
-                </div><!-- Fin del acordion -->
-              </div><!-- Fin del card del body -->
-            </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      2 estrellas
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      3 estrellas
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      4 estrellas
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      5 estrellas
+                    </label>
+                  </div>
+                </div><!-- Fin del tabab-1 -->
+
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      50-86
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      50-86
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      50-86
+                    </label>
+                  </div>
+                </div><!-- Fin del tab-2 -->
+              </div>
+
+            </div><!-- FIN DEK ROW -->
+          </div><!-- fin del card-body -->
         </div><!-- Fin del card -->
-          
-        <div class="mapa p-2">
-          <img src="./img/mapa.webp" style="margin-left: 55%;" alt=""><br>
-          <button type="button" style="margin-left: 70%;" class="btn btn-primary">Ver en el mapa</button>
-        </div>
-      </div>
-        <div class="col-md 8">
-          <div class="card-blarga">
-            <div class="card mb-3" style="max-width: 740px;">
-              <div class="row g-0">
-                <div class="col-md-4" style="background-color: black;">
-                  <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <div class="iconos">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
-                    <div class="info-servicios">
-                      <h4>Jesus Peve Andazabal</h4>
-                      <h6>Carpintero - Gasfitero</h6>
-                      <h6>Tarifa estimada : s/250.00</h6>
-                      <hr>
-                      <h6>Establecimiento : Ubicado en Av. Lt 250</h6>
-                      <div class="redes-sociales">
-                        <i class="fa-brands fa-facebook-f"></i>
-                        <i class="fa-brands fa-instagram"></i>
-                        <i class="fa-brands fa-whatsapp"></i>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div><!-- Fin del card -->
-          </div>
-
-          <div class="card-blarga">
-            <div class="card mb-3" style="max-width: 740px;">
-              <div class="row g-0">
-                <div class="col-md-4" style="background-color: black;">
-                  <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <div class="iconos">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
-                    <div class="info-servicios">
-                      <h4>Jesus Peve Andazabal</h4>
-                      <h6>Electricidad</h6>
-                      <h6>Tarifa estimada : s/250.00</h6>
-                      <hr>
-                      <h6>Establecimiento : Ubicado en Av. Lt 250</h6>
-                      <div class="redes-sociales">
-                        <i class="fa-brands fa-facebook-f"></i>
-                        <i class="fa-brands fa-instagram"></i>
-                        <i class="fa-brands fa-whatsapp"></i>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-            </div><!-- Fin del card -->
-          </div>
-          
-
+      </div><!-- Fin del col-md-4 -->        
+    </div><!-- Fin del row 4 -->
             
-        </div>
+      <div class="col-md-8">
+        <div class="caja">
+
+          <div class="card-blarga">
+              <div class="row">
+                <div class="col-md-4" style="background-color: black;">
+                  <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <div class="iconos">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <div class="info-servicios">
+                      <h4 class="text-white">Jesus Peve Andazabal</h4>
+                      <h6 class="text-white">Carpintero - Gasfitero</h6>
+                      <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                      <hr style="background-color:white;">
+                      <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                      <div class="redes-sociales">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                      </div>
+                    </div><!-- Fin del info-srvicios -->
+                  </div><!-- fin del card-body --> 
+                </div><!-- Fin del col--md-8 -->
+              </div><!-- fin del row -->
+          </div><!-- Fin del card -->
+
+          <div class="card-blarga">
+              <div class="row">
+                <div class="col-md-4" style="background-color: black;">
+                  <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <div class="iconos">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <div class="info-servicios">
+                      <h4 class="text-white">Jesus Peve Andazabal</h4>
+                      <h6 class="text-white">Carpintero - Gasfitero</h6>
+                      <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                      <hr style="background-color:white;">
+                      <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                      <div class="redes-sociales">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                      </div>
+                    </div><!-- Fin del info-srvicios -->
+                  </div><!-- fin del card-body --> 
+                </div><!-- Fin del col--md-8 -->
+              </div><!-- fin del row -->
+          </div><!-- Fin del card -->
+          
+          <div class="card-blarga">
+              <div class="row">
+                <div class="col-md-4" style="background-color: black;">
+                  <img src="./img/user3blarga.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <div class="iconos">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </div>
+                    <div class="info-servicios">
+                      <h4 class="text-white">Jesus Peve Andazabal</h4>
+                      <h6 class="text-white">Carpintero - Gasfitero</h6>
+                      <h6 class="text-white">Tarifa estimada : s/250.00</h6>
+                      <hr style="background-color:white;">
+                      <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
+                      <div class="redes-sociales">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-whatsapp"></i>
+                      </div>
+                    </div><!-- Fin del info-srvicios -->
+                  </div><!-- fin del card-body --> 
+                </div><!-- Fin del col--md-8 -->
+              </div><!-- fin del row -->
+          </div><!-- Fin del card -->
+
+        </div>   <!-- Fin de la caja que contiene los cards -->
+      </div><!-- Fin del col-md-8 -->
+    </div> <!-- fin del row principal -->
         
-</div><!-- Fin delrow 2 -->
-  
-</div><!-- Fin de la seccion servivcios -->
+         
+  </div><!-- Fin de la seccion servivcios -->

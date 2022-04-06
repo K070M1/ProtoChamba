@@ -1,22 +1,4 @@
 
-
-:root {
-    --primary: #0d6efd;
-    --dark: #21252f;
-    --body: #888;
-    --white: #ffffff;
-    --box-shadow: 0 8px 22px rgba(0,0,0,0.1);
-}
-/* Estilos de la barra de nabegacion */
-.wrapper-main .navbar {
-    box-shadow: var(--box-shadow);
-}
-
-.wrapper-main .navbar .nav-link {
-    font-size: 18px;
-    font-weight: 700;
-}
-
 /* Estilos del banner */
 .hero {
     background-image: url(../../img/banner.jpg);
@@ -47,6 +29,10 @@
   
 }
 
+.servicios{
+  margin-top: 4%;
+}
+
 #iconowork{
   position: absolute;
   top: 5%;
@@ -66,13 +52,62 @@
   padding: 5px 48px ;
 }
 
-/* Estilos para el dseño del wave */
-.wave{
-  position:absolute;
-  width: 100%;
-  bottom: 0;
- }
+/* Estilos del span del carrusel */
+.recomendados p{
+  margin-top: 10px;
+  margin-left: 5%;
+  margin-bottom: auto;
+}
 
+
+.recomendados p span{
+    font-size: 40px;
+    cursor: pointer;
+    color: #555;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    line-height: 19px;
+    text-align: center;
+    border-radius: 3px;
+}
+.recomendados p span:hover{
+  background: #222;
+  color: white;
+}
+
+.carrusel{
+  width: 98%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+}
+.carrusel::-webkit-scrollbar{
+  display: none;
+}
+
+.carrusel .caja{
+  min-width: 24%;
+  height: 90%;
+  background: whitesmoke;
+  margin:  0 20px  0 0;
+  border-radius: 20px;
+  position: relative;
+  left: 0;
+  transition: 0.5s;
+}
+
+@media (max-width: 768px) {
+  .recomendados p span{
+    font-size: 30px;
+  }
+  .carrusel .caja {
+    min-width: 49%;
+    margin:  0 10px  0 0;
+  }
+
+}
 
 /* Estilos del card */
 
@@ -142,59 +177,3 @@
   color: rgb(247, 245, 245);
 } 
 
-/* --- --- CAROUSEL --- --- */
-.carousel__contenedor {
-	position: relative;
-  margin-left: 15%;
-  max-width: 128vh;
-}
-
-.carousel__anterior,
-.carousel__siguiente {
-	position: absolute;
-	display: block;
-	width: 30px;
-	height: 30px;
-	border: none;
-	top: calc(50% - 35px);
-	cursor: pointer;
-	line-height: 30px;
-	text-align: center;
-	background-color: #030303;
-  border-radius: 50%;
-	color: rgb(229, 229, 236);
-	opacity: 80%;
-  font-size: 150%;
-  
-}
-
-.carousel__anterior:hover,
-.carousel__siguiente:hover {
-	opacity: 100%;
-  
-}
-
-.carousel__anterior {
-	left: -40px;
-}
-
-.carousel__siguiente {
-	right: -35px;
-}
-
-.carousel__indicadores .glider-dot{
-  display: block;
-  width: 30px;
-  height: 4px;
-  background: linear-gradient(45deg, #392e6d, #2e3881);
-  opacity: .2;
-  border-radius: 0;
-}
-
-.carousel__indicadores .glider-dot:hover{
-  opacity: .5;
-}
-
-.carousel__indicadores .glider-dot.active{
-  opacity: 1; 
-}
