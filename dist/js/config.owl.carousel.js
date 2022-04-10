@@ -1,46 +1,27 @@
 var owl = $('.owl-carousel');
 owl.owlCarousel({
-    stagePadding: 20,
-    dots: false,
-    loop:false,
-    margin: 10,
-    nav:true,
-    autoWidth: false,
-    autoHeight: false,
-    autoHeightClass: 'owl-height',
-    autoWidthClass: 'owl-width',
+    stagePadding: 10,
+    dots: false,                    // Leyenda de pagina
+    loop:false,                     // Repetir
+    autoplay:true,
+    autoplayTimeout:1000,
+    autoplayHoverPause:true,
+    animateOut: 'slideOutDown',     // Animación salida (estilo css)
+    animateIn: 'flipInX',           // Animación entrada (estilo css)
+    margin: 10,                     // Margen
+    nav:true,                       // Navegación
+    autoWidth: false,               // Ajustar ancho
+    autoHeight: true,               // Ajustar altura
+    autoHeightClass: 'owl-height',  // Clase CSS
+    autoWidthClass: 'owl-width',    // Clase CSS
+    responsiveClass:true,        
     responsive:{
         0:{
             items:1
         },
-        300:{
-            items: 1,
-            margin: 10,
-            stagePadding: 50
-        },
-        440:{
-            items:2,
-            margin: 10,
-            stagePadding: 50
-        },
-        600:{
-            items:2,
-            stagePadding: 40
-            //margin: 8
-        },
-        700:{
-            items:3,
-            stagePadding: 40
-            //margin: 8
-        },
-        800:{
-            items:4,
-            stagePadding: 20
-            //margin: 8
-        },
         960:{
-            items:5,
-            stagePadding: 20
+            items:2,
+            stagePadding: 10
         }
     }
 });
