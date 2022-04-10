@@ -1,7 +1,7 @@
 <!-- videojs -->
 <link rel="stylesheet" href="plugins/video-js/video.min.css">
 <link rel="stylesheet" href="dist/css/pages/style-video.css">
-<!-- styles -->
+<!-- styles propios -->
 <link rel="stylesheet" href="dist/css/pages/service-qualification.css" />
 <link rel="stylesheet" href="dist/css/uploadFile.css">
 <!-- Carousel -->
@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="dist/css/carousel-owl.css">
 
 <!-- SCRIPTS -->
-<!-- video viewer -->
+<!-- video js -->
 <script src="plugins/video-js/video.min.js"></script>
-<!-- Demos -->
+<!-- scripts propios -->
 <script src="dist/js/pages/demo-service-qualification.js"></script>
 <script src="dist/js/uploadFile.js"></script>
 <!-- owl carousel -->

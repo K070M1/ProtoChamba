@@ -4,7 +4,7 @@ owl.owlCarousel({
     dots: false,                    // Leyenda de pagina
     loop:false,                     // Repetir
     autoplay:true,
-    autoplayTimeout:1000,
+    autoplayTimeout:2500,
     autoplayHoverPause:true,
     animateOut: 'slideOutDown',     // Animación salida (estilo css)
     animateIn: 'flipInX',           // Animación entrada (estilo css)
