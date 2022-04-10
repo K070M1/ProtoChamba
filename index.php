@@ -34,9 +34,6 @@ session_start();
   <!--Estilos de los modales y formularios-->
   <link rel="stylesheet" href="dist/css/pages/modal-forms.css">
 
-  <!-- Glider -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.css">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
@@ -761,9 +758,10 @@ session_start();
 <!--Configuración del temporizador-->
 <script src="dist/js/pages/md-restabl-temporizador.js"></script>
 
-<!-- Script glider -->
-<script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.3/glider.min.js"></script>
+
 <script src="dist/js/pages/galeria.js"></script>
+
+
 
 
 <script>
