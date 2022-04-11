@@ -6,6 +6,36 @@ $user = new User();
 
 if(isset($_GET['op'])){
 
+  //Listar usuario por correo
+  if($_GET['op'] == 'loginUser'){
+    $response = [];
+    //error_reporting(0);
+    try {
+      $data = $user->loginUser(["email" => $_GET['email']]);
+      if ($data) {
+        $clave = isset($_GET["clave"]) ? $_GET["clave"]: null;
+        $clavefuerte = $data[0]["clave"];
+        if (password_verify($clave, $clavefuerte)) {
+          $response['message'] = 'Acceso permitido';
+          // Establecer variables de sesión (opcional)
+        } else {
+          throw new Exception("La contraseña es incorrecta", 1);
+        }
+      } else {
+        throw new Exception("El usuario no existe", 1);
+      }
+      $response['status'] = 200;
+    } catch (Exception $e) {
+      $response['status'] = 400;
+      $response['message'] = $e -> getMessage();
+    } finally {
+      http_response_code($response['status']);
+      echo json_encode($response);
+    }
+  }
+
+
+
   // generar estructura HTML listando todos los usuarios
   function loadAllDataTable($data){
 
@@ -134,5 +164,8 @@ if(isset($_GET['op'])){
     $data = $user->getUsers();
     loadListUsers($data);
   }
+
+  
+
 }
 

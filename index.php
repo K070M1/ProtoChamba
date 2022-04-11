@@ -859,6 +859,31 @@ session_start();
 
       slclstDepartm();
     /*./Registrar usuario */
+
+
+    /* Verificar correo y contraseña */
+    $('#btn-login').click( function() {
+
+var email = $('#email').val();
+var clave = $('#clave').val();
+$.ajax({
+  url: 'controller/user.controller.php',
+  type: 'GET',
+  datatype: 'JSON',
+  data: {
+    'op': 'loginUser'
+    'email': email,
+    'clave': clave
+  },
+  success: res => {
+    console.log(res);
+  },
+  error: e => {
+    console.log(e.responseJSON);
+  }
+})
+})
+
   });
 </script>
 </body>
