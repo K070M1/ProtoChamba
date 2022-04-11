@@ -297,6 +297,13 @@ BEGIN
 END $$
 
 
+-- OBTENER DATOS DE LOS ESTABLECIMIENTOS
+DELIMITER $$
+CREATE PROCEDURE spu_establecimientos_getAll()
+BEGIN
+	SELECT * FROM establecimientos;
+END $$
+
 -- =============================================================================================================
 -- TABLA ALBUNES
 -- -------------------------------------------------------------------------------------------------------------==

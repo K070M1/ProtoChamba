@@ -43,6 +43,15 @@ class Establishment extends ModelMaster{
     }
   }
 
+  // Listar todos los establecimientos
+  public function getEstablishments(array $data) {
+    try {
+      return parent::execProcedure($data, "spu_establecimientos_getAll", true);
+    } catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Eliminar un establecimiento
   public function deleteEstablishment(array $data){
     try{
