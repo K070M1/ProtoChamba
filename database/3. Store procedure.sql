@@ -595,10 +595,10 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar()
 BEGIN
-   SELECT idespecialidad, idusuario, idservicio, descripcion
-      FROM especialidades
-      ORDER BY idespecialidad DESC;
+   SELECT * FROM vs_especialidades_listar;
 END $$
+
+CALL spu_especialidades_listar()
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)

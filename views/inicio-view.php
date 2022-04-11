@@ -39,7 +39,9 @@
        
             <div class="slider">
                 <div class="owl-carousel">
-                  
+                  <div class="caja">
+                    
+                  </div>
                 </div>
             </div>
    

@@ -48,12 +48,15 @@ CREATE VIEW vs_usuarios_listar AS
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_especialidades_listar AS 
-	SELECT 	ESP.`idespecialidad`, SRV.`idservicio`, SRV.`nombreservicio`,
-					ESP.`descripcion`, ESP.`tarifa`, ESP.`idusuario`  
+	SELECT 	ESP.`idespecialidad`, USU.idusuario,CONCAT (PERS.`nombres` , ' ' , PERS.apellidos) AS 'datosusuario' , SRV.`nombreservicio`,PERS.telefono,USU.email
 		FROM especialidades ESP
-		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio;
+		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio
+		INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
+		GROUP BY USU.idusuario
 	
 	
+
 -- =============================================================================================================
 -- VISTA DE USUARIOS RELACIONADO CON LA VISTA DE ESPECIALIDADES
 -- -------------------------------------------------------------------------------------------------------------
