@@ -50,7 +50,22 @@ BEGIN
 	
 	INSERT INTO personas (iddistrito, apellidos, nombres, fechanac, telefono, tipocalle, nombrecalle, numerocalle, pisodepa)
 		VALUES (_iddistrito, _apellidos, _nombres, _fechanac, _telefono, _tipocalle, _nombrecalle, _numerocalle, _pisodepa);
+		
+	SELECT LAST_INSERT_ID();
 END $$
+
+CALL spu_personas_registrar('010101', 'Valentin Capan', 'Josefino', '2000-03-12','51957689057','AV','Luciernagas','','');
+
+-- VERIFICAR EXISTENCIA DE UN EMAIL
+DELIMITER $$
+CREATE PROCEDURE spu_email_verifi
+(
+	IN _email VARCHAR(70)
+)
+BEGIN
+	SELECT COUNT(*) FROM usuarios WHERE email = _email;
+END $$
+
 
 
 -- MODIFICAR PERSONA -- 
@@ -118,36 +133,10 @@ CREATE PROCEDURE spu_usuarios_registrar
 BEGIN
 	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
 	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+	IF _horarioatencion = '' THEN SET _horarioatencion = NULL; END IF;
 
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
-END $$
-
--- REGISTRO DE USUARIO Y PERSONA AL MISMO TIEMPO
-DELIMITER $$
-CREATE PROCEDURE spu_usuarios_reg_per
-(
-	IN _apellidos 			VARCHAR(40),
-	IN _nombres				VARCHAR(40),
-	IN _fechanac			DATE,
-	IN _telefono			CHAR(11),
-	IN _tipocalle 			CHAR(2),	
-	IN _nombrecalle 		VARCHAR(60),
-	IN _numerocalle 		VARCHAR(5),
-	IN _pisodepa  			VARCHAR(5),
-	IN _descripcion 		MEDIUMTEXT,
-	IN _horarioatencion 	VARCHAR(80),
-	IN _email				VARCHAR(70),
-	IN _emailrespaldo		VARCHAR(70),
-	IN _clave	 			VARCHAR(80)
-)
-BEGIN
-	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
-	IF _numerocalle = ''  THEN SET _numerocalle  = NULL; END IF;
-	IF _pisodepa = '' THEN SET _pisodepa = NULL; END IF;
-	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
-	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
-	
 END $$
 
 -- EDITAR ROL DEL USUARIO (A -> ADMIN, U -> USUARIO)

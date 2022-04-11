@@ -514,7 +514,7 @@ session_start();
               </div>
               <div class="col-sm-6">
                 <label for="inTelef">Telefono:</label>
-                <input type="tel" class="form-control form-control-border" id="inTelef"  placeholder="Telefono">
+                <input type="tel" class="form-control form-control-border" id="inTelef"  placeholder="Telefono" maxlength="11">
               </div>
             </div>
             <div class="form-group row">
@@ -540,8 +540,28 @@ session_start();
             </div>
             <div class="form-group row">
               <div class="col-sm-12">
-                <label for="inDirecc">Dirección:</label>
-                <input type="text" class="form-control form-control-border" id="inDirecc"  placeholder="Direccion">
+                <label >Dirección:</label>
+                <div class="form-group row">
+                  <div class="col-md-2">
+                    <Select class="custom-select form-control-border" id="inTipoC">
+                      <option value="AV">AV</option>
+                      <option value="CA">CA</option>
+                      <option value="JR">JR</option>
+                      <option value="PJ">PJ</option>
+                      <option value="UR">UR</option>
+                      <option value="LT">LT</option>
+                    </Select>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="inNCalle">
+                  </div>
+                  <div class="col-md-2">
+                    <input type="number" class="form-control form-control-border" placeholder="N°" id="inNC" maxlength="5">
+                  </div>
+                  <div class="col-md-2">
+                    <input type="number" class="form-control form-control-border" placeholder="Piso" id="inPiso" maxlength="5">
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group row">
@@ -766,7 +786,6 @@ session_start();
 <script src="dist/js/pages/ap.js"></script>
 
 
-
 <script>
   $(document).ready(function (){
     
@@ -783,10 +802,10 @@ session_start();
       //$(".nav-link.active + .nav-treeview").removeClass('d-none');
     });
 
-    $("#btn-regist-opn").click(function(){
+    /*$("#btn-regist-opn").click(function(){
       $("#modal-perfil-img").modal('toggle');
       $("#modalRegister").modal('hide');
-    });
+    });*/
 
     $("#btn-omt-prf").click(function(){
       $("#modal-perfil-img").modal('hide');
@@ -858,8 +877,50 @@ session_start();
         });
       });
 
+      //Registrarse
+      function registerUser(){
 
+        var formData = new FormData();
 
+        let apellidos = $("#inApellidos").val();
+        let nombres = $("#inNombres").val();
+        let fechanac = $("#inFechaNac").val();
+        let telefono = $("#inTelef").val();
+        let iddistrito = $("#slcDistrReg").val();
+        let tipocalle = $("#inTipoC").val();
+        let nombrecalle = $("#inNCalle").val();
+        let numerocalle = $("#inNC").val();
+        let pisodepa = $("#inPiso").val();
+        let email = $("#inCorreoE").val();
+        let clave = $("#inPass1").val();
+
+        formData.append("op", "registerUser");
+        formData.append("apellidos", apellidos);
+        formData.append("nombres", nombres);
+        formData.append("fechanac", fechanac);
+        formData.append("telefono", telefono);
+        formData.append("iddistrito", iddistrito);
+        formData.append("tipocalle", tipocalle);
+        formData.append("nombrecalle", nombrecalle);
+        formData.append("numerocalle", numerocalle);
+        formData.append("pisodepa", pisodepa);
+        formData.append("email", email);
+        formData.append("clave", clave);
+
+        $.ajax({
+          url: 'controller/user.controller.php',
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          cache: false,
+          success: function(e){
+            console.log(e);
+          }
+        });
+      }
+
+      $("#btn-regist-opn").click(registerUser);
       slclstDepartm();
     /*./Registrar usuario */
   });

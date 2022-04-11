@@ -1,8 +1,10 @@
 <?php
 
 require_once '../model/User.php';
+require_once '../model/Person.php';
 // Objeto user
 $user = new User();
+$person  = new Person();
 
 if(isset($_GET['op'])){
 
@@ -134,5 +136,56 @@ if(isset($_GET['op'])){
     $data = $user->getUsers();
     loadListUsers($data);
   }
+
+  if($_GET['op'] == 'EmailVerifi'){
+    $data = $user->getEmailV(["email" => $_GET['email']]);
+    if($data == 0){
+      echo "permitido";
+    }else{
+      echo "No permitido";
+    }
+  }
+
+}
+
+if(isset($_POST['op'])){
+
+  //Registrar usuario
+  if($_POST['op'] == 'registerUser'){
+
+    $emailverifi = $user->getEmailV(["email" => $_POST['email']]);
+
+    if($emailverifi == 0){
+      $datosIngresados = [
+        "iddistrito" => $_POST['iddistrito'],
+        "apellidos"  => $_POST['apellidos'],
+        "nombres"    => $_POST['nombres'],
+        "fechanac"   => $_POST['fechanac'],
+        "telefono"   => $_POST['telefono'],
+        "tipocalle"  => $_POST['tipocalle'],
+        "nombrecalle" => $_POST['nombrecalle'],
+        "numerocalle" => $_POST['numerocalle'],
+        "pisodepa"    => $_POST['pisodepa']
+      ];
+  
+      $idperson = $person->registerPerson($datosIngresados);
+
+      $datosRegistrar = [
+        "idpersona"       => $idperson,
+        "descripcion"     => " ",
+        "horarioatencion" => " ",
+        "email"           => $_POST['email'],
+        "emailrespaldo"   => " ",
+        "clave"           => password_hash($_POST['clave'], PASSWORD_BCRYPT)
+      ];
+      
+      $user->registerUser($datosRegistrar);
+      echo "Correct";
+    }else{
+      echo ".";
+    }
+
+  }
+
 }
 

@@ -113,6 +113,16 @@ class User extends ModelMaster{
       die($error->getMessage());
     }
   }
+
+  //Verificacion de existencia de correo
+  public function getEmailV(array $data){
+    try{
+      return parent::execProcedurePerso($data,"spu_email_verifi");
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
 }
 
 

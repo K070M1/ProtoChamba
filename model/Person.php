@@ -6,7 +6,7 @@ class Person extends ModelMaster{
   // Registrar persona
   public function registerPerson(array $data){
     try{
-      parent::execProcedure($data, "spu_personas_registrar", false);
+      return parent::execProcedurePerso($data, "spu_personas_registrar");
     }
     catch(Exception $error){
       die($error->getMessage());
