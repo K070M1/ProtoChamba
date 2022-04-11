@@ -1,36 +1,161 @@
 <!-- videojs -->
 <link rel="stylesheet" href="plugins/video-js/video.min.css">
 <link rel="stylesheet" href="dist/css/pages/style-video.css">
-<!-- styles -->
+<!-- styles propios -->
 <link rel="stylesheet" href="dist/css/pages/service-qualification.css" />
 <link rel="stylesheet" href="dist/css/uploadFile.css">
+<!-- Carousel -->
+<link rel="stylesheet" href="plugins/owl-carousel/css/owl.carousel.min.css">
+<link rel="stylesheet" href="plugins/owl-carousel/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="dist/css/carousel-owl.css">
 
 <!-- SCRIPTS -->
-<!-- video viewer -->
+<!-- video js -->
 <script src="plugins/video-js/video.min.js"></script>
-<!-- Demos -->
+<!-- scripts propios -->
 <script src="dist/js/pages/demo-service-qualification.js"></script>
 <script src="dist/js/uploadFile.js"></script>
-<script src="dist/js/videoReader.js"></script>
+<!-- owl carousel -->
+<script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
+<script src="dist/js/config.owl.carousel.js"></script>
 
 <!-- Contenidos -->
 <div class="container-services row">
   <!-- Recomendados -->
-  <div class="content-filter-recommended col-lg-4 col-md-4 col-sm-12 col-xs-12">
-    <div class="container-cards">
-      <div class="card card-outline card-primary">
+  <div class="content-recommended col-md-12 mb-2">
+    <div class="container-cards owl-carousel">
+
+      <!-- Card 1 -->
+      <div class="card">
         <div class="card-header">
-          <a href="#" class="profile-user">
-            <img class="imng-circle" src="dist/img/avatar4.png" />
-          </a>
-          <!-- <span class="level">Intermedio</span> -->
+          <div class="box-left">
+            <img src="dist/img/avatar2.png">
+          </div>
+          <!-- /. box left -->
+          <div class="box-right">
+            <div class="icons">
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <!-- /. icons -->
+            <div class="name-user">
+              <h5>Augusto Belardez Santiago</h5>
+            </div>
+            <div class="services">
+              <h6>Electricista</h6>
+            </div>
+          </div>
+          <!-- /.box right -->
+        </div>
+        <div class="card-body">
+          <div class="contacts">
+            <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
+            <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+            <a href="#"><i class="fab fa-instagram"></i></a>     
+            <a href="#"><i class="fab fa-whatsapp"></i></a>     
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+          </div>
         </div>
       </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="box-left">
+            <img src="dist/img/avatar2.png">
+          </div>
+          <!-- /. box left -->
+          <div class="box-right">
+            <div class="icons">
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <!-- /. icons -->
+            <div class="name-user">
+              <h5>Augusto Belardez Santiago</h5>
+            </div>
+            <div class="services">
+              <h6>Electricista</h6>
+            </div>
+          </div>
+          <!-- /.box right -->
+        </div>
+        <div class="card-body">
+          <div class="contacts">
+            <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
+            <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+            <a href="#"><i class="fab fa-instagram"></i></a>     
+            <a href="#"><i class="fab fa-whatsapp"></i></a>     
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="box-left">
+            <img src="dist/img/avatar2.png">
+          </div>
+          <!-- /. box left -->
+          <div class="box-right">
+            <div class="icons">
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <!-- /. icons -->
+            <div class="name-user">
+              <h5>Augusto Belardez Santiago</h5>
+            </div>
+            <div class="services">
+              <h6>Electricista</h6>
+            </div>
+          </div>
+          <!-- /.box right -->
+        </div>
+        <div class="card-body">
+          <div class="contacts">
+            <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
+            <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+            <a href="#"><i class="fab fa-instagram"></i></a>     
+            <a href="#"><i class="fab fa-whatsapp"></i></a>     
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
 
   <!-- Publicaciones de servicios -->
-  <div class="content-service col-lg-8 col-md-12 col-sm-12 col-xs-12 col-auto">
+  <div class="content-service col-md-12">
 
     <!-- Agregar publicación -->
     <div class="content-haeder">
@@ -49,6 +174,7 @@
       </div>
     </div>
 
+    <!-- Contenido de las publicaciones -->
     <div class="content-data-publication">
       <!-- Servicio 1 -->
       <div class="target-service card">
@@ -122,11 +248,11 @@
           <!-- menu (comentarios, calificaciones) -->
           <div class="option-menu">
             <ul>
-              <li id="btn-collapse1"><a href="#comentario1" data-toggle="collapse" role="button" aria-expanded="false"><span>25</span> Comentarios</a></li>
+              <li class="open-comments"><a href="javascript:void(0)"><span>25</span> Comentarios</a></li>
               <li class="qualify">
                 <a href="javascript:void(0)">Reacciones</a>
                 <!-- Reacciones -->
-                <div class="reacciones" id="reacciones">
+                <div class="content-reactions-qualify">
                   <div class="reactions">
                     <span data-code="1"><i class="fa fa-star"></i></span>
                     <span data-code="2"><i class="fa fa-star"></i></span>
@@ -135,7 +261,7 @@
                     <span data-code="5"><i class="fa fa-star"></i></span>
                   </div>
   
-                  <span class="number-points">5 puntos</span> 
+                  <span class="number-points">0 punto</span> 
                 </div>
               </li>
             </ul>
@@ -143,7 +269,7 @@
           <!-- /. menu (comentarios, calificaciones) -->
   
           <!-- Contenido de los comentarios -->
-          <div class="content-comments collapse" id="comentario1">
+          <div class="content-comments collapse">
             <!-- Comentario 1 -->
             <div class="box-comment">
               <img src="dist/img/avatar2.png" alt="" />
@@ -210,9 +336,9 @@
           <div class="write-comment">
             <img src="dist/img/avatar5.png" alt="" />
             <div class="text-auto-height">
-              <div class="text-input-auto contenteditable" id="text-input-1"  contenteditable="true" maxlength="250"> </div>
+              <div class="text-input-auto contenteditable write-text-comment"  contenteditable="true" maxlength="250"> </div>
             </div>
-            <button type="button" class="btn btn-primary" id="btn-send-1">
+            <button type="button" class="btn btn-primary btn-send">
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>
@@ -281,11 +407,11 @@
         <div class="target-footer card-footer">
           <div class="option-menu">
             <ul>
-              <li id="btn-collapse1"><a href="#comentario1" data-toggle="collapse" role="button" aria-expanded="false"><span>25</span> Comentarios</a></li>
+              <li class="open-comments"><a href="javascript:void(0)"><span>25</span> Comentarios</a></li>
               <li class="qualify">
                 <a href="javascript:void(0)">Reacciones</a>
                 <!-- Reacciones -->
-                <div class="reacciones" id="reacciones">
+                <div class="content-reactions-qualify">
                   <div class="reactions">
                     <span data-code="1"><i class="fa fa-star"></i></span>
                     <span data-code="2"><i class="fa fa-star"></i></span>
@@ -300,7 +426,7 @@
             </ul>
           </div>
   
-          <div class="content-comments collapse" id="comentario1">
+          <div class="content-comments collapse">
             <!-- Comentario 1 -->
             <div class="box-comment">
               <img src="dist/img/avatar2.png" alt="" />
@@ -363,9 +489,9 @@
           <div class="write-comment">
             <img src="dist/img/avatar5.png" alt="" />
             <div class="text-auto-height">
-              <div class="text-input-auto contenteditable" id="text-input-1" contenteditable="true" maxlength="250" > </div>
+              <div class="text-input-auto contenteditable write-text-comment" contenteditable="true" maxlength="250" > </div>
             </div>
-            <button type="button" class="btn btn-primary" id="btn-send-1">
+            <button type="button" class="btn btn-primary btn-send">
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>
@@ -463,7 +589,6 @@
   </div>
 </div>
 
-
 <!-- Modal REPORTAR-->
 <div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="Modal reporte" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -510,232 +635,5 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function(){
-
-    // Varaibles
-    // Contador de imagenes
-    var cont = 0;
-
-    // Mostrar el menu de ellipsis por cada trabajo publicado
-    $(".btn-show-config").click(function(){
-      //$(".btn-show-config").next("ul.list-public-config").hide();
-      $(this).next("ul.list-public-config").toggle();
-
-    });
-
-    // Convierte la etiqueta P en una sección editable 
-    $('.edit-comment').click(function(){
-      var isEditable = $(this).prev('p.comment-text').attr('contenteditable', true);
-
-      // habilitar botones
-      $(this).next('.cancel-edit-comment').removeClass('d-none');
-      $(this).next('.cancel-edit-comment').next('.delete-comment').addClass('d-none');
-      $(this).html('Actualizar');
-    });
-
-    // Cancela la edición del comentario
-    $('.cancel-edit-comment').click(function(){
-      $(this).prevAll('p.comment-text').attr('contenteditable', false);
-      //$(this).prev('p.comment-text').removeAttr('contenteditable');
-
-      // habilitar botones
-      $(this).next('.delete-comment').removeClass('d-none');
-      $(this).addClass('d-none');
-      $(this).prev('.edit-comment').html('Editar');
-    });
-
-   
-    // Cargar imagenes
-    // Abrir el inspector de archivos
-    $(document).on("click", "#add-file", function(){
-      cont = 0;
-      $("#input-new-image").click();
-    });
-    // -> Abrir el inspector de archivos
-
-    // Cachamos el evento change
-    $(document).on("change", "#input-new-image", function (event) {
-    
-        //console.log(this.files);
-        var max = $(this).attr('max');
-        var files = this.files;
-        var element;
-        var supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
-        var isValid = true;
-        
-        if(files.length > max){
-          alert("Se excedio el maximo de archivo permitido");
-        }
-        else{
-
-          // recorre y mostrar los archivos subidos
-          for (var i = 0; i < files.length && cont <= 4; i++) {
-            element = files[i];
-            
-            if (supportedImages.indexOf(element.type) != -1) {
-              createPreviewImages(element);
-
-              cont = $(".image-new").toArray().length; // actualizar valor del contador
-              if(cont >= 5){
-                $("#content-load-file").hide();
-              }
-            }
-            else {
-              isValid = false;
-            }          
-          }
-          console.log(cont);
-        }
-
-        if(!isValid){
-          alert("1 Archivo no permitido");
-        }
-    });
-
-    // Subir video 
-    
-    // Eliminar previsualizaciones
-    $(document).on("click", ".image-new", function(e){
-        //$(this).parent().remove();
-        $(this).remove();
-        cont--;
-        if(cont < 5){
-          $("#content-load-file").show();
-        }
-    });
-    // fin cargar imagenes
-
-
-    // cargar video
-    $("#btn-add-video").click(function(){
-      $("#input-new-video").click();
-    });
-
-    // Evento change de subir video
-    $("#input-new-video").change(function (event){
-      let videoSrc = document.querySelector("#video-source");
-
-      // Obtener el tamaño del archivo subido
-      var sizeByte = event.target.files[0].size;
-      var sizeKilobyte = parseInt(sizeByte / 1024);
-      var sizeMegabyte = parseInt(sizeKilobyte / 1024);
-
-      // Valor del atributo size
-      var valueSize = $(this).attr("size");
-
-      // Iniciar en 0
-      var percentLoad = 0;
-      $("#label-video-size").html('0 MB');
-      $("#label-video-maxsize").html("  (" +valueSize + " MB)");
-      $(".progress .progress-bar").html('0 %');
-      $(".progress .progress-bar").addClass("progress-bar-animated").addClass("progress-bar-striped");
-
-      // Validar tamaño del archivo
-      if(valueSize < sizeMegabyte){
-        alert("Supera el tamaño maximo permitido (" + valueSize + " MB)");
-      }
-      else{
-        // es aceptable
-        if (event.target.files && event.target.files[0]) {
-          var reader = new FileReader();      // instancia Objeto reader
-          var file = event.target.files[0];   // leer el video subido
-  
-          reader.onload = function(e) {
-            videoSrc.src = e.target.result
-            videoSrc.parentElement.load()
-          }.bind(this)
-  
-          // Leer el contenido de file
-          reader.readAsDataURL(file);
-
-          // progreso de carga
-          reader.onprogress = function(e){
-            percentLoad = Number.parseInt(e.loaded * 100 / e.total); // calculando porcentaje
-            $(".progress .progress-bar").html('Cargando...' +percentLoad + ' %');
-            $(".progress .progress-bar").css('width', percentLoad + '%');
-          }
-          
-          // carga completa
-          reader.onloadend = function(e){
-            $("#label-video-size").html(sizeMegabyte + ' MB');
-            $("#label-video-maxsize").html("  (" +valueSize + " MB)");
-            $(".progress .progress-bar").html('Carga completa ' + percentLoad + ' %');
-            $(".progress .progress-bar").removeClass("progress-bar-animated").removeClass("progress-bar-striped");
-          }
-        }
-      }
-    });
-
-    // Eliminar video
-    $("#btn-delete-video").click(function(){
-      let videoSrc = document.querySelector("#video-source");
-      videoSrc.src = '';
-      videoSrc.parentElement.load();
-      $("#input-new-video").val('');
-      //document.getElementById('form-upload-file').reset();
-    });
-    // Fin cargar video
-
-    // Bloquear el maximo de escritura en el comentario de tipo contenteditable
-    $(".contenteditable").keypress(function (event) {
-      var maxlength = $(this).attr('maxlength');
-
-      //var dom = document.createElement('p');
-      //$(this).append("<p class='text-danger'>No exceder de 250 carateres</p>");
-      //$(this).after("<p>Hello world!</p>");
-      //$(this).before("<p>Hello world!</p>");
-      //$(this).appendTo("p");
-      //$(this).clone().append("body");
-      
-      if ($(this).html().length == maxlength) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-
-    // Bloquear el pegar contenido dentro del contenteditable
-    $(".contenteditable").on('paste', function(e){
-      e.preventDefault();
-      //alert('Esta acción está prohibida');
-    })
-    
-    // Bloquear el copiar contenido dentro del contenteditable
-    $(".contenteditable").on('copy', function(e){
-      e.preventDefault();
-      alert('Esta acción está prohibida');
-    })
-
-    // Ocultar video
-    $("#container-video").hide();
-
-    // Mostrar Imagen
-    $("#btn-image").click(function(){
-      if($("#container-video").is(':visible')) $("#container-video").hide();
-      
-      if($("#container-images").is(':hidden')){
-        $("#container-images").show('slow');
-      }else{
-        $("#container-images").hide('slow');
-      }
-    });
-    
-    // Mostrar Video
-    $("#btn-video").click(function(){
-
-      if($("#container-images").is(':visible')) $("#container-images").hide();
-
-      if($("#container-video").is(':hidden')){
-        $("#container-video").show('slow');
-      }
-      else{
-        $("#container-video").hide('slow');
-      }
-    });
-    
-  });
-</script>
 
 
