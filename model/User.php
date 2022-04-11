@@ -16,7 +16,7 @@ class User extends ModelMaster{
   // Registrar usuario
   public function registerUser(array $data){
     try{
-      parent::execProcedure($data, "spu_usuarios_registrar", false);
+      return parent::execProcedurePerso($data, "spu_usuarios_registrar");
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -108,6 +108,16 @@ class User extends ModelMaster{
   public function usersFilteredByRlole(array $data){
     try{
       return parent::execProcedure($data, "spu_usuarios_filtrar_rol", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  //Verificacion de existencia de correo
+  public function getEmailV(array $data){
+    try{
+      return parent::execProcedurePerso($data,"spu_email_verifi");
     }
     catch(Exception $error){
       die($error->getMessage());

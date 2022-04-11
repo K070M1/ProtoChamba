@@ -1,10 +1,44 @@
 <?php
 
 require_once '../model/User.php';
+require_once '../model/Person.php';
+require_once '../model/Album.php';
 // Objeto user
 $user = new User();
+$person  = new Person();
+$album = new Album();
 
 if(isset($_GET['op'])){
+
+  //Listar usuario por correo
+  if($_GET['op'] == 'loginUser'){
+    $response = [];
+    //error_reporting(0);
+    try {
+      $data = $user->loginUser(["email" => $_GET['email']]);
+      if ($data) {
+        $clave = isset($_GET["clave"]) ? $_GET["clave"]: null;
+        $clavefuerte = $data[0]["clave"];
+        if (password_verify($clave, $clavefuerte)) {
+          $response['message'] = 'Acceso permitido';
+          // Establecer variables de sesión (opcional)
+        } else {
+          throw new Exception("La contraseña es incorrecta", 1);
+        }
+      } else {
+        throw new Exception("El usuario no existe", 1);
+      }
+      $response['status'] = 200;
+    } catch (Exception $e) {
+      $response['status'] = 400;
+      $response['message'] = $e -> getMessage();
+    } finally {
+      http_response_code($response['status']);
+      echo json_encode($response);
+    }
+  }
+
+
 
   // generar estructura HTML listando todos los usuarios
   function loadAllDataTable($data){
@@ -135,5 +169,58 @@ if(isset($_GET['op'])){
     $data = $user->getUsers();
     loadListUsers($data);
   }
+
+  if($_GET['op'] == 'EmailVerifi'){
+    $data = $user->getEmailV(["email" => $_GET['email']]);
+    if($data == 0){
+      echo "permitido";
+    }else{
+      echo "No permitido";
+    }
+  }
+
+}
+
+if(isset($_POST['op'])){
+
+  //Registrar usuario
+  if($_POST['op'] == 'registerUser'){
+
+    $emailverifi = $user->getEmailV(["email" => $_POST['email']]);
+
+    if($emailverifi == 0){
+      $datosIngresados = [
+        "iddistrito" => $_POST['iddistrito'],
+        "apellidos"  => $_POST['apellidos'],
+        "nombres"    => $_POST['nombres'],
+        "fechanac"   => $_POST['fechanac'],
+        "telefono"   => $_POST['telefono'],
+        "tipocalle"  => $_POST['tipocalle'],
+        "nombrecalle" => $_POST['nombrecalle'],
+        "numerocalle" => $_POST['numerocalle'],
+        "pisodepa"    => $_POST['pisodepa']
+      ];
+  
+      $idperson = $person->registerPerson($datosIngresados);
+
+      $datosRegistrar = [
+        "idpersona"       => $idperson,
+        "descripcion"     => " ",
+        "horarioatencion" => " ",
+        "email"           => $_POST['email'],
+        "emailrespaldo"   => " ",
+        "clave"           => password_hash($_POST['clave'], PASSWORD_BCRYPT)
+      ];
+      
+      $iduser = $user->registerUser($datosRegistrar);
+      
+      $album->registerAlbumDefault(["idusuario" => $iduser]);
+      echo "Correct";
+    }else{
+      echo ".";
+    }
+
+  }
+
 }
 

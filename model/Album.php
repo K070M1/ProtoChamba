@@ -53,6 +53,15 @@ class Album extends ModelMaster{
     }
   }
 
+  //Registro de albumes predeterminados
+  public function registerAlbumDefault(array $data){
+    try{
+      parent::execProcedurePerso($data, "spu_albumes_predeterminados");
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
 }
 
 ?>

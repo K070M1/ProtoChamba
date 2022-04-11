@@ -511,7 +511,7 @@ session_start();
               </div>
               <div class="col-sm-6">
                 <label for="inTelef">Telefono:</label>
-                <input type="tel" class="form-control form-control-border" id="inTelef"  placeholder="Telefono">
+                <input type="tel" class="form-control form-control-border" id="inTelef"  placeholder="Telefono" maxlength="11">
               </div>
             </div>
             <div class="form-group row">
@@ -537,8 +537,28 @@ session_start();
             </div>
             <div class="form-group row">
               <div class="col-sm-12">
-                <label for="inDirecc">Dirección:</label>
-                <input type="text" class="form-control form-control-border" id="inDirecc"  placeholder="Direccion">
+                <label >Dirección:</label>
+                <div class="form-group row">
+                  <div class="col-md-2">
+                    <Select class="custom-select form-control-border" id="inTipoC">
+                      <option value="AV">AV</option>
+                      <option value="CA">CA</option>
+                      <option value="JR">JR</option>
+                      <option value="PJ">PJ</option>
+                      <option value="UR">UR</option>
+                      <option value="LT">LT</option>
+                    </Select>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="inNCalle">
+                  </div>
+                  <div class="col-md-2">
+                    <input type="number" class="form-control form-control-border" placeholder="N°" id="inNC" maxlength="5">
+                  </div>
+                  <div class="col-md-2">
+                    <input type="number" class="form-control form-control-border" placeholder="Piso" id="inPiso" maxlength="5">
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group row">
@@ -629,8 +649,8 @@ session_start();
 <!--./Modal de preguntas de seguridad -->
 
 <!--Modales Restablecimiento de contraseña-->
-  <!-- Modal de restablecimiento primer paso -->
-    <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
+  <!-- Modal de restablecimiento tercer paso -->
+    <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body m-res">
@@ -646,16 +666,16 @@ session_start();
               <p>Se enviará un código de verificación temporal al correo indicado</p>
             </div>
           <div id="btn-gen-res">
-            <button type="button"  class="btn btn-secondary"  id="btnRes1">Generar Código</button>
+            <button type="button"  class="btn btn-secondary"  id="btnRes3">Generar Código</button>
           </div>
             </div>
           </div>
         </div>
     </div>
-  <!--./Modal de restablecimiento primer paso -->
+  <!--./Modal de restablecimiento tercer paso -->
 
-  <!---Modal de restablecimiento segundo paso-->
-    <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
+  <!---Modal de restablecimiento cuarto paso-->
+    <div class="modal fade" id="modal-res-contra4" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body m-res">
@@ -678,16 +698,16 @@ session_start();
               </div>
             </form>
             <div id="btn-gen-res">
-              <button type="button"  class="btn btn-secondary" id="btnRes2">Validar</button>
+              <button type="button"  class="btn btn-secondary" id="btnRes4">Validar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <!---./Modal de restablecimiento segundo paso-->
+  <!---./Modal de restablecimiento cuarto paso-->
 
-  <!-- Modal de restablecimiento tercer paso -->
-    <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
+  <!-- Modal de restablecimiento quinto paso -->
+    <div class="modal fade" id="modal-res-contra5" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body m-res">
@@ -717,13 +737,72 @@ session_start();
               </div>
             </form>
             <div id="btn-gen-res">
-              <button type="button"  class="btn btn-secondary" id="btnRes3">Crear contraseña</button>
+              <button type="button"  class="btn btn-secondary" id="btnRes5">Crear contraseña</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <!-- ./Modal de restablecimiento tercer paso -->
+  <!-- ./Modal de restablecimiento quinto paso -->
+    
+  <!-- Modal de restablecimiento primer paso -->
+    <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
+            <form id="form-horizontal">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="">Los procesos se enviarán a:</label>
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+              <a href="#" data-toggle="modal" data-target="#modal-res-contra2" >!No tengo acceso a este correo...!</a>
+            </form>
+            <div id="btn-gen-res">
+              <button type="button"  class="btn btn-secondary" id="btnRes1">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--./Modal de restablecimiento primer paso -->
+
+
+  <!-- Modal de restablecimiento segundo paso -->
+    <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
+            <form id="form-horizontal">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="">Los procesas han sido cambiados al email:</label>
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+            </form>
+            <div id="btn-gen-res">
+              <button type="button"  class="btn btn-secondary" id="btnRes2">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--./Modal de restablecimiento segundo paso -->
+
 <!--./Modales Restablecimiento de contraseña-->
 
 <!-- REQUIRED SCRIPTS -->
@@ -763,7 +842,6 @@ session_start();
 
 
 
-
 <script>
   $(document).ready(function (){
     
@@ -780,10 +858,10 @@ session_start();
       //$(".nav-link.active + .nav-treeview").removeClass('d-none');
     });
 
-    $("#btn-regist-opn").click(function(){
+    /*$("#btn-regist-opn").click(function(){
       $("#modal-perfil-img").modal('toggle');
       $("#modalRegister").modal('hide');
-    });
+    });*/
 
     $("#btn-omt-prf").click(function(){
       $("#modal-perfil-img").modal('hide');
@@ -792,7 +870,7 @@ session_start();
     /* Movimiento entre modales */
     $("#btnRes1").click(function(){
       $("#modal-res-contra1").modal("hide");
-      $("#modal-res-contra2").modal("toggle");
+      $("#modal-res-contra3").modal("toggle");
     });
 
     $("#btnRes2").click(function(){
@@ -802,11 +880,21 @@ session_start();
 
     $("#btnRes3").click(function(){
       $("#modal-res-contra3").modal("hide");
+      $("#modal-res-contra4").modal("toggle");
+    });
+
+    $("#btnRes4").click(function(){
+      $("#modal-res-contra4").modal("hide");
+      $("#modal-res-contra5").modal("toggle");
+    });
+
+    $("#btnRes5").click(function(){
+      $("#modal-res-contra5").modal("hide");
     });
     /* ./Movimiento entre modales */
 
     /*Temporizador*/
-    $("#btnRes1").click(function(){
+    $("#btnRes3").click(function(){
       startTimer();
     });
     /*./Temporizador */
@@ -855,10 +943,77 @@ session_start();
         });
       });
 
+      //Registrarse
+      function registerUser(){
 
+        var formData = new FormData();
 
+        let apellidos = $("#inApellidos").val();
+        let nombres = $("#inNombres").val();
+        let fechanac = $("#inFechaNac").val();
+        let telefono = $("#inTelef").val();
+        let iddistrito = $("#slcDistrReg").val();
+        let tipocalle = $("#inTipoC").val();
+        let nombrecalle = $("#inNCalle").val();
+        let numerocalle = $("#inNC").val();
+        let pisodepa = $("#inPiso").val();
+        let email = $("#inCorreoE").val();
+        let clave = $("#inPass1").val();
+
+        formData.append("op", "registerUser");
+        formData.append("apellidos", apellidos);
+        formData.append("nombres", nombres);
+        formData.append("fechanac", fechanac);
+        formData.append("telefono", telefono);
+        formData.append("iddistrito", iddistrito);
+        formData.append("tipocalle", tipocalle);
+        formData.append("nombrecalle", nombrecalle);
+        formData.append("numerocalle", numerocalle);
+        formData.append("pisodepa", pisodepa);
+        formData.append("email", email);
+        formData.append("clave", clave);
+
+        $.ajax({
+          url: 'controller/user.controller.php',
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          cache: false,
+          success: function(e){
+            console.log(e);
+          }
+        });
+      }
+
+      $("#btn-regist-opn").click(registerUser);
       slclstDepartm();
     /*./Registrar usuario */
+
+
+    /* Verificar correo y contraseña */
+    $('#btn-login').click( function() {
+
+var email = $('#email').val();
+var clave = $('#clave').val();
+$.ajax({
+  url: 'controller/user.controller.php',
+  type: 'GET',
+  datatype: 'JSON',
+  data: {
+    'op': 'loginUser'
+    'email': email,
+    'clave': clave
+  },
+  success: res => {
+    console.log(res);
+  },
+  error: e => {
+    console.log(e.responseJSON);
+  }
+})
+})
+
   });
 </script>
 </body>

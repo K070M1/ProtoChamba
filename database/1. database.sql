@@ -72,8 +72,7 @@ CREATE TABLE usuarios
 
 
 /*Fotografia de usuarios*/
- ALTER TABLE usuarios
-  ADD fotografiausu VARCHAR(100) 	NULL;
+ ALTER TABLE usuarios MODIFY COLUMN horarioatencion VARCHAR(80) NULL;
   
   SELECT * FROM usuarios;
 
