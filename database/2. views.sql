@@ -60,16 +60,16 @@ CREATE VIEW vs_especialidades_listar AS
 -- =============================================================================================================
 -- VISTA DE USUARIOS RELACIONADO CON LA VISTA DE ESPECIALIDADES
 -- -------------------------------------------------------------------------------------------------------------
-CREATE VIEW vs_usuarios_servicio AS
-	SELECT DISTINCT VUL.idusuario, VUL.idpersona, VUL.apellidos, VUL.nombres,
-					VUL.iddepartamento, VUL.departamento, VUL.idprovincia,VUL.provincia, 
-					VUL.iddistrito, VUL.distrito, VUL.direccion, VUL.descripcion, 
-					VUL.horarioatencion, VUL.email, VUL.idestablecimiento, VUL.establecimiento, 
-					VUL.ruc, VUL.ubicacion, VUL.referencia, VUL.latitud, VUL.longitud, 
-					VEL.idservicio, VEL.nombreservicio
+-- CREATE VIEW vs_usuarios_servicio AS
+	-- SELECT DISTINCT VUL.idusuario, VUL.idpersona, VUL.apellidos, VUL.nombres,
+					-- VUL.iddepartamento, VUL.departamento, VUL.idprovincia,VUL.provincia, 
+					-- VUL.iddistrito, VUL.distrito, VUL.direccion, VUL.descripcion, 
+					-- VUL.horarioatencion, VUL.email, VUL.idestablecimiento, VUL.establecimiento, 
+					-- VUL.ruc, VUL.ubicacion, VUL.referencia, VUL.latitud, VUL.longitud, 
+					-- VEL.idservicio, VEL.nombreservicio
 					-- VEL.idespecialidad, VEL.descripcion as 'especialidad', VEL.idservicio, VEL.nombreservicio
-		FROM vs_usuarios_listar VUL
-		INNER JOIN vs_especialidades_listar VEL ON VEL.idusuario = VUL.idusuario;
+		-- FROM vs_usuarios_listar VUL
+		-- INNER JOIN vs_especialidades_listar VEL ON VEL.idusuario = VUL.idusuario;
 	
 -- =============================================================================================================
 -- VISTA DE GALERIAS Y ALBUNES
