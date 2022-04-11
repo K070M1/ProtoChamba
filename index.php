@@ -1001,7 +1001,7 @@ $.ajax({
   type: 'GET',
   datatype: 'JSON',
   data: {
-    'op': 'loginUser'
+    'op': 'loginUser',
     'email': email,
     'clave': clave
   },
