@@ -24,7 +24,7 @@ if(isset($_GET['op'])){
               <img src='dist/img/default_profile_avatar.svg' alt='Product 1' class='img-circle img-size-32 mr-2'>
             </td>
             <td>{$row->nombres} {$row->apellidos}</td>
-            <td>{$row->fechaalta}</td>
+            <td>{$row->fechaalta}</td>  
             <td align='center'>
               <div class='custom-control custom-switch'>
                 <input type='checkbox' class='custom-control-input' id='customSwitch-" . $row->idusuario. "' {$isAdmin}>
@@ -115,6 +115,7 @@ if(isset($_GET['op'])){
   if($_GET['op'] == 'getUsers'){
     $data = $user->getUsers();
     loadAllDataTable($data);
+    
   }
 
   // Listrar por rol de usuario
