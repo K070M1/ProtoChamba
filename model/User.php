@@ -16,7 +16,7 @@ class User extends ModelMaster{
   // Registrar usuario
   public function registerUser(array $data){
     try{
-      parent::execProcedure($data, "spu_usuarios_registrar", false);
+      return parent::execProcedurePerso($data, "spu_usuarios_registrar");
     }
     catch(Exception $error){
       die($error->getMessage());

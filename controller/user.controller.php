@@ -2,9 +2,11 @@
 
 require_once '../model/User.php';
 require_once '../model/Person.php';
+require_once '../model/Album.php';
 // Objeto user
 $user = new User();
 $person  = new Person();
+$album = new Album();
 
 if(isset($_GET['op'])){
 
@@ -179,7 +181,9 @@ if(isset($_POST['op'])){
         "clave"           => password_hash($_POST['clave'], PASSWORD_BCRYPT)
       ];
       
-      $user->registerUser($datosRegistrar);
+      $iduser = $user->registerUser($datosRegistrar);
+      
+      $album->registerAlbumDefault(["idusuario" => $iduser]);
       echo "Correct";
     }else{
       echo ".";

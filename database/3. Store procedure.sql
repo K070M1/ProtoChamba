@@ -137,7 +137,11 @@ BEGIN
 
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
+	
+	SELECT LAST_INSERT_ID();
 END $$
+
+CALL spu_usuarios_registrar(40,'','','SantosV@ssa','','12');
 
 -- EDITAR ROL DEL USUARIO (A -> ADMIN, U -> USUARIO)
 DELIMITER $$
@@ -296,6 +300,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
+CALL spu_albumes_listar_usuario()
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
 BEGIN
@@ -313,6 +318,22 @@ BEGIN
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, _nombrealbum);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_albumes_predeterminados
+(
+	IN _idusuario 	INT
+)
+BEGIN
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Perfil');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Portada');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Publicaciones');
+END $$
+
+CALL spu_albumes_predeterminados(18);
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_modificar

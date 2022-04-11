@@ -649,8 +649,8 @@ session_start();
 <!--./Modal de preguntas de seguridad -->
 
 <!--Modales Restablecimiento de contraseña-->
-  <!-- Modal de restablecimiento primer paso -->
-    <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
+  <!-- Modal de restablecimiento tercer paso -->
+    <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body m-res">
@@ -666,16 +666,16 @@ session_start();
               <p>Se enviará un código de verificación temporal al correo indicado</p>
             </div>
           <div id="btn-gen-res">
-            <button type="button"  class="btn btn-secondary"  id="btnRes1">Generar Código</button>
+            <button type="button"  class="btn btn-secondary"  id="btnRes3">Generar Código</button>
           </div>
             </div>
           </div>
         </div>
     </div>
-  <!--./Modal de restablecimiento primer paso -->
+  <!--./Modal de restablecimiento tercer paso -->
 
-  <!---Modal de restablecimiento segundo paso-->
-    <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
+  <!---Modal de restablecimiento cuarto paso-->
+    <div class="modal fade" id="modal-res-contra4" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body m-res">
@@ -698,16 +698,16 @@ session_start();
               </div>
             </form>
             <div id="btn-gen-res">
-              <button type="button"  class="btn btn-secondary" id="btnRes2">Validar</button>
+              <button type="button"  class="btn btn-secondary" id="btnRes4">Validar</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <!---./Modal de restablecimiento segundo paso-->
+  <!---./Modal de restablecimiento cuarto paso-->
 
-  <!-- Modal de restablecimiento tercer paso -->
-    <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
+  <!-- Modal de restablecimiento quinto paso -->
+    <div class="modal fade" id="modal-res-contra5" data-backdrop="static">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body m-res">
@@ -737,13 +737,72 @@ session_start();
               </div>
             </form>
             <div id="btn-gen-res">
-              <button type="button"  class="btn btn-secondary" id="btnRes3">Crear contraseña</button>
+              <button type="button"  class="btn btn-secondary" id="btnRes5">Crear contraseña</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  <!-- ./Modal de restablecimiento tercer paso -->
+  <!-- ./Modal de restablecimiento quinto paso -->
+    
+  <!-- Modal de restablecimiento primer paso -->
+    <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
+            <form id="form-horizontal">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="">Los procesos se enviarán a:</label>
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+              <a href="#" data-toggle="modal" data-target="#modal-res-contra2" >!No tengo acceso a este correo...!</a>
+            </form>
+            <div id="btn-gen-res">
+              <button type="button"  class="btn btn-secondary" id="btnRes1">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--./Modal de restablecimiento primer paso -->
+
+
+  <!-- Modal de restablecimiento segundo paso -->
+    <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body m-res">
+            <div id="back-icon">
+              <a href="#">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
+            <form id="form-horizontal">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label for="">Los procesas han sido cambiados al email:</label>
+                  <input type="password" class="form-control">
+                </div>
+              </div>
+            </form>
+            <div id="btn-gen-res">
+              <button type="button"  class="btn btn-secondary" id="btnRes2">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--./Modal de restablecimiento segundo paso -->
+
 <!--./Modales Restablecimiento de contraseña-->
 
 <!-- REQUIRED SCRIPTS -->
@@ -811,7 +870,7 @@ session_start();
     /* Movimiento entre modales */
     $("#btnRes1").click(function(){
       $("#modal-res-contra1").modal("hide");
-      $("#modal-res-contra2").modal("toggle");
+      $("#modal-res-contra3").modal("toggle");
     });
 
     $("#btnRes2").click(function(){
@@ -821,11 +880,21 @@ session_start();
 
     $("#btnRes3").click(function(){
       $("#modal-res-contra3").modal("hide");
+      $("#modal-res-contra4").modal("toggle");
+    });
+
+    $("#btnRes4").click(function(){
+      $("#modal-res-contra4").modal("hide");
+      $("#modal-res-contra5").modal("toggle");
+    });
+
+    $("#btnRes5").click(function(){
+      $("#modal-res-contra5").modal("hide");
     });
     /* ./Movimiento entre modales */
 
     /*Temporizador*/
-    $("#btnRes1").click(function(){
+    $("#btnRes3").click(function(){
       startTimer();
     });
     /*./Temporizador */
