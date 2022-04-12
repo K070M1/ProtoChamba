@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 //Sesion aperturada TRUE
 // if ($_SESSION['login'] == false){
 //   header('location:index.php');    

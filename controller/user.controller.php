@@ -11,7 +11,7 @@ $album = new Album();
 if(isset($_GET['op'])){
 
   //Listar usuario por correo
-  if($_GET['op'] == 'loginUser'){
+ /*  if($_GET['op'] == 'loginUser'){
     $response = [];
     //error_reporting(0);
     try {
@@ -36,7 +36,7 @@ if(isset($_GET['op'])){
       http_response_code($response['status']);
       echo json_encode($response);
     }
-  }
+  } */
 
 
 
