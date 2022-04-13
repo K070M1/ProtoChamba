@@ -1,7 +1,5 @@
 CREATE DATABASE REACTIVACION;
 
-USE paga_pe;
-
 SELECT * FROM usuarios;
 
 USE REACTIVACION;
@@ -48,8 +46,6 @@ CREATE TABLE personas
 	
 )ENGINE = INNODB;
 
-SELECT * FROM personas;
-
 CREATE TABLE usuarios
 (
 	idusuario 			INT AUTO_INCREMENT PRIMARY KEY,
@@ -69,12 +65,6 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_emailrespaldo UNIQUE(emailrespaldo),
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
-
-
-/*Fotografia de usuarios*/
- ALTER TABLE usuarios MODIFY COLUMN horarioatencion VARCHAR(80) NULL;
-  
-  SELECT * FROM usuarios;
 
 CREATE TABLE establecimientos
 (

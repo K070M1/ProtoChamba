@@ -54,7 +54,6 @@ BEGIN
 	SELECT LAST_INSERT_ID();
 END $$
 
-CALL spu_personas_registrar('010101', 'Valentin Capan', 'Josefino', '2000-03-12','51957689057','AV','Luciernagas','','');
 
 -- VERIFICAR EXISTENCIA DE UN EMAIL
 DELIMITER $$
@@ -141,7 +140,6 @@ BEGIN
 	SELECT LAST_INSERT_ID();
 END $$
 
-CALL spu_usuarios_registrar(40,'','','SantosV@ssa','','12');
 
 -- EDITAR ROL DEL USUARIO (A -> ADMIN, U -> USUARIO)
 DELIMITER $$
@@ -290,13 +288,6 @@ BEGIN
 END $$
 
 
--- OBTENER DATOS DE LOS ESTABLECIMIENTOS
-DELIMITER $$
-CREATE PROCEDURE spu_establecimientos_getAll()
-BEGIN
-	SELECT * FROM establecimientos;
-END $$
-
 -- =============================================================================================================
 -- TABLA ALBUNES
 -- -------------------------------------------------------------------------------------------------------------==
@@ -307,7 +298,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
-CALL spu_albumes_listar_usuario()
+call spu_albumes_listar_usuario(20)
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
 BEGIN
@@ -327,20 +318,20 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_albumes_predeterminados
+create PROCEDURE spu_albumes_predeterminados
 (
 	IN _idusuario 	INT
 )
-BEGIN
+begin
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, 'Perfil');
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, 'Portada');
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, 'Publicaciones');
-END $$
+end $$
 
-CALL spu_albumes_predeterminados(18);
+call spu_albumes_predeterminados(18);
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_modificar
