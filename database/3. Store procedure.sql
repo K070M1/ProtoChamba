@@ -15,7 +15,6 @@ BEGIN
 	SELECT * FROM provincias WHERE iddepartamento = _iddepartamento;
 END $$
 
-CALL spu_provincias_listar('01');
 
 DELIMITER $$
 CREATE PROCEDURE spu_distritos_listar(IN _idprovincia VARCHAR(4))
@@ -54,7 +53,6 @@ BEGIN
 	SELECT LAST_INSERT_ID();
 END $$
 
-CALL spu_personas_registrar('010101', 'Valentin Capan', 'Josefino', '2000-03-12','51957689057','AV','Luciernagas','','');
 
 -- VERIFICAR EXISTENCIA DE UN EMAIL
 DELIMITER $$
@@ -141,7 +139,6 @@ BEGIN
 	SELECT LAST_INSERT_ID();
 END $$
 
-CALL spu_usuarios_registrar(40,'','','SantosV@ssa','','12');
 
 -- EDITAR ROL DEL USUARIO (A -> ADMIN, U -> USUARIO)
 DELIMITER $$
@@ -307,7 +304,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
-CALL spu_albumes_listar_usuario()
+
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
 BEGIN
@@ -340,7 +337,6 @@ BEGIN
 		(_idusuario, 'Publicaciones');
 END $$
 
-CALL spu_albumes_predeterminados(18);
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_modificar
@@ -597,8 +593,6 @@ CREATE PROCEDURE spu_especialidades_listar()
 BEGIN
    SELECT * FROM vs_especialidades_listar;
 END $$
-
-CALL spu_especialidades_listar()
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)

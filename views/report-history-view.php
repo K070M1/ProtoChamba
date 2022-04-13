@@ -5,7 +5,7 @@
       <div class="card-header ui-sortable-handle">
         <h3 class=" mb-2">Lista de usuarios</h3>
         <div class="input-group">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" id="input-search-user">
           <div class="input-group-append">
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
@@ -101,6 +101,12 @@
           }
         });
       }
+
+      // Buscar usuario
+      $("#input-search-user").keyup(function(){
+        var val = $(this).val();
+        console.log(val);
+      });
 
       // ejecutar función
       loadUsersTable();

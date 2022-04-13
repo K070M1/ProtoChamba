@@ -38,8 +38,6 @@ if(isset($_GET['op'])){
     }
   }
 
-
-
   // generar estructura HTML listando todos los usuarios
   function loadAllDataTable($data){
 
@@ -148,8 +146,7 @@ if(isset($_GET['op'])){
   // Listar todos los usuarios
   if($_GET['op'] == 'getUsers'){
     $data = $user->getUsers();
-    loadAllDataTable($data);
-    
+    loadAllDataTable($data);    
   }
 
   // Listrar por rol de usuario

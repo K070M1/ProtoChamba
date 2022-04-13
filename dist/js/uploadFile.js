@@ -11,9 +11,9 @@ function createPreviewVideo(file, id) {
 
     var style = "fm-video video-js vjs-16-9 vjs-big-play-centered";
     var video = "<video class='" + style + "' ";
-        video += "data-setup='{}' controls id='fm-video-"+ id +"' class='play-video'> ";
-        video += "<source src='" + videoCodified + "' type='video/mp4'> ";
-        video += "</video> ";
+    video += "data-setup='{}' controls id='fm-video-" + id + "' class='play-video'> ";
+    video += "<source src='" + videoCodified + "' type='video/mp4'> ";
+    video += "</video> ";
 
     $(video).insertBefore("#content-load-file");
 }

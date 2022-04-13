@@ -5,7 +5,7 @@
 <!-- videojs -->
 <link rel="stylesheet" href="plugins/video-js/video.min.css">
 
-<!-- Carousel -->
+<!-- owl-Carousel -->
 <link rel="stylesheet" href="plugins/owl-carousel/css/owl.carousel.min.css">
 <link rel="stylesheet" href="plugins/owl-carousel/css/owl.theme.default.min.css">
 
@@ -1121,9 +1121,143 @@
     </div>
   </div>
   <!--./Modal de añadir album-->
-<!--./Modales-->
 
+  <!-- Modal PUBLICACIÓN DE TRABAJOS-->
+  <div class="modal fade" id="modal-publication" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crear una nueva publicación de trabajo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <form autocomplete="off">
+            <div class="form-group">
+              <label for="titulo">Titulo:</label>
+              <input type="text" id="titulo" class="form-control form-control-border">
+            </div>
+            <div class="form-group">
+              <label for="descripcion" class="col-form-label">Descripción:</label>
+              <textarea class="form-control form-control-border rounded-0" id="descripcion"></textarea>
+            </div>
 
+            <!-- Contenido de Images previas -->
+            <div class="container-images" id="container-images" >
+              <!-- Aquì se cargan las imagenes previas -->
+              <!-- Icono agregar imagen -->
+              <div  id="content-load-file">
+                <div class="add-new-photo" id="add-file" title="Seleccionar imagen">
+                  <span><i class="fas fa-camera"></i></span>
+                </div>
+              </div>
+              <!-- /. Icono agregar imagen -->
+            </div>
+            <!-- /. Contenido de Images previas -->
+
+            <!-- Contenido del video vista previa -->
+            <div class="container-video" id="container-video">
+              <div class="row">
+                <div class="col-12">
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 10%;" aria-valuemin="0" aria-valuemax="100">0%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span id="label-video-size">0 MB</span>
+                  <span id="label-video-maxsize">0 MB</span>
+                </div>
+                <div class="col-md-12 text-right">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary" id="btn-add-video">Seleccionar video</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete-video">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <video controls id="video-tag">
+                    <source id="video-source" src="">
+                  </video>
+                </div>
+              </div>
+            </div>
+            <!-- /. Contenido del video vista previa -->
+
+            <!-- Formulario contiene los inputs (imagen / video)-->
+            <form id="form-upload-file">
+              <input type="file" id="input-new-image" accept="image/*" max="5" multiple hidden/>
+              <input type="file" id="input-new-video" accept="video/*" size="150" hidden/>
+            </form> 
+            <!-- /. Formulario de etiquetas inputs -->
+
+            <div class="form-group">
+              <div class="btn-group">
+                <button type="button" id="btn-image" class="btn btn-success" >Imagenes</button>
+                <button type="button" id="btn-video" class="btn btn-info" >Video</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Publicar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /. Modal PUBLICACIÓN DE TRABAJOS-->
+
+  <!-- Modal REPORTAR-->
+  <div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="Modal reporte" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Denunciar usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <form id="form-report">
+            <div class="form-group">
+              <label for="motivo">Motivo:</label>
+              <select class="custom-select  rounded-0" id="motivo">
+                <option selected>Selecione</option>
+                <option value="">Agresión</option>
+                <option value="">Insulto</option>
+                <option value="">Otros</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="comentario" class="col-form-label">Comentario:</label>
+              <textarea class="form-control rounded-0" id="comentario"></textarea>
+            </div>
+          </form>
+          <form id="formulario-image">
+              <div class="form-group">
+                  <label for="imagenportada">Imagén o captura (Opcional)</label>        
+                  <input type="file" hidden class="custom-file-input form-control" accept=".jpg, .jpeg, .png" id="input-img-portada" lang="es">
+                  <div class="container-image d-none">
+                      <img src="dist/img/photo3.jpg" id="preview-image" class="image-responsive">
+                  </div>
+                  <button type="button" id="btn-subir-imagen" class="btn btn-flat btn-block btn-primary">
+                      <i class="fa fas fa-camera-retro"></i> <span>Subir imagen</span>
+                  </button>
+              </div>                        
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-flat btn-secondary" data-dismiss="modal">Cancelar proceso</button>
+          <button type="button" class="btn btn-flat btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--./Modal REPORTAR-->
 <!-- ZONA DE SCRIPTS -->
 <!-- Perfil -->
 <script src="./dist/js/pages/perfil.js"></script>
