@@ -30,7 +30,7 @@ if (isset($_GET['op'])){
                           <i class='fas fa-star'></i>
                         </div>
                         <div class='name-user'>
-                            <h5>{$row->datosusuario}</h5>
+                            <h6>{$row->datosusuario}</h6>
                             <h6>{$row->nombreservicio}</h6>
                         </div>
                       </div>

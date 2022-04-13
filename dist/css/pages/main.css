@@ -76,6 +76,16 @@
   color: white;
 }
 
+/* Estilos para el contendio de grid */
+.content-flex{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: 3em;
+  padding: 15px;
+  width: 90%;
+  margin: auto;
+}
 
 
 /* Estilos del card */
@@ -87,6 +97,9 @@
 
 }
 
+.card{
+  width: 40%;
+}
 
 .card-header .box-left{
   width: 30%;
