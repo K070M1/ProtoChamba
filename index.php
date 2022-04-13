@@ -34,6 +34,9 @@ session_start();
   <!--Estilos de los modales y formularios-->
   <link rel="stylesheet" href="dist/css/pages/modal-forms.css">
 
+  
+
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
