@@ -130,11 +130,7 @@
         buttonPrimary();
       }
       else{
-        data = {
-          op: 'searchUsersByNamesAndRole',
-          rol: $("#typeuser").val(),
-          search: valueInput
-        };
+        data['rol'] = role;   
         loadUsersTable(data);
         buttonDanger();
       }
