@@ -1,6 +1,11 @@
 /*
+<<<<<<< HEAD
 SQLyog Ultimate v12.5.1 (64 bit)
 MySQL - 10.4.24-MariaDB : Database - reactivacion
+=======
+SQLyog Community v13.1.9 (64 bit)
+MySQL - 10.4.22-MariaDB : Database - reactivacion
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
 *********************************************************************
 */
 
@@ -2539,6 +2544,734 @@ insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,
 (3,3,'Albañil','Miercoles y Viernes','E','A','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'1'),
 (7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'1');
 
+/* Procedure structure for procedure `spu_albumes_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_eliminar`(IN _idalbum INT)
+BEGIN
+	UPDATE albumes SET 
+		estado = 0
+	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_getdata`(IN _idalbum INT)
+BEGIN
+	SELECT * FROM albumes 
+		WHERE idalbum = _idalbum AND estado = 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_listar_usuario`(IN _idusuario INT)
+BEGIN
+	SELECT * FROM albumes 
+		WHERE idusuario = _idusuario AND estado = 1;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_modificar`(
+	IN _idalbum			INT,
+	IN _nombrealbum VARCHAR(30)
+)
+BEGIN
+	UPDATE albumes SET 
+		nombrealbum = _nombrealbum
+	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_predeterminados` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_predeterminados` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_predeterminados`(
+	IN _idusuario 	INT
+)
+BEGIN
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Perfil');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Portada');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Publicaciones');
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_registrar`(
+	IN _idusuario 	INT,
+	IN _nombrealbum VARCHAR(30)
+)
+BEGIN
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, _nombrealbum);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albunes_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albunes_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albunes_eliminar`(IN _idalbum INT)
+BEGIN
+	UPDATE albunes SET 
+		estado = 0
+	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_calificaciones_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_calificaciones_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_calificaciones_eliminar`(IN _idcalificacion INT)
+BEGIN 
+	UPDATE calificaciones SET estado = 0
+		WHERE idcalificacion = _idcalificacion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_calificaciones_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_calificaciones_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_calificaciones_modificar`(
+	IN _idcalificacion 	INT,
+	IN _puntuacion			TINYINT 
+)
+BEGIN 
+	UPDATE calificaciones SET 
+		puntuacion = _puntuacion
+	WHERE idcalificacion = _idcalificacion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_calificaciones_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_calificaciones_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_calificaciones_registrar`(
+	IN _idtrabajo		INT,
+	IN _idusuario		INT,
+	IN _puntuacion	TINYINT 
+)
+BEGIN 
+	INSERT INTO calificaciones (idtrabajo , idusuario , puntuacion) VALUES
+		(_idtrabajo , _idusuario , _puntuacion);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_comentarios_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_comentarios_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_comentarios_eliminar`(IN _idcomentario INT)
+BEGIN 
+	UPDATE comentarios SET estado = 0
+		WHERE idtrabajo = _idtrabajo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_comentarios_listar_trabajo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_comentarios_listar_trabajo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_comentarios_listar_trabajo`(in _idtrabajo int)
+BEGIN
+	SELECT * FROM vs_comentarios_listar
+		where idtrabajo = _idtrabajo
+		ORDER BY idcomentario DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_comentarios_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_comentarios_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_comentarios_modificar`(
+	IN _idcomentario INT,
+	IN _comentario	MEDIUMTEXT
+)
+BEGIN 
+	UPDATE comentarios SET
+		comentario 			= _comentario,
+		fechamodificado = now()
+	WHERE idcomentario = _idcomentario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_comentarios_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_comentarios_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_comentarios_registrar`(
+	IN _idtrabajo		INT,
+	IN _idusuario		INT,
+	IN _comentario	MEDIUMTEXT
+)
+BEGIN 
+	INSERT INTO comentarios (idtrabajo , idusuario , comentario ) VALUES 
+		(_idtrabajo , _idusuario,_comentario);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_departamentos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_departamentos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_departamentos_listar`()
+BEGIN
+	SELECT * FROM departamentos;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_distritos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_distritos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_distritos_listar`(IN _idprovincia VARCHAR(4))
+BEGIN
+	SELECT * FROM distritos WHERE idprovincia = _idprovincia;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_eliminar_actividades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_eliminar_actividades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_eliminar_actividades`(IN _idactividad INT)
+BEGIN
+	DELETE FROM actividades WHERE idactividad = _idactividad;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_email_verifi` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_email_verifi` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_email_verifi`(
+	IN _email VARCHAR(70)
+)
+BEGIN
+	SELECT COUNT(*) FROM usuarios WHERE email = _email;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar`()
+BEGIN
+   SELECT * FROM vs_especialidades_listar;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar_usuario`(in _idusuario int)
+BEGIN
+   SELECT idespecialidad, idusuario, idservicio, descripcion
+      FROM especialidades
+      where idusuario = _idusuario
+      ORDER BY idespecialidad DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_modificar`(
+    IN _idespecialidad	INT,
+    IN _idusuario				INT,
+    IN _idservicio			INT,
+    IN _descripcion			MEDIUMTEXT,
+    IN _tarifa					DECIMAL(7,2)
+)
+BEGIN 
+    UPDATE especialidades SET
+       idusuario 		= _idusuario, 
+       idservicio 	= _idservicio,
+       descripcion 	= _descripcion,
+       tarifa 			= _tarifa
+    WHERE idespecialidad = _idespecialidad;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_registrar`(
+    IN _idusuario		INT,
+    IN _idservicio	INT,
+    IN _descripcion	MEDIUMTEXT,
+    in _tarifa			decimal(7,2)
+)
+BEGIN
+   INSERT INTO especialidades (idusuario, idservicio, descripcion, tarifa)
+      VALUES (_idusuario, _idservicio, _descripcion, _tarifa);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_establecimientos_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_establecimientos_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_establecimientos_eliminar`(IN _idestablecimiento INT)
+BEGIN
+	UPDATE establecimientos SET
+		estado = 0
+	WHERE idestablecimiento = _idestablecimiento;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_establecimientos_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_establecimientos_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_establecimientos_getdata`(IN _idestablecimiento INT)
+BEGIN
+	SELECT * FROM establecimientos WHERE idestablecimiento = _idestablecimiento;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_establecimientos_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_establecimientos_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_establecimientos_modificar`(
+	IN _idestablecimiento INT,
+	IN _idusuario 				INT,
+	IN _iddistrito 				VARCHAR(6),
+	IN _establecimiento		VARCHAR(30),
+	IN _ruc								CHAR(11),
+	IN _tipocalle 				CHAR(2),
+	IN _nombrecalle 			VARCHAR(60),
+	IN _numerocalle 			VARCHAR(5),
+	IN _referencia				VARCHAR(80),
+	IN _latitud						FLOAT(10, 8),
+	IN _longitud					FLOAT(10, 8)
+)
+BEGIN
+	UPDATE establecimientos SET
+		idusuario 			= _idusuario,
+		iddistrito 			= _iddistrito,
+		establecimiento = _establecimiento,
+		ruc							= _ruc,
+		tipocalle				= _tipocalle,
+		nombrecalle			= _nombrecalle,
+		numerocalle			= _numerocalle,
+		referencia			= _referencia,
+		latitud					= _latitud,
+		longitud				= _longitud
+	WHERE idestablecimiento 	= _idestablecimiento;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_establecimientos_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_establecimientos_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_establecimientos_registrar`(
+	IN _idusuario 				int,
+	in _iddistrito 				varchar(6),
+	IN _establecimiento		VARCHAR(30),
+	IN _ruc								CHAR(11),
+	in _tipocalle 				CHAR(2),
+	in _nombrecalle 			VARCHAR(60),
+	in _numerocalle 			VARCHAR(5),
+	IN _referencia				VARCHAR(80),
+	IN _latitud						FLOAT(10, 8),
+	IN _longitud					FLOAT(10, 8)
+)
+BEGIN
+	IF _numerocalle = '' THEN SET _numerocalle = NULL; END IF;
+	IF _referencia = '' THEN SET _referencia = NULL; END IF;
+	INSERT INTO establecimientos (idusuario, iddistrito, establecimiento, ruc, tipocalle, nombrecalle, numerocalle, referencia, latitud, longitud)
+		VALUES (_idusuario, _iddistrito, _establecimiento, _ruc, _tipocalle, _nombrecalle, _numerocalle, _referencia, _latitud, _longitud);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_filtrar_actividad` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtrar_actividad` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtrar_actividad`(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_listar_actividades WHERE idusuario = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_filtrar_actividad_fecha` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtrar_actividad_fecha` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtrar_actividad_fecha`(
+	IN _idusuario 	INT,
+	IN _fechainicio DATE,
+	IN _fechafin		DATE
+)
+BEGIN
+	SELECT * FROM vs_listar_actividades 
+		WHERE idusuario = _idusuario AND 
+			fecha BETWEEN _fechainicio AND _fechafin;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_filtrar_reportes_fecha` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtrar_reportes_fecha` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtrar_reportes_fecha`(
+	IN _fechainicio DATE, 
+	IN _fechafin 		DATE
+)
+BEGIN
+	SELECT * FROM vs_listar_reportes 
+		WHERE fechareporte BETWEEN _fechainicio AND _fechafin;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_filtrar_reportes_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtrar_reportes_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtrar_reportes_usuario`(
+	IN _nombres 	VARCHAR(40), 
+	IN _apellidos VARCHAR(40)
+)
+BEGIN
+	SELECT * FROM vs_listar_reportes 
+		WHERE usuario LIKE CONCAT('%',_apellidos,'%') OR 
+					usuario LIKE  CONCAT('%',_nombres,'%');
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_foros_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_foros_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_foros_eliminar`(
+	IN  _idforo	INT
+)
+BEGIN
+	UPDATE foros SET 
+		estado = 0
+		WHERE idforo = _idforo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_foros_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_foros_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_foros_modificar`(
+	IN _idforo			INT,
+	IN _consulta		MEDIUMTEXT
+)
+BEGIN
+	UPDATE foros SET
+		consulta = _consulta
+	WHERE idforo = _idforo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_foros_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_foros_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_foros_registrar`(
+	IN _idtousuario		INT,
+	IN _idfromusuario	INT,
+	IN _consulta 			MEDIUMTEXT
+)
+BEGIN 
+	INSERT INTO foros (idtousuario, idfromusuario, consulta)
+		VALUES(_idtousuario, _idfromusuario, _consulta);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_eliminar`(IN _idgaleria INT)
+BEGIN
+	UPDATE galerias SET estado = 0
+		WHERE idgaleria = _idgaleria;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_getdata`(IN _idgaleria INT)
+BEGIN
+	SELECT * FROM vs_galerias_listar WHERE idgaleria = _idgaleria;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_listar_album` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_listar_album` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_listar_album`(IN _idalbum INT)
+BEGIN
+	SELECT * FROM vs_galerias_listar WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_listar_trabajo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_listar_trabajo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_listar_trabajo`(IN _idtrabajo INT)
+BEGIN
+	SELECT * FROM vs_galerias_listar WHERE idtrabajo = _idtrabajo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_listar_usuario`(in _idusuario int)
+BEGIN
+	SELECT * FROM vs_galerias_listar where idusuario = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_modificar`(
+	IN _idgaleria INT,
+	IN _idalbum 	INT,
+	IN _titulo 		VARCHAR(45)
+)
+BEGIN
+	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
+	
+	UPDATE galerias SET
+		idalbum 	= _idalbum,
+		titulo 		= _titulo
+	WHERE idgaleria = _idgaleria;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_galerias_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_registrar`(
+	IN _idalbum 	INT,
+	in _idusuario int,
+	IN _idtrabajo INT,
+	IN _tipo 			CHAR(1),
+	IN _titulo 		VARCHAR(45),
+	IN _archivo 	VARCHAR(100)
+)
+BEGIN
+	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
+	IF _idtrabajo = '' THEN SET _idtrabajo = NULL; END IF;
+	
+	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, titulo, archivo) VALUES
+		(_idalbum, _idusuario, _idtrabajo, _tipo, _titulo, _archivo);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_grafico_niveles_usu` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_grafico_niveles_usu` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_niveles_usu`()
+BEGIN
+	SELECT nivelusuario , COUNT(idusuario) AS 'totalusuario'
+		FROM usuarios
+	GROUP BY nivelusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_grafico_popular` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_grafico_popular` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_popular`()
+BEGIN
+	SELECT SER.nombreservicio, SUM(puntuacion)AS'calificación'
+		FROM calificaciones CAL
+		INNER JOIN trabajos TRA ON TRA.idtrabajo = CAL.idtrabajo
+		INNER JOIN especialidades ESP ON ESP.idespecialidad = TRA.idespecialidad
+		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio
+	GROUP BY SER.nombreservicio;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_grafico_reportes` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_grafico_reportes` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_reportes`()
+BEGIN
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
+		FROM reportes
+	GROUP BY MONTHNAME(fechareporte)
+	ORDER BY MONTH(fechareporte) ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_grafico_reportes_year` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_grafico_reportes_year` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_reportes_year`()
+BEGIN
+	SELECT YEAR(fechareporte) AS 'year', COUNT(idreporte)AS 'reportes'
+		FROM reportes
+	GROUP BY YEAR(fechareporte)
+	ORDER BY 1 ASC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_actividades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_actividades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_actividades`()
+BEGIN
+	SELECT * FROM vs_listar_actividades;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_fotos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_fotos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_fotos`(
+	IN _idtrabajo INT
+)
+BEGIN 
+	SELECT GAL.idgaleria ,ALB.nombrealbum,GAL.tipo,GAL.titulo,GAL.archivo
+		FROM galerias GAL
+		INNER JOIN albunes ALB ON ALB.idalbum = GAL.idalbum
+		WHERE idtrabajo = _idtrabajo; 
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_listar_reportes` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_reportes` */;
@@ -2551,6 +3284,449 @@ BEGIN
 END */$$
 DELIMITER ;
 
+<<<<<<< HEAD
+=======
+/* Procedure structure for procedure `spu_modificar_actividades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_modificar_actividades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_modificar_actividades`(	
+	IN _idactividad			INT,
+	IN _idespecialidad 	INT,
+	IN _fecha 					DATETIME,
+	IN _hora 						TIME,
+	IN _titulo					VARCHAR(45),
+	IN _descripcion			VARCHAR(150),
+	IN _direccion				VARCHAR(80)
+)
+BEGIN
+	UPDATE actividades SET 	
+		idespecialidad 	= _idespecialidad, 
+		fecha 					= _fecha, 
+		hora 						= _hora,
+		titulo 					= _titulo, 
+		descripcion 		= _descripcion, 
+		direccion 			= _direccion
+	WHERE idactividad = _idactividad;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_personas_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_personas_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_personas_getdata`(IN _idpersona INT)
+BEGIN
+	SELECT * FROM personas WHERE idpersona = _idpersona;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_personas_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_personas_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_personas_modificar`(
+	IN _idpersona 		INT,
+	IN _iddistrito 		VARCHAR(6),
+	IN _apellidos			VARCHAR(40),
+	IN _nombres				VARCHAR(40), 
+	IN _fechanac			DATE,
+	IN _telefono			CHAR(11),
+	IN _tipocalle 		CHAR(2),	
+	IN _nombrecalle 	VARCHAR(60),
+	IN _numerocalle 	VARCHAR(5),
+	IN _pisodepa  		VARCHAR(5)
+)
+BEGIN
+	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
+	IF _numerocalle = ''  THEN SET _numerocalle  = NULL; END IF;
+	IF _pisodepa = '' THEN SET _pisodepa = NULL; END IF;
+	
+	UPDATE personas SET
+		iddistrito 	= _iddistriro,
+		apellidos 	= _apellidos, 
+		nombres 		= _nombres, 
+		fechanac 		= _fechanac,
+		telefono 		= _telefono,
+		tipocalle 	= _tipocalle,
+		nombrecalle = _nombrecalle,
+		numerocalle = _numerocalle,
+		pisodepa 		= _pisodepa
+	WHERE idpersona = _idpersona; 
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_personas_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_personas_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_personas_registrar`(
+	IN _iddistrito 	VARCHAR(6),
+	IN _apellidos		VARCHAR(40),
+	IN _nombres			VARCHAR(40), 
+	IN _fechanac		DATE,
+	IN _telefono		CHAR(11),
+	IN _tipocalle 	CHAR(2),	
+	IN _nombrecalle VARCHAR(60),
+	IN _numerocalle VARCHAR(5),
+	IN _pisodepa  	VARCHAR(5)
+
+)
+BEGIN
+	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
+	IF _numerocalle = ''  THEN SET _numerocalle  = NULL; END IF;
+	IF _pisodepa = '' THEN SET _pisodepa = NULL; END IF;
+	
+	INSERT INTO personas (iddistrito, apellidos, nombres, fechanac, telefono, tipocalle, nombrecalle, numerocalle, pisodepa)
+		VALUES (_iddistrito, _apellidos, _nombres, _fechanac, _telefono, _tipocalle, _nombrecalle, _numerocalle, _pisodepa);
+		
+	SELECT LAST_INSERT_ID();
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_provincias_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_provincias_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_provincias_listar`(in _iddepartamento	VARCHAR(2))
+BEGIN
+	SELECT * FROM provincias where iddepartamento = _iddepartamento;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_redessociales_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_redessociales_eliminar`(
+	IN _idredsocial INT
+)
+BEGIN
+	DELETE FROM redessociaes WHERE idredsocial = _idredsocial;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_redessociales_filtrar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_filtrar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_redessociales_filtrar_usuario`(IN _idusuario int)
+BEGIN
+	SELECT 	RDS.idredsocial, USU.idusuario,
+					PER.nombres, PER.apellidos,
+					RDS.redsocial, RDS.vinculo 
+		FROM redessociales RDS
+		INNER JOIN usuarios USU ON USU.idusuario = RDS.idusuario
+		INNER JOIN personas PER ON PER.idpersona = USU.idpersona
+		WHERE USU.idusuario = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_redessociales_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_redessociales_modificar`(
+	IN _idredsocial		INT,
+	IN _redsocial			CHAR(1),
+	IN _vinculo				MEDIUMTEXT
+)
+BEGIN
+	UPDATE productos SET
+		redsocial = _redsocial,
+		 vinculo  = _vinculo
+	WHERE idredsocial = _idredsocial;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_redessociales_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_redessociales_registrar`(
+	IN _idusuario	INT,
+	IN _redsocial	CHAR(1), -- F = Facebook, I = Instagram, W = Whatsapp, T = Twitter, Y = Youtube, K = Tik Tok
+	IN _vinculo	MEDIUMTEXT
+)
+BEGIN 
+	INSERT INTO redessociales (idusuario, redsocial, vinculo)
+		VALUES(_idusuario, _redsocial, _vinculo);
+	
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_registrar_actividades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_registrar_actividades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registrar_actividades`(
+	IN _idespecialidad 	INT,
+	IN _fecha 					DATETIME,
+	IN _hora 						TIME,
+	IN _titulo					VARCHAR(45),
+	IN _descripcion			VARCHAR(150),
+	IN _direccion				VARCHAR(80)
+)
+BEGIN 
+	INSERT INTO actividades (idespecialidad, fecha, hora, titulo, descripcion, direccion) VALUES
+	(_idespecialidad, _idespecialidad, _fecha, _hora, _titulo, _descripcion, _direccion);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_reportes_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_reportes_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reportes_registrar`(
+	in _idcomentario int,
+	in _motivo 			 varchar(30),
+	in _descripcion	 mediumtext,
+	in _fotografia 	 varchar(100)
+)
+BEGIN
+if _fotografia = '' then set _fotografia = null; end if;
+INSERT INTO reportes (idcomentario, motivo, descripcion, fotografia)
+	values(_idcomentario, _motivo, _descripcion, _fotografia);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_seguidores_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidores_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidores_listar`(IN _idusuario INT)
+BEGIN 
+	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_seguidos_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidos_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidos_listar`(IN _idusuario INT)
+BEGIN
+SELECT * FROM seguidores WHERE idfollower = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_seguidos_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidos_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidos_listar_usuario`(IN _idusuario INT)
+BEGIN
+SELECT * FROM seguidores WHERE idfollower = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_servicios_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_listar`()
+BEGIN
+   SELECT idservicio, nombreservicio
+      FROM servicios
+      ORDER BY idservicio DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_servicios_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_modificar`(
+    IN _idservicio        INT,
+    IN _nombreservicio    VARCHAR(50)
+)
+BEGIN 
+    UPDATE servicios SET
+       nombreservicio = _nombreservicio
+    WHERE idservicio = _idservicio;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_servicios_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_registrar`(
+    IN _nombreservicio VARCHAR(50)
+)
+BEGIN
+   INSERT INTO servicios (nombreservicio)
+      VALUES (_nombreservicio);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_total_calificaciones_trabajo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_total_calificaciones_trabajo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_total_calificaciones_trabajo`(
+	IN _idtrabajo INT
+)
+BEGIN 
+	SELECT CALI.idcalificacion,CONCAT (PERS.nombres , ' ', PERS.apellidos) AS 'usuario', idtrabajo , 
+				 SUM(CALI.puntuacion) AS 'totalpuntuacion', COUNT(*) AS 'totalpersona'
+		FROM calificaciones CALI
+		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
+		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
+		WHERE idtrabajo = _idtrabajo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_trabajos_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_eliminar`(IN _idtrabajo INT)
+BEGIN 
+	UPDATE trabajos SET estado = 0
+		WHERE idtrabajo = _idtrabajo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_trabajos_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_listar_usuario`(in _idusuario int)
+BEGIN
+	SELECT * FROM vs_trabajos_listar
+		where idusuario = _idusuario
+		ORDER BY idtrabajo DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_trabajos_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_modificar`(	
+	IN _idtrabajo				INT ,
+	IN _idespecialidad	INT ,
+	IN _idusuario				INT ,
+	IN _titulo					VARCHAR(40),
+	IN _descripcion			MEDIUMTEXT
+)
+BEGIN 
+	UPDATE trabajos SET 
+		idespecialidad = _idespecialidad,
+		idusuario 		 = _idusuario,
+		titulo				 = _titulo,
+		descripcion		 = _descripcion
+	WHERE idtrabajo = _idtrabajo;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_trabajos_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_registrar`(
+	IN _idespecialidad	INT ,
+	IN _idusuario				INT ,
+	IN _titulo					VARCHAR(40),
+	IN _descripcion			MEDIUMTEXT
+)
+BEGIN 
+	INSERT INTO trabajos (idespecialidad , idusuario, titulo ,descripcion) VALUES
+		(_idespecialidad , _idusuario , _titulo , _descripcion);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_edit_rol` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_edit_rol` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_edit_rol`(
+	in _idusuario int,
+	in _rol 			char(1)
+)
+begin
+	update usuarios set rol = _rol 
+		where idusuario = _idusuario;
+end */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_eliminar`(IN _idusuario INT)
+BEGIN
+	UPDATE usuarios SET estado = 0 
+		WHERE idusuario = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_filtrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_filtrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_filtrar`(
+	IN _idservicio 		 INT,
+	in _iddepartamento varchar(2)
+)
+BEGIN
+		SELECT * FROM vs_usuarios_servicio
+			where idservicio = _idservicio or iddepartamento = _iddepartamento;
+END */$$
+DELIMITER ;
+
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
 /* Procedure structure for procedure `spu_usuarios_filtrar_rol` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_filtrar_rol` */;
@@ -2576,6 +3752,78 @@ DELIMITER $$
 BEGIN
 	SELECT * FROM vs_usuarios_listar
 		ORDER BY idusuario DESC;
+<<<<<<< HEAD
+=======
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_login` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_login` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_login`(IN _email VARCHAR(70))
+BEGIN
+	select * from usuarios
+		WHERE email = _email;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_modificar`(
+	IN _idusuario 			INT,
+	IN _idpersona 			INT,
+	IN _descripcion 		MEDIUMTEXT,
+	IN _horarioatencion VARCHAR(80),
+	IN _email 					VARCHAR(70),
+	IN _emailrespaldo		VARCHAR(70),
+	IN _clave	 					VARCHAR(80)
+)
+BEGIN
+	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
+	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+	
+	UPDATE usuarios SET 
+		idpersona 			= _idpersona,
+		descripcion 		= _descripcion,
+		horarioatencion = _horarioatencion,
+		email 					= _email,
+		emailrespaldo 	= _emailrespaldo,
+		clave 					= _clave
+	WHERE idusuario = _idusuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_registrar`(
+	IN _idpersona 			INT,
+	IN _descripcion 		MEDIUMTEXT,
+	IN _horarioatencion VARCHAR(80),
+	IN _email 					VARCHAR(70),
+	IN _emailrespaldo		VARCHAR(70),
+	IN _clave	 					VARCHAR(80)
+)
+BEGIN
+	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
+	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+	IF _horarioatencion = '' THEN SET _horarioatencion = NULL; END IF;
+
+	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
+		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
+	
+	SELECT LAST_INSERT_ID();
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
 END */$$
 DELIMITER ;
 

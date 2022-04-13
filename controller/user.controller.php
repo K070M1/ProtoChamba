@@ -11,7 +11,11 @@ $album = new Album();
 if (isset($_GET['op'])) {
 
   //Listar usuario por correo
+<<<<<<< HEAD
   if ($_GET['op'] == 'loginUser') {
+=======
+ /*  if($_GET['op'] == 'loginUser'){
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
     $response = [];
     //error_reporting(0);
     try {
@@ -36,7 +40,7 @@ if (isset($_GET['op'])) {
       http_response_code($response['status']);
       echo json_encode($response);
     }
-  }
+  } */
 
   // Generar estructura HTML listando todos los usuarios  (Todos)
   function loadAllDataTable($data){

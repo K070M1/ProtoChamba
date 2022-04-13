@@ -107,6 +107,7 @@ BEGIN
 	SELECT * FROM personas WHERE idpersona = _idpersona;
 END $$
 
+DELETE FROM usuarios WHERE idusuario > 9 AND idusuario < 50;
 
 -- =============================================================================================================
 -- TABLA USUARIOS
@@ -317,13 +318,6 @@ BEGIN
 	SELECT * FROM establecimientos WHERE idestablecimiento = _idestablecimiento;
 END $$
 
-
--- OBTENER DATOS DE LOS ESTABLECIMIENTOS
-DELIMITER $$
-CREATE PROCEDURE spu_establecimientos_getAll()
-BEGIN
-	SELECT * FROM establecimientos;
-END $$
 
 -- =============================================================================================================
 -- TABLA ALBUNES
