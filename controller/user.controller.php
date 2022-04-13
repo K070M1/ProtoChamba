@@ -11,11 +11,7 @@ $album = new Album();
 if (isset($_GET['op'])) {
 
   //Listar usuario por correo
-<<<<<<< HEAD
-  if ($_GET['op'] == 'loginUser') {
-=======
  /*  if($_GET['op'] == 'loginUser'){
->>>>>>> dca0b708ca2faec3bb838944620da27932926045
     $response = [];
     //error_reporting(0);
     try {
