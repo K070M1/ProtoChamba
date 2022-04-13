@@ -96,4 +96,20 @@ $(document).ready(function(){
     $(".add-album-cd").on("click", function(){
         $("#md-album-cd-img").modal("toggle");
     });
+
+    /*Cargar album */
+
+    function loadAlbum(){
+        $.ajax({
+          url: 'controller/album.controller.php',
+          type: 'GET',
+          data: 'op=loadAlbum&idusuario=1',
+          success: function(e) {
+            $("#load-album").html(e);
+          }
+        });
+    }
+
+    loadAlbum();
+    /*Fin de cargar album */
 });

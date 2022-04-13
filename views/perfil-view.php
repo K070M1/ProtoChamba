@@ -926,54 +926,9 @@
 
         <!--Albumes-->
         <div class="tab-pane fade" id="pills-album" role="tabpanel">
-          <div class="row">
-            <div class="col-md-3 user-cd-img user-cd-albm">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <h4>Soldador</h4>
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-folder-open"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img user-cd-albm">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <h4>Mi perfil</h4>
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-folder-open" data-toggle="collapse" data-target="#img-album"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="add-album-cd" title="Crear nuevo album">
-                <i class="fas fa-plus"></i>
-              </div>
-            </div>
+          <div class="row" id="load-album">
+            
+            
           </div>
           <!---Collapse de fotos en los albumes-->
           <div class="collapse" id="img-album">
