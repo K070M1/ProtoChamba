@@ -1,14 +1,4 @@
-<?php
-//session_start();
-//Sesion aperturada TRUE
-// if ($_SESSION['login'] == false){
-//   header('location:index.php');    
-// }   
-// }else{
-//   $fotografia =  $_SESSION['fotografia'];
-//   $usuario = $_SESSION['nombreusuario'];
-// }
-?>
+
 
 <!DOCTYPE html>
 <html lang="es">

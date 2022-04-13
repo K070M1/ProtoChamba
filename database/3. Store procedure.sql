@@ -104,7 +104,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_personas_getdata(IN _idpersona INT)
 BEGIN
-	SELECT * FROM personas WHERE idpersona = _idpersona;
+	SELECT * FROM personas WHERE idpersona = 4;
 END $$
 
 DELETE FROM usuarios WHERE idusuario > 9 AND idusuario < 50;
@@ -118,6 +118,8 @@ BEGIN
 	SELECT * FROM vs_usuarios_listar
 		ORDER BY idusuario DESC;
 END $$
+
+CALL spu_usuarios_listar();
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_registrar
@@ -299,7 +301,7 @@ CREATE PROCEDURE spu_establecimientos_eliminar(IN _idestablecimiento INT)
 BEGIN
 	UPDATE establecimientos SET
 		estado = 0
-	WHERE idestablecimiento = _idestablecimiento;
+	WHERE idestablecimiento = 1;
 END $$
 
 
@@ -307,7 +309,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_establecimientos_getdata(IN _idestablecimiento INT)
 BEGIN
-	SELECT * FROM establecimientos WHERE idestablecimiento = _idestablecimiento;
+	SELECT * FROM establecimientos WHERE idestablecimiento = 1;
 END $$
 
 
@@ -507,19 +509,62 @@ END $$
 -- TABLA DE SEGUIDORES
 -- -------------------------------------------------------------------------------------------------------------
 
--- ===============LISTAR SEGUIDORES================
+-- ============= SEGUIDORES ACTUALIZADO =============
+
 DELIMITER $$
 CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
 BEGIN 
-	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
+	SELECT  SEG.idfollower, PER.nombres, PER.apellidos, SEG.fechaseguido
+		FROM seguidores SEG
+		INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollower
+		INNER JOIN personas PER ON PER.idpersona = USU.idpersona
+	WHERE idfollowing = _idusuario;
 END $$
 
--- ===============LISTAR SEGUIDOS================
+CALL spu_seguidores_listar(1);
+
+-- ------------------------------------------------------------
+
 DELIMITER $$
 CREATE PROCEDURE spu_seguidos_listar(IN _idusuario INT)
-BEGIN
-SELECT * FROM seguidores WHERE idfollower = _idusuario;
+BEGIN 
+	SELECT SEG.idfollowing, PER.nombres, PER.apellidos, SEG.fechaseguido, SEG.estado
+		FROM seguidores SEG
+		INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollowing
+		INNER JOIN personas PER ON PER.idpersona = USU.idpersona
+	WHERE idfollower = _idusuario;
 END $$
+
+CALL spu_seguidos_listar(1);
+
+
+-- ---------------- CONTEO DE SEGUIDORES -------------------------
+
+DELIMITER $$
+CREATE PROCEDURE spu_seguidores_conteo(IN _idusuario INT)
+BEGIN
+	SELECT COUNT(idfollowing) AS 'totalseguidores'
+	 FROM seguidores 
+	WHERE idfollowing = _idusuario;
+END $$
+
+CALL spu_seguidores_conteo(1);
+
+DELIMITER $$
+CREATE PROCEDURE spu_seguidos_conteo(IN _idusuario INT)
+BEGIN
+	SELECT COUNT(idfollower) AS 'totalseguidos'
+	 FROM seguidores 
+	WHERE idfollower = _idusuario;
+END $$
+
+CALL spu_seguidos_conteo(1);
+
+
+
+-- following a quien siguo
+-- follower quienes me siguen
+
 
 -- =============================================================================================================
 -- TABLA FOROS
