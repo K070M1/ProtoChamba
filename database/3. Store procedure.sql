@@ -15,7 +15,6 @@ BEGIN
 	SELECT * FROM provincias WHERE iddepartamento = _iddepartamento;
 END $$
 
-CALL spu_provincias_listar('01');
 
 DELIMITER $$
 CREATE PROCEDURE spu_distritos_listar(IN _idprovincia VARCHAR(4))
@@ -108,6 +107,7 @@ BEGIN
 	SELECT * FROM personas WHERE idpersona = _idpersona;
 END $$
 
+DELETE FROM usuarios WHERE idusuario > 9 AND idusuario < 50;
 
 -- =============================================================================================================
 -- TABLA USUARIOS
@@ -211,6 +211,29 @@ BEGIN
 			WHERE idservicio = _idservicio OR iddepartamento = _iddepartamento;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
+BEGIN
+SELECT VUL.idusuario, VUL.apellidos, VUL.nombres, VUL.rol,
+	VUL.fechaalta, ALB.idalbum, ALB.nombrealbum,
+	GLR.tipo, GLR.archivo
+	FROM vs_usuarios_listar VUL
+	INNER JOIN albumes ALB ON ALB.`idusuario` = VUL.idusuario
+	INNER JOIN galerias GLR ON GLR.idalbum = GLR.idalbum
+	WHERE ALB.nombrealbum = 'perfil' AND GLR.tipo = 'f';
+	
+END $$
+
+CALL spu_usuarios_filtrar_rol('a');
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_search(IN _search VARCHAR(40))
+BEGIN
+SELECT idusuario, idpersona, apellidos, nombres, rol, fechaalta 
+	FROM vs_usuarios_listar
+	WHERE apellidos LIKE CONCAT('%', _search, '%') OR
+	      nombres LIKE CONCAT('%', _search, '%');
+END $$
 
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
@@ -298,7 +321,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
-call spu_albumes_listar_usuario(20)
+
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
 BEGIN
@@ -318,20 +341,19 @@ BEGIN
 END $$
 
 DELIMITER $$
-create PROCEDURE spu_albumes_predeterminados
+CREATE PROCEDURE spu_albumes_predeterminados
 (
 	IN _idusuario 	INT
 )
-begin
+BEGIN
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, 'Perfil');
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, 'Portada');
 	INSERT INTO albumes (idusuario, nombrealbum) VALUES
 		(_idusuario, 'Publicaciones');
-end $$
+END $$
 
-call spu_albumes_predeterminados(18);
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_modificar
@@ -586,9 +608,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar()
 BEGIN
-   SELECT idespecialidad, idusuario, idservicio, descripcion
-      FROM especialidades
-      ORDER BY idespecialidad DESC;
+   SELECT * FROM vs_especialidades_listar;
 END $$
 
 DELIMITER $$

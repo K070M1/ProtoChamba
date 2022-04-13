@@ -1,5 +1,5 @@
 /*
-SQLyog Professional v12.5.1 (64 bit)
+SQLyog Community v13.1.9 (64 bit)
 MySQL - 10.4.22-MariaDB : Database - reactivacion
 *********************************************************************
 */
@@ -2515,7 +2515,7 @@ CREATE TABLE `usuarios` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `idpersona` int(11) NOT NULL,
   `descripcion` mediumtext DEFAULT NULL,
-  `horarioatencion` varchar(80) NOT NULL,
+  `horarioatencion` varchar(80) DEFAULT NULL,
   `nivelusuario` char(1) NOT NULL DEFAULT 'E',
   `rol` char(1) NOT NULL DEFAULT 'U',
   `email` varchar(70) NOT NULL,
@@ -2594,6 +2594,25 @@ BEGIN
 	UPDATE albumes SET 
 		nombrealbum = _nombrealbum
 	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_predeterminados` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_predeterminados` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_predeterminados`(
+	IN _idusuario 	INT
+)
+BEGIN
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Perfil');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Portada');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Publicaciones');
 END */$$
 DELIMITER ;
 
@@ -2772,6 +2791,20 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_email_verifi` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_email_verifi` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_email_verifi`(
+	IN _email VARCHAR(70)
+)
+BEGIN
+	SELECT COUNT(*) FROM usuarios WHERE email = _email;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_especialidades_listar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_listar` */;
@@ -2780,9 +2813,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar`()
 BEGIN
-   SELECT idespecialidad, idusuario, idservicio, descripcion
-      FROM especialidades
-      ORDER BY idespecialidad DESC;
+   SELECT * FROM vs_especialidades_listar;
 END */$$
 DELIMITER ;
 
@@ -3332,15 +3363,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_personas_registrar`(
-	in _iddistrito 	varchar(6),
+	IN _iddistrito 	VARCHAR(6),
 	IN _apellidos		VARCHAR(40),
 	IN _nombres			VARCHAR(40), 
 	IN _fechanac		DATE,
 	IN _telefono		CHAR(11),
-	in _tipocalle 	CHAR(2),	
-	in _nombrecalle VARCHAR(60),
-	in _numerocalle VARCHAR(5),
-	in _pisodepa  	VARCHAR(5)
+	IN _tipocalle 	CHAR(2),	
+	IN _nombrecalle VARCHAR(60),
+	IN _numerocalle VARCHAR(5),
+	IN _pisodepa  	VARCHAR(5)
+
 )
 BEGIN
 	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
@@ -3349,6 +3381,8 @@ BEGIN
 	
 	INSERT INTO personas (iddistrito, apellidos, nombres, fechanac, telefono, tipocalle, nombrecalle, numerocalle, pisodepa)
 		VALUES (_iddistrito, _apellidos, _nombres, _fechanac, _telefono, _tipocalle, _nombrecalle, _numerocalle, _pisodepa);
+		
+	SELECT LAST_INSERT_ID();
 END */$$
 DELIMITER ;
 
@@ -3721,7 +3755,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_listar`()
 BEGIN
 	SELECT * FROM vs_usuarios_listar
-		ORDER BY rol asc;
+		ORDER BY idusuario DESC;
 END */$$
 DELIMITER ;
 
@@ -3785,8 +3819,12 @@ DELIMITER $$
 BEGIN
 	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
 	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+	IF _horarioatencion = '' THEN SET _horarioatencion = NULL; END IF;
+
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
+	
+	SELECT LAST_INSERT_ID();
 END */$$
 DELIMITER ;
 
@@ -3847,11 +3885,11 @@ DROP TABLE IF EXISTS `vs_especialidades_listar`;
 
 /*!50001 CREATE TABLE  `vs_especialidades_listar`(
  `idespecialidad` int(11) ,
- `idservicio` int(11) ,
+ `idusuario` int(11) ,
+ `datosusuario` varchar(81) ,
  `nombreservicio` varchar(50) ,
- `descripcion` mediumtext ,
- `tarifa` decimal(7,2) ,
- `idusuario` int(11) 
+ `telefono` char(11) ,
+ `email` varchar(70) 
 )*/;
 
 /*Table structure for table `vs_galerias_listar` */
@@ -3989,39 +4027,6 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
  `estado` char(1) 
 )*/;
 
-/*Table structure for table `vs_usuarios_servicio` */
-
-DROP TABLE IF EXISTS `vs_usuarios_servicio`;
-
-/*!50001 DROP VIEW IF EXISTS `vs_usuarios_servicio` */;
-/*!50001 DROP TABLE IF EXISTS `vs_usuarios_servicio` */;
-
-/*!50001 CREATE TABLE  `vs_usuarios_servicio`(
- `idusuario` int(11) ,
- `idpersona` int(11) ,
- `apellidos` varchar(40) ,
- `nombres` varchar(40) ,
- `iddepartamento` varchar(2) ,
- `departamento` varchar(45) ,
- `idprovincia` varchar(4) ,
- `provincia` varchar(45) ,
- `iddistrito` varchar(6) ,
- `distrito` varchar(45) ,
- `direccion` varchar(86) ,
- `descripcion` mediumtext ,
- `horarioatencion` varchar(80) ,
- `email` varchar(70) ,
- `idestablecimiento` int(11) ,
- `establecimiento` varchar(30) ,
- `ruc` char(11) ,
- `ubicacion` varchar(80) ,
- `referencia` varchar(80) ,
- `latitud` float(10,8) ,
- `longitud` float(10,8) ,
- `idservicio` int(11) ,
- `nombreservicio` varchar(50) 
-)*/;
-
 /*View structure for view vs_calificaciones_listar */
 
 /*!50001 DROP TABLE IF EXISTS `vs_calificaciones_listar` */;
@@ -4041,7 +4046,7 @@ DROP TABLE IF EXISTS `vs_usuarios_servicio`;
 /*!50001 DROP TABLE IF EXISTS `vs_especialidades_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_especialidades_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_especialidades_listar` AS select `esp`.`idespecialidad` AS `idespecialidad`,`srv`.`idservicio` AS `idservicio`,`srv`.`nombreservicio` AS `nombreservicio`,`esp`.`descripcion` AS `descripcion`,`esp`.`tarifa` AS `tarifa`,`esp`.`idusuario` AS `idusuario` from (`especialidades` `esp` join `servicios` `srv` on(`srv`.`idservicio` = `esp`.`idservicio`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_especialidades_listar` AS select `esp`.`idespecialidad` AS `idespecialidad`,`usu`.`idusuario` AS `idusuario`,concat(`pers`.`nombres`,' ',`pers`.`apellidos`) AS `datosusuario`,`srv`.`nombreservicio` AS `nombreservicio`,`pers`.`telefono` AS `telefono`,`usu`.`email` AS `email` from (((`especialidades` `esp` join `servicios` `srv` on(`srv`.`idservicio` = `esp`.`idservicio`)) join `usuarios` `usu` on(`usu`.`idusuario` = `esp`.`idusuario`)) join `personas` `pers` on(`pers`.`idpersona` = `usu`.`idpersona`)) group by `usu`.`idusuario` */;
 
 /*View structure for view vs_galerias_listar */
 
@@ -4084,13 +4089,6 @@ DROP TABLE IF EXISTS `vs_usuarios_servicio`;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`est`.`idestablecimiento` AS `idestablecimiento`,`est`.`establecimiento` AS `establecimiento`,`est`.`ruc` AS `ruc`,concat(case when `est`.`tipocalle` like 'CA' then 'Calle' when `est`.`tipocalle` like 'AV' then 'Avenida' when `est`.`tipocalle` like 'UR' then 'Urbanización' when `est`.`tipocalle` like 'PJ' then 'Pasaje' when `est`.`tipocalle` like 'JR' then 'Jirón' end,' ',`est`.`nombrecalle`,' #',`est`.`numerocalle`) AS `ubicacion`,`est`.`referencia` AS `referencia`,`est`.`latitud` AS `latitud`,`est`.`longitud` AS `longitud`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 */;
-
-/*View structure for view vs_usuarios_servicio */
-
-/*!50001 DROP TABLE IF EXISTS `vs_usuarios_servicio` */;
-/*!50001 DROP VIEW IF EXISTS `vs_usuarios_servicio` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_servicio` AS select distinct `vul`.`idusuario` AS `idusuario`,`vul`.`idpersona` AS `idpersona`,`vul`.`apellidos` AS `apellidos`,`vul`.`nombres` AS `nombres`,`vul`.`iddepartamento` AS `iddepartamento`,`vul`.`departamento` AS `departamento`,`vul`.`idprovincia` AS `idprovincia`,`vul`.`provincia` AS `provincia`,`vul`.`iddistrito` AS `iddistrito`,`vul`.`distrito` AS `distrito`,`vul`.`direccion` AS `direccion`,`vul`.`descripcion` AS `descripcion`,`vul`.`horarioatencion` AS `horarioatencion`,`vul`.`email` AS `email`,`vul`.`idestablecimiento` AS `idestablecimiento`,`vul`.`establecimiento` AS `establecimiento`,`vul`.`ruc` AS `ruc`,`vul`.`ubicacion` AS `ubicacion`,`vul`.`referencia` AS `referencia`,`vul`.`latitud` AS `latitud`,`vul`.`longitud` AS `longitud`,`vel`.`idservicio` AS `idservicio`,`vel`.`nombreservicio` AS `nombreservicio` from (`vs_usuarios_listar` `vul` join `vs_especialidades_listar` `vel` on(`vel`.`idusuario` = `vul`.`idusuario`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

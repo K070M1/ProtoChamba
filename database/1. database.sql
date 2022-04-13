@@ -1,7 +1,5 @@
 CREATE DATABASE REACTIVACION;
 
-SELECT * FROM usuarios;
-
 USE REACTIVACION;
 
 -- UBIGEO YA INCORPORADO
@@ -49,9 +47,9 @@ CREATE TABLE personas
 CREATE TABLE usuarios
 (
 	idusuario 			INT AUTO_INCREMENT PRIMARY KEY,
-	idpersona				INT 					NOT NULL,
-	descripcion			MEDIUMTEXT		NULL,
-	horarioatencion	VARCHAR(80) 	NOT NULL, 
+	idpersona				INT 				NOT NULL,
+	descripcion			MEDIUMTEXT				NULL,
+	horarioatencion	VARCHAR(80) 		 		NULL, 
 	nivelusuario		CHAR(1)				NOT NULL DEFAULT 'E', -- E(Estandar), I(Intermedio), A(Avanzado)
 	rol 						CHAR(1)				NOT NULL DEFAULT 'U', -- U = Usuario, A = Administrador
 	email						VARCHAR(70)		NOT NULL,
@@ -84,6 +82,7 @@ CREATE TABLE establecimientos
 	CONSTRAINT fk_est_iddistrito FOREIGN KEY(iddistrito) REFERENCES distritos (iddistrito),
 	CONSTRAINT uk_est_ruc UNIQUE(ruc)
 )ENGINE = INNODB;
+
 
 CREATE TABLE redessociales
 (
@@ -171,7 +170,7 @@ CREATE TABLE albumes
 (
 	idalbum			INT AUTO_INCREMENT PRIMARY KEY,
 	idusuario		INT 					NOT NULL,
-	nombrealbum	VARCHAR(30)		NOT NULL,
+	nombrealbum		VARCHAR(30)		NOT NULL,
 	estado 			BIT 					NOT NULL DEFAULT 1,
 	CONSTRAINT fk_alb_idusuario FOREIGN KEY (idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT uk_alb_nombrealbum UNIQUE(idusuario, nombrealbum)
@@ -184,7 +183,6 @@ CREATE TABLE galerias
 	idusuario		INT 					NOT NULL,
 	idtrabajo		INT 					NULL,
 	tipo				CHAR(1)				NOT NULL, -- F = Foto, V = Video
-	titulo			VARCHAR(45)		NOT NULL,
 	archivo 		VARCHAR(100)	NOT NULL,
 	fechaalta		DATETIME 			NOT NULL DEFAULT NOW(),
 	fechabaja	 	DATETIME 			NULL,
@@ -193,6 +191,8 @@ CREATE TABLE galerias
 	CONSTRAINT fk_gal_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios (idusuario)
 	CONSTRAINT fk_gal_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
+
+ALTER TABLE galerias DROP COLUMN titulo;
 
 CREATE TABLE calificaciones 
 (

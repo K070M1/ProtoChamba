@@ -38,8 +38,6 @@ if(isset($_GET['op'])){
     }
   } */
 
-
-
   // generar estructura HTML listando todos los usuarios
   function loadAllDataTable($data){
 
@@ -58,7 +56,7 @@ if(isset($_GET['op'])){
               <img src='dist/img/default_profile_avatar.svg' alt='Product 1' class='img-circle img-size-32 mr-2'>
             </td>
             <td>{$row->nombres} {$row->apellidos}</td>
-            <td>{$row->fechaalta}</td>
+            <td>{$row->fechaalta}</td>  
             <td align='center'>
               <div class='custom-control custom-switch'>
                 <input type='checkbox' class='custom-control-input' id='customSwitch-" . $row->idusuario. "' {$isAdmin}>
@@ -145,10 +143,51 @@ if(isset($_GET['op'])){
     }
   }
 
+  // Listar los usuaros filtrados - history report
+  function loadListUsersHistory($data){
+    if(count($data) <= 0){
+      echo "
+      <tr>
+        <td>
+          <img class='table-avatar' src='dist/img/default_profile_avatar.svg'>
+        </td>
+        <td>
+          rgutierrez
+        </td>
+        <td class='project-actions text-right'>
+          <a class='btn btn-danger btn-sm' href='' title='Banear cuenta'>
+            <i class='fas fa-hammer'></i>
+          </a>
+        </td>
+      </tr>
+      ";
+    }
+    else{
+      // Mostrar registros
+      foreach($data as $row){
+        echo "
+        <tr>
+          <td>
+            <img class='table-avatar' src='dist/img/default_profile_avatar.svg'>
+          </td>
+          <td>
+            {$row['nombres']} {$row['apellidos']}
+          </td>
+          <td class='project-actions text-right'>
+            <a class='btn btn-danger btn-sm' href='#' title='Banear cuenta'>
+              <i class='fas fa-ban'></i>
+            </a>
+          </td>
+        </tr>
+        ";
+      }
+    }
+  }
+
   // Listar todos los usuarios
   if($_GET['op'] == 'getUsers'){
     $data = $user->getUsers();
-    loadAllDataTable($data);
+    loadAllDataTable($data);    
   }
 
   // Listrar por rol de usuario
@@ -157,10 +196,16 @@ if(isset($_GET['op'])){
     loadFilteredDataTable($data);
   }
 
-  // Busqueda realizada por nombres o apellidos
+  // Busqueda realizada por nombres o apellidos - agregar permiso de administrador
   if($_GET['op'] == 'searchUsersByNames'){
     $data = $user->searchUsersByNames(["search" => $_GET['search']]);
     loadFilteredDataTable($data);
+  }
+
+  // Busqueda realizada por nombres o apellidos - reportar o bloquear 
+  if($_GET['op'] == 'searchUsersByNamesHistory'){
+    $data = $user->searchUsersByNames(["search" => $_GET['search']]);
+    loadListUsersHistory($data);
   }
 
   // Listar usuarios para realizar reportes

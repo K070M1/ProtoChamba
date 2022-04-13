@@ -109,14 +109,9 @@
   margin: auto;
 
 }
-.slider .owl-item.active.center .card-content {
-  transform: scale(1.10);
-  opacity: 1;
-}
 
 
-.card-content {
-  width: 80%;
+.card{
   background: #fff;
   padding: 0px 0px;
   margin: 50px 15px 90px 15px;
@@ -127,67 +122,63 @@
   transition: all 0.3s;
 }
 
+.card-header .box-left{
+  width: 30%;
+  align-self: center;
+}
+ .card-header .box-left img{
+  width: 80px;
+  height: 80px;
+  border-radius: 60%;
+  object-fit: cover;
+  object-position: center center;
+}
 
-/* Estilos para la cabecera del card */
-.card-content .header{
-  margin-top:15px;
-  margin-bottom: 5px;
+/* CARD - RIGHT */
+.card-header .box-right{
+  width: 70%;
+  padding-left: 5px;
+}
+ .card-header .box-right .icons{
+  text-align: end;
+}
+ .card-header .box-right .icons i{
+  color: rgb(161, 159, 159);
+}
+.card-header .box-right .icons i.active{
+  color: orange;
+}
+
+ .card-body .contacts a{
+  display: block;
+  color: inherit;
+}
+.card-body .contacts a i{
+  width: 18px;
+}
+
+ .card-footer .social-media{
+  text-align: end;
+}
+.card-footer .social-media a{
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  padding: 2px 4px;
+}
+
+.card-header,
+ .card-footer{
   background: linear-gradient(45deg, #392e6d, #2e3881);
+  border-radius: 0;
 }
 
-/* Estilos de la imagen de perfil */
-.card-content img{
-  margin-left: 5%;
+.card-header{
+  color: #f5f5f5;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
-
-
-/* Estilos para el icono de calificacion */
-.card-content .iconos{
-  margin-left: 0%;
-  margin-right: 50%;
-  margin-bottom: 5%;
-  margin-top: 14px;
-}
-
-.card-content .iconos i{
-  font-size: 18px;
-  margin-left: 0px;
-  color: #eeca00;
-}
-
-.card-content .nombre-servicio{
-  margin-top: 9px;
-  margin-left: 0px;
-  margin-right: 25px;
-}
-
-.card-content .card-body {
-  margin-left: 5%;
-}
-
-.card-body h6{
-    margin-right: 30%;
-}
-
-
-/* Estilos para el footer del card */
-.card-footer {
-  background: linear-gradient(45deg, #392e6d, #2e3881);
-}
-
-
-.card-footer .redes-sociales{
-  margin-left: 60%;
-  padding: 0%;
-  
-}
-
-.card-footer .redes-sociales i{
-  font-size: 18px;
-  cursor: pointer;
-  margin-left: 20%;
-  color: rgb(247, 245, 245);
-} 
 
 .owl-nav .owl-prev {
   position: absolute;
@@ -200,7 +191,7 @@
 .owl-nav .owl-next {
   position: absolute;
   top: calc(50% - 25px);
-right: 0;
+  right: 0;
   opacity: 1;
   font-size: 30px !important;
   z-index: 1;

@@ -48,25 +48,28 @@ CREATE VIEW vs_usuarios_listar AS
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_especialidades_listar AS 
-	SELECT 	ESP.`idespecialidad`, SRV.`idservicio`, SRV.`nombreservicio`,
-					ESP.`descripcion`, ESP.`tarifa`, ESP.`idusuario`  
+	SELECT 	ESP.`idespecialidad`, USU.idusuario,CONCAT (PERS.`nombres` , ' ' , PERS.apellidos) AS 'datosusuario' , SRV.`nombreservicio`,PERS.telefono,USU.email
 		FROM especialidades ESP
-		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio;
+		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio
+		INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
+		GROUP BY USU.idusuario
 	
 	
+
 -- =============================================================================================================
 -- VISTA DE USUARIOS RELACIONADO CON LA VISTA DE ESPECIALIDADES
 -- -------------------------------------------------------------------------------------------------------------
-CREATE VIEW vs_usuarios_servicio AS
-	SELECT DISTINCT VUL.idusuario, VUL.idpersona, VUL.apellidos, VUL.nombres,
-					VUL.iddepartamento, VUL.departamento, VUL.idprovincia,VUL.provincia, 
-					VUL.iddistrito, VUL.distrito, VUL.direccion, VUL.descripcion, 
-					VUL.horarioatencion, VUL.email, VUL.idestablecimiento, VUL.establecimiento, 
-					VUL.ruc, VUL.ubicacion, VUL.referencia, VUL.latitud, VUL.longitud, 
-					VEL.idservicio, VEL.nombreservicio
+-- CREATE VIEW vs_usuarios_servicio AS
+	-- SELECT DISTINCT VUL.idusuario, VUL.idpersona, VUL.apellidos, VUL.nombres,
+					-- VUL.iddepartamento, VUL.departamento, VUL.idprovincia,VUL.provincia, 
+					-- VUL.iddistrito, VUL.distrito, VUL.direccion, VUL.descripcion, 
+					-- VUL.horarioatencion, VUL.email, VUL.idestablecimiento, VUL.establecimiento, 
+					-- VUL.ruc, VUL.ubicacion, VUL.referencia, VUL.latitud, VUL.longitud, 
+					-- VEL.idservicio, VEL.nombreservicio
 					-- VEL.idespecialidad, VEL.descripcion as 'especialidad', VEL.idservicio, VEL.nombreservicio
-		FROM vs_usuarios_listar VUL
-		INNER JOIN vs_especialidades_listar VEL ON VEL.idusuario = VUL.idusuario;
+		-- FROM vs_usuarios_listar VUL
+		-- INNER JOIN vs_especialidades_listar VEL ON VEL.idusuario = VUL.idusuario;
 	
 -- =============================================================================================================
 -- VISTA DE GALERIAS Y ALBUNES
