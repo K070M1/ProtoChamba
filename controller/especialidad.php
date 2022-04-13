@@ -21,7 +21,6 @@ if (isset($_GET['op'])){
                       <div class='box-left'>
                         <img src='dist/img/avatar2.png'>
                       </div>
-                      
                       <div class='box-right'>
                         <div class='icons'>
                           <i class='fas fa-star active'></i>
@@ -43,21 +42,15 @@ if (isset($_GET['op'])){
                         <a href='#'><i class='fas fa-map-marker-alt'></i> <span>Ubicación</span></a>
                       </div>
                     </div>
-
-                      <div class='card-footer'>
-                      <div class='social-media'>    
-                      </div>
-                    </div>
-                  </div> 
                   <div class='card-footer'>
-                  <div class='social-media'>
-                    <a href='#'><i class='fab fa-facebook-f'></i></a>     
-                    <a href='#'><i class='fab fa-instagram'></i></a>     
-                    <a href='#'><i class='fab fa-whatsapp'></i></a>       
+                    <div class='social-media'>
+                      <a href='#'><i class='fab fa-facebook-f'></i></a>     
+                      <a href='#'><i class='fab fa-instagram'></i></a>     
+                      <a href='#'><i class='fab fa-whatsapp'></i></a>       
+                    </div>
                   </div>
-                </div>
               </div>   
-                }
+                
           ";
               }
                  

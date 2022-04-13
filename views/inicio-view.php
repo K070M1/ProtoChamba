@@ -39,10 +39,8 @@
       </div>
        
       <div class="slider">
-          <div class="owl-carousel">
-            <div class="caja">
-              
-            </div>
+          <div class="container-cards owl-carousel">
+          
           </div>
       </div>
 
@@ -66,9 +64,7 @@
         data: 'op=getSpecialty',
         success : function(e){
          /*  console.log(e); */
-
           $('.container-cards').html(e);
-
         }
       });
     }
