@@ -143,9 +143,28 @@
   background: #f2f2f2;
 }
 
+.dark-mode th,
+.dark-mode .fc-col-header-cell{
+  padding: 5px 0px;
+  vertical-align: middle;
+  background: rgba(0,0,0,.3);
+  color: white;
+}
+.dark-mode .fc-col-header-cell{
+  padding: 5px 0px;
+  vertical-align: middle;
+  background: rgba(0,0,0,.01);
+  color: white;
+}
+
 .fc-col-header-cell-cushion,
 .fc-daygrid-day-number{
   color: inherit;
+}
+
+.dark-mode .fc-list-day-cushion,
+.dark-mode .fc-daygrid-day-frame{
+  background: rgba(0,0,0,.3);
 }
 
 .fc-col-header-cell div a::first-letter,

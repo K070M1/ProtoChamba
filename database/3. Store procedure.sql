@@ -15,7 +15,6 @@ BEGIN
 	SELECT * FROM provincias WHERE iddepartamento = _iddepartamento;
 END $$
 
-CALL spu_provincias_listar('01');
 
 DELIMITER $$
 CREATE PROCEDURE spu_distritos_listar(IN _idprovincia VARCHAR(4))
@@ -54,7 +53,6 @@ BEGIN
 	SELECT LAST_INSERT_ID();
 END $$
 
-CALL spu_personas_registrar('010101', 'Valentin Capan', 'Josefino', '2000-03-12','51957689057','AV','Luciernagas','','');
 
 -- VERIFICAR EXISTENCIA DE UN EMAIL
 DELIMITER $$
@@ -109,6 +107,7 @@ BEGIN
 	SELECT * FROM personas WHERE idpersona = _idpersona;
 END $$
 
+DELETE FROM usuarios WHERE idusuario > 9 AND idusuario < 50;
 
 -- =============================================================================================================
 -- TABLA USUARIOS
@@ -141,7 +140,6 @@ BEGIN
 	SELECT LAST_INSERT_ID();
 END $$
 
-CALL spu_usuarios_registrar(40,'','','SantosV@ssa','','12');
 
 -- EDITAR ROL DEL USUARIO (A -> ADMIN, U -> USUARIO)
 DELIMITER $$
@@ -158,7 +156,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_getdata(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_usuarios_listar
+	SELECT * FROM vs_usuarios_listar_datos_basicos
 		WHERE idusuario = _idusuario;
 END $$
 
@@ -213,6 +211,37 @@ BEGIN
 			WHERE idservicio = _idservicio OR iddepartamento = _iddepartamento;
 END $$
 
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
+BEGIN
+	SELECT *	FROM vs_usuarios_listar_datos_basicos
+		WHERE rol = _rol;	
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_buscar_nombres(IN _search VARCHAR(40))
+BEGIN
+	SELECT* FROM vs_usuarios_listar_datos_basicos
+		WHERE nombres LIKE CONCAT('%', _search, '%');
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
+(
+	IN _rol 		CHAR(1), 
+	IN _search 	VARCHAR(40)
+)
+BEGIN
+	IF _rol IS NULL OR _rol = '' THEN
+		CALL spu_usuarios_buscar_nombres(_search);
+	ELSE
+		SELECT *	FROM vs_usuarios_listar_datos_basicos 
+			WHERE rol = _rol AND nombres LIKE CONCAT('%', _search, '%');	
+	END IF;
+END $$
 
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
@@ -290,13 +319,6 @@ BEGIN
 END $$
 
 
--- OBTENER DATOS DE LOS ESTABLECIMIENTOS
-DELIMITER $$
-CREATE PROCEDURE spu_establecimientos_getAll()
-BEGIN
-	SELECT * FROM establecimientos;
-END $$
-
 -- =============================================================================================================
 -- TABLA ALBUNES
 -- -------------------------------------------------------------------------------------------------------------==
@@ -307,7 +329,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
-CALL spu_albumes_listar_usuario()
+
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
 BEGIN
@@ -340,7 +362,6 @@ BEGIN
 		(_idusuario, 'Publicaciones');
 END $$
 
-CALL spu_albumes_predeterminados(18);
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_modificar
@@ -389,6 +410,19 @@ CREATE PROCEDURE spu_galerias_getdata(IN _idgaleria INT)
 BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idgaleria = _idgaleria;
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_galerias_foto_perfil(IN _idusuario INT)
+BEGIN	
+		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
+					GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
+		FROM galerias GLR
+		INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
+		INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
+		WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
+					AND  USU.`idusuario` = _idusuario;
+END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_registrar
@@ -597,8 +631,6 @@ CREATE PROCEDURE spu_especialidades_listar()
 BEGIN
    SELECT * FROM vs_especialidades_listar;
 END $$
-
-CALL spu_especialidades_listar()
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)

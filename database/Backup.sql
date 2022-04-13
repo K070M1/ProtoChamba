@@ -1,6 +1,11 @@
 /*
+<<<<<<< HEAD
 SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.24-MariaDB : Database - reactivacion
+=======
+SQLyog Community v13.1.9 (64 bit)
 MySQL - 10.4.22-MariaDB : Database - reactivacion
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
 *********************************************************************
 */
 
@@ -2130,11 +2135,10 @@ CREATE TABLE `galerias` (
   `idusuario` int(11) NOT NULL,
   `idtrabajo` int(11) DEFAULT NULL,
   `tipo` char(1) NOT NULL,
-  `titulo` varchar(45) NOT NULL,
   `archivo` varchar(100) NOT NULL,
   `fechaalta` datetime NOT NULL DEFAULT current_timestamp(),
   `fechabaja` datetime DEFAULT NULL,
-  `estado` bit(1) NOT NULL DEFAULT b'1',
+  `estado` char(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idgaleria`),
   KEY `fk_gal_idalbum` (`idalbum`),
   KEY `fk_gal_idusuario` (`idusuario`),
@@ -2146,11 +2150,11 @@ CREATE TABLE `galerias` (
 
 /*Data for the table `galerias` */
 
-insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`titulo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,1,NULL,'F','Foto de electricista','012555454545448599','2022-04-02 18:18:02',NULL,''),
-(2,3,1,1,'V','Video de electricista','012555454545447852','2022-04-02 18:18:02',NULL,''),
-(3,NULL,2,NULL,'F','Foto de prueba','5454484087874818','2022-04-02 22:05:41',NULL,''),
-(4,2,2,NULL,'F','Titulo','5454484087874818','2022-04-02 22:07:19',NULL,'');
+insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
+(1,1,1,NULL,'F','012555454545448599','2022-04-02 18:18:02',NULL,'2'),
+(2,3,1,1,'V','012555454545447852','2022-04-02 18:18:02',NULL,'1'),
+(3,NULL,2,NULL,'F','5454484087874818','2022-04-02 22:05:41',NULL,'1'),
+(4,2,2,NULL,'F','5454484087874818','2022-04-02 22:07:19',NULL,'1');
 
 /*Table structure for table `personas` */
 
@@ -2515,7 +2519,7 @@ CREATE TABLE `usuarios` (
   `idusuario` int(11) NOT NULL AUTO_INCREMENT,
   `idpersona` int(11) NOT NULL,
   `descripcion` mediumtext DEFAULT NULL,
-  `horarioatencion` varchar(80) NOT NULL,
+  `horarioatencion` varchar(80) DEFAULT NULL,
   `nivelusuario` char(1) NOT NULL DEFAULT 'E',
   `rol` char(1) NOT NULL DEFAULT 'U',
   `email` varchar(70) NOT NULL,
@@ -2594,6 +2598,25 @@ BEGIN
 	UPDATE albumes SET 
 		nombrealbum = _nombrealbum
 	WHERE idalbum = _idalbum;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_albumes_predeterminados` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_albumes_predeterminados` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_predeterminados`(
+	IN _idusuario 	INT
+)
+BEGIN
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Perfil');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Portada');
+	INSERT INTO albumes (idusuario, nombrealbum) VALUES
+		(_idusuario, 'Publicaciones');
 END */$$
 DELIMITER ;
 
@@ -2769,6 +2792,20 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_eliminar_actividades`(IN _idactividad INT)
 BEGIN
 	DELETE FROM actividades WHERE idactividad = _idactividad;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_email_verifi` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_email_verifi` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_email_verifi`(
+	IN _email VARCHAR(70)
+)
+BEGIN
+	SELECT COUNT(*) FROM usuarios WHERE email = _email;
 END */$$
 DELIMITER ;
 
@@ -3247,6 +3284,8 @@ BEGIN
 END */$$
 DELIMITER ;
 
+<<<<<<< HEAD
+=======
 /* Procedure structure for procedure `spu_modificar_actividades` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_modificar_actividades` */;
@@ -3330,15 +3369,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_personas_registrar`(
-	in _iddistrito 	varchar(6),
+	IN _iddistrito 	VARCHAR(6),
 	IN _apellidos		VARCHAR(40),
 	IN _nombres			VARCHAR(40), 
 	IN _fechanac		DATE,
 	IN _telefono		CHAR(11),
-	in _tipocalle 	CHAR(2),	
-	in _nombrecalle VARCHAR(60),
-	in _numerocalle VARCHAR(5),
-	in _pisodepa  	VARCHAR(5)
+	IN _tipocalle 	CHAR(2),	
+	IN _nombrecalle VARCHAR(60),
+	IN _numerocalle VARCHAR(5),
+	IN _pisodepa  	VARCHAR(5)
+
 )
 BEGIN
 	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
@@ -3347,6 +3387,8 @@ BEGIN
 	
 	INSERT INTO personas (iddistrito, apellidos, nombres, fechanac, telefono, tipocalle, nombrecalle, numerocalle, pisodepa)
 		VALUES (_iddistrito, _apellidos, _nombres, _fechanac, _telefono, _tipocalle, _nombrecalle, _numerocalle, _pisodepa);
+		
+	SELECT LAST_INSERT_ID();
 END */$$
 DELIMITER ;
 
@@ -3684,29 +3726,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
 /* Procedure structure for procedure `spu_usuarios_filtrar_rol` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_filtrar_rol` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_filtrar_rol`(in _rol char(1))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_filtrar_rol`(IN _rol CHAR(1))
 BEGIN
-	SELECT * FROM vs_usuarios_listar
-		where rol = _rol;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuarios_getdata` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_getdata` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_getdata`(IN _idusuario INT)
-BEGIN
-	SELECT * FROM vs_usuarios_listar
-		WHERE idusuario = _idusuario;
+	SELECT VUL.idusuario, VUL.apellidos, VUL.nombres, VUL.rol,
+		VUL.fechaalta
+		FROM vs_usuarios_listar VUL
+		WHERE VUL.rol = _rol;	
 END */$$
 DELIMITER ;
 
@@ -3719,7 +3751,9 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_listar`()
 BEGIN
 	SELECT * FROM vs_usuarios_listar
-		ORDER BY rol asc;
+		ORDER BY idusuario DESC;
+<<<<<<< HEAD
+=======
 END */$$
 DELIMITER ;
 
@@ -3783,8 +3817,13 @@ DELIMITER $$
 BEGIN
 	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
 	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+	IF _horarioatencion = '' THEN SET _horarioatencion = NULL; END IF;
+
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
+	
+	SELECT LAST_INSERT_ID();
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
 END */$$
 DELIMITER ;
 
@@ -3794,11 +3833,32 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_search`(IN _search varchar(40))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_search`(IN _search VARCHAR(40))
 BEGIN
-	SELECT * FROM vs_usuarios_listar
-		WHERE nombres like concat('%', _search, '%') or 
-					apellidos like concat('%', _search, '%');
+SELECT idusuario, idpersona, apellidos, nombres, rol, fechaalta 
+	FROM vs_usuarios_listar
+	WHERE apellidos LIKE CONCAT('%', _search, '%') OR
+	      nombres LIKE CONCAT('%', _search, '%');
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_search_rol` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_search_rol` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_search_rol`(IN _rol CHAR(1), IN _search VARCHAR(40))
+BEGIN
+	IF _rol IS NULL or _rol = '' THEN
+		CALL spu_usuarios_search(_search);
+	ELSe
+		SELECT idusuario, idpersona, apellidos, nombres, rol, fechaalta 
+			FROM vs_usuarios_listar 
+			WHERE rol = _rol AND 
+						(apellidos LIKE CONCAT('%', _search, '%') OR
+						nombres LIKE CONCAT('%', _search, '%'));	
+	END IF;
 END */$$
 DELIMITER ;
 
@@ -3869,7 +3929,6 @@ DROP TABLE IF EXISTS `vs_galerias_listar`;
  `idtrabajo` int(11) ,
  `titulo` varchar(40) ,
  `tipo` char(1) ,
- `nombrefoto` varchar(45) ,
  `archivo` varchar(100) ,
  `fechaalta` datetime 
 )*/;
@@ -4013,7 +4072,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
 /*!50001 DROP TABLE IF EXISTS `vs_galerias_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_galerias_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_galerias_listar` AS select `glr`.`idgaleria` AS `idgaleria`,`alb`.`idalbum` AS `idalbum`,`alb`.`nombrealbum` AS `nombrealbum`,`vul`.`idusuario` AS `idusuario`,`vul`.`apellidos` AS `apellidos`,`vul`.`nombres` AS `nombres`,`tbj`.`idtrabajo` AS `idtrabajo`,`tbj`.`titulo` AS `titulo`,`glr`.`tipo` AS `tipo`,`glr`.`titulo` AS `nombrefoto`,`glr`.`archivo` AS `archivo`,`glr`.`fechaalta` AS `fechaalta` from (((`galerias` `glr` left join `albumes` `alb` on(`alb`.`idalbum` = `glr`.`idalbum`)) join `vs_usuarios_listar` `vul` on(`vul`.`idusuario` = `glr`.`idusuario`)) left join `trabajos` `tbj` on(`tbj`.`idtrabajo` = `glr`.`idtrabajo`)) where `glr`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_galerias_listar` AS select `glr`.`idgaleria` AS `idgaleria`,`alb`.`idalbum` AS `idalbum`,`alb`.`nombrealbum` AS `nombrealbum`,`vul`.`idusuario` AS `idusuario`,`vul`.`apellidos` AS `apellidos`,`vul`.`nombres` AS `nombres`,`tbj`.`idtrabajo` AS `idtrabajo`,`tbj`.`titulo` AS `titulo`,`glr`.`tipo` AS `tipo`,`glr`.`archivo` AS `archivo`,`glr`.`fechaalta` AS `fechaalta` from (((`galerias` `glr` left join `albumes` `alb` on(`alb`.`idalbum` = `glr`.`idalbum`)) join `vs_usuarios_listar` `vul` on(`vul`.`idusuario` = `glr`.`idusuario`)) left join `trabajos` `tbj` on(`tbj`.`idtrabajo` = `glr`.`idtrabajo`)) where `glr`.`estado` = 1 */;
 
 /*View structure for view vs_listar_actividades */
 

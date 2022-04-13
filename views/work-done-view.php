@@ -526,7 +526,7 @@
           <div class="container-images" id="container-images" >
             <!-- Aquì se cargan las imagenes previas -->
             <!-- Icono agregar imagen -->
-            <div  id="content-load-file">
+            <div  id="content-load-file" class="col-md-4">
               <div class="add-new-photo" id="add-file" title="Seleccionar imagen">
                 <span><i class="fas fa-camera"></i></span>
               </div>

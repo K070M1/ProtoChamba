@@ -8,16 +8,20 @@ $user = new User();
 $person  = new Person();
 $album = new Album();
 
-if(isset($_GET['op'])){
+if (isset($_GET['op'])) {
 
   //Listar usuario por correo
-  if($_GET['op'] == 'loginUser'){
+<<<<<<< HEAD
+  if ($_GET['op'] == 'loginUser') {
+=======
+ /*  if($_GET['op'] == 'loginUser'){
+>>>>>>> dca0b708ca2faec3bb838944620da27932926045
     $response = [];
     //error_reporting(0);
     try {
       $data = $user->loginUser(["email" => $_GET['email']]);
       if ($data) {
-        $clave = isset($_GET["clave"]) ? $_GET["clave"]: null;
+        $clave = isset($_GET["clave"]) ? $_GET["clave"] : null;
         $clavefuerte = $data[0]["clave"];
         if (password_verify($clave, $clavefuerte)) {
           $response['message'] = 'Acceso permitido';
@@ -31,26 +35,23 @@ if(isset($_GET['op'])){
       $response['status'] = 200;
     } catch (Exception $e) {
       $response['status'] = 400;
-      $response['message'] = $e -> getMessage();
+      $response['message'] = $e->getMessage();
     } finally {
       http_response_code($response['status']);
       echo json_encode($response);
     }
-  }
+  } */
 
-
-
-  // generar estructura HTML listando todos los usuarios
+  // Generar estructura HTML listando todos los usuarios  (Todos)
   function loadAllDataTable($data){
 
-    if(count($data) <= 0){
+    if (count($data) <= 0) {
       echo " ";
-    }
-    else{
+    } else {
       // Mostrar registros
       $isAdmin = "";
-      foreach($data as $row){
-        $isAdmin = $row->rol =='A'? 'checked': '';
+      foreach ($data as $row) {
+        $isAdmin = $row->rol == 'A' ? 'checked' : '';
 
         echo "
           <tr>
@@ -61,28 +62,26 @@ if(isset($_GET['op'])){
             <td>{$row->fechaalta}</td>  
             <td align='center'>
               <div class='custom-control custom-switch'>
-                <input type='checkbox' class='custom-control-input' id='customSwitch-" . $row->idusuario. "' {$isAdmin}>
+                <input type='checkbox' class='custom-control-input' id='customSwitch-" . $row->idusuario . "' {$isAdmin}>
                 <label class='custom-control-label' for='customSwitch-" . $row->idusuario . "'></label>
               </div>
             </td>
           </tr>
         ";
-        
       }
     }
   }
 
-  // generar estructura HTML listando todos los usuarios
+  // Generar estructura HTML listando todos los usuarios (Filtrados)
   function loadFilteredDataTable($data){
 
-    if(count($data) <= 0){
+    if (count($data) <= 0) {
       echo " ";
-    }
-    else{
+    } else {
       // Mostrar registros
       $isAdmin = "";
-      foreach($data as $row){
-        $isAdmin = $row['rol'] =='A'? 'checked': '';
+      foreach ($data as $row) {
+        $isAdmin = $row['rol'] == 'A' ? 'checked' : '';
 
         echo "
           <tr>
@@ -99,14 +98,44 @@ if(isset($_GET['op'])){
             </td>
           </tr>
         ";
-        
       }
     }
   }
 
-  // generar estructura de tipo lista
+  // Generar estructura de tipo lista (Lista)
   function loadListUsers($data){
-    if(count($data) <= 0){
+    $user = new User();
+    if (count($data) <= 0) {
+      echo " ";
+    } else {
+      // Mostrar registros
+      foreach ($data as $row) {
+        echo "
+        <tr>
+          <td>";
+
+
+        //$data = $user->getProfilePicture();
+
+          echo "<img class='table-avatar' src='dist/img/default_profile_avatar.svg'>
+          </td>
+          <td>
+            {$row->nombres} {$row->apellidos}
+          </td>
+          <td class='project-actions text-right'>
+            <a class='btn btn-danger btn-sm' href='#' title='Banear cuenta'>
+              <i class='fas fa-ban'></i>
+            </a>
+          </td>
+        </tr>
+        ";
+      }
+    }
+  }
+
+  // Listar los usuaros filtrados - (Reportes)
+  function loadListUsersHistory($data){
+    if (count($data) <= 0) {
       echo "
       <tr>
         <td>
@@ -117,26 +146,25 @@ if(isset($_GET['op'])){
         </td>
         <td class='project-actions text-right'>
           <a class='btn btn-danger btn-sm' href='' title='Banear cuenta'>
-            <i class='fas fa-hammer'></i>
+            <i class='fas fa-ban'></i>
           </a>
         </td>
       </tr>
       ";
-    }
-    else{
+    } else {
       // Mostrar registros
-      foreach($data as $row){
+      foreach ($data as $row) {
         echo "
         <tr>
           <td>
             <img class='table-avatar' src='dist/img/default_profile_avatar.svg'>
           </td>
           <td>
-            {$row->nombres} {$row->apellidos}
+            {$row['nombres']} {$row['apellidos']}
           </td>
           <td class='project-actions text-right'>
             <a class='btn btn-danger btn-sm' href='#' title='Banear cuenta'>
-              <i class='fas fa-hammer'></i>
+              <i class='fas fa-ban'></i>
             </a>
           </td>
         </tr>
@@ -146,49 +174,59 @@ if(isset($_GET['op'])){
   }
 
   // Listar todos los usuarios
-  if($_GET['op'] == 'getUsers'){
+  if ($_GET['op'] == 'getUsers') {
     $data = $user->getUsers();
     loadAllDataTable($data);
-    
   }
 
   // Listrar por rol de usuario
-  if($_GET['op'] == 'usersFilteredByRlole'){
+  if ($_GET['op'] == 'usersFilteredByRlole') {
     $data = $user->usersFilteredByRlole(["rol" => $_GET['rol']]);
     loadFilteredDataTable($data);
   }
 
-  // Busqueda realizada por nombres o apellidos
-  if($_GET['op'] == 'searchUsersByNames'){
+  // Busqueda realizada por nombres o apellidos - permiso de administrador
+  if ($_GET['op'] == 'searchUsersByNamesPermissions') {
     $data = $user->searchUsersByNames(["search" => $_GET['search']]);
     loadFilteredDataTable($data);
   }
 
+  // Busqueda realizada por nombres o apellidos - para reportar o bloquear 
+  if ($_GET['op'] == 'searchUsersByNamesAndRole') {
+    $data = $user->searchUsersByNamesAndRole(["rol" => $_GET['rol'] ,"search" => $_GET['search']]);
+    loadFilteredDataTable($data);
+  }
+
+  // Busqueda realizada por nombres o apellidos - para reportar o bloquear 
+  if ($_GET['op'] == 'searchUsersByNamesHistory') {
+    $data = $user->searchUsersByNames(["search" => $_GET['search']]);
+    loadListUsersHistory($data);
+  }
+
   // Listar usuarios para realizar reportes
-  if($_GET['op'] == 'listUsers'){
+  if ($_GET['op'] == 'listUsers') {
     $data = $user->getUsers();
     loadListUsers($data);
   }
 
-  if($_GET['op'] == 'EmailVerifi'){
+  if ($_GET['op'] == 'EmailVerifi') {
     $data = $user->getEmailV(["email" => $_GET['email']]);
-    if($data == 0){
+    if ($data == 0) {
       echo "permitido";
-    }else{
+    } else {
       echo "No permitido";
     }
   }
-
 }
 
-if(isset($_POST['op'])){
+if (isset($_POST['op'])) {
 
   //Registrar usuario
-  if($_POST['op'] == 'registerUser'){
+  if ($_POST['op'] == 'registerUser') {
 
     $emailverifi = $user->getEmailV(["email" => $_POST['email']]);
 
-    if($emailverifi == 0){
+    if ($emailverifi == 0) {
       $datosIngresados = [
         "iddistrito" => $_POST['iddistrito'],
         "apellidos"  => $_POST['apellidos'],
@@ -200,7 +238,7 @@ if(isset($_POST['op'])){
         "numerocalle" => $_POST['numerocalle'],
         "pisodepa"    => $_POST['pisodepa']
       ];
-  
+
       $idperson = $person->registerPerson($datosIngresados);
 
       $datosRegistrar = [
@@ -211,16 +249,13 @@ if(isset($_POST['op'])){
         "emailrespaldo"   => " ",
         "clave"           => password_hash($_POST['clave'], PASSWORD_BCRYPT)
       ];
-      
+
       $iduser = $user->registerUser($datosRegistrar);
-      
+
       $album->registerAlbumDefault(["idusuario" => $iduser]);
       echo "Correct";
-    }else{
+    } else {
       echo ".";
     }
-
   }
-
 }
-

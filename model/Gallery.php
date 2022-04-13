@@ -33,6 +33,16 @@ class Gallery extends ModelMaster{
   }
 
   // Obtener un registro
+  public function getProfilePicture(array $data){
+    try{
+      return parent::execProcedure($data, "spu_galerias_foto_perfil", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Obtener un registro
   public function getAGallery(array $data){
     try{
       return parent::execProcedure($data, "spu_galerias_getdata", true);

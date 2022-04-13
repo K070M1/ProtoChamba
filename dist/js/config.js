@@ -160,3 +160,17 @@ $(document).on('scroll', function() {
         $('#back-to-top').fadeOut();
     }
 });
+
+// Aplicar clase active a los elementos del sidebar
+$(".nav-link").click(function() {
+  $(".nav-link").removeClass('active');
+  $(".nav-link").parent("nav-item").removeClass("menu-is-opening").removeClass("menu-open");
+  //$(".nav-link + .nav-treeview").addClass('d-none');
+  $(this).addClass('active');
+  $(this).parent("nav-item").addClass("menu-is-opening").addClass("menu-open");
+  //$(".nav-link.active + .nav-treeview").removeClass('d-none');
+});
+
+/* $(".nav-link").mouseleave(function(){
+  $(".nav-link").removeClass('active');
+}); */
