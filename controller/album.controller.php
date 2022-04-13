@@ -7,6 +7,7 @@ $album = new Album();
 
 if (isset($_GET['op'])){
 
+<<<<<<< HEAD
     function loadAlbum($data){
         if(count($data) > 0){
             foreach($data as $row){
@@ -51,6 +52,10 @@ if (isset($_GET['op'])){
     if($_GET['op'] == 'loadAlbum'){
         $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
         loadAlbum($data);
+=======
+    if($_GET['op'] == 'loadAlbum'){
+        
+>>>>>>> ba49a435931508c78705b3942299eda8f2e4aff2
     }
 
 }

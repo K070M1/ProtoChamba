@@ -25,11 +25,12 @@
         <div class="sombra"></div>
         <div class="avatar-perfil">
           <img src="./dist/img/user1.jpg" alt="">
-          <!-- <i class="fa-solid fa-camera"></i> -->
+          <a href="#" class="cambiar-foto" id="idfoto">
+              <i class="fas fa-camera"></i> 
+              <span>Cambiar foto</span>
+          </a>
         </div>
-        <div class="btn-pe">
-          <button class="btn btn-outline-secondary btn-sm " id="fileSelector"><i class="fas fa-camera"></i> Perfil</button>
-        </div>
+
         <div class="btnfile" style="display: none;">
           <input type="file" id="fileFotografia" accept=".jpg" name="archivoImagen">
         </div>
@@ -55,8 +56,20 @@
             <h6>Seguidores</h6>
           </div>
           <div>
-            <div class="amigoss"></div>
-            <div class="amigoss"></div>
+            <div class="amigoss">
+              <table class="table-segui">
+                <tbody id="conteosegui">
+                  <!-- Cargado de forma dinamica -->
+                </tbody>
+              </table>
+            </div>
+            <div class="amigoss">
+              <table class="table-seguid">
+                <tbody id="conteoseguid">
+                  <!-- Cargado de forma dinamica -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -213,52 +226,22 @@
                   </div>
                 </div>
 
-                <li id="tra"><i class="fas fa-suitcase">
-                  </i>
-                  <input type="text" id="trabajo" readonly value="Trabajos de electricidad">
-                  <button class="btn btn-outline-danger" id="btncancelar">Cancelar</button>
-                  <button class="btn btn" id="btneditar" style="margin-left: 25em;"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn" id="btnborrar" style="margin-left: 2em;"><i class="fas fa-edit"></i></button>
-                </li>
-                <hr>
-                <li><i class="fas fa-business-time"></i>Horario de atención:</li>
-                <hr>
-                <li><i class="fas fa-hashtag"></i> Redes Sociales:</li>
-                <hr>
-                <li><i class="fas fa-map-marker-alt"></i> Establecimiento::</li>
-                <hr>
+                <table class="table empresas">
+                  <tbody id="empresas">
+                    <!-- Cargado de forma dinamica -->
+                  </tbody>
+                </table>
               </ul>
             </div>
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-              <ul>
-                <li><i class="fas fa-phone"></i> Numero de contacto:</li>
-                <hr>
-                <li><i class="fas fa-envelope"></i> Correo Electronico:</li>
-                <hr>
-                <li><i class="fas fa-mask"></i> Sexo:</li>
-                <hr>
-                <li><i class="fas fa-calendar-check"></i> Fecha nacimiento:</li>
-                <hr>
-              </ul>
-              <!-- <form>
-                <div class="form-group">
-                  <label for="numero de contacto">Correo electronico:</label>
-                  <input type="text" class="form-control" id="numero">
-                </div>
-                <div class="form-group">
-                  <label for="correo">Correo electronico:</label>
-                  <input type="text" class="form-control" id="correo">
-                </div>
-                <div class="form-group">
-                  <label for="sexo">Sexo:</label>
-                  <input type="text" class="form-control" id="sexo">
-                </div>
-                <div class="form-group">
-                  <label for="fechanaci">Fecha Naci:</label>
-                  <input type="text" class="form-control" id="fechanaci">
-                </div>
+             
+              <table class="table personas">
+                <tbody id="personas">
+                  <!-- Cargado de forma dinamica -->
+                </tbody>
+              </table>
 
-                </form> -->
+         
             </div>
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
               <h6><i class="fas fa-plus-circle"></i> Agregar red social</h6>
@@ -283,46 +266,22 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-          <!-- <ul style="margin: auto;">
-              <li><i class="fas fa-male"></i>Flores Palomino Jesus Manuel</li>
-              <hr>
-              <li><i class="fas fa-female"></i>Anton Quispe Maria Anabel</li>
-              <hr>
-              <li><i class="fas fa-male"></i>Huaman Anchante Pedro Antonio</li>
-              <hr>
-              <li><i class="fas fa-female"></i>Garcia Perez Lucia</li>
-              <hr>
-              <li><i class="fas fa-male"></i>Carbajal Flores Miguel Fernando</li>
-            </ul> -->
+        
+          <table class="table seguidores">
+            <tbody id="seguidores">
+              <!-- Cargado de forma dinamica -->
+            </tbody>
+          </table>
+
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-          <ul>
-            <div class="d-flex justify-content-between">
-              <li> <i class="fas fa-female"></i> Garcia Perez Lucia </li>
-              <button class="text-right btn btn-outline-secondary" style="font-size: 12px;" id="dej">Dejar de seguir</button>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <li> <i class="fas fa-male"></i>Flores Palomino Jesus Manuel </li>
-              <button class="text-right btn btn-outline-secondary" style="font-size: 12px;" id="dej">Dejar de seguir</button>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <li> <i class="fas fa-male"></i>Carbajal Flores Miguel Fernando</li>
-              <button class="text-right btn btn-outline-secondary" style="font-size: 12px;" id="dej">Dejar de seguir</button>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <li> <i class="fas fa-female"></i> Anton Quispe Maria Anabel</li>
-              <button class="text-right btn btn-outline-secondary" style="font-size: 12px;" id="dej">Dejar de seguir</button>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <li> <i class="fas fa-male"></i> Carbajal Flores Miguel Fernando </li>
-              <button class="text-right btn btn-outline-secondary" style="font-size: 12px;" id="dej">Dejar de seguir</button>
-            </div>
+          
+          <table class="table seguidos">
+            <tbody id="seguidos">
+              <!-- Cargado de dinamica -->
+            </tbody>
+          </table>
 
-          </ul>
         </div>
       </div>
 
@@ -332,139 +291,8 @@
     <!-- configuración nav -->
     <div class="tab-pane fade" id="nav-servicios" role="tabpanel" aria-labelledby="nav-servicios-tab">
       <!-- Contenidos -->
-      <div class="container-services row">
+      <div class="container-services row mt-4">
         <!-- Recomendados -->
-        <div class="content-recommended col-md-12 mb-2">
-          <div class="container-cards owl-carousel">
-
-            <!-- Card 1 -->
-            <div class="card">
-              <div class="card-header">
-                <div class="box-left">
-                  <img src="dist/img/avatar2.png">
-                </div>
-                <!-- /. box left -->
-                <div class="box-right">
-                  <div class="icons">
-                    <i class="fas fa-star active"></i>
-                    <i class="fas fa-star active"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <!-- /. icons -->
-                  <div class="name-user">
-                    <h5>Augusto Belardez Santiago</h5>
-                  </div>
-                  <div class="services">
-                    <h6>Electricista</h6>
-                  </div>
-                </div>
-                <!-- /.box right -->
-              </div>
-              <div class="card-body">
-                <div class="contacts">
-                  <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
-                  <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
-                  <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="social-media">
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-whatsapp"></i></a>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card">
-              <div class="card-header">
-                <div class="box-left">
-                  <img src="dist/img/avatar2.png">
-                </div>
-                <!-- /. box left -->
-                <div class="box-right">
-                  <div class="icons">
-                    <i class="fas fa-star active"></i>
-                    <i class="fas fa-star active"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <!-- /. icons -->
-                  <div class="name-user">
-                    <h5>Augusto Belardez Santiago</h5>
-                  </div>
-                  <div class="services">
-                    <h6>Electricista</h6>
-                  </div>
-                </div>
-                <!-- /.box right -->
-              </div>
-              <div class="card-body">
-                <div class="contacts">
-                  <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
-                  <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
-                  <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="social-media">
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-whatsapp"></i></a>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="card">
-              <div class="card-header">
-                <div class="box-left">
-                  <img src="dist/img/avatar2.png">
-                </div>
-                <!-- /. box left -->
-                <div class="box-right">
-                  <div class="icons">
-                    <i class="fas fa-star active"></i>
-                    <i class="fas fa-star active"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <!-- /. icons -->
-                  <div class="name-user">
-                    <h5>Augusto Belardez Santiago</h5>
-                  </div>
-                  <div class="services">
-                    <h6>Electricista</h6>
-                  </div>
-                </div>
-                <!-- /.box right -->
-              </div>
-              <div class="card-body">
-                <div class="contacts">
-                  <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
-                  <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
-                  <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="social-media">
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                  <a href="#"><i class="fab fa-whatsapp"></i></a>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
         <!-- /. recomendados -->
 
         <!-- Publicaciones de servicios -->

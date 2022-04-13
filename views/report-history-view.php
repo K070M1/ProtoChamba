@@ -1,3 +1,6 @@
+<h4>Banear usuario</h4>
+<hr>
+
 <!-- Small boxes (Stat box) -->
 <div class="row">
   <div class="col-md-4">
@@ -40,7 +43,7 @@
         <table id="tbl-reports" class="table table-valign-middle" style="margin-top: 0px !important;">
           <thead>
             <tr>
-              <th>Para</th>
+              <th>Usuario reportado</th>
               <th>Motivó</th>
               <th>Descripción</th>
               <th>Fecha</th>
@@ -57,102 +60,102 @@
 </div>
 
 <script>
-    $(function () {
+  $(function () {
 
-      // Array declarado
-      var data = {op: 'listUsers'};
+    // Array declarado
+    var data = {op: 'listUsers'};
 
-      $("input[data-bootstrap-switch]").each(function () {
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
-      })
-      
-      // cargar usuarios
-      function loadUsersTable($data){
-        $.ajax({
-          url: 'controller/user.controller.php',
-          type: 'GET',
-          data: $data,
-          success: function(e){
-            $("#tbody-users").html(e);
-          }
-        });
-      }
-
-      // cargar reportes
-      function loadReportsTable(){
-        $.ajax({
-          url: 'controller/report.controller.php',
-          type: 'GET',
-          data: 'op=getReports',
-          success: function(e){
-
-            // destruir datatable
-            $('#tbl-reports').DataTable().destroy();
-            //Cargar datos
-            $("#tbody-reports").html(e);
-
-            // Volver a genewrar datatable
-            $('#tbl-reports').DataTable({
-              "paging": true,
-              "lengthChange": true,
-              "searching": true,
-              "ordering": true,
-              "info": true,
-              "autoWidth": false,
-              "responsive": true,
-              "language": { url : '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'},
-            });
-          }
-        });
-      }
-
-      // Buscar usuario
-      $("#input-search-user").keyup(function(){
-        $("#btn-search i").removeClass("fa-search").addClass('fa-times');
-
-        var valueSearch = $(this).val();
-        //console.log(valuSearch);
-        if(valueSearch == ''){
-          buttonPrimary();
-        }
-        else{
-          buttonDanger();
-          // Actualizando datos
-          data = {
-            op: 'searchUsersByNamesHistory',
-            search: valueSearch
-          };
-
-          // Volviendo a ejecutar la función
-          loadUsersTable(data);
+    $("input[data-bootstrap-switch]").each(function () {
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
+    
+    // cargar usuarios
+    function loadUsersTable($data){
+      $.ajax({
+        url: 'controller/user.controller.php',
+        type: 'GET',
+        data: $data,
+        success: function(e){
+          $("#tbody-users").html(e);
         }
       });
+    }
 
-      // Botón buscar
-      $("#btn-search").click(function(){
-        $("#input-search-user").val('').focus();
+    // cargar reportes
+    function loadReportsTable(){
+      $.ajax({
+        url: 'controller/report.controller.php',
+        type: 'GET',
+        data: 'op=getReports',
+        success: function(e){
+
+          // destruir datatable
+          $('#tbl-reports').DataTable().destroy();
+          //Cargar datos
+          $("#tbody-reports").html(e);
+
+          // Volver a genewrar datatable
+          $('#tbl-reports').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+            language: { url : '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'},
+          });
+        }
+      });
+    }
+
+    // Buscar usuario
+    $("#input-search-user").keyup(function(){
+      $("#btn-search i").removeClass("fa-search").addClass('fa-times');
+
+      var valueSearch = $(this).val();
+      //console.log(valuSearch);
+      if(valueSearch == ''){
         buttonPrimary();
+      }
+      else{
+        buttonDanger();
         // Actualizando datos
-        data = {op: 'listUsers'};
+        data = {
+          op: 'searchUsersByNamesHistory',
+          search: valueSearch
+        };
 
         // Volviendo a ejecutar la función
         loadUsersTable(data);
-      });
-
-      // Boton rojo
-      function buttonDanger(){
-        $("#btn-search").removeClass('bg-primary').addClass('bg-danger');
-        $("#btn-search i").removeClass('fa-search').addClass('fa-times');
       }
+    });
 
-      //Botón azul
-      function buttonPrimary(){
-        $("#btn-search").removeClass('bg-danger').addClass('bg-primary');
-        $("#btn-search i").removeClass('fa-times').addClass('fa-search');
-      }
+    // Botón buscar
+    $("#btn-search").click(function(){
+      $("#input-search-user").val('').focus();
+      buttonPrimary();
+      // Actualizando datos
+      data = {op: 'listUsers'};
 
-      // ejecutar función
+      // Volviendo a ejecutar la función
       loadUsersTable(data);
-      loadReportsTable();
-    })
-  </script>
+    });
+
+    // Boton rojo
+    function buttonDanger(){
+      $("#btn-search").removeClass('bg-primary').addClass('bg-danger');
+      $("#btn-search i").removeClass('fa-search').addClass('fa-times');
+    }
+
+    //Botón azul
+    function buttonPrimary(){
+      $("#btn-search").removeClass('bg-danger').addClass('bg-primary');
+      $("#btn-search i").removeClass('fa-times').addClass('fa-search');
+    }
+
+    // ejecutar función
+    loadUsersTable(data);
+    loadReportsTable();
+  })
+</script>

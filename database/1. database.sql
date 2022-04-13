@@ -72,8 +72,8 @@ CREATE TABLE establecimientos
 	establecimiento		VARCHAR(30)		NOT NULL,
 	ruc								CHAR(11)			NOT NULL,
 	tipocalle 				CHAR(2) 			NOT NULL,
-  nombrecalle 			VARCHAR(60) 	NOT NULL,
-  numerocalle 			VARCHAR(5) 		NULL,
+	nombrecalle 			VARCHAR(60) 	NOT NULL,
+	numerocalle 			VARCHAR(5) 		NULL,
 	referencia				VARCHAR(80)		NULL,
 	latitud						FLOAT(10, 8)	NOT NULL,
 	longitud					FLOAT(10, 8)	NOT NULL,
@@ -186,13 +186,11 @@ CREATE TABLE galerias
 	archivo 		VARCHAR(100)	NOT NULL,
 	fechaalta		DATETIME 			NOT NULL DEFAULT NOW(),
 	fechabaja	 	DATETIME 			NULL,
-	estado	 		BIT 					NOT NULL DEFAULT 1,
+	estado 			CHAR(1) 			NOT NULL DEFAULT '1' -- 0(Elimimado), 1(activo), 2(Perfil activo), 3(Portada activo);
 	CONSTRAINT fk_gal_idalbum FOREIGN KEY(idalbum) REFERENCES albunes(idalbum),
 	CONSTRAINT fk_gal_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios (idusuario)
 	CONSTRAINT fk_gal_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
-
-ALTER TABLE galerias DROP COLUMN titulo;
 
 CREATE TABLE calificaciones 
 (

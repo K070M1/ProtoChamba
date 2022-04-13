@@ -375,6 +375,12 @@ BEGIN
 	WHERE idalbum = _idalbum;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_albumes_ultim_ft(IN _idalbum INT, IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_galerias_listar WHERE idalbum = 1
+END $$
+
 
 -- =============================================================================================================
 -- TABLA GALERIA
