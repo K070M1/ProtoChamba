@@ -1,4 +1,4 @@
-CREATE DATABASE REACTIVACION;
+DROP DATABASE REACTIVACION;
 
 USE REACTIVACION;
 
@@ -44,12 +44,14 @@ CREATE TABLE personas
 	
 )ENGINE = INNODB;
 
+SELECT * FROM personas;
+
 CREATE TABLE usuarios
 (
 	idusuario 			INT AUTO_INCREMENT PRIMARY KEY,
-	idpersona				INT 				NOT NULL,
-	descripcion			MEDIUMTEXT				NULL,
-	horarioatencion	VARCHAR(80) 		 		NULL, 
+	idpersona				INT 					NOT NULL,
+	descripcion			MEDIUMTEXT		NULL,
+	horarioatencion	VARCHAR(80) 	NOT NULL, 
 	nivelusuario		CHAR(1)				NOT NULL DEFAULT 'E', -- E(Estandar), I(Intermedio), A(Avanzado)
 	rol 						CHAR(1)				NOT NULL DEFAULT 'U', -- U = Usuario, A = Administrador
 	email						VARCHAR(70)		NOT NULL,
@@ -63,6 +65,7 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_emailrespaldo UNIQUE(emailrespaldo),
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
+
 
 CREATE TABLE establecimientos
 (
@@ -82,7 +85,6 @@ CREATE TABLE establecimientos
 	CONSTRAINT fk_est_iddistrito FOREIGN KEY(iddistrito) REFERENCES distritos (iddistrito),
 	CONSTRAINT uk_est_ruc UNIQUE(ruc)
 )ENGINE = INNODB;
-
 
 CREATE TABLE redessociales
 (
