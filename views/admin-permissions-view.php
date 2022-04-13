@@ -1,3 +1,6 @@
+<h4>Asignar permisos de administrador</h4>
+<hr>
+
 <!-- Small boxes (Stat box) -->
 <div class="row">
   <div class="col-md-4">
@@ -74,7 +77,7 @@
     })
 
     // DECLARACIÓN DE VARIABLES
-    var data = {op: 'getUsers'}; // dato enviando al controler
+    var data = {op: 'getUsers'};
 
     // Listar todos los usuarios
     function loadUsersTable($data){
@@ -149,13 +152,13 @@
     // Boton rojo
     function buttonDanger(){
       $("#btn-search").removeClass('btn-primary').addClass('btn-danger');
-      $("#btn-search i").removeClass().addClass('fas').addClass('fa-times');
+      $("#btn-search i").removeClass("fa-search").addClass('fa-times');
     }
 
     //Botón azul
     function buttonPrimary(){
       $("#btn-search").removeClass('btn-danger').addClass('btn-primary');
-      $("#btn-search i").removeClass().addClass('fas').addClass('fa-search');
+      $("#btn-search i").removeClass("fa-times").addClass('fa-search');
     }
 
     // Ejecutar y listar todos los usuarios

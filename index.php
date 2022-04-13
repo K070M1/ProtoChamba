@@ -279,59 +279,11 @@ session_start();
         <ul class="nav nav-pills nav-sidebar text-sm flex-column nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
-          <li class="nav-header">MENU</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Demos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Demo 1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Demo 2</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-home"></i>
               <p>
-                Aldair
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="index.php?view=perfil-view" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Perfil</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?view=geolocalizacion-view" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Geolocalización</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Jesus
+                Inicio
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -350,9 +302,34 @@ session_start();
               </li>          
             </ul>
           </li>
+          <li class="nav-header">MENU</li>
+
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="fas fa-solid fa-user-tie nav-icon"></i>
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Gestión de perfil
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="index.php?view=perfil-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Mi Perfil</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?view=geolocalizacion-view" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Geolocalización</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-users-cog nav-icon"></i>
               <p>
                 Rol administrador
                 <i class="right fas fa-angle-left"></i>
@@ -379,7 +356,7 @@ session_start();
               </li>
             </ul>
           </li>
-          <li class="nav-header">EXAMPLES</li>
+          <li class="nav-header">FUNCIONES</li>
           <li class="nav-item">
             <a href="index.php?view=calendar-view" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
@@ -390,17 +367,19 @@ session_start();
             </a>
           </li>
           <li class="nav-item">
+            <a href="index.php?view=geolocalizacion-view" class="nav-link">
+              <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                Ubicaciones
+              </p>
+            </a>
+          </li>
+
+          <!--  -->
+          <li class="nav-item">
             <a href="index.php?view=work-done-view" class="nav-link">
               <i class="fas fa-briefcase nav-icon"></i>
               <p>Trabajos publicados</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="index.php?view=calendario-view" class="nav-link">
-              <i class="nav-icon fas fa-chart-area"></i>
-              <p>
-                Graficos
-              </p>
             </a>
           </li>
         </ul>
@@ -994,25 +973,25 @@ session_start();
     /* Verificar correo y contraseña */
     $('#btn-login').click( function() {
 
-var email = $('#email').val();
-var clave = $('#clave').val();
-$.ajax({
-  url: 'controller/user.controller.php',
-  type: 'GET',
-  datatype: 'JSON',
-  data: {
-    'op': 'loginUser',
-    'email': email,
-    'clave': clave
-  },
-  success: res => {
-    console.log(res);
-  },
-  error: e => {
-    console.log(e.responseJSON);
-  }
-})
-})
+    var email = $('#email').val();
+    var clave = $('#clave').val();
+    $.ajax({
+      url: 'controller/user.controller.php',
+      type: 'GET',
+      datatype: 'JSON',
+      data: {
+        'op': 'loginUser',
+        'email': email,
+        'clave': clave
+      },
+      success: res => {
+        console.log(res);
+      },
+      error: e => {
+        console.log(e.responseJSON);
+      }
+    })
+    })
 
   });
 </script>

@@ -210,6 +210,29 @@ BEGIN
 			WHERE idservicio = _idservicio OR iddepartamento = _iddepartamento;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
+BEGIN
+SELECT VUL.idusuario, VUL.apellidos, VUL.nombres, VUL.rol,
+	VUL.fechaalta, ALB.idalbum, ALB.nombrealbum,
+	GLR.tipo, GLR.archivo
+	FROM vs_usuarios_listar VUL
+	INNER JOIN albumes ALB ON ALB.`idusuario` = VUL.idusuario
+	INNER JOIN galerias GLR ON GLR.idalbum = GLR.idalbum
+	WHERE ALB.nombrealbum = 'perfil' AND GLR.tipo = 'f';
+	
+END $$
+
+CALL spu_usuarios_filtrar_rol('a');
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_search(IN _search VARCHAR(40))
+BEGIN
+SELECT idusuario, idpersona, apellidos, nombres, rol, fechaalta 
+	FROM vs_usuarios_listar
+	WHERE apellidos LIKE CONCAT('%', _search, '%') OR
+	      nombres LIKE CONCAT('%', _search, '%');
+END $$
 
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
