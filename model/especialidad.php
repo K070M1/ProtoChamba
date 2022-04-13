@@ -14,6 +14,16 @@ class Especialidad extends ModelMaster{
         }
     }
 
+    /* //Funcion para listar las redes sociales de los usuarios y asiganrles cada uno 
+    public function getSocialNetwork(array $data){
+        try{
+           return parent::execProcedure($data,"spu_redessociales_filtrar_usuario",true);
+        }
+        catch(Exception $error){
+            die($error->getMessage());
+        }
+    } */
+
 
 
 }

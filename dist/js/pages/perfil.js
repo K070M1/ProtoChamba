@@ -1,5 +1,91 @@
 $(document).ready(function(){
 
+
+  function per(){
+    $.ajax({
+      url:'controller/person.controller.php',
+      type: 'GET',
+      data: 'op=getPersona',
+      success: function(e){
+        // console.log(datos1);
+        $("#per").html(e);
+      }
+    });
+  }
+  function conteoSeguidos(){
+    $.ajax({
+      url:'controller/follower.controller.php',
+      type: 'GET',
+      data: 'op=getCountFollowedByUser',
+      success: function(e){
+        let datos1 = JSON.parse(e);
+        // console.log(datos1);
+        $("#conteoseguid").html(datos1);
+      }
+    });
+  }
+  function conteoSeguidores(){
+    $.ajax({
+      url:'controller/follower.controller.php',
+      type: 'GET',
+      data: 'op=getCountFollowersByUser',
+      success: function(e){
+        let datos = JSON.parse(e);
+        // console.log(datos);
+        $("#conteosegui").html(datos);
+      }
+    });
+  }
+
+  function listarEstablecimiento(){
+    $.ajax({
+      url: 'controller/establishment.controller.php',
+      type: 'GET',
+      data: 'op=getAEstablishment',
+      success: function(e){
+        // console.log(e);
+        $("#empresas").html(e);
+      }
+    });
+  }
+  function listDatosPerson(){
+    $.ajax({
+      url: 'controller/person.controller.php',
+      type: 'GET',
+      data: 'op=getPerson',
+      success: function(e){
+        // console.log(e);
+        $("#personas").html(e);
+      }
+    });
+  }
+
+  function listarSeguidores(){
+    $.ajax({
+      url: 'controller/follower.controller.php',
+      type: 'GET',
+      data: 'op=getFollowersByUser',
+      success: function(e){
+        // console.log(e);
+        $("#seguidores").html(e);
+      }
+    });
+  }
+
+  function listarSeguidos(){
+    $.ajax({
+      url: 'controller/follower.controller.php',
+      type: 'GET',
+      data: 'op=getFollowedByUser',
+      success: function(e){
+        // console.log(e);
+        $("#seguidos").html(e);
+      }
+    });
+  }
+
+
+
   //ABRIR IMAGEN PERFIL
   function abrirImagen(){
     $("input[name='archivoImagen']").trigger("click");
@@ -117,5 +203,13 @@ $(document).ready(function(){
 
 
   $("#fileSelector").click(abrirImagen);
+
+  listarSeguidores();
+  listarSeguidos();
+  listDatosPerson();
+  listarEstablecimiento();
+  conteoSeguidores();
+  conteoSeguidos();
+  per();
 
 });
