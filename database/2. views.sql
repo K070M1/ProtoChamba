@@ -22,7 +22,7 @@ CREATE VIEW vs_personas_listar AS
 		INNER JOIN departamentos DPT ON DPT.iddepartamento = PRV.iddepartamento;
 
 -- =============================================================================================================
--- VISTA DE USUARIOS Y ESTABLECIMIENTOS
+-- VISTA DE USUARIOS Y ESTABLECIMIENTOS - DATOS GENERALES
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_usuarios_listar AS
 	SELECT 	USU.idusuario, VPL.idpersona, VPL.apellidos, VPL.nombres, 
@@ -43,6 +43,19 @@ CREATE VIEW vs_usuarios_listar AS
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
 		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 		WHERE USU.estado = 1;
+		
+
+
+-- =============================================================================================================
+-- VISTA DE USUARIOS - DATOS RESUMIDOS
+-- -------------------------------------------------------------------------------------------------------------
+CREATE VIEW vs_usuarios_listar_datos_basicos AS
+	SELECT 	USU.idusuario, VPL.idpersona, CONCAT(VPL.nombres, ' ', VPL.apellidos) AS 'nombres',
+					USU.rol, VPL.fechanac, USU.fechaalta, USU.estado
+		FROM usuarios USU
+		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
+		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
+		WHERE USU.estado = 1;		
 
 -- =============================================================================================================
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
@@ -78,8 +91,7 @@ CREATE VIEW vs_galerias_listar AS
 	SELECT 	GLR.idgaleria, ALB.idalbum, ALB.nombrealbum, 
 					VUL.idusuario, VUL.apellidos, VUL.nombres,
 					TBJ.idtrabajo, TBJ.titulo, GLR.tipo, 
-					GLR.titulo AS 'nombrefoto', GLR.archivo,
-					GLR.fechaalta
+					GLR.archivo, GLR.fechaalta
 		FROM 	galerias GLR
 		LEFT JOIN albumes ALB ON ALB.idalbum = GLR.idalbum
 		INNER JOIN vs_usuarios_listar VUL ON VUL.idusuario = GLR.idusuario

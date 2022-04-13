@@ -24,8 +24,6 @@
 
   <!--Estilos de los modales y formularios-->
   <link rel="stylesheet" href="dist/css/pages/modal-forms.css">
-
-
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
@@ -217,8 +215,7 @@
 
             </form>
             <div class="login-password-lnk">
-              <a href="#" data-toggle="modal" data-target="#modal-res-contra1">¿Olvidaste tu
-                contraseña?</a>
+              <a href="#" data-toggle="modal" data-target="#modal-res-contra1">¿Olvidaste tu contraseña?</a>
             </div>
           </div>
         </li>
@@ -249,23 +246,21 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <!-- <img src="dist/img/logo-editado-5.png" alt="" class="logo"> -->
-
-        <img src="dist/img/AdminLTELogo.png" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <i class="nav-icon fab fa-qq ml-4" style="font-size: 24px;"></i>
         <span class="brand-text font-weight-bold"> Q' Tal Chamba</span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="#" class="d-block">Nombre del usuario</a>
           </div>
-        </div>
+        </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -622,46 +617,46 @@
   <!--./Modal de preguntas de seguridad -->
 
   <!--Modales Restablecimiento de contraseña-->
-    <!-- Modal de restablecimiento tercer paso -->
-    <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body m-res">
-            <div id="back-icon">
-              <a href="#">
-                <i class="fas fa-arrow-left"></i>
-              </a>
-            </div>
-            <h3 class="font-weight-bold">He olvidado mi contraseña...!</h3>
-            <span><label>Suarez*********@gmail.com</label></span>
-            <div class="cnt-res">
-              <h5>Obtener un código de verificación</h5>
-              <p>Se enviará un código de verificación temporal al correo indicado</p>
-            </div>
-            <div id="btn-gen-res">
-              <button type="button" class="btn btn-secondary" id="btnRes3">Generar Código</button>
-            </div>
+  <!-- Modal de restablecimiento tercer paso -->
+  <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-res">
+          <div id="back-icon">
+            <a href="#">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+          <h3 class="font-weight-bold">He olvidado mi contraseña...!</h3>
+          <span><label>Suarez*********@gmail.com</label></span>
+          <div class="cnt-res">
+            <h5>Obtener un código de verificación</h5>
+            <p>Se enviará un código de verificación temporal al correo indicado</p>
+          </div>
+          <div id="btn-gen-res">
+            <button type="button" class="btn btn-secondary" id="btnRes3">Generar Código</button>
           </div>
         </div>
       </div>
     </div>
-    <!--./Modal de restablecimiento tercer paso -->
+  </div>
+  <!--./Modal de restablecimiento tercer paso -->
 
-    <!---Modal de restablecimiento cuarto paso-->
-    <div class="modal fade" id="modal-res-contra4" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body m-res">
-              <div id="back-icon">
-                <a href="#">
-                  <i class="fas fa-arrow-left"></i>
-                </a>
-                <div id="contador-pass"></div>
-              </div>
-              <h3 class="font-weight-bold">Validar el código de verificación</h3>
-              <span><label>Suarez*********@gmail.com</label></span>
-              <form id="form-horizontal"">
-                  <div class=" form-group row">
+  <!---Modal de restablecimiento cuarto paso-->
+  <div class="modal fade" id="modal-res-contra4" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-res">
+          <div id="back-icon">
+            <a href="#">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+            <div id="contador-pass"></div>
+          </div>
+          <h3 class="font-weight-bold">Validar el código de verificación</h3>
+          <span><label>Suarez*********@gmail.com</label></span>
+          <form id="form-horizontal"">
+              <div class=" form-group row">
                 <div class="col-sm-5">
                   <label for="">Ingrese el código enviado:</label>
                 </div>
@@ -669,113 +664,112 @@
                   <input type="password" class="form-control">
                 </div>
             </div>
-            </form>
-            <div id="btn-gen-res">
-              <button type="button" class="btn btn-secondary" id="btnRes4">Validar</button>
-            </div>
+          </form>
+          <div id="btn-gen-res">
+            <button type="button" class="btn btn-secondary" id="btnRes4">Validar</button>
           </div>
         </div>
       </div>
     </div>
-    <!---./Modal de restablecimiento cuarto paso-->
+  </div>
+  <!---./Modal de restablecimiento cuarto paso-->
 
-    <!-- Modal de restablecimiento quinto paso -->
-    <div class="modal fade" id="modal-res-contra5" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body m-res">
-            <div id="back-icon">
-              <a href="#">
-                <i class="fas fa-arrow-left"></i>
-              </a>
-            </div>
-            <h3 class="font-weight-bold">Crear nueva contraseña</h3>
-            <span><label for="">Suarez*********@gmail.com</label></span>
-            <form class="form-horizontal">
-              <div class="form-group row">
-                <div class="col-sm-5">
-                  <label for="">Nueva contraseña:</label>
-                </div>
-                <div class="col-sm-7">
-                  <input type="password" class="form-control">
-                </div>
+  <!-- Modal de restablecimiento quinto paso -->
+  <div class="modal fade" id="modal-res-contra5" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-res">
+          <div id="back-icon">
+            <a href="#">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+          <h3 class="font-weight-bold">Crear nueva contraseña</h3>
+          <span><label for="">Suarez*********@gmail.com</label></span>
+          <form class="form-horizontal">
+            <div class="form-group row">
+              <div class="col-sm-5">
+                <label for="">Nueva contraseña:</label>
               </div>
-              <div class="form-group row">
-                <div class="col-sm-5">
-                  <label for="">Repetir contraseña:</label>
-                </div>
-                <div class="col-sm-7">
-                  <input type="password" class="form-control">
-                </div>
+              <div class="col-sm-7">
+                <input type="password" class="form-control">
               </div>
-            </form>
-            <div id="btn-gen-res">
-              <button type="button" class="btn btn-secondary" id="btnRes5">Crear contraseña</button>
             </div>
+            <div class="form-group row">
+              <div class="col-sm-5">
+                <label for="">Repetir contraseña:</label>
+              </div>
+              <div class="col-sm-7">
+                <input type="password" class="form-control">
+              </div>
+            </div>
+          </form>
+          <div id="btn-gen-res">
+            <button type="button" class="btn btn-secondary" id="btnRes5">Crear contraseña</button>
           </div>
         </div>
       </div>
     </div>
-    <!-- ./Modal de restablecimiento quinto paso -->
+  </div>
+  <!-- ./Modal de restablecimiento quinto paso -->
 
-    <!-- Modal de restablecimiento primer paso -->
-    <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body m-res">
-            <div id="back-icon">
-              <a href="#">
-                <i class="fas fa-arrow-left"></i>
-              </a>
-            </div>
-            <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
-            <form id="form-horizontal">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label for="">Los procesos se enviarán a:</label>
-                  <input type="password" class="form-control">
-                </div>
+  <!-- Modal de restablecimiento primer paso -->
+  <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-res">
+          <div id="back-icon">
+            <a href="#">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+          <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
+          <form id="form-horizontal">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="">Los procesos se enviarán a:</label>
+                <input type="password" class="form-control">
               </div>
-              <a href="#" data-toggle="modal" data-target="#modal-res-contra2">!No tengo acceso a este
-                correo...!</a>
-            </form>
-            <div id="btn-gen-res">
-              <button type="button" class="btn btn-secondary" id="btnRes1">Siguiente</button>
             </div>
+            <a href="#" data-toggle="modal" data-target="#modal-res-contra2">!No tengo acceso a este correo...!</a>
+          </form>
+          <div id="btn-gen-res">
+            <button type="button" class="btn btn-secondary" id="btnRes1">Siguiente</button>
           </div>
         </div>
       </div>
     </div>
-    <!--./Modal de restablecimiento primer paso -->
+  </div>
+  <!--./Modal de restablecimiento primer paso -->
 
 
-    <!-- Modal de restablecimiento segundo paso -->
-    <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body m-res">
-            <div id="back-icon">
-              <a href="#">
-                <i class="fas fa-arrow-left"></i>
-              </a>
-            </div>
-            <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
-            <form id="form-horizontal">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label for="">Los procesas han sido cambiados al email:</label>
-                  <input type="password" class="form-control">
-                </div>
+  <!-- Modal de restablecimiento segundo paso -->
+  <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body m-res">
+          <div id="back-icon">
+            <a href="#">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </div>
+          <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
+          <form id="form-horizontal">
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="">Los procesas han sido cambiados al email:</label>
+                <input type="password" class="form-control">
               </div>
-            </form>
-            <div id="btn-gen-res">
-              <button type="button" class="btn btn-secondary" id="btnRes2">Siguiente</button>
             </div>
+          </form>
+          <div id="btn-gen-res">
+            <button type="button" class="btn btn-secondary" id="btnRes2">Siguiente</button>
           </div>
         </div>
       </div>
     </div>
-    <!--./Modal de restablecimiento segundo paso -->
+  </div>
+  <!--./Modal de restablecimiento segundo paso -->
 
   <!--./Modales Restablecimiento de contraseña-->
 
@@ -811,11 +805,7 @@
   <!--Configuración del temporizador-->
   <script src="dist/js/pages/md-restabl-temporizador.js"></script>
 
-
   <script src="dist/js/pages/galeria.js"></script>
-
-
-
   <script>
     $(document).ready(function() {
 
@@ -825,12 +815,6 @@
       else
         $("#content-data").load(`views/welcome.php`);
 
-      $(".nav-link").click(function() {
-        $(".nav-link").removeClass('active');
-        //$(".nav-link + .nav-treeview").addClass('d-none');
-        $(this).addClass('active');
-        //$(".nav-link.active + .nav-treeview").removeClass('d-none');
-      });
 
       /*$("#btn-regist-opn").click(function(){
         $("#modal-perfil-img").modal('toggle');
@@ -873,6 +857,11 @@
       });
       /*./Temporizador */
 
+      /*Temporizador*/
+      $("#btnRes3").click(function() {
+        startTimer();
+      });
+      /*./Temporizador */
 
       /* Registrar usuario */
 
@@ -991,5 +980,4 @@
     });
   </script>
 </body>
-
 </html>

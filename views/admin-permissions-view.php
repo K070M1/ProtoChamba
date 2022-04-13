@@ -77,7 +77,7 @@
     })
 
     // DECLARACIÓN DE VARIABLES
-    var data = {op: 'getUsers'};
+    var data = {op: 'searchUsersByNamesAndRole', rol: ''};
 
     // Listar todos los usuarios
     function loadUsersTable($data){
@@ -115,10 +115,10 @@
     // Por tipo
     $("#typeuser").change(function(){
       var role = $(this).val();
-      if(role == '')
-        data = {op: 'getUsers'};
-      else
-        data = {op: 'usersFilteredByRlole', rol: role};
+      $("#input-search").val("").focus();
+
+
+      data['rol'] = role;        
       loadUsersTable(data);
     });
 
@@ -130,12 +130,13 @@
         buttonPrimary();
       }
       else{
-        buttonDanger();
         data = {
-          op: 'searchUsersByNames',
+          op: 'searchUsersByNamesAndRole',
+          rol: $("#typeuser").val(),
           search: valueInput
         };
         loadUsersTable(data);
+        buttonDanger();
       }
     });
 
