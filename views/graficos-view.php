@@ -27,7 +27,7 @@
   </div>
   <div class="col-md-6">
     <!-- BAR CHART -->
-    <div class="card card-success">
+    <div class="card card-info">
       <div class="card-header">
         <h3 class="card-title">Servicios populares</h3>
 
@@ -52,7 +52,7 @@
   </div>
   <div class="col-md-6">
     <!-- STACKED BAR CHART -->
-    <div class="card card-success">
+    <div class="card card-info">
       <div class="card-header">
         <h3 class="card-title">Niveles de usuarios</h3>
 
@@ -80,8 +80,6 @@
 </div>
 <!-- /.row -->
 
-  <!-- AdminLTE for demo purposes -->
-  <script src="dist/js/demo.js"></script>
 <script>
     $(function () {
       /* ChartJS
@@ -186,32 +184,7 @@
         options: barChartOptions
       })
 
-      /*
-      BAR CHART HORIZONTAL
-
-      var barChart_hCanvas = $('#barChart_h').get(0).getContext('2d')
-      var barChart_hData = $.extend(true, {}, areaChartData)
-      var temp0 = areaChartData.datasets[0]
-      var temp1 = areaChartData.datasets[1]
-      barChartData.datasets[0] = temp1
-      barChartData.datasets[1] = temp0
-
-      var barChartOptions = {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        datasetFill: false,
-      }
-
-      new Chart(barChart_hCanvas, {
-        type: 'bar',
-        data: barChartData,
-        options: barChartOptions
-      })
-
-
-      PieChart
-      */
+    
       var donutData = {
         labels: [
           'Básico',

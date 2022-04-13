@@ -53,7 +53,6 @@ class User extends ModelMaster{
     }
   }
 
-
   // Obtener un registro de usuario
   public function getAUser(array $data){
     try{
@@ -87,7 +86,17 @@ class User extends ModelMaster{
   // Buscar usuario por nombre o apellidos
   public function searchUsersByNames(array $data){
     try{
-      return parent::execProcedure($data, "spu_usuarios_search", true);
+      return parent::execProcedure($data, "spu_usuarios_buscar_nombres", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Buscar usuario por NOMBRE y ROL
+  public function searchUsersByNamesAndRole(array $data){
+    try{
+      return parent::execProcedure($data, "spu_usuarios_buscar_rol_nombres", true);
     }
     catch(Exception $error){
       die($error->getMessage());

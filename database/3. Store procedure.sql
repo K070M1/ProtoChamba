@@ -155,7 +155,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_getdata(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_usuarios_listar
+	SELECT * FROM vs_usuarios_listar_datos_basicos
 		WHERE idusuario = _idusuario;
 END $$
 
@@ -210,28 +210,36 @@ BEGIN
 			WHERE idservicio = _idservicio OR iddepartamento = _iddepartamento;
 END $$
 
+
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
 BEGIN
-SELECT VUL.idusuario, VUL.apellidos, VUL.nombres, VUL.rol,
-	VUL.fechaalta, ALB.idalbum, ALB.nombrealbum,
-	GLR.tipo, GLR.archivo
-	FROM vs_usuarios_listar VUL
-	INNER JOIN albumes ALB ON ALB.`idusuario` = VUL.idusuario
-	INNER JOIN galerias GLR ON GLR.idalbum = GLR.idalbum
-	WHERE ALB.nombrealbum = 'perfil' AND GLR.tipo = 'f';
-	
+	SELECT *	FROM vs_usuarios_listar_datos_basicos
+		WHERE rol = _rol;	
 END $$
 
-CALL spu_usuarios_filtrar_rol('a');
 
 DELIMITER $$
-CREATE PROCEDURE spu_usuarios_search(IN _search VARCHAR(40))
+CREATE PROCEDURE spu_usuarios_buscar_nombres(IN _search VARCHAR(40))
 BEGIN
-SELECT idusuario, idpersona, apellidos, nombres, rol, fechaalta 
-	FROM vs_usuarios_listar
-	WHERE apellidos LIKE CONCAT('%', _search, '%') OR
-	      nombres LIKE CONCAT('%', _search, '%');
+	SELECT* FROM vs_usuarios_listar_datos_basicos
+		WHERE nombres LIKE CONCAT('%', _search, '%');
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
+(
+	IN _rol 		CHAR(1), 
+	IN _search 	VARCHAR(40)
+)
+BEGIN
+	IF _rol IS NULL OR _rol = '' THEN
+		CALL spu_usuarios_buscar_nombres(_search);
+	ELSE
+		SELECT *	FROM vs_usuarios_listar_datos_basicos 
+			WHERE rol = _rol AND nombres LIKE CONCAT('%', _search, '%');	
+	END IF;
 END $$
 
 -- =============================================================================================================
@@ -408,6 +416,19 @@ CREATE PROCEDURE spu_galerias_getdata(IN _idgaleria INT)
 BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idgaleria = _idgaleria;
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_galerias_foto_perfil(IN _idusuario INT)
+BEGIN	
+		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
+					GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
+		FROM galerias GLR
+		INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
+		INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
+		WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
+					AND  USU.`idusuario` = _idusuario;
+END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_registrar

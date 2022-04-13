@@ -37,14 +37,14 @@
         </div>
       </div>
        
-            <div class="slider">
-                <div class="owl-carousel">
-                  <div class="caja">
-                    
-                  </div>
-                </div>
+      <div class="slider">
+          <div class="owl-carousel">
+            <div class="caja">
+              
             </div>
-   
+          </div>
+      </div>
+
       
 
     </div><!-- Fin de la seccion servicios -->
