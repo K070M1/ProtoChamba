@@ -11,12 +11,13 @@ $album = new Album();
 if (isset($_GET['op'])) {
 
   //Listar usuario por correo
- /*  if($_GET['op'] == 'loginUser'){
+   /*if($_GET['op'] == 'loginUser'){
     $response = [];
     //error_reporting(0);
     try {
       $data = $user->loginUser(["email" => $_GET['email']]);
       if ($data) {
+        $data['galeria'] = $_SESSION['galeria']
         $clave = isset($_GET["clave"]) ? $_GET["clave"] : null;
         $clavefuerte = $data[0]["clave"];
         if (password_verify($clave, $clavefuerte)) {

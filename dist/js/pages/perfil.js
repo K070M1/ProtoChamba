@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
   function per(){
     $.ajax({
       url:'controller/person.controller.php',
@@ -200,7 +199,6 @@ $(document).ready(function(){
     })
 
   });
-
 
   $("#fileSelector").click(abrirImagen);
 

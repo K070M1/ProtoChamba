@@ -661,93 +661,9 @@
       <div class="tab-content" id="pills-tabContent">
         <!--Fotos-->
         <div class="tab-pane fade show active" id="pills-foto" role="tabpanel">
-          <div class="row">
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="add-img-cd" title="Subir una imágen a mi galería">
-                <i class="fas fa-camera"></i>
-
-              </div>
-            </div>
+          <div class="row" id="load-Gallery">
+            
+            
           </div>
         </div>
         <!--./Fotos-->
@@ -759,29 +675,10 @@
             
           </div>
           <!---Collapse de fotos en los albumes-->
-          <div class="collapse" id="img-album">
-            <h2>Mi Perfil</h2>
-            <div class="row">
-              <div class="col-md-3 user-cd-img">
-                <div class="image-container ">
-                  <figure>
-                    <img src="./dist/img/photo1.png">
-                    <figcaption>
-                      <ul>
-                        <li>
-                          <i class="fa-solid fa-pen-to-square"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-trash-can"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-eye"></i>
-                        </li>
-                      </ul>
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
+          <div class="collapse" id="img-album-open-collap">
+            <h2 id="tittle-collapse"></h2>
+            <div class="row" id="content-collapse-albm">
+              
             </div>
           </div>
           <!---./Collapse de fotos en los albumes-->
@@ -881,11 +778,11 @@
   <!--./Modal de ver la imagen-->
 
   <!--Modal de añadir album-->
-  <div class="modal fade" id="md-album-cd-img" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal fade" id="md-album-cd-img" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Crear nuevo álbum</h5>
+          <h5 class="modal-title" id="t-md-albm">Crear nuevo álbum</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -893,12 +790,12 @@
         <div class="modal-body">
           <form action="">
             <label for="">Nombre del álbum:</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="nmb-album-add">
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Añadir</button>
+          <button type="button" class="btn btn-primary" id="añadir-albm">Añadir</button>
         </div>
       </div>
     </div>

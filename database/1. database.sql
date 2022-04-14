@@ -178,6 +178,8 @@ CREATE TABLE albumes
 	CONSTRAINT uk_alb_nombrealbum UNIQUE(idusuario, nombrealbum)
 )ENGINE = INNODB;
 
+SELECT * FROM albumes;
+
 CREATE TABLE galerias 
 (
 	idgaleria		INT AUTO_INCREMENT PRIMARY KEY,

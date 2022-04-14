@@ -22,8 +22,6 @@ BEGIN
 	SELECT * FROM distritos WHERE idprovincia = _idprovincia;
 END $$
 
-
-
 -- =============================================================================================================
 -- TABLA PERSONAS
 -- -------------------------------------------------------------------------------------------------------------
@@ -378,9 +376,8 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_ultim_ft(IN _idalbum INT, IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idalbum = 1
+	SELECT nombrealbum, archivo FROM vs_galerias_listar WHERE idusuario = 1 and idalbum = 1 ORDER BY idgaleria DESC LIMIT 1 ;
 END $$
-
 
 -- =============================================================================================================
 -- TABLA GALERIA
@@ -388,8 +385,10 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_usuario(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario;
+	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario and tipo = "F";
 END $$
+
+call spu_galerias_listar_usuario(1)
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_album(IN _idalbum INT)
