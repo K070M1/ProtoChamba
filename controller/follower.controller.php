@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 require_once '../model/Follower.php';
 $follower = new Follower();

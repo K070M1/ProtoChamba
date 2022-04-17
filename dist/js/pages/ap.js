@@ -4,7 +4,7 @@ $(document).ready(function(){
 	  margin:50,
 	  nav:true,
 	  /* default : 3, */
-	  /* autoplay:true,
+	  /* autoplay:true,	
 	  autoplayTimeout:3000,
 	  autoplayHoverPause:true, */
 	  center: true,

@@ -132,92 +132,8 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <div class="content-flex">
-              <div class="card">
-                <div class="card-header">
-                  <div class="box-left">
-                    <img src="dist/img/avatar2.png">
-                  </div>
-                  <!-- /. box left -->
-                  <div class="box-right">
-                    <div class="icons">
-                      <i class="fas fa-star active"></i>
-                      <i class="fas fa-star active"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
-                    <!-- /. icons -->
-                    <div class="name-user">
-
-
-                    </div>
-                  </div>
-                  <!-- /.box right -->
-                </div>
-                <div class="card-body">
-                  <div class="contacts">
-                    <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
-                    <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
-                    <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="social-media">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <div class="box-left">
-                    <img src="dist/img/avatar2.png">
-                  </div>
-                  <!-- /. box left -->
-                  <div class="box-right">
-                    <div class="icons">
-                      <i class="fas fa-star active"></i>
-                      <i class="fas fa-star active"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </div>
-                    <!-- /. icons -->
-                    <div class="name-user">
-
-
-                    </div>
-                  </div>
-                  <!-- /.box right -->
-                </div>
-                <div class="card-body">
-                  <div class="contacts">
-                    <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
-                    <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
-                    <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="social-media">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="content-flex">
-
-
-
-            </div>
-            <div class="content-flex">
-
+            <div class="group-cards" id="cards-servicios">
+                
             </div>
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -321,3 +237,26 @@
 
 
 </div><!-- Fin de la seccion servivcios -->
+
+<script>
+ $(document).ready(function (){
+
+    function getSpecialty(){
+      $.ajax({
+        url: 'controller/especialidad.php',
+        type: 'GET',
+        data: 'op=getSpecialty  ',
+        success : function(e){
+         /*  console.log(e); */
+          $('#cards-servicios').html(e);
+        }
+      });
+    }
+    
+    
+    getSpecialty();
+
+    
+ });
+
+</script>
