@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
+SQLyog Community v13.1.9 (64 bit)
 MySQL - 10.4.22-MariaDB : Database - reactivacion
 *********************************************************************
 */
@@ -50,7 +50,7 @@ CREATE TABLE `albumes` (
   PRIMARY KEY (`idalbum`),
   UNIQUE KEY `uk_alb_nombrealbum` (`idusuario`,`nombrealbum`),
   CONSTRAINT `fk_alb_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `albumes` */
 
@@ -58,7 +58,8 @@ insert  into `albumes`(`idalbum`,`idusuario`,`nombrealbum`,`estado`) values
 (1,1,'Perfil',''),
 (2,1,'Portada',''),
 (3,1,'Publicaciones',''),
-(7,2,'Perfil','');
+(7,2,'Perfil',''),
+(8,1,'Calles','');
 
 /*Table structure for table `calificaciones` */
 
@@ -2145,15 +2146,16 @@ CREATE TABLE `galerias` (
   CONSTRAINT `fk_gal_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albumes` (`idalbum`),
   CONSTRAINT `fk_gal_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_gal_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `galerias` */
 
 insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`titulo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,1,NULL,'F','Foto de electricista','012555454545448599','2022-04-02 18:18:02',NULL,''),
-(2,3,1,1,'V','Video de electricista','012555454545447852','2022-04-02 18:18:02',NULL,''),
+(1,1,1,NULL,'F','Foto de electricista','012555454545448599','2022-04-02 18:18:02',NULL,'\0'),
+(2,3,1,1,'V','Video de electricista','012555454545447852','2022-04-02 18:18:02',NULL,'\0'),
 (3,NULL,2,NULL,'F','Foto de prueba','5454484087874818','2022-04-02 22:05:41',NULL,''),
-(4,2,2,NULL,'F','Titulo','5454484087874818','2022-04-02 22:07:19',NULL,'');
+(4,2,2,NULL,'F','Titulo','5454484087874818','2022-04-02 22:07:19',NULL,''),
+(5,NULL,1,NULL,'F','','2022041805502.gif','2022-04-17 22:47:02',NULL,'');
 
 /*Table structure for table `personas` */
 
@@ -3169,18 +3171,17 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_registrar`(
 	IN _idalbum 	INT,
-	in _idusuario int,
+	IN _idusuario INT,
 	IN _idtrabajo INT,
 	IN _tipo 			CHAR(1),
-	IN _titulo 		VARCHAR(45),
 	IN _archivo 	VARCHAR(100)
 )
 BEGIN
 	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
 	IF _idtrabajo = '' THEN SET _idtrabajo = NULL; END IF;
 	
-	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, titulo, archivo) VALUES
-		(_idalbum, _idusuario, _idtrabajo, _tipo, _titulo, _archivo);
+	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, archivo) VALUES
+		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo);
 END */$$
 DELIMITER ;
 

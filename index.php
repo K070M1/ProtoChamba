@@ -814,7 +814,7 @@
       if (view != false)
         $("#content-data").load(`views/${view}.php`);
       else
-        $("#content-data").load(`views/welcome.php`);
+        $("#content-data").load(`views/inicio-view.php`);
 
 
       $("#btn-regist-opn").click(function(){
