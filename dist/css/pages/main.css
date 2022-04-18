@@ -76,8 +76,8 @@
   color: white;
 }
 
-/* Estilos para el contendio de grid */
-.content-flex{
+/* Estilos temporal  para el contendio de grid */
+/* .content-flex{
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -86,19 +86,47 @@
   width: 90%;
   margin: auto;
 }
-
+ */
 
 /* Estilos del card */
-.slider {
+
+  /* Estilo para el carrusel  */
+/* .slider {
   position: relative;
-  background: #fff;
   width: 90%;
   margin: auto;
 
 }
+ */
 
-.card{
-  width: 40%;
+.group-cards{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;               
+  justify-content:center;         
+  align-content: space-around;
+  padding: 20px auto;
+  margin: 20px auto;
+}
+
+.group-cards .card{
+  box-sizing: border-box; 
+  width: auto;
+  flex: 1 0 430px;  /* Ancho del group - incicial 335 */
+  flex-grow: unset;
+  border-radius: 5px;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transform: rotateY(0%);
+  transition: all 0.25s;
+  margin: 15px 10px;
+  
+}
+
+.group-cards .card:hover{
+  transform: translateY(-1.5%);
+  box-shadow: 0px 5px 15px 
 }
 
 .card-header .box-left{

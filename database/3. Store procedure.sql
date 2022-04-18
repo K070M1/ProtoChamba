@@ -482,6 +482,12 @@ BEGIN
 		VALUES(_idusuario, _redsocial, _vinculo);
 END $$
 
+CALL spu_redessociales_registrar(2,'F','https://www.facebook.com/jesus.peveandazabal.14');
+CALL spu_redessociales_registrar(2,'I','https://www.instagram.com/jesus_p_andazabal/?hl=es');
+CALL spu_redessociales_registrar(3,'Y','https://www.youtube.com/c/FaztTech')
+
+
+
 -- =============ELIMINAR REDES==================
 DELIMITER $$
 CREATE PROCEDURE spu_redessociales_eliminar
@@ -511,7 +517,7 @@ END $$
 
 -- ==============FILTRAR POR USUARIO=================
 DELIMITER $$
-CREATE PROCEDURE spu_redessociales_filtrar_usuario(IN _idusuario INT)
+CREATE PROCEDURE spu_redessociales_filtrar_usuario()
 BEGIN
 	SELECT 	RDS.idredsocial, USU.idusuario,
 					PER.nombres, PER.apellidos,
@@ -519,7 +525,7 @@ BEGIN
 		FROM redessociales RDS
 		INNER JOIN usuarios USU ON USU.idusuario = RDS.idusuario
 		INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-		WHERE USU.idusuario = _idusuario;
+		ORDER BY USU.idusuario;
 END $$
 
 
@@ -1024,3 +1030,5 @@ BEGIN
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio
 	GROUP BY SER.nombreservicio;
 END $$
+
+SELECT * FROM redessociales
