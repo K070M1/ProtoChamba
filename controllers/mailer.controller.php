@@ -24,8 +24,8 @@ function generateCode(){
     return $validaciones;
 }
 
-$_SESSION['code'] = '';
-$_SESSION['tiempolimite'] = '';
+$_SESSION['code'];
+$_SESSION['tiempolimite'];
 
 if (isset($_POST['op'])) {
 
@@ -35,6 +35,8 @@ if (isset($_POST['op'])) {
         $_SESSION['tiempolimite'] = $codigogenerado['fechamuerte'];
         
         $mailer->sendMail('1321063@senati.pe', 'Su código de verificación es: '.  $_SESSION['code']);
+
+        echo "El código es: ". $_SESSION['code'];
     };
 
     if($_POST['op'] == 'autentificationCode'){

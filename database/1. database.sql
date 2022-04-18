@@ -44,7 +44,6 @@ CREATE TABLE personas
 	
 )ENGINE = INNODB;
 
-
 CREATE TABLE usuarios
 (
 	idusuario 			INT AUTO_INCREMENT PRIMARY KEY,
@@ -130,6 +129,7 @@ CREATE TABLE servicios
 	CONSTRAINT uk_ser_nombreservicio UNIQUE(nombreservicio)
 )ENGINE = INNODB;
 
+
 CREATE TABLE especialidades
 (
 	idespecialidad	INT AUTO_INCREMENT PRIMARY KEY,
@@ -154,7 +154,6 @@ CREATE TABLE actividades
 	direccion				VARCHAR(80)		NULL,
 	CONSTRAINT fk_act_idespecialidad FOREIGN KEY(idespecialidad) REFERENCES especialidades (idespecialidad)
 )ENGINE = INNODB;
-
 
 CREATE TABLE trabajos 
 (

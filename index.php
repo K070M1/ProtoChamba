@@ -821,7 +821,7 @@
       if (view != false)
         $("#content-data").load(`views/${view}.php`);
       else
-        $("#content-data").load(`views/welcome.php`);
+        $("#content-data").load(`views/inicio-view.php`);
 
       /*$("#btn-regist-opn").click(function(){
         $("#modal-perfil-img").modal('toggle');
@@ -981,6 +981,20 @@
         })
       })
 
+    });
+
+
+
+    window.watsonAssistantChatOptions = {
+    integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", // The ID of this integration.
+    region: "us-east", // The region your integration is hosted in.
+    serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", // The ID of your service instance.
+    onLoad: function(instance) { instance.render(); }
+    };
+    setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+    document.head.appendChild(t);
     });
   </script>
 </body>

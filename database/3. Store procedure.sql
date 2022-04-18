@@ -1,6 +1,5 @@
 USE REACTIVACION;
 
-
 -- =============================================================================================================
 -- UBIGEO
 -- -------------------------------------------------------------------------------------------------------------
@@ -106,8 +105,6 @@ BEGIN
 	SELECT * FROM personas WHERE idpersona = _idpersona;
 END $$
 
-DELETE FROM usuarios WHERE idusuario > 9 AND idusuario < 50;
-
 -- =============================================================================================================
 -- TABLA USUARIOS
 -- -------------------------------------------------------------------------------------------------------------
@@ -117,6 +114,7 @@ BEGIN
 	SELECT * FROM vs_usuarios_listar
 		ORDER BY idusuario DESC;
 END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_registrar
@@ -151,6 +149,7 @@ BEGIN
 	UPDATE usuarios SET rol = _rol 
 		WHERE idusuario = _idusuario;
 END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_getdata(IN _idusuario INT)
@@ -199,7 +198,8 @@ BEGIN
 		WHERE email = _email;
 END $$
 
-
+/*
+-- INICIO ---------
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_filtrar
 (
@@ -210,19 +210,15 @@ BEGIN
 		SELECT * FROM vs_usuarios_servicio
 			WHERE idservicio = _idservicio OR iddepartamento = _iddepartamento;
 END $$
+*/
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
 BEGIN
-SELECT VUL.idusuario, VUL.apellidos, VUL.nombres, VUL.rol,
-	VUL.fechaalta, ALB.idalbum, ALB.nombrealbum,
-	GLR.tipo, GLR.archivo
-	FROM vs_usuarios_listar VUL
-	INNER JOIN albumes ALB ON ALB.`idusuario` = VUL.idusuario
-	INNER JOIN galerias GLR ON GLR.idalbum = GLR.idalbum
-	WHERE ALB.nombrealbum = 'perfil' AND GLR.tipo = 'f';
-	
+	SELECT *	FROM vs_usuarios_listar_datos_basicos
+		WHERE rol = _rol;	
 END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_buscar_nombres(IN _search VARCHAR(40))
@@ -233,10 +229,10 @@ END $$
 
 
 DELIMITER $$
-CREATE PROCEDURE spu_usuarios_edit_pass
+CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
 (
-	IN _idusuario INT,
-	IN _clave VARCHAR(80)
+	IN _rol 		CHAR(1), 
+	IN _search 	VARCHAR(40)
 )
 BEGIN
 	SELECT *	FROM vs_usuarios_listar_datos_basicos 
@@ -260,6 +256,19 @@ UPDATE usuarios SET
 	estado = '1'
 	WHERE idusuario = _idusuario;	
 END $$
+
+
+-- Restablecer contraseña
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_edit_pass
+(
+	IN _idusuario INT,
+	IN _clave VARCHAR(80)
+)
+BEGIN
+	UPDATE usuarios SET clave = _clave WHERE idusuario = _idusuario;
+END
+
 
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
@@ -337,8 +346,28 @@ BEGIN
 END $$
 
 
+-- OBTENER ESTABLECIMIENTOS SEGUN EL SERVICIO QUE BRINDA EL USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_establecimientos_getdata_servicio(
+	IN _nombreservicio VARCHAR(50)
+) BEGIN
+	SELECT
+		DISTINCT(e.idestablecimiento), e.establecimiento, e.ruc, e.latitud, e.longitud,
+		u.idusuario, u.horarioatencion,
+		p.idpersona, p.nombres, p.apellidos, p.telefono,
+		s.idservicio, s.nombreservicio,
+		es.idespecialidad, es.descripcion
+	FROM establecimientos e
+		INNER JOIN usuarios u ON e.idusuario = u.idusuario
+		JOIN especialidades es ON u.idusuario = es.idusuario
+		JOIN servicios s ON es.idservicio = s.idservicio
+		JOIN personas p ON u.idpersona = p.idpersona
+	WHERE s.nombreservicio LIKE CONCAT('%', _nombreservicio, '%')
+	GROUP BY establecimiento;
+END $$
+
 -- =============================================================================================================
--- TABLA ALBUNES
+-- TABLA ALBUMES
 -- -------------------------------------------------------------------------------------------------------------==
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_listar_usuario(IN _idusuario INT)
@@ -347,7 +376,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
-CALL spu_albumes_listar_usuario(1);
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
@@ -402,13 +431,6 @@ BEGIN
 	WHERE idalbum = _idalbum;
 END $$
 
--- Por corregir
-DELIMITER $$
-CREATE PROCEDURE spu_albumes_ultim_ft(IN _idalbum INT)
-BEGIN
-	SELECT nombrealbum, archivo FROM vs_galerias_listar WHERE idusuario = 1 ORDER BY idgaleria DESC;
-END $$
-
 -- =============================================================================================================
 -- TABLA GALERIA
 -- -------------------------------------------------------------------------------------------------------------
@@ -418,21 +440,6 @@ BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
 END $$
 
-DELIMITER $$
-CREATE PROCEDURE spu_galerias_foto_perfil(IN _idusuario INT)
-BEGIN	
-		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
-						GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
-			FROM galerias GLR
-			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
-			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
-			WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
-					AND  USU.`idusuario` = _idusuario;
-END $$
-
-CALL spu_galerias_foto_perfil(1);
-SELECT * FROM albumes;
-SELECT * FROM galerias;
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_album(IN _idalbum INT)
@@ -440,7 +447,6 @@ BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idalbum = _idalbum;
 END $$
 
-CALL spu_galerias_listar_album(2)
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_trabajo(IN _idtrabajo INT)
@@ -455,7 +461,38 @@ BEGIN
 END $$
 
 DELIMITER $$
-<<<<<<< HEAD
+CREATE PROCEDURE spu_galerias_registrar
+(
+	IN _idalbum 	INT,
+	IN _idusuario INT,
+	IN _idtrabajo INT,
+	IN _tipo 			CHAR(1),
+	IN _archivo 	VARCHAR(100)
+)
+BEGIN
+	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
+	IF _idtrabajo = '' THEN SET _idtrabajo = NULL; END IF;
+	
+	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, archivo) VALUES
+		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo);
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_galerias_modificar
+(
+	IN _idgaleria INT,
+	IN _idalbum 	INT
+)
+BEGIN
+	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
+	
+	UPDATE galerias SET
+		idalbum 	= _idalbum
+	WHERE idgaleria = _idgaleria;
+END $$
+
+DELIMITER $$
 CREATE PROCEDURE spu_galerias_foto_perfil(IN _idusuario INT)
 BEGIN	
 		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
@@ -477,41 +514,6 @@ BEGIN
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'portada' AND GLR.`estado` = '3'
 					AND  USU.`idusuario` = _idusuario;
-END $$
-
-DELIMITER $$
-=======
->>>>>>> 9dc17bc8c03ea9b3518ccc481872ea32b73915c2
-CREATE PROCEDURE spu_galerias_registrar
-(
-	IN _idalbum 	INT,
-	IN _idusuario INT,
-	IN _idtrabajo INT,
-	IN _tipo 			CHAR(1),
-	IN _archivo 	VARCHAR(100)
-)
-BEGIN
-	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
-	IF _idtrabajo = '' THEN SET _idtrabajo = NULL; END IF;
-	
-	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, archivo) VALUES
-		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo);
-END $$
-
-CALL spu_galerias_registrar(1,1,'','F','dragon.jpg');
-
-DELIMITER $$
-CREATE PROCEDURE spu_galerias_modificar
-(
-	IN _idgaleria INT,
-	IN _idalbum 	INT
-)
-BEGIN
-	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
-	
-	UPDATE galerias SET
-		idalbum 	= _idalbum
-	WHERE idgaleria = _idgaleria;
 END $$
 
 DELIMITER $$
@@ -538,12 +540,6 @@ BEGIN
 	INSERT INTO redessociales (idusuario, redsocial, vinculo)
 		VALUES(_idusuario, _redsocial, _vinculo);
 END $$
-
-CALL spu_redessociales_registrar(2,'F','https://www.facebook.com/jesus.peveandazabal.14');
-CALL spu_redessociales_registrar(2,'I','https://www.instagram.com/jesus_p_andazabal/?hl=es');
-CALL spu_redessociales_registrar(3,'Y','https://www.youtube.com/c/FaztTech')
-
-
 
 -- =============ELIMINAR REDES==================
 DELIMITER $$
@@ -589,59 +585,50 @@ END $$
 -- =============================================================================================================
 -- TABLA DE SEGUIDORES
 -- -------------------------------------------------------------------------------------------------------------
-
--- ===============LISTAR SEGUIDORES================
 DELIMITER $$
 CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
-BEGIN 
-	SELECT * FROM seguidores WHERE idfollowing = _idusuario;
+BEGIN
+	SELECT SEG.idfollower, PER.nombres, PER.apellidos, SEG.fechaseguido
+	FROM seguidores SEG
+	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollower
+	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
+	WHERE idfollowing = _idusuario;
 END $$
-
-<<<<<<< HEAD
-
--- ------------------------------------------------------------
 
 DELIMITER $$
 CREATE PROCEDURE spu_seguidos_listar(IN _idusuario INT)
-BEGIN 
+BEGIN
 	SELECT SEG.idfollowing, PER.nombres, PER.apellidos, SEG.fechaseguido, SEG.estado
-		FROM seguidores SEG
-		INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollowing
-		INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollower = _idusuario;
+	FROM seguidores SEG
+	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollowing
+	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
+	WHERE idfollower = _idusuario AND SEG.estado = '1';
 END $$
-
--- ---------------- CONTEO DE SEGUIDORES -------------------------
 
 DELIMITER $$
 CREATE PROCEDURE spu_seguidores_conteo(IN _idusuario INT)
-=======
--- ===============LISTAR SEGUIDOS================
-DELIMITER $$
-CREATE PROCEDURE spu_seguidos_listar(IN _idusuario INT)
->>>>>>> 9dc17bc8c03ea9b3518ccc481872ea32b73915c2
 BEGIN
-SELECT * FROM seguidores WHERE idfollower = _idusuario;
+	SELECT COUNT(idfollowing) AS 'totalseguidores'
+	FROM seguidores
+	WHERE idfollowing = _idusuario;
 END $$
-
-<<<<<<< HEAD
-CALL spu_seguidores_conteo(1);
 
 DELIMITER $$
 CREATE PROCEDURE spu_seguidos_conteo(IN _idusuario INT)
 BEGIN
 	SELECT COUNT(idfollower) AS 'totalseguidos'
-	 FROM seguidores 
-	WHERE idfollower = _idusuario;
+	FROM seguidores
+	WHERE idfollower = _idusuario AND estado = '1';
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_Seguidos_eliminar(IN _idusuario INT, IN _following INT)
+BEGIN
+	UPDATE seguidores SET
+	estado = 0
+	WHERE idfollower = _idusuario AND idfollowing = _following;
+END $$
 
--- following a quien siguo
--- follower quienes me siguen
-
-
-=======
->>>>>>> 9dc17bc8c03ea9b3518ccc481872ea32b73915c2
 -- =============================================================================================================
 -- TABLA FOROS
 -- -------------------------------------------------------------------------------------------------------------
@@ -733,20 +720,12 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_especialidades_listar_servicio(IN _idservicio INT)
-BEGIN
-   SELECT * FROM especialidades WHERE idservicio = _idservicio;
-END $$
-
-
-DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)
 BEGIN
    SELECT * FROM especialidades
       WHERE idusuario = _idusuario
       ORDER BY idespecialidad DESC;
 END $$
-
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_registrar
@@ -978,34 +957,6 @@ BEGIN
 	SELECT * FROM vs_listar_reportes;
 END $$
 
-CALL spu_listar_reportes();
-
-/*Reporte con filtrado por fecha*/
-DELIMITER $$
-CREATE PROCEDURE spu_filtrar_reportes_fecha
-(
-	IN _fechainicio DATE, 
-	IN _fechafin 		DATE
-)
-BEGIN
-	SELECT * FROM vs_listar_reportes 
-		WHERE fechareporte BETWEEN _fechainicio AND _fechafin;
-END $$
-
-/*Reporte con filtrado por usuario*/
-DELIMITER $$
-CREATE PROCEDURE spu_filtrar_reportes_usuario
-(
-	IN _nombres 	VARCHAR(40), 
-	IN _apellidos VARCHAR(40)
-)
-BEGIN
-	SELECT * FROM vs_listar_reportes 
-		WHERE usuario LIKE CONCAT('%',_apellidos,'%') OR 
-					usuario LIKE  CONCAT('%',_nombres,'%');
-END $$
-
-
 -- =============================================================================================================
 -- TABLA ACTIVIDADES
 -- -------------------------------------------------------------------------------------------------------------
@@ -1017,14 +968,12 @@ BEGIN
 	SELECT * FROM vs_listar_actividades;
 END $$
 
--- ELIMINAR
 -- Filtrar actividades
 DELIMITER $$
 CREATE PROCEDURE spu_filtrar_actividad(IN _idusuario INT)
 BEGIN
 	SELECT * FROM vs_listar_actividades WHERE idusuario = _idusuario;
 END $$
-
 
 -- Registrar actividad
 DELIMITER $$
@@ -1043,6 +992,7 @@ BEGIN
 	INSERT INTO actividades (idespecialidad, fechainicio, fechafin, horainicio, horafin, titulo, descripcion, direccion) VALUES
 		(_idespecialidad, _fechainicio, _fechafin, _horainicio, _horafin, _titulo, _descripcion, _direccion);
 END $$
+
 
 -- Modificar actividad
 DELIMITER $$
@@ -1071,9 +1021,6 @@ BEGIN
 	WHERE idactividad = _idactividad;
 END $$
 
-SELECT * FROM actividades;
-CALL spu_modificar_actividades(6, 2, '2022-04-25', '2022-04-25', '06:00', '14:00', 'Actualizado', 'Sin descripcion', 'Lima');
-
 DELIMITER $$
 CREATE PROCEDURE spu_actividades_getdata(IN _idactividad INT)
 BEGIN
@@ -1093,18 +1040,11 @@ END $$
 -- GRAFICOS ESTADISTICOS 
 -- -------------------------------------------------------------------------------------------------------------
 
--- USUARIOS POPULARES
-DELIMITER $$
-CREATE PROCEDURE spu_usuarios_populares()
-BEGIN
-	SELECT * FROM usuarios;
-END $$
-
 -- REPORTES RECIBIDOS POR MES --
 DELIMITER $$
 CREATE PROCEDURE spu_grafico_reportes()
 BEGIN
-	SELECT GETMONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY MONTHNAME(fechareporte)
 	ORDER BY MONTH(fechareporte) ASC;
@@ -1122,7 +1062,6 @@ BEGIN
 	ORDER BY 1 ASC;
 END $$
 
-CALL spu_grafico_reportes_year();
 
 -- NIVELES DE USUARIOS --
 DELIMITER $$
@@ -1145,8 +1084,4 @@ BEGIN
 	GROUP BY SER.nombreservicio;
 END $$
 
-<<<<<<< HEAD
-CALL spu_grafico_popular();
-=======
 SELECT * FROM redessociales
->>>>>>> 9dc17bc8c03ea9b3518ccc481872ea32b73915c2
