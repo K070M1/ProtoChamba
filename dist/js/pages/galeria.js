@@ -20,7 +20,6 @@ $(document).ready(function(){
     $("#add-new-photo").on("change", function(){
 
         var archivoCargados = this.files;
-        /* ElementSubidos = archivoCargados; */
         var elementos;
         var namelement;
 

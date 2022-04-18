@@ -70,4 +70,11 @@ if (isset($_GET['op'])) {
     listarEstablecimiento($data);
     
   }
+
+  if ($_GET['op'] == 'getEstablishmentByService'){
+
+    $data = $establecimiento->getEstablishmentByService(["nombreservicio" => $_GET['nombreservicio']]);
+    echo json_encode($data);
+    
+  }
 }
