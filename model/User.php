@@ -46,7 +46,7 @@ class User extends ModelMaster{
   // banear usuario
   public function banUser(array $data){
     try{
-      parent::execProcedure($data, "spu_usuarios_baneaer", false);
+      parent::execProcedure($data, "spu_usuarios_banear", false);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -147,6 +147,16 @@ class User extends ModelMaster{
   public function getEmailV(array $data){
     try{
       return parent::execProcedurePerso($data,"spu_email_verifi");
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  //Cambiar contraseña
+  public function updatePasswordRest(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_edit_pass", false);
     }
     catch(Exception $error){
       die($error->getMessage());

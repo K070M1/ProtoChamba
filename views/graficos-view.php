@@ -239,6 +239,6 @@
         });
       }
 
-      //loadMonthlyReports();
+      loadMonthlyReports();
     })
   </script>

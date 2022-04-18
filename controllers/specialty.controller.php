@@ -75,8 +75,8 @@ if (isset($_GET['op'])){
   // Listar todas las especialidades
   if($_GET['op'] == 'getSpecialty'){
     $data = $specialty->getSpecialty();
-    echo json_encode($data);
-    //listSpecialty($data);
+    //echo json_encode($data);
+    listSpecialty($data);
   }
 
   // Listar especialidades por servicio

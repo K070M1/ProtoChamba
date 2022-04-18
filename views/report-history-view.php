@@ -79,11 +79,6 @@
       op: 'searchUsersByNamesViewHistory',
       search: ''
     };
-
-    //????????????????
-    $("input[data-bootstrap-switch]").each(function () {
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    })
     
     // cargar usuarios
     function loadUsersTable(){
@@ -103,12 +98,12 @@
         url: 'controllers/report.controller.php',
         type: 'GET',
         data: 'op=getReports',
-        success: function(e){
+        success: function(result){
 
           // destruir datatable
           $('#tbl-reports').DataTable().destroy();
           //Cargar datos
-          $("#tbody-reports").html(e);
+          $("#tbody-reports").html(result);
 
           // Volver a genewrar datatable
           $('#tbl-reports').DataTable({

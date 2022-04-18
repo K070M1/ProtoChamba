@@ -55,7 +55,7 @@ class Gallery extends ModelMaster{
   // Registrar galeria
   public function registerGallery(array $data){
     try{
-      parent::execProcedure($data, "spu_galerias_registrar", false);
+      return parent::execProcedure($data, "spu_galerias_registrar", true);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -66,6 +66,15 @@ class Gallery extends ModelMaster{
   public function updateGallery(array $data){
     try{
       parent::execProcedure($data, "spu_galerias_modificar", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  public function deleteGallery(array $data){
+    try{
+      parent::deleteRegister($data, "spu_galerias_eliminar");
     }
     catch(Exception $error){
       die($error->getMessage());

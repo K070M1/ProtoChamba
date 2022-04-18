@@ -147,67 +147,77 @@ body> div#modal-res-contra3 > .modal-dialog > .modal-content > .m-res{
 
 /*Fin de los Modales de restablecimiento*/
 
-/*Adecuación solo del contador*/
-body> .modal > .modal-dialog > .modal-content > .m-res >  div#back-icon > div#contador-pass{
-    margin-right: 0;
-    padding-right: 0;
-    float: right;
-    padding-right: 50px;
-}
-/*Fin de la adecuación solo contador*/
+/*Temporizador*/
 
-/*Estilo del temporizador*/
-.base-timer {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    
+body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper { 
+  width:30px;
+  height:30px;
+  background:white;
+  float: right;
 }
-  
-.base-timer__svg {
-    transform: scaleX(-1);
+
+body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .pie {
+  width: 50%;
+  height: 100%;
+  transform-origin: 100% 50%;
+  position: absolute;
+  background: rgb(56, 34, 255);
+  border: 1.5px solid #232323;
 }
-  
-.base-timer__circle {
-    fill: none;
-    stroke: none;
+
+body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner {
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+  z-index: 200;
+  border-right:none;
+  animation: rota 25s linear infinite;
 }
-  
-.base-timer__path-elapsed {
-    stroke-width: 7px;
-    stroke: grey;
+
+body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner:after {
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:#fff;
+    border:1px solid rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.2);
+    border-radius:50%;
+    top:10px;
+    right:10px;   
+    content:"";
+  	display: none;
 }
-  
-.base-timer__path-remaining {
-    stroke-width: 7px;
-    stroke-linecap: round;
-    transform: rotate(90deg);
-    transform-origin: center;
-    transition: 1s linear all;
-    fill-rule: nonzero;
-    stroke: currentColor;
+
+body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .filler {
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0; 
+  left: 50%;
+  opacity: 0;
+  z-index: 100;
+  animation: fill 25s steps(1,end) infinite;
+  border-left: none;
 }
-  
-.base-timer__path-remaining.green {
-    color: rgb(65, 184, 131);
+
+body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .mask {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  background: inherit;
+  opacity: 1;
+  z-index: 300;
+  animation: mask 25s steps(1,end) infinite;
 }
-  
-.base-timer__path-remaining.orange {
-    color: orange;
+
+@keyframes rota {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
-  
-.base-timer__path-remaining.red {
-    color: red;
+
+@keyframes mask {
+  0% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
-  
-.base-timer__label {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-}
-/*Fin del estilo del temporizador*/
+
+@keyframes fill {
+  0% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+} 
+
+/* Fin de temporizador*/

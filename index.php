@@ -90,7 +90,7 @@
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                <img src="dist/img/avatar2.png" alt="User Avatar" class="img-size-50 img-circle mr-3">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     John Pierce
@@ -592,7 +592,7 @@
           </div>
           <label class="md-quest-lb">@USERNAME</label>
           <p>Para verificar que realmente eres tú, responde la siguiente pregunta</p>
-          <form class="form-horizontal">
+          <form >
             <div class="form-group row">
               <select class="form-control col-sm-6">
                 <option selected>Seleccionar pregunta</option>
@@ -649,7 +649,11 @@
             <a href="#">
               <i class="fas fa-arrow-left"></i>
             </a>
-            <div id="contador-pass"></div>
+            <div class="wrapper">
+              <div class="pie spinner"></div>
+              <div class="pie filler"></div>
+              <div class="mask"></div>
+            </div>​ 
           </div>
           <h3 class="font-weight-bold">Validar el código de verificación</h3>
           <span><label>Suarez*********@gmail.com</label></span>
@@ -684,7 +688,7 @@
           </div>
           <h3 class="font-weight-bold">Crear nueva contraseña</h3>
           <span><label for="">Suarez*********@gmail.com</label></span>
-          <form class="form-horizontal">
+          <form class="">
             <div class="form-group row">
               <div class="col-sm-5">
                 <label for="">Nueva contraseña:</label>
@@ -722,11 +726,11 @@
             </a>
           </div>
           <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
-          <form id="form-horizontal">
+          <form id="">
             <div class="form-group row">
               <div class="col-sm-12">
                 <label for="">Los procesos se enviarán a:</label>
-                <input type="password" class="form-control">
+                <input type="email" class="form-control" disabled value="1299595@senati.pe" id="emailDir">
               </div>
             </div>
             <a href="#" data-toggle="modal" data-target="#modal-res-contra2">!No tengo acceso a este correo...!</a>
@@ -752,11 +756,11 @@
             </a>
           </div>
           <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
-          <form id="form-horizontal">
+          <form id="f">
             <div class="form-group row">
               <div class="col-sm-12">
                 <label for="">Los procesas han sido cambiados al email:</label>
-                <input type="password" class="form-control">
+                <input type="email" class="form-control" disabled value="1302314@senai.pe" id="emailResp">
               </div>
             </div>
           </form>
@@ -809,9 +813,6 @@
   <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
   <script src="dist/js/sweet-alert-2.js"></script>
 
-  <!--Configuración del temporizador-->
-  <script src="dist/js/pages/md-restabl-temporizador.js"></script>
-
   <script src="dist/js/pages/galeria.js"></script>
   <script>
     $(document).ready(function() {
@@ -825,7 +826,7 @@
       /*$("#btn-regist-opn").click(function(){
         $("#modal-perfil-img").modal('toggle');
         $("#modalRegister").modal('hide');
-      });*/
+      });
 
       $("#btn-omt-prf").click(function() {
         $("#modal-perfil-img").modal('hide');        
@@ -833,11 +834,19 @@
 
       /* Movimiento entre modales */
       $("#btnRes1").click(function() {
+        var email = $("#emailDir").val();
+        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
+        $("#emailDir").val(res);
+        
         $("#modal-res-contra1").modal("hide");
         $("#modal-res-contra3").modal("toggle");
       });
 
       $("#btnRes2").click(function() {
+        var emailres = $("#emailResp").val();
+        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
+        $("#emailResp").val(res);
+        
         $("#modal-res-contra2").modal("hide");
         $("#modal-res-contra3").modal("toggle");
       });
@@ -857,24 +866,13 @@
       });
       /* ./Movimiento entre modales */
 
-      /*Temporizador*/
-      $("#btnRes3").click(function() {
-        startTimer();
-      });
-      /*./Temporizador */
-
-      /*Temporizador*/
-      $("#btnRes3").click(function() {
-        startTimer();
-      });
-      /*./Temporizador */
 
       /* Registrar usuario */
 
       // Cargar datos de departamentos
       function slclstDepartm() {
         $.ajax({
-          url: 'controller/ubigeo.controller.php',
+          url: 'controllers/ubigeo.controller.php',
           type: 'GET',
           data: 'op=getDepartments',
           success: function(e) {
@@ -888,7 +886,7 @@
         let iddepart = $(this).val();
 
         $.ajax({
-          url: 'controller/ubigeo.controller.php',
+          url: 'controllers/ubigeo.controller.php',
           type: 'GET',
           data: 'op=getProvinces&iddepartamento=' + iddepart,
           success: function(e) {
@@ -903,7 +901,7 @@
         let idprovin = $(this).val();
 
         $.ajax({
-          url: 'controller/ubigeo.controller.php',
+          url: 'controllers/ubigeo.controller.php',
           type: 'GET',
           data: 'op=getDistricts&idprovincia=' + idprovin,
           success: function(e) {
@@ -943,7 +941,7 @@
         formData.append("clave", clave);
 
         $.ajax({
-          url: 'controller/user.controller.php',
+          url: 'controllers/user.controller.php',
           type: 'POST',
           data: formData,
           contentType: false,
@@ -966,7 +964,7 @@
         var email = $('#email').val();
         var clave = $('#clave').val();
         $.ajax({
-          url: 'controller/user.controller.php',
+          url: 'controllers/user.controller.php',
           type: 'GET',
           datatype: 'JSON',
           data: {

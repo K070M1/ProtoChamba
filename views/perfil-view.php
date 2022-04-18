@@ -653,172 +653,24 @@
       <div class="tab-content" id="pills-tabContent">
         <!--Fotos-->
         <div class="tab-pane fade show active" id="pills-foto" role="tabpanel">
-          <div class="row">
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img">
-              <div class="image-container">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen-square"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash-alt"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-eye"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="add-img-cd" title="Subir una imágen a mi galería">
-                <i class="fas fa-camera"></i>
-
-              </div>
-            </div>
+          <div class="row" id="load-Gallery">
+            
+            
           </div>
         </div>
         <!--./Fotos-->
 
         <!--Albumes-->
         <div class="tab-pane fade" id="pills-album" role="tabpanel">
-          <div class="row">
-            <div class="col-md-3 user-cd-img user-cd-albm">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <h4>Soldador</h4>
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-folder-open"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3 user-cd-img user-cd-albm">
-              <div class="image-container ">
-                <figure>
-                  <img src="./dist/img/photo1.png">
-                  <h4>Mi perfil</h4>
-                  <figcaption>
-                    <ul>
-                      <li>
-                        <i class="fas fa-pen"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-trash"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-folder-open" data-toggle="collapse" data-target="#img-album"></i>
-                      </li>
-                    </ul>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="add-album-cd" title="Crear nuevo album">
-                <i class="fas fa-plus"></i>
-              </div>
-            </div>
+          <div class="row" id="load-album">
+            
+            
           </div>
           <!---Collapse de fotos en los albumes-->
-          <div class="collapse" id="img-album">
-            <h2>Mi Perfil</h2>
-            <div class="row">
-              <div class="col-md-3 user-cd-img">
-                <div class="image-container ">
-                  <figure>
-                    <img src="./dist/img/photo1.png">
-                    <figcaption>
-                      <ul>
-                        <li>
-                          <i class="fa-solid fa-pen-to-square"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-trash-can"></i>
-                        </li>
-                        <li>
-                          <i class="fa-solid fa-eye"></i>
-                        </li>
-                      </ul>
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
+          <div class="collapse" id="img-album-open-collap">
+            <h2 id="tittle-collapse"></h2>
+            <div class="row" id="content-collapse-albm">
+              
             </div>
           </div>
           <!---./Collapse de fotos en los albumes-->
@@ -852,12 +704,12 @@
                 <label class="form-label">Album:</label>
               </div>
               <div class="col-lg-5">
-                <select class="form-control" id="">
-                  <option value="">Ninguno</option>
+                <select class="form-control" id="alb-add-gal">
+
                 </select>
               </div>
               <div class="form-group col-sm-5 text-right">
-                <input type="file" multiple id="add-new-photo" name="images[]">
+                <input type="file" multiple id="add-new-photo" accept=".jpg, .gif, .png" name="archivo[]">
                 <button type="button" class="btn btn-outline-secondary form-button" id="btn-up-cnt-img">Subir imágenes</button>
               </div>
             </div>
@@ -873,7 +725,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cnl-img">Cancelar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-primary" id="btn-add-gal-md">Guardar</button>
         </div>
       </div>
     </div>
@@ -883,46 +735,19 @@
   <!--Modal de ver la imagen-->
   <div class="modal fade" id="modal-view-img" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Título de la imagen</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div id="md-contain-img">
-            <img src="./dist/img/photo1.png" alt="">
-          </div>
-        </div>
-        <div class="md-footer">
-          <form class="row">
-            <div class="col-md-2 text-right">
-              <label>Album:</label>
-            </div>
-            <div class="btn-group col-md-6">
-              <select id="slc-album-md" class="form-control view-only-img">
-                <option value="">Ninguno</option>
-              </select>
-              <button type="button" class="btn btn-outline-secondary btn-cmb-alb">Cambiar</button>
-            </div>
-
-            <div class="col-md-4 text-right">
-              <h7 class="font-weight-bold">28/03/2022</h7>
-            </div>
-          </form>
-        </div>
+      <div class="modal-content" id="loadGalleryModal">
+        
       </div>
     </div>
   </div>
   <!--./Modal de ver la imagen-->
 
   <!--Modal de añadir album-->
-  <div class="modal fade" id="md-album-cd-img" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal fade" id="md-album-cd-img" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Crear nuevo álbum</h5>
+          <h5 class="modal-title" id="t-md-albm">Crear nuevo álbum</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -930,12 +755,12 @@
         <div class="modal-body">
           <form action="">
             <label for="">Nombre del álbum:</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="nmb-album-add">
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Añadir</button>
+          <button type="button" class="btn btn-primary" id="añadir-albm">Añadir</button>
         </div>
       </div>
     </div>

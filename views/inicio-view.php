@@ -2,9 +2,16 @@
 <script src="https://kit.fontawesome.com/e58c03f22e.js" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="dist/css/pages/main.css">
-<link rel="stylesheet"  href="dist/css/pages/owl.carousel.min.css">
-<link rel="stylesheet" href="plugins/owl-carousel/css/owl.theme.default.min.css">
 
+<!-- Carousel -->
+<link rel="stylesheet" href="plugins/owl-carousel/css/owl.carousel.min.css">
+<link rel="stylesheet" href="plugins/owl-carousel/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="dist/css/carousel-owl.css">
+
+<!-- owl carousel -->
+<script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
+<script src="dist/js/config.owl.carousel.js"></script>
+<script src="dist/js/pages/ap.js"></script>
 
 <div class="wrapper-main">
 
@@ -38,42 +45,34 @@
         </div>
       </div>
        
-      <div class="slider">
-          <div class="container-cards owl-carousel">
+      <div class="group-cards" id="cards-servicios">
           
-          </div>
       </div>
-
-      
 
     </div><!-- Fin de la seccion servicios -->
 
 </div>  <!-- Fin del weaper main  -->
 
-<script src="dist/js/pages/owl.carousel.min.js"></script>
-<script src="dist/js/pages/ap.js"></script>
-<script src="dist/js/config.owl.carousel.js"></script>
+
 
 <script>
  $(document).ready(function (){
 
     function getSpecialty(){
       $.ajax({
-        url: 'controller/especialidad.php',
+        url: 'controllers/specialty.controller.php',
         type: 'GET',
         data: 'op=getSpecialty',
         success : function(e){
          /*  console.log(e); */
-          $('.container-cards').html(e);
+          $('#cards-servicios').html(e);
         }
       });
     }
     
     
-
-
-
     getSpecialty();
+
     
  });
 

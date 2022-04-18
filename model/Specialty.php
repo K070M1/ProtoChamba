@@ -33,8 +33,6 @@ class Specialty extends ModelMaster{
             die($error->getMessage());
         }
     }
-
-
 }
 
 ?>

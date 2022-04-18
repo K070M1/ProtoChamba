@@ -48,7 +48,7 @@ class Mailer{
       echo "";
     }
     catch (Exception $e){
-      echo "No se ha podido enviar el correo electrónico, error: {$mail->ErrorInfo}";
+      echo "No se ha podido enviar el correo electrónico: {$this->mail->ErrorInfo}";
     }
   } 
 }

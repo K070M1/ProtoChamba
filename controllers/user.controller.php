@@ -15,34 +15,6 @@ $mailer = new Mailer();
 
 if (isset($_GET['op'])) {
 
-  //Listar usuario por correo
-  /*  if($_GET['op'] == 'loginUser'){
-    $response = [];
-    //error_reporting(0);
-    try {
-      $data = $user->loginUser(["email" => $_GET['email']]);
-      if ($data) {
-        $clave = isset($_GET["clave"]) ? $_GET["clave"] : null;
-        $clavefuerte = $data[0]["clave"];
-        if (password_verify($clave, $clavefuerte)) {
-          $response['message'] = 'Acceso permitido';
-          // Establecer variables de sesión (opcional)
-        } else {
-          throw new Exception("La contraseña es incorrecta", 1);
-        }
-      } else {
-        throw new Exception("El usuario no existe", 1);
-      }
-      $response['status'] = 200;
-    } catch (Exception $e) {
-      $response['status'] = 400;
-      $response['message'] = $e->getMessage();
-    } finally {
-      http_response_code($response['status']);
-      echo json_encode($response);
-    }
-  } */
-
   // Generar estructura HTML listando todos los usuarios (vista permisos)
   function loadUsersViewPermissions($data){
 
@@ -210,5 +182,14 @@ if (isset($_POST['op'])) {
     } else {
       echo ".";
     }
+  }
+
+  if($_POST['op'] == 'updatePasswordRest'){
+    $datosUp = [
+      "idusuario" => $_POST['idusuario'],
+      "clave"  => password_hash($_POST['clave'], PASSWORD_BCRYPT)
+    ];
+
+    $user->updatePasswordRest($datosUp);
   }
 }

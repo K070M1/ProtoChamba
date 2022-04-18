@@ -1,9 +1,8 @@
 $(document).ready(function(){
 
-
   function per(){
     $.ajax({
-      url:'controller/person.controller.php',
+      url:'controllers/person.controller.php',
       type: 'GET',
       data: 'op=getPersona',
       success: function(e){
@@ -14,7 +13,7 @@ $(document).ready(function(){
   }
   function conteoSeguidos(){
     $.ajax({
-      url:'controller/follower.controller.php',
+      url:'controllers/follower.controller.php',
       type: 'GET',
       data: 'op=getCountFollowedByUser',
       success: function(e){
@@ -26,7 +25,7 @@ $(document).ready(function(){
   }
   function conteoSeguidores(){
     $.ajax({
-      url:'controller/follower.controller.php',
+      url:'controllers/follower.controller.php',
       type: 'GET',
       data: 'op=getCountFollowersByUser',
       success: function(e){
@@ -39,7 +38,7 @@ $(document).ready(function(){
 
   function listarEstablecimiento(){
     $.ajax({
-      url: 'controller/establishment.controller.php',
+      url: 'controllers/establishment.controller.php',
       type: 'GET',
       data: 'op=getAEstablishment',
       success: function(e){
@@ -50,7 +49,7 @@ $(document).ready(function(){
   }
   function listDatosPerson(){
     $.ajax({
-      url: 'controller/person.controller.php',
+      url: 'controllers/person.controller.php',
       type: 'GET',
       data: 'op=getPerson',
       success: function(e){
@@ -62,7 +61,7 @@ $(document).ready(function(){
 
   function listarSeguidores(){
     $.ajax({
-      url: 'controller/follower.controller.php',
+      url: 'controllers/follower.controller.php',
       type: 'GET',
       data: 'op=getFollowersByUser',
       success: function(e){
@@ -74,7 +73,7 @@ $(document).ready(function(){
 
   function listarSeguidos(){
     $.ajax({
-      url: 'controller/follower.controller.php',
+      url: 'controllers/follower.controller.php',
       type: 'GET',
       data: 'op=getFollowedByUser',
       success: function(e){
@@ -200,7 +199,6 @@ $(document).ready(function(){
     })
 
   });
-
 
   $("#fileSelector").click(abrirImagen);
 
