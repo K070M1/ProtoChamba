@@ -36,7 +36,7 @@ $(document).ready(function(){
     /*Cargar album */
     function loadAlbum(){
         $.ajax({
-          url: 'controller/album.controller.php',
+          url: 'controllers/album.controller.php',
           type: 'GET',
           data: 'op=loadAlbum&idusuario=1',
           success: function(e) {
@@ -70,7 +70,7 @@ $(document).ready(function(){
         formData.append("nombrealbum", nalbum);
 
         $.ajax({
-            url: 'controller/album.controller.php',
+            url: 'controllers/album.controller.php',
             type: 'POST',
             data: formData,
             contentType: false,
@@ -91,7 +91,7 @@ $(document).ready(function(){
     $("#load-album").on("click", ".btn-elim",function(){
         $idalbum = $(this).attr("data-alb-eli");
         $.ajax({
-            url: 'controller/album.controller.php',
+            url: 'controllers/album.controller.php',
             type: 'GET',
             data: 'op=deleteAlbum&idalbum=' + $idalbum,
             success: function(e) {
@@ -105,7 +105,7 @@ $(document).ready(function(){
         $idalbum = $(this).attr("data-alb-open");
         $namealbum = $(this).attr("data-alb-open-name");
         $.ajax({
-            url: 'controller/gallery.controller.php',
+            url: 'controllers/gallery.controller.php',
             type: 'GET',
             data: 'op=listGalleryFromAlbum&idalbum=' + $idalbum,
             success: function(e) {
@@ -121,7 +121,7 @@ $(document).ready(function(){
         $idalbum = $(this).attr("data-alb-act");
         idalbum = $idalbum;
         $.ajax({
-            url: 'controller/album.controller.php',
+            url: 'controllers/album.controller.php',
             type: 'GET',
             data: 'op=getAlbumDat&idalbum=' + $idalbum,
             success: function(e) {
@@ -140,7 +140,7 @@ $(document).ready(function(){
     /*Cargar galeria */
     function loadGallery(){
         $.ajax({
-          url: 'controller/gallery.controller.php',
+          url: 'controllers/gallery.controller.php',
           type: 'GET',
           data: 'op=listGallery&idusuario=1',
           success: function(e) {
@@ -193,7 +193,7 @@ $(document).ready(function(){
     $("#load-Gallery").on("click", ".btn-elim", function(){
         $idgaleria = $(this).attr("data-gal-eli");
         $.ajax({
-            url: 'controller/gallery.controller.php',
+            url: 'controllers/gallery.controller.php',
             type: 'GET',
             data: 'op=deleteGallery&idgaleria=' + $idgaleria,
             success: function() {
@@ -238,7 +238,7 @@ $(document).ready(function(){
             formData.append("idalbum", idalbumm );
 
             $.ajax({
-                url: 'controller/gallery.controller.php',
+                url: 'controllers/gallery.controller.php',
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -264,7 +264,7 @@ $(document).ready(function(){
             formData.append("tipoarchivo", ElementSubidos[i]['type'])
 
             $.ajax({
-                url: 'controller/gallery.controller.php',
+                url: 'controllers/gallery.controller.php',
                 type: 'POST',
                 data: formData,
                 contentType: false,
@@ -284,7 +284,7 @@ $(document).ready(function(){
     function loadGalleryModal(idgaleria, idalbm, estado){
         var idmalbm = idalbm;
         $.ajax({
-            url: 'controller/gallery.controller.php',
+            url: 'controllers/gallery.controller.php',
             type: 'GET',
             data: 'op=getGalleryModal&idgaleria=' + idgaleria,
             success: function(e) {
@@ -302,7 +302,7 @@ $(document).ready(function(){
     /*Cagar select de modal de la galeria */
     function loadAlbumSlcModalGallery(idalbm){
         $.ajax({
-            url: 'controller/album.controller.php',
+            url: 'controllers/album.controller.php',
             type: 'GET',
             data: 'op=loadAlbumSlcModal&idusuario=1',
             success: function(e) {
@@ -319,7 +319,7 @@ $(document).ready(function(){
     /*Cargar select del modal de añadir galeria */
     function loadAlbumSlcModalAddGallery(){
         $.ajax({
-            url: 'controller/album.controller.php',
+            url: 'controllers/album.controller.php',
             type: 'GET',
             data: 'op=loadAlbumSlcModal&idusuario=1',
             success: function(e) {

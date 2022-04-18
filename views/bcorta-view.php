@@ -243,7 +243,7 @@
 
     function getSpecialty(){
       $.ajax({
-        url: 'controller/especialidad.php',
+        url: 'controllers/specialty.controller.php',
         type: 'GET',
         data: 'op=getSpecialty  ',
         success : function(e){

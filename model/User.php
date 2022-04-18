@@ -43,6 +43,26 @@ class User extends ModelMaster{
     }
   }
 
+  // banear usuario
+  public function banUser(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_banear", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Reactivar usuario
+  public function reactivateUser(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_reactivar", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Agregar foto
   public function perfilFotografia(array $data){
     try{

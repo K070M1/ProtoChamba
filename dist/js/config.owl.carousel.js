@@ -3,14 +3,14 @@ owl.owlCarousel({
     stagePadding: 10,
     dots: false,                    // Leyenda de pagina
     loop:false,                     // Repetir
-    autoplay:true,
-    autoplayTimeout:2500,
+    autoplay:false,
+    autoplayTimeout:1400,
     autoplayHoverPause:true,
     animateOut: 'slideOutDown',     // Animación salida (estilo css)
     animateIn: 'flipInX',           // Animación entrada (estilo css)
     margin: 10,                     // Margen
     nav:true,                       // Navegación
-    autoWidth: false,               // Ajustar ancho
+    autoWidth: true,               // Ajustar ancho
     autoHeight: true,               // Ajustar altura
     autoHeightClass: 'owl-height',  // Clase CSS
     autoWidthClass: 'owl-width',    // Clase CSS
@@ -20,8 +20,12 @@ owl.owlCarousel({
             items:1
         },
         960:{
-            items:2,
-            stagePadding: 10
+            items:4,
+            stagePadding: 1
+        },
+        1260:{
+            items:8,
+            stagePadding: 1
         }
     }
 });

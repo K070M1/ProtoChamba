@@ -150,6 +150,90 @@
           </div>
         </div>
       </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="box-left">
+            <img src="dist/img/avatar2.png">
+          </div>
+          <!-- /. box left -->
+          <div class="box-right">
+            <div class="icons">
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <!-- /. icons -->
+            <div class="name-user">
+              <h5>Augusto Belardez Santiago</h5>
+            </div>
+            <div class="services">
+              <h6>Electricista</h6>
+            </div>
+          </div>
+          <!-- /.box right -->
+        </div>
+        <div class="card-body">
+          <div class="contacts">
+            <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
+            <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+            <a href="#"><i class="fab fa-instagram"></i></a>     
+            <a href="#"><i class="fab fa-whatsapp"></i></a>     
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="box-left">
+            <img src="dist/img/avatar2.png">
+          </div>
+          <!-- /. box left -->
+          <div class="box-right">
+            <div class="icons">
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star active"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <!-- /. icons -->
+            <div class="name-user">
+              <h5>Augusto Belardez Santiago</h5>
+            </div>
+            <div class="services">
+              <h6>Electricista</h6>
+            </div>
+          </div>
+          <!-- /.box right -->
+        </div>
+        <div class="card-body">
+          <div class="contacts">
+            <a href="#"><i class="fas fa-solid fa-envelope"></i> <span>Correo electronico</span></a>
+            <a href="#"><i class="fas fa-solid fa-phone"></i> <span>Comunicarse</span></a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> <span>Ubicación</span></a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="social-media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+            <a href="#"><i class="fab fa-instagram"></i></a>     
+            <a href="#"><i class="fab fa-whatsapp"></i></a>     
+            <a href="#"><i class="fab fa-facebook-f"></i></a>     
+          </div>
+        </div>
+      </div>
       
     </div>
   </div>
@@ -399,7 +483,7 @@
             accusantium minus, ex eaque culpa quia porro.
           </p>
           <div class="content-galeria">
-            <video class="fm-video video-js vjs-16-9 vjs-big-play-centered" data-setup="{}" controls id="fm-video">
+            <video class="fm-video video-js vjs-16-9 vjs-big-play-centered videos" data-setup="{}" controls id="fm-video">
               <source src="dist/video/demo-player.mp4" type="video/mp4">
             </video>
           </div>

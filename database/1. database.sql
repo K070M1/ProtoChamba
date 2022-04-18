@@ -44,7 +44,6 @@ CREATE TABLE personas
 	
 )ENGINE = INNODB;
 
-SELECT * FROM personas;
 
 CREATE TABLE usuarios
 (
@@ -146,13 +145,16 @@ CREATE TABLE actividades
 (
 	idactividad			INT AUTO_INCREMENT PRIMARY KEY,
 	idespecialidad	INT 					NOT NULL,
-	fecha						DATE 					NOT NULL,
-	hora						TIME 					NOT NULL,
+	fechainicio 		DATE 					NOT NULL,
+	fechafin				DATE 					NOT NULL,
+	horainicio			TIME 					NOT NULL,
+	horafin					TIME 					NOT NULL,
 	titulo					VARCHAR(45)		NOT NULL,
 	descripcion			VARCHAR(150)	NULL,
 	direccion				VARCHAR(80)		NULL,
-	CONSTRAINT fk_act_idespecialidad FOREIGN KEY(idactividad) REFERENCES especialidades (idespecialidad)
+	CONSTRAINT fk_act_idespecialidad FOREIGN KEY(idespecialidad) REFERENCES especialidades (idespecialidad)
 )ENGINE = INNODB;
+
 
 CREATE TABLE trabajos 
 (
@@ -179,7 +181,6 @@ CREATE TABLE albumes
 	CONSTRAINT uk_alb_nombrealbum UNIQUE(idusuario, nombrealbum)
 )ENGINE = INNODB;
 
-SELECT * FROM albumes;
 
 CREATE TABLE galerias 
 (
@@ -197,7 +198,6 @@ CREATE TABLE galerias
 	CONSTRAINT fk_galerias_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
 
-SELECT * FROM galerias;
 
 CREATE TABLE calificaciones 
 (

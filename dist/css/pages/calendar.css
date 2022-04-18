@@ -7,19 +7,6 @@
   color: #fff !important;
 }
 
-#btnCerrar{
-  color:crimson;
-  padding: 5px;
-  background: #8888;
-  border-radius: 25px;
-  font-size: 17px;
-  font-weight: 600;
-}
-#btnCerrar:hover{
-  cursor: pointer;
-  background-color: #333;
-}
-
 
 
 .circu{
@@ -28,9 +15,6 @@
   border-radius: 50px;
 }
 
-#grupoRadio label:hover{
-  cursor: pointer;
-}
 
 #grupoRadio input[type="radio"]:checked + label {
   border: 3px solid #ccc !important;  
@@ -140,14 +124,16 @@
 .fc-col-header-cell{
   padding: 5px 0px;
   vertical-align: middle;
-  background: #f2f2f2;
+  background: #fff;
 }
+
+
 
 .dark-mode th,
 .dark-mode .fc-col-header-cell{
   padding: 5px 0px;
   vertical-align: middle;
-  background: rgba(0,0,0,.3);
+  background: rgba(0,0,0,.1);
   color: white;
 }
 .dark-mode .fc-col-header-cell{
@@ -164,7 +150,7 @@
 
 .dark-mode .fc-list-day-cushion,
 .dark-mode .fc-daygrid-day-frame{
-  background: rgba(0,0,0,.3);
+  background: rgba(0,0,0,.1);
 }
 
 .fc-col-header-cell div a::first-letter,
@@ -173,18 +159,54 @@
 }
 
 .fc-daygrid-day-top{
-  padding-right: 5px;
+  padding-right: 8px;
 }
 
 .fc-day{
   text-align: center;
 }
 
+.dark-mode .fc-list-day-cushion{
+  background: rgb(44, 43, 43) !important;
+  color: white !important;
+}
+.dark-mode .fc-list-day-cushion a{
+  color: white !important;
+}
+.dark-mode .fc-list-event:hover,
+.dark-mode .fc-event-today:hover,
+.dark-mode .fc-event-future:hover{
+  background: rgb(34, 33, 33) !important;
+}
 
-.fc-daygrid-event.hover,
-.fc-event-title:hover,
-.fc-event-title-container:active,
-.fc-event-title-container:hover,
-.fc-event-title-container:focus{
-  cursor: pointer;
+#calendar{
+  max-width: 100%;
+}
+
+.dark-mode thead{
+  background: rgba(0,0,0,.1);
+}
+.dark-mode tbody{
+  background: rgba(0,0,0,.05);
+}
+.dark-mode div[id^="fc-dom"] {
+  background: rgb(31, 30, 30) !important;
+}
+
+.dark-mode div[id^="fc-dom"]  .fc-propover-header{
+  background: #000 !important;
+}
+
+.dark-mode div[id^="fc-dom"]  .fc-propover-body{
+  background: #333 !important;
+}
+
+.dark-mode  .fc-more-link,
+.dark-mode  .fc-event{
+  background: inherit;
+  color: #ccc;
+}
+.fc-event-title{
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
