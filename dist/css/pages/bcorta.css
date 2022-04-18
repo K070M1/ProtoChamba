@@ -211,10 +211,20 @@
 
 }
 
+.card-blarga img{
+  margin-left: 15%;
+  border-radius: 50%;
+}
+
+
 .card-blarga .iconos i{
+  color: rgb(161, 159, 159);
+}
+
+.card-blarga .iconos i.active{
+  color: orange;
   font-size: 18px;
   margin-right: 10px;
-  color: #eeca00;
 }
 
 

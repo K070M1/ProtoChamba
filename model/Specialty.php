@@ -33,6 +33,17 @@ class Specialty extends ModelMaster{
             die($error->getMessage());
         }
     }
+
+
+    //Filtrar por los servicios dentro de las especialidades
+    public function filterSpeciality(array $data){
+        try{
+            return parent::execProcedure($data,"spu_filtrar_especialidad",true);
+         }
+         catch(Exception $error){
+             die($error->getMessage());
+         }
+    }
 }
 
 ?>

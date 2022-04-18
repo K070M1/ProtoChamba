@@ -137,98 +137,7 @@
             </div>
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <div class="card-blarga">
-              <div class="row">
-                <div class="col-md-4" style="background-color: black;">
-
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <div class="iconos">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
-                    <div class="info-servicios">
-                      <h4 class="text-white">Jesus Peve Andazabal</h4>
-                      <h6 class="text-white">Carpintero - Gasfitero</h6>
-                      <h6 class="text-white">Tarifa estimada : s/250.00</h6>
-                      <hr style="background-color:white;">
-                      <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
-                      <div class="redes-sociales">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-whatsapp"></i>
-                      </div>
-                    </div><!-- Fin del info-srvicios -->
-                  </div><!-- fin del card-body -->
-                </div><!-- Fin del col--md-8 -->
-              </div><!-- fin del row -->
-            </div><!-- Fin del card -->
-
-            <div class="card-blarga">
-              <div class="row">
-                <div class="col-md-4" style="background-color: black;">
-
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <div class="iconos">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
-                    <div class="info-servicios">
-                      <h4 class="text-white">Jesus Peve Andazabal</h4>
-                      <h6 class="text-white">Carpintero - Gasfitero</h6>
-                      <h6 class="text-white">Tarifa estimada : s/250.00</h6>
-                      <hr style="background-color:white;">
-                      <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
-                      <div class="redes-sociales">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-whatsapp"></i>
-                      </div>
-                    </div><!-- Fin del info-srvicios -->
-                  </div><!-- fin del card-body -->
-                </div><!-- Fin del col--md-8 -->
-              </div><!-- fin del row -->
-            </div><!-- Fin del card -->
-
-            <div class="card-blarga">
-              <div class="row">
-                <div class="col-md-4" style="background-color: black;">
-
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <div class="iconos">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
-                    <div class="info-servicios">
-                      <h4 class="text-white">Jesus Peve Andazabal</h4>
-                      <h6 class="text-white">Carpintero - Gasfitero</h6>
-                      <h6 class="text-white">Tarifa estimada : s/250.00</h6>
-                      <hr style="background-color:white;">
-                      <h6 class="text-white">Establecimiento : Ubicado en Av. Lt 250</h6>
-                      <div class="redes-sociales">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-whatsapp"></i>
-                      </div>
-                    </div><!-- Fin del info-srvicios -->
-                  </div><!-- fin del card-body -->
-                </div><!-- Fin del col--md-8 -->
-              </div><!-- fin del row -->
-            </div><!-- Fin del card -->
+            <!-- Cards largos -->
           </div>
         </div>
       </div> <!-- Fin de la caja que contiene los cards -->
@@ -252,10 +161,23 @@
         }
       });
     }
-    
-    
-    getSpecialty();
 
+    function getSpecialtyLarge(){
+      $.ajax({
+        url: 'controllers/specialty.controller.php',
+        type: 'GET',
+        data: 'op=getSpecialtyLarge',
+        success : function(e){
+         /*  console.log(e); */
+          $('#pills-profile').html(e);
+        }
+      });
+    }
+
+    
+  
+    getSpecialty();
+    getSpecialtyLarge();
     
  });
 

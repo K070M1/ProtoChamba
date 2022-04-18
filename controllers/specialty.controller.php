@@ -30,7 +30,7 @@ if (isset($_GET['op'])){
                       <i class='fas fa-star'></i>
                     </div>
                     <div class='name-user'>
-                        <h5>{$row->datosusuario}</h5>
+                        <h6>{$row->datosusuario}</h6>
                         <h6>{$row->nombreservicio}</h6>
                     </div>
                   </div>
@@ -39,7 +39,7 @@ if (isset($_GET['op'])){
                   <div class='contacts'>
                     <a href='#'><i class='fas fa-solid fa-envelope'></i> <span>{$row->email}</span></a>
                     <a href='#'><i class='fas fa-solid fa-phone'></i> <span>{$row->telefono}</span></a>
-                    <a href='#'><i class='fas fa-map-marker-alt'></i> <span>Ubicación</span></a>
+                    <a href='#'><i class='fas fa-map-marker-alt'></i> <span>{$row->ubicacion}</span></a>
                   </div>
                 </div>
               <div class='card-footer'>
@@ -55,6 +55,49 @@ if (isset($_GET['op'])){
           }
                 
       }              
+  }
+
+  function listSpecialtyLarge($data){
+    if(count($data) == 0 ){
+      echo "<h5>No hay especialidades disponibles</h5>";
+    }
+    else{
+      foreach($data as $row){
+        echo "
+        <div class='card-blarga'>
+        <div class='row'>
+          <div class='col-md-4'>
+          <img src='dist/img/avatar2.png'>
+          </div>
+          <div class='col-md-8'>
+            <div class='card-body'>
+              <div class='iconos'>
+                <i class='fas fa-star active'></i>
+                <i class='fas fa-star active'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+              </div>
+              <div class='info-servicios'>
+                <h4 class='text-white'>{$row->datosusuario}</h4>
+                <h6 class='text-white'>{$row->nombreservicio}</h6>
+                <h6 class='text-white'>Tarifa estimada : {$row->tarifa}</h6>
+                <hr style='background-color:white;'>
+                <h6 class='text-white'>Establecimiento : {$row->ubicacion}</h6>
+                <div class='redes-sociales'>
+                  <i class='fab fa-facebook-f'></i>
+                  <i class='fab fa-instagram'></i>
+                  <i class='fab fa-whatsapp'></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+        ";
+      }
+    }
   }
 
   // listar en un control select
@@ -77,6 +120,12 @@ if (isset($_GET['op'])){
     $data = $specialty->getSpecialty();
     //echo json_encode($data);
     listSpecialty($data);
+  }
+
+  if($_GET['op'] == 'getSpecialtyLarge'){
+    $data = $specialty->getSpecialty();
+    //echo json_encode($data);
+    listSpecialtyLarge($data);
   }
 
   // Listar especialidades por servicio
