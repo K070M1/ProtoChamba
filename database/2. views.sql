@@ -145,15 +145,14 @@ CREATE VIEW vs_listar_reportes AS
 -- =============================================================================================================
 -- VISTA CALIFICACIONES
 -- ===========================================================================================================
-CREATE VIEW vs_calificaciones_listar
-AS
-SELECT CALI.idcalificacion, TRAB.idtrabajo, TRAB.titulo AS 'titulotrabajo', 
+CREATE VIEW vs_calificaciones_listar AS
+	SELECT CALI.idcalificacion, TRAB.idtrabajo, TRAB.titulo AS 'titulotrabajo', 
 			 PERS.idpersona, PERS.apellidos, PERS.nombres, CALI.puntuacion
-	FROM calificaciones CALI
-	INNER JOIN trabajos TRAB ON TRAB.idtrabajo = CALI.idtrabajo
-	INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
-	LEFT JOIN personas PERS ON PERS.idpersona = USU.idpersona
-	WHERE CALI.estado = 1;
+		FROM calificaciones CALI
+		INNER JOIN trabajos TRAB ON TRAB.idtrabajo = CALI.idtrabajo
+		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
+		LEFT JOIN personas PERS ON PERS.idpersona = USU.idpersona
+		WHERE CALI.estado = 1;
 	
 -- =============================================================================================================
 -- VISTA PARA LISTAR ACTIVIDADES
@@ -166,6 +165,5 @@ CREATE VIEW vs_listar_actividades AS
 		INNER JOIN actividades ACT ON ESP.idespecialidad = ACT.idespecialidad
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio;
 
-SELECT * FROM actividades;
 
 

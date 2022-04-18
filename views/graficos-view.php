@@ -81,10 +81,6 @@
 
 <script>
     $(function () {
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
 
       //--------------
       //- AREA CHART -
@@ -140,7 +136,7 @@
       // This will get the first returned node in the jQuery collection.
 
       //-------------
-      //- LINE CHART -
+      //- GRAFICO DE REPORTES RECIBIDOS -
       //--------------
       var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
       var lineChartOptions = $.extend(true, {}, areaChartOptions)

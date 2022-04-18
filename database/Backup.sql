@@ -33,9 +33,13 @@ CREATE TABLE `actividades` (
   PRIMARY KEY (`idactividad`),
   KEY `fk_act_idespecialidad` (`idespecialidad`),
   CONSTRAINT `fk_act_idespecialidad` FOREIGN KEY (`idespecialidad`) REFERENCES `especialidades` (`idespecialidad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `actividades` */
+
+insert  into `actividades`(`idactividad`,`idespecialidad`,`fechainicio`,`fechafin`,`horainicio`,`horafin`,`titulo`,`descripcion`,`direccion`) values 
+(1,2,'2022-04-20','2022-04-20','00:00:00','05:00:00','gdg','','dgdgdf'),
+(3,2,'2022-04-06','2022-04-08','00:00:00','01:00:00','prueba','Trabajos en','dsds');
 
 /*Table structure for table `albumes` */
 
@@ -2149,8 +2153,8 @@ CREATE TABLE `galerias` (
 /*Data for the table `galerias` */
 
 insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,1,NULL,'F','111010.jpg','2022-04-02 18:18:02',NULL,'0'),
-(2,3,1,1,'V','012555454545447852','2022-04-02 18:18:02',NULL,'0'),
+(1,1,1,NULL,'F','111010.jpg','2022-04-02 18:18:02',NULL,'2'),
+(2,3,1,1,'V','012555454545447852','2022-04-02 18:18:02',NULL,'1'),
 (3,NULL,2,NULL,'F','5454484087874818','2022-04-02 22:05:41',NULL,'1'),
 (4,2,2,NULL,'F','5454484087874818','2022-04-02 22:07:19',NULL,'1'),
 (5,NULL,1,NULL,'F','2022041805502.gif','2022-04-17 22:47:02',NULL,'1');
@@ -2541,10 +2545,47 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','A','cuevabill12@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
-(2,2,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','Adriana@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
+(1,1,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','A','cuevabill12@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'2'),
+(2,2,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','A','Adriana@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
 (3,3,'Albañil','Miercoles y Viernes','E','A','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'2'),
-(7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'1');
+(7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'2');
+
+/* Function  structure for function  `GETMONTHNAME` */
+
+/*!50003 DROP FUNCTION IF EXISTS `GETMONTHNAME` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `GETMONTHNAME`(fecha DATE) RETURNS varchar(20) CHARSET utf8
+BEGIN
+	RETURN 
+		CASE MONTH(fecha)
+		 WHEN 1 THEN 'Enero'
+		 WHEN 2 THEN 'Febrero'
+		 WHEN 3 THEN 'Marzo'
+		 WHEN 4 THEN 'Abril'
+		 WHEN 5 THEN 'Mayo'
+		 WHEN 6 THEN 'Junio'
+		 WHEN 7 THEN 'Julio'
+		 WHEN 8 THEN 'Agosto'
+		 WHEN 9 THEN 'Septiembre'
+		 WHEN 10 THEN 'Octubre'
+		 WHEN 11 THEN 'Noviembre'
+		 WHEN 12 THEN 'Diciembre'
+    END;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_actividades_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_actividades_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_actividades_getdata`(IN _idactividad INT)
+BEGIN
+	SELECT * FROM vs_listar_actividades  WHERE idactividad = _idactividad;
+END */$$
+DELIMITER ;
 
 /* Procedure structure for procedure `spu_albumes_eliminar` */
 
@@ -3240,7 +3281,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_reportes`()
 BEGIN
-	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
+	SELECT GETMONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY MONTHNAME(fechareporte)
 	ORDER BY MONTH(fechareporte) ASC;
@@ -3312,8 +3353,10 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_modificar_actividades`(	
 	IN _idactividad			INT,
 	IN _idespecialidad 	INT,
-	IN _fecha 					DATETIME,
-	IN _hora 						TIME,
+	IN _fechainicio			DATE,
+	IN _fechafin				DATE,
+	IN _horainicio			TIME,	
+	IN _horafin					TIME,
 	IN _titulo					VARCHAR(45),
 	IN _descripcion			VARCHAR(150),
 	IN _direccion				VARCHAR(80)
@@ -3321,8 +3364,10 @@ DELIMITER $$
 BEGIN
 	UPDATE actividades SET 	
 		idespecialidad 	= _idespecialidad, 
-		fecha 					= _fecha, 
-		hora 						= _hora,
+		fechainicio			= _fechainicio, 
+		fechafin				= _fechafin,
+		horainicio			= _horainicio,
+		horafin					= _horafin,
 		titulo 					= _titulo, 
 		descripcion 		= _descripcion, 
 		direccion 			= _direccion
@@ -3497,15 +3542,17 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registrar_actividades`(
 	IN _idespecialidad 	INT,
-	IN _fecha 					DATETIME,
-	IN _hora 						TIME,
+	IN _fechainicio			DATE,
+	IN _fechafin				DATE,
+	IN _horainicio			TIME,	
+	IN _horafin					TIME,
 	IN _titulo					VARCHAR(45),
 	IN _descripcion			VARCHAR(150),
 	IN _direccion				VARCHAR(80)
 )
 BEGIN 
-	INSERT INTO actividades (idespecialidad, fecha, hora, titulo, descripcion, direccion) VALUES
-	(_idespecialidad, _idespecialidad, _fecha, _hora, _titulo, _descripcion, _direccion);
+	INSERT INTO actividades (idespecialidad, fechainicio, fechafin, horainicio, horafin, titulo, descripcion, direccion) VALUES
+		(_idespecialidad, _fechainicio, _fechafin, _horainicio, _horafin, _titulo, _descripcion, _direccion);
 END */$$
 DELIMITER ;
 
@@ -3662,120 +3709,5 @@ BEGIN
 		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
 		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
 		WHERE idtrabajo = _idtrabajo;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_trabajos_eliminar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_eliminar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_eliminar`(IN _idtrabajo INT)
-BEGIN 
-	UPDATE trabajos SET estado = 0
-		WHERE idtrabajo = _idtrabajo;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_trabajos_listar_usuario` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_listar_usuario` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_listar_usuario`(in _idusuario int)
-BEGIN
-	SELECT * FROM vs_trabajos_listar
-		where idusuario = _idusuario
-		ORDER BY idtrabajo DESC;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_trabajos_modificar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_modificar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_modificar`(	
-	IN _idtrabajo				INT ,
-	IN _idespecialidad	INT ,
-	IN _idusuario				INT ,
-	IN _titulo					VARCHAR(40),
-	IN _descripcion			MEDIUMTEXT
-)
-BEGIN 
-	UPDATE trabajos SET 
-		idespecialidad = _idespecialidad,
-		idusuario 		 = _idusuario,
-		titulo				 = _titulo,
-		descripcion		 = _descripcion
-	WHERE idtrabajo = _idtrabajo;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_trabajos_registrar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_registrar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_registrar`(
-	IN _idespecialidad	INT ,
-	IN _idusuario				INT ,
-	IN _titulo					VARCHAR(40),
-	IN _descripcion			MEDIUMTEXT
-)
-BEGIN 
-	INSERT INTO trabajos (idespecialidad , idusuario, titulo ,descripcion) VALUES
-		(_idespecialidad , _idusuario , _titulo , _descripcion);
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuarios_banear` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_banear` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_banear`(IN _idusuario INT)
-BEGIN
-UPDATE usuarios SET	
-	estado = '2'
-	WHERE idusuario = _idusuario;	
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuarios_buscar_nombres` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_buscar_nombres` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_buscar_nombres`(IN _search VARCHAR(40))
-BEGIN
-	SELECT* FROM vs_usuarios_listar_datos_basicos
-		WHERE nombres LIKE CONCAT('%', _search, '%');
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_usuarios_buscar_rol_nombres` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_buscar_rol_nombres` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_buscar_rol_nombres`(
-	IN _rol 		CHAR(1), 
-	IN _search 	VARCHAR(40)
-)
-BEGIN
-	IF _rol IS NULL OR _rol = '' THEN
-		CALL spu_usuarios_buscar_nombres(_search);
-	ELSE
-		SELECT *	FROM vs_usuarios_listar_datos_basicos 
-			WHERE rol = _rol AND nombres LIKE CONCAT('%', _search, '%');	
-	END IF;
 END */$$
 DELIMITER ;
