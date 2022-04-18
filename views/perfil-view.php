@@ -712,12 +712,12 @@
                 <label class="form-label">Album:</label>
               </div>
               <div class="col-lg-5">
-                <select class="form-control" id="">
-                  <option value="">Ninguno</option>
+                <select class="form-control" id="alb-add-gal">
+
                 </select>
               </div>
               <div class="form-group col-sm-5 text-right">
-                <input type="file" multiple id="add-new-photo" name="images[]">
+                <input type="file" multiple id="add-new-photo" accept=".jpg, .gif, .png" name="archivo[]">
                 <button type="button" class="btn btn-outline-secondary form-button" id="btn-up-cnt-img">Subir imágenes</button>
               </div>
             </div>
@@ -733,7 +733,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cnl-img">Cancelar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-primary" id="btn-add-gal-md">Guardar</button>
         </div>
       </div>
     </div>
@@ -743,35 +743,8 @@
   <!--Modal de ver la imagen-->
   <div class="modal fade" id="modal-view-img" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Título de la imagen</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div id="md-contain-img">
-            <img src="./dist/img/photo1.png" alt="">
-          </div>
-        </div>
-        <div class="md-footer">
-          <form class="row">
-            <div class="col-md-2 text-right">
-              <label>Album:</label>
-            </div>
-            <div class="btn-group col-md-6">
-              <select id="slc-album-md" class="form-control view-only-img">
-                <option value="">Ninguno</option>
-              </select>
-              <button type="button" class="btn btn-outline-secondary btn-cmb-alb">Cambiar</button>
-            </div>
-
-            <div class="col-md-4 text-right">
-              <h7 class="font-weight-bold">28/03/2022</h7>
-            </div>
-          </form>
-        </div>
+      <div class="modal-content" id="loadGalleryModal">
+        
       </div>
     </div>
   </div>

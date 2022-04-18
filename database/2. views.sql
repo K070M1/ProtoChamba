@@ -77,7 +77,7 @@ CREATE VIEW vs_especialidades_listar AS
 CREATE VIEW vs_galerias_listar AS
 	SELECT 	GLR.idgaleria, ALB.idalbum, ALB.nombrealbum, 
 					VUL.idusuario, VUL.apellidos, VUL.nombres,
-					TBJ.idtrabajo, TBJ.titulo, GLR.tipo AS 'nombrefoto', GLR.archivo,
+					TBJ.idtrabajo, TBJ.titulo, GLR.tipo, GLR.archivo,
 					GLR.fechaalta
 		FROM 	galerias GLR
 		LEFT JOIN albumes ALB ON ALB.idalbum = GLR.idalbum

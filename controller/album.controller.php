@@ -48,6 +48,18 @@ if (isset($_GET['op'])){
         ";
     }
 
+    function loadAlbumSlcModal($data){
+        if(count($data) > 0){
+            echo  "<option value=''>Ninguno</option>";
+            foreach($data as $row){
+                echo
+                "
+                    <option value='{$row['idalbum']}'>{$row['nombrealbum']}</option>
+                ";
+            }
+        }
+    }
+
     if($_GET['op'] == 'loadAlbum'){
         $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
         loadAlbum($data);
@@ -60,6 +72,11 @@ if (isset($_GET['op'])){
     if($_GET['op'] == 'getAlbumDat'){
         $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
         echo json_encode($data);
+    }
+
+    if($_GET['op'] == 'loadAlbumSlcModal'){
+        $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
+        loadAlbumSlcModal($data);
     }
 
 }

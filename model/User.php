@@ -132,6 +132,16 @@ class User extends ModelMaster{
       die($error->getMessage());
     }
   }
+
+  //Cambiar contraseña
+  public function updatePasswordRest(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_edit_pass", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
 }
 
 

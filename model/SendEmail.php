@@ -8,47 +8,40 @@ require '../libs/PHPMailer/src/PHPMailer.php';
 require '../libs/PHPMailer/src/SMTP.php';
 
 class SendEmail{
-  // Atributo
-  private $mail;
-
-  // Constructor 
-  public function __CONSTRUCT(){
-      //Instancia 
-      $this->mail = new PHPMailer(true);
-  }
-
   // Enviar correo
   function enviarCorreo($contenidomensaje, $correo){   
+    $mail = new PHPMailer(true);
+
     try{
   
       //Server settings
-      $this->mail->SMTPDebug = 0;                                       //Enable verbose debug output
-      $this->mail->isSMTP();                                            //Send using SMTP
-      $this->mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
-      $this->mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-      $this->mail->Username   = 'developersweb2021@gmail.com';          //SMTP username
-      $this->mail->Password   = 'desarrolladoresweb2021';                               //SMTP password
-      $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-      $this->mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+      $mail->SMTPDebug = 0;                                       //Enable verbose debug output
+      $mail->isSMTP();                                            //Send using SMTP
+      $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+      $mail->Username   = 'jarvis.team.2021@gmail.com';          //SMTP username
+      $mail->Password   = 'jarvis.123';                           //SMTP password
+      $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+      $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     
       //Recipients
-      $this->mail->setFrom('developersweb2021@gmail.com', 'First Pay');
+      $mail->setFrom('jarvis.team.2021@gmail.com', 'Q TAL CHAMBA');
     
       // Copias del correo
-      $this->mail->addAddress($correo);                           //Destinatarios
+      $mail->addAddress($correo);                           //Destinatarios
     
       //Content
-      $this->mail->isHTML(true);                                  //Set email format to HTML
-      $this->mail->Subject = "RECORDATORIO DE PAGOS";
-      $this->mail->Body    = $contenidomensaje;
-      $this->mail->AltBody = $contenidomensaje;
+      $mail->isHTML(true);                                  //Set email format to HTML
+      $mail->Subject = "Notificaciones Q TAL CHAMBA";
+      $mail->Body    = $contenidomensaje;
+      $mail->AltBody = $contenidomensaje;
     
-      $this->mail->CharSet = 'UTF-8';
-      $this->mail->send();
+      $mail->CharSet = 'UTF-8';
+      $mail->send();
       echo "";
     }
     catch (Exception $e){
-      echo "No se ha podido enviar el correo electrónico, error: {$mail->ErrorInfo}";
+      echo "No se ha podido enviar el correo electrónico: {$mail->ErrorInfo}";
     }
   } 
 }

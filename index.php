@@ -651,7 +651,11 @@
             <a href="#">
               <i class="fas fa-arrow-left"></i>
             </a>
-            <div id="contador-pass"></div>
+            <div class="wrapper">
+              <div class="pie spinner"></div>
+              <div class="pie filler"></div>
+              <div class="mask"></div>
+            </div>​ 
           </div>
           <h3 class="font-weight-bold">Validar el código de verificación</h3>
           <span><label>Suarez*********@gmail.com</label></span>
@@ -728,7 +732,7 @@
             <div class="form-group row">
               <div class="col-sm-12">
                 <label for="">Los procesos se enviarán a:</label>
-                <input type="password" class="form-control">
+                <input type="email" class="form-control" disabled value="1299595@senati.pe" id="emailDir">
               </div>
             </div>
             <a href="#" data-toggle="modal" data-target="#modal-res-contra2">!No tengo acceso a este correo...!</a>
@@ -758,7 +762,7 @@
             <div class="form-group row">
               <div class="col-sm-12">
                 <label for="">Los procesas han sido cambiados al email:</label>
-                <input type="password" class="form-control">
+                <input type="email" class="form-control" disabled value="1302314@senai.pe" id="emailResp">
               </div>
             </div>
           </form>
@@ -802,9 +806,6 @@
   <!-- Sweetalert2 -->
   <script src="./plugins/sweetalert2/sweetalert2.all.js"></script>
 
-  <!--Configuración del temporizador-->
-  <script src="dist/js/pages/md-restabl-temporizador.js"></script>
-
   <script src="dist/js/pages/galeria.js"></script>
   <script>
     $(document).ready(function() {
@@ -816,10 +817,10 @@
         $("#content-data").load(`views/welcome.php`);
 
 
-      /*$("#btn-regist-opn").click(function(){
+      $("#btn-regist-opn").click(function(){
         $("#modal-perfil-img").modal('toggle');
         $("#modalRegister").modal('hide');
-      });*/
+      });
 
       $("#btn-omt-prf").click(function() {
         $("#modal-perfil-img").modal('hide');
@@ -827,11 +828,19 @@
 
       /* Movimiento entre modales */
       $("#btnRes1").click(function() {
+        var email = $("#emailDir").val();
+        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
+        $("#emailDir").val(res);
+        
         $("#modal-res-contra1").modal("hide");
         $("#modal-res-contra3").modal("toggle");
       });
 
       $("#btnRes2").click(function() {
+        var emailres = $("#emailResp").val();
+        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
+        $("#emailResp").val(res);
+        
         $("#modal-res-contra2").modal("hide");
         $("#modal-res-contra3").modal("toggle");
       });
@@ -851,17 +860,6 @@
       });
       /* ./Movimiento entre modales */
 
-      /*Temporizador*/
-      $("#btnRes3").click(function() {
-        startTimer();
-      });
-      /*./Temporizador */
-
-      /*Temporizador*/
-      $("#btnRes3").click(function() {
-        startTimer();
-      });
-      /*./Temporizador */
 
       /* Registrar usuario */
 

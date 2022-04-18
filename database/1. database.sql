@@ -66,6 +66,7 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
 
+SELECT * FROM usuarios;
 
 CREATE TABLE establecimientos
 (
@@ -190,11 +191,13 @@ CREATE TABLE galerias
 	archivo 		VARCHAR(100)	NOT NULL,
 	fechaalta		DATETIME 			NOT NULL DEFAULT NOW(),
 	fechabaja	 	DATETIME 			NULL,
-	estado 			CHAR(1) 			NOT NULL DEFAULT '1' -- 0(Elimimado), 1(activo), 2(Perfil activo), 3(Portada activo);
-	CONSTRAINT fk_gal_idalbum FOREIGN KEY(idalbum) REFERENCES albunes(idalbum),
-	CONSTRAINT fk_gal_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios (idusuario)
-	CONSTRAINT fk_gal_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
+	estado 			CHAR(1) 			NOT NULL DEFAULT '1', -- 0(Elimimado), 1(activo), 2(Perfil activo), 3(Portada activo);
+	CONSTRAINT fk_galerias_idalbum FOREIGN KEY(idalbum) REFERENCES albumes(idalbum),
+	CONSTRAINT fk_galerias_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios (idusuario),
+	CONSTRAINT fk_galerias_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
+
+SELECT * FROM galerias;
 
 CREATE TABLE calificaciones 
 (

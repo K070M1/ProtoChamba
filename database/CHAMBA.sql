@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 SQLyog Professional v12.5.1 (64 bit)
+=======
+SQLyog Ultimate v12.5.1 (64 bit)
+>>>>>>> d4cb82e3a86c75c025f1d103376b35eb6f56cce0
 MySQL - 10.4.24-MariaDB : Database - reactivacion
 *********************************************************************
 */
@@ -3710,6 +3714,42 @@ BEGIN
 END */$$
 DELIMITER ;
 
+<<<<<<< HEAD
+=======
+/* Procedure structure for procedure `spu_usuarios_buscar_nombres` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_buscar_nombres` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_buscar_nombres`(IN _search VARCHAR(40))
+BEGIN
+	SELECT* FROM vs_usuarios_listar_datos_basicos
+		WHERE nombres LIKE CONCAT('%', _search, '%');
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_buscar_rol_nombres` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_buscar_rol_nombres` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_buscar_rol_nombres`(
+	IN _rol 		CHAR(1), 
+	IN _search 	VARCHAR(40)
+)
+BEGIN
+	IF _rol IS NULL OR _rol = '' THEN
+		CALL spu_usuarios_buscar_nombres(_search);
+	ELSE
+		SELECT *	FROM vs_usuarios_listar_datos_basicos 
+			WHERE rol = _rol AND nombres LIKE CONCAT('%', _search, '%');	
+	END IF;
+END */$$
+DELIMITER ;
+
+>>>>>>> d4cb82e3a86c75c025f1d103376b35eb6f56cce0
 /* Procedure structure for procedure `spu_usuarios_edit_rol` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_edit_rol` */;
@@ -4061,6 +4101,26 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
  `estado` char(1) 
 )*/;
 
+<<<<<<< HEAD
+=======
+/*Table structure for table `vs_usuarios_listar_datos_basicos` */
+
+DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos`;
+
+/*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar_datos_basicos` */;
+/*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos` */;
+
+/*!50001 CREATE TABLE  `vs_usuarios_listar_datos_basicos`(
+ `idusuario` int(11) ,
+ `idpersona` int(11) ,
+ `nombres` varchar(81) ,
+ `rol` char(1) ,
+ `fechanac` date ,
+ `fechaalta` datetime ,
+ `estado` char(1) 
+)*/;
+
+>>>>>>> d4cb82e3a86c75c025f1d103376b35eb6f56cce0
 /*View structure for view vs_calificaciones_listar */
 
 /*!50001 DROP TABLE IF EXISTS `vs_calificaciones_listar` */;
@@ -4124,6 +4184,16 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`est`.`idestablecimiento` AS `idestablecimiento`,`est`.`establecimiento` AS `establecimiento`,`est`.`ruc` AS `ruc`,concat(case when `est`.`tipocalle` like 'CA' then 'Calle' when `est`.`tipocalle` like 'AV' then 'Avenida' when `est`.`tipocalle` like 'UR' then 'Urbanización' when `est`.`tipocalle` like 'PJ' then 'Pasaje' when `est`.`tipocalle` like 'JR' then 'Jirón' end,' ',`est`.`nombrecalle`,' #',`est`.`numerocalle`) AS `ubicacion`,`est`.`referencia` AS `referencia`,`est`.`latitud` AS `latitud`,`est`.`longitud` AS `longitud`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 */;
 
+<<<<<<< HEAD
+=======
+/*View structure for view vs_usuarios_listar_datos_basicos */
+
+/*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos` */;
+/*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar_datos_basicos` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar_datos_basicos` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,concat(`vpl`.`nombres`,' ',`vpl`.`apellidos`) AS `nombres`,`usu`.`rol` AS `rol`,`vpl`.`fechanac` AS `fechanac`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 */;
+
+>>>>>>> d4cb82e3a86c75c025f1d103376b35eb6f56cce0
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

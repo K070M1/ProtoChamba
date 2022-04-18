@@ -240,7 +240,6 @@ div#modal-view-img  .md-footer div.btn-group button{
     border-bottom-right-radius: 0;
 }
 
-
 div#modal-view-img  .md-footer select.view-only-img{
     border: none;
     appearance: none;
@@ -248,9 +247,6 @@ div#modal-view-img  .md-footer select.view-only-img{
     pointer-events: none;
 }
 
-div#modal-view-img  .md-footer div.btn-group button.ocult-btn{
-    display: none;
-}
 
 /*Agregar Album*/
 .add-album-cd{

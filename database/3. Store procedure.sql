@@ -233,6 +233,18 @@ SELECT idusuario, idpersona, apellidos, nombres, rol, fechaalta
 	      nombres LIKE CONCAT('%', _search, '%');
 END $$
 
+-- Restablecer contraseña
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_edit_pass
+(
+	IN _idusuario INT,
+	IN _clave VARCHAR(80)
+)
+BEGIN
+	UPDATE usuarios SET clave = _clave WHERE idusuario = _idusuario;
+END
+
+CALL spu_usuarios_edit_pass(1, '123');
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
 -- -------------------------------------------------------------------------------------------------------------
@@ -319,6 +331,7 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
+CALL spu_albumes_listar_usuario(1);
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
@@ -373,10 +386,11 @@ BEGIN
 	WHERE idalbum = _idalbum;
 END $$
 
+-- Por corregir
 DELIMITER $$
-CREATE PROCEDURE spu_albumes_ultim_ft(IN _idalbum INT, IN _idusuario INT)
+CREATE PROCEDURE spu_albumes_ultim_ft(IN _idalbum INT)
 BEGIN
-	SELECT nombrealbum, archivo FROM vs_galerias_listar WHERE idusuario = 1 and idalbum = 1 ORDER BY idgaleria DESC LIMIT 1 ;
+	SELECT nombrealbum, archivo FROM vs_galerias_listar WHERE idusuario = 1 ORDER BY idgaleria DESC;
 END $$
 
 -- =============================================================================================================
@@ -385,16 +399,18 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_usuario(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario and tipo = "F";
+	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
 END $$
 
-call spu_galerias_listar_usuario(1)
+CALL spu_galerias_listar_usuario(1)
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_album(IN _idalbum INT)
 BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idalbum = _idalbum;
 END $$
+
+CALL spu_galerias_listar_album(2)
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_trabajo(IN _idtrabajo INT)
@@ -415,30 +431,29 @@ CREATE PROCEDURE spu_galerias_registrar
 	IN _idusuario INT,
 	IN _idtrabajo INT,
 	IN _tipo 			CHAR(1),
-	IN _titulo 		VARCHAR(45),
 	IN _archivo 	VARCHAR(100)
 )
 BEGIN
 	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
 	IF _idtrabajo = '' THEN SET _idtrabajo = NULL; END IF;
 	
-	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, titulo, archivo) VALUES
-		(_idalbum, _idusuario, _idtrabajo, _tipo, _titulo, _archivo);
+	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, archivo) VALUES
+		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo);
 END $$
 
+CALL spu_galerias_registrar(1,1,'','F','dragon.jpg');
+
 DELIMITER $$
-CREATE PROCEDURE spu_galerias_modificar
+create PROCEDURE spu_galerias_modificar
 (
 	IN _idgaleria INT,
-	IN _idalbum 	INT,
-	IN _titulo 		VARCHAR(45)
+	IN _idalbum 	INT
 )
 BEGIN
 	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
 	
 	UPDATE galerias SET
-		idalbum 	= _idalbum,
-		titulo 		= _titulo
+		idalbum 	= _idalbum
 	WHERE idgaleria = _idgaleria;
 END $$
 

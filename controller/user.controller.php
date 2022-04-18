@@ -255,4 +255,13 @@ if (isset($_POST['op'])) {
       echo ".";
     }
   }
+
+  if($_POST['op'] == 'updatePasswordRest'){
+    $datosUp = [
+      "idusuario" => $_POST['idusuario'],
+      "clave"  => password_hash($_POST['clave'], PASSWORD_BCRYPT)
+    ];
+
+    $user->updatePasswordRest($datosUp);
+  }
 }
