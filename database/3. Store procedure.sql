@@ -444,7 +444,7 @@ END $$
 CALL spu_galerias_registrar(1,1,'','F','dragon.jpg');
 
 DELIMITER $$
-create PROCEDURE spu_galerias_modificar
+CREATE PROCEDURE spu_galerias_modificar
 (
 	IN _idgaleria INT,
 	IN _idalbum 	INT
