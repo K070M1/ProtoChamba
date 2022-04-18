@@ -33,6 +33,16 @@ class Activity extends ModelMaster{
     }
   }
 
+  // Obtener una actividad
+  public function getAnActivity(array $data){
+    try{
+      return parent::execProcedure($data, "spu_actividades_getdata", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Actividades filtradas por el idusuario
   public function activitiesFilterByUser(array $data){
     try{
@@ -43,17 +53,7 @@ class Activity extends ModelMaster{
     }
   }
 
-  // Actividades filtradas por fecha
-  public function activitiesFilterByDate(array $data){
-    try{
-      return parent::execProcedure($data, "spu_filtrar_actividad_fecha", true);
-    }
-    catch(Exception $error){
-      die($error->getMessage());
-    }
-  }
-
-  // Actividades filtradas por fecha
+  // Eliminar una actividad
   public function deleteActivity(array $data){
     try{
       parent::deleteRegister($data, "spu_eliminar_actividades");

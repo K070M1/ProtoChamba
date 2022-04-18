@@ -45,45 +45,45 @@ CREATE VIEW vs_usuarios_listar AS
 		WHERE USU.estado = 1;
 		
 
-
 -- =============================================================================================================
 -- VISTA DE USUARIOS - DATOS RESUMIDOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_usuarios_listar_datos_basicos AS
 	SELECT 	USU.idusuario, VPL.idpersona, CONCAT(VPL.nombres, ' ', VPL.apellidos) AS 'nombres',
-					USU.rol, VPL.fechanac, USU.fechaalta, USU.estado
+					USU.email, USU.rol, VPL.fechanac, USU.fechaalta, USU.estado
 		FROM usuarios USU
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
 		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
-		WHERE USU.estado = 1;		
-
+		WHERE USU.estado = 1 OR USU.estado = 2
+		ORDER BY USU.rol ASC;		
+		
 -- =============================================================================================================
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_especialidades_listar AS 
-	SELECT 	ESP.`idespecialidad`, USU.idusuario,CONCAT (PERS.`nombres` , ' ' , PERS.apellidos) AS 'datosusuario' , SRV.`nombreservicio`,PERS.telefono,USU.email
+	SELECT 	ESP.`idespecialidad`, ESP.descripcion, USU.idusuario, 
+					CONCAT(PERS.`nombres` , ' ' , PERS.apellidos) AS 'datosusuario', 
+					SRV.`nombreservicio`,PERS.telefono,USU.email
 		FROM especialidades ESP
 		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio
 		INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
-		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
-		GROUP BY USU.idusuario
-	
-	
+		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona;
+
 
 -- =============================================================================================================
 -- VISTA DE USUARIOS RELACIONADO CON LA VISTA DE ESPECIALIDADES
 -- -------------------------------------------------------------------------------------------------------------
--- CREATE VIEW vs_usuarios_servicio AS
-	-- SELECT DISTINCT VUL.idusuario, VUL.idpersona, VUL.apellidos, VUL.nombres,
-					-- VUL.iddepartamento, VUL.departamento, VUL.idprovincia,VUL.provincia, 
-					-- VUL.iddistrito, VUL.distrito, VUL.direccion, VUL.descripcion, 
-					-- VUL.horarioatencion, VUL.email, VUL.idestablecimiento, VUL.establecimiento, 
-					-- VUL.ruc, VUL.ubicacion, VUL.referencia, VUL.latitud, VUL.longitud, 
-					-- VEL.idservicio, VEL.nombreservicio
-					-- VEL.idespecialidad, VEL.descripcion as 'especialidad', VEL.idservicio, VEL.nombreservicio
-		-- FROM vs_usuarios_listar VUL
-		-- INNER JOIN vs_especialidades_listar VEL ON VEL.idusuario = VUL.idusuario;
+CREATE VIEW vs_usuarios_servicio AS
+	SELECT DISTINCT VUL.idusuario, VUL.idpersona, VUL.apellidos, VUL.nombres,
+					VUL.iddepartamento, VUL.departamento, VUL.idprovincia,VUL.provincia, 
+					VUL.iddistrito, VUL.distrito, VUL.direccion, VUL.descripcion, 
+					VUL.horarioatencion, VUL.email, VUL.idestablecimiento, VUL.establecimiento, 
+					VEL.nombreservicio,
+					VEL.idespecialidad, VEL.descripcion AS 'especialidad'
+		FROM vs_usuarios_listar VUL
+		INNER JOIN vs_especialidades_listar VEL ON VEL.idusuario = VUL.idusuario;
 	
+
 -- =============================================================================================================
 -- VISTA DE GALERIAS Y ALBUNES
 -- -------------------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ CREATE VIEW vs_comentarios_listar AS
 -- VISTA PARA LISTAR REPORTES
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_listar_reportes AS 
-	SELECT REP.idreporte, COM.idcomentario, CONCAT(' ', PRS.nombres, ' ', PRS.apellidos) AS usuario, 
+	SELECT REP.idreporte, COM.idcomentario, USU.idusuario, CONCAT(' ', PRS.nombres, ' ', PRS.apellidos) AS usuario, 
 				 REP.motivo, REP.descripcion, REP.fechareporte, REP.fotografia
 		FROM comentarios COM
 		INNER JOIN reportes REP ON REP.idcomentario = COM.idcomentario
@@ -151,12 +151,13 @@ SELECT CALI.idcalificacion, TRAB.idtrabajo, TRAB.titulo AS 'titulotrabajo',
 -- VISTA PARA LISTAR ACTIVIDADES
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_listar_actividades AS 
-	SELECT ACT.idactividad AS ID, ESP.idusuario, SER.idservicio, 
+	SELECT ACT.idactividad, ESP.idusuario, SER.idservicio, 
 				 SER.nombreservicio, ESP.idespecialidad, ESP.descripcion AS 'especialidad', 
-				 ACT.fecha, ACT.hora, ACT.titulo, ACT.descripcion, ACT.direccion 
+				 ACT.fechainicio, ACT.horainicio, ACT.fechafin, ACT.horafin, ACT.titulo, ACT.descripcion, ACT.direccion 
 		FROM especialidades ESP
 		INNER JOIN actividades ACT ON ESP.idespecialidad = ACT.idespecialidad
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio;
-	
+
+SELECT * FROM actividades;
 
 

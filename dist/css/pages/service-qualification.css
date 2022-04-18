@@ -47,6 +47,7 @@
   object-fit: cover;
   object-position: center center;
 }
+/* FIN CONTENIDO LEFT */
 
 /* CARD - RIGHT */
 .container-cards .card-header .box-right{
@@ -511,7 +512,7 @@ p.comment-text[contenteditable=true]::selection{
   color: #badff5;
 }
 
-/* TEXTO QUE AUMENTA SU ALTURA DE FORNMA AUTOMATICA */
+/* TEXTO QUE AUMENTA SU ALTURA DE FORNMA AUTOMATICA - Al escribir momentario*/
 .text-auto-height {
   position: relative;
   display: inline-block;

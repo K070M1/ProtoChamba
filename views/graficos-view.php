@@ -17,8 +17,7 @@
       </div>
       <div class="card-body">
         <div class="chart">
-          <canvas id="lineChart"
-            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
         </div>
       </div>
       <!-- /.card-body -->
@@ -90,9 +89,6 @@
       //--------------
       //- AREA CHART -
       //--------------
-
-      // Get context with jQuery - using jQuery's .get() method.
-
       var areaChartData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
         datasets: [
@@ -142,7 +138,6 @@
       }
 
       // This will get the first returned node in the jQuery collection.
-
 
       //-------------
       //- LINE CHART -
@@ -215,5 +210,35 @@
         data: pieData,
         options: pieOptions
       })
+
+
+      // cargar reportes mensuales
+      function loadMonthlyReports(){
+
+        var dataLabels = [];
+        var dataSource = [];
+
+        $.ajax({
+          url: 'controllers//graphic.controller.php',
+          type: 'GET',
+          data: 'op=monthlyReports',
+          success: function(result){
+            
+            let dataController = JSON.parse(result);
+
+            // Recorrer el arreglo
+            dataController.forEach(value => {
+              dataLabels.push(value.mes);
+              dataSource.push(value.reportes);
+            });
+
+            lineChart.data.labels = dataLabels;
+            lineChart.data.datasets[0].data = dataLabels;
+            lineChart.update();
+          }
+        });
+      }
+
+      //loadMonthlyReports();
     })
   </script>

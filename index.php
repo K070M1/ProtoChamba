@@ -6,12 +6,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>REACTIVACIÓN ECONOMICA</title>
+  <title>PROTO CHAMBA</title>
+  <link rel="shortcut icon" href="dist/img/trabaja.png" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+
+  <!-- Sweetalert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 
   <!-- DataTables -->
   <link rel="stylesheet" href="./plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -60,7 +65,7 @@
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-comments"></i>
             <span class="badge badge-danger navbar-badge">3</span>
@@ -119,7 +124,7 @@
         </li>
 
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge">15</span>
@@ -147,7 +152,7 @@
         </li>
 
         <!-- User Account: style can be found in dropdown.less -->
-        <li class="nav-item dropdown user user-menu">
+        <li class="nav-item dropdown user user-menu d-none">
           <a href="#" class="nav-link" data-toggle="dropdown">
             <img src="./dist/img/user2-160x160.jpg" class="user-image user-image-top" alt="User Image">
             <span class="hidden-xs">Nombre del usuario</span>
@@ -223,13 +228,6 @@
         <!--Register modal-->
         <li class="nav-item">
           <a href="#" data-toggle="modal" data-target="#modalRegister" class="nav-link">Registrarse</a>
-        </li>
-
-        <!-- Full screen -->
-        <li class="nav-item">
-          <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-          </a>
         </li>
 
         <!-- Config -->
@@ -381,8 +379,8 @@
     <div class="content-wrapper text-sm" id="content-body">
       <!-- Content Header (Page header) -->
       <div class="content-header">
-        <div class="container-fluid">
-
+        <div class="container-fluid">    
+        
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
@@ -776,6 +774,10 @@
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
+
+  <!-- jQuery UI -->
+  <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+
   <!-- Bootstrap -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
@@ -796,11 +798,16 @@
   <script src="./plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <!-- /. plugins - Datatable -->
 
+  <!-- Moment -->
+  <script src="plugins/moment/moment.min.js"></script>
+  <script src="plugins/moment/locale/es.js"></script>
+
   <!-- Config theme -->
   <script src="dist/js/config.js"></script>
 
   <!-- Sweetalert2 -->
-  <script src="./plugins/sweetalert2/sweetalert2.all.js"></script>
+  <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="dist/js/sweet-alert-2.js"></script>
 
   <!--Configuración del temporizador-->
   <script src="dist/js/pages/md-restabl-temporizador.js"></script>
@@ -815,14 +822,13 @@
       else
         $("#content-data").load(`views/welcome.php`);
 
-
       /*$("#btn-regist-opn").click(function(){
         $("#modal-perfil-img").modal('toggle');
         $("#modalRegister").modal('hide');
       });*/
 
       $("#btn-omt-prf").click(function() {
-        $("#modal-perfil-img").modal('hide');
+        $("#modal-perfil-img").modal('hide');        
       });
 
       /* Movimiento entre modales */

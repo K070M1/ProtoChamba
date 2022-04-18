@@ -18,6 +18,24 @@ SELECT VUL.idusuario, VUL.apellidos, VUL.nombres, VUL.rol,
 	
 	
 	
+CALL spu_usuarios_buscar_rol_nombres('A', '');
+CALL spu_galerias_foto_perfil(3);
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
+(
+	IN _rol 		CHAR(1), 
+	IN _search 	VARCHAR(40)
+)
+BEGIN
+	IF _rol IS NULL OR _rol = '' THEN
+		CALL spu_usuarios_buscar_nombres(_search);
+	ELSE
+		SELECT *	FROM vs_usuarios_listar_datos_basicos 
+			WHERE rol = _rol AND nombres LIKE CONCAT('%', _search, '%');	
+	END IF;
+END $$
+	
 	
 	-- =================
 	SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
