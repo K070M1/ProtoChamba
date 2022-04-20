@@ -760,6 +760,28 @@ BEGIN
     WHERE idespecialidad = _idespecialidad;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_filtrar_especialidadynombres(IN _iddepartamento VARCHAR(2), IN _search VARCHAR(50))
+BEGIN 
+	SELECT * FROM  vs_especialidades_listar 
+		WHERE nombreservicio LIKE CONCAT ('%', _search ,'%') 	
+		    AND	iddepartamento = _iddepartamento;
+	
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_filtrar_nombresservice(IN _search VARCHAR(50))
+BEGIN 
+	SELECT * FROM  vs_especialidades_listar 
+		WHERE nombreservicio LIKE CONCAT ('%', _search ,'%'); 		
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_filtrar_tarifas( IN _tarifa DECIMAL(7,2))
+BEGIN 
+	SELECT * FROM  vs_especialidades_listar 
+		WHERE tarifa = _tarifa;
+END $$
 
 
 /* PROCEDIMIENTOS : TRABAJOS , COMENTARIOS Y CALIFICACIONES */

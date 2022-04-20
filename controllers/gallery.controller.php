@@ -165,42 +165,7 @@ if (isset($_POST['op'])){
 
         $data = $gallery->updateGallery($enviard);
     }
-
-    // DEMOS
-    // Registrar fitos de publicaciones
-    if($_POST['op'] == 'registerGalleryWorks'){
-
-        $count = 0;
-
-        // Validar el array de archivos
-        if(is_array(($_FILES))){
-            foreach($_FILES["images"]["name"] as $key => $value){
-                $ext = explode('.', $_FILES["images"]["name"][$key]); // Separar la extension de la imagen
-                $rename = date("Ymdhis") . $count . "." . $ext[1];
-        
-                // Mover a la carpeta img indicada
-                if(move_uploaded_file($_FILES["images"]["tmp_name"][$key], "../dist/img/" . $rename)){
-                    $count++;
-                };
-            }
-        }
-        //echo $_FILES["images"]["name"][1] . $val;
-        echo "Se agregaron " . $count . " Archivos";
-
-    }
-
-    // Subir video
-    if($_POST['op'] == 'loadVideo'){
-        
-        $ext = explode('.', $_FILES["video"]["name"]); // Separar la extension del video
-        $rename = date("Ymdhis") . "." . $ext[1];
-        
-        // Mover a la carpeta img indicada
-        if(move_uploaded_file($_FILES["video"]["tmp_name"], "../dist/img/" . $rename)){
-            echo $_FILES['video']['name'];
-        };
-    }
-    // FIN DEMOS
+    
 }
 
 

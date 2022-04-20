@@ -433,7 +433,6 @@ function loadPublicationWorks(){
     type: 'GET',
     data: 'op=getWorksByUser',
     success: function(result){
-      console.log(result);
       $("#data-publication-works").html(result);
     }
   });

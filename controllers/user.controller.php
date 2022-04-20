@@ -95,6 +95,27 @@ if (isset($_GET['op'])) {
     }
   }
 
+  function desc_user($data){
+    if (count($data) <= 0) {
+
+      echo " ";
+
+    } else {
+
+      foreach ($data as $row) {
+
+        echo "
+
+          <p>{$row['descripcion']}</p>
+
+        ";
+
+      }
+
+    }
+
+  }
+
   //Cargar Modales
   function loadContentModalsRes($step, $status){
 
@@ -389,6 +410,15 @@ if (isset($_GET['op'])) {
     $Status = $_GET['estado'];
     loadContentModalsRes($Steps, $Status);
   }
+
+  if ($_GET['op'] == 'getUsersDescrip') {
+
+    $data = $user->getUsersDescrip(["idusuario" => 1]);
+
+    desc_user($data);
+
+  }
+
 }
 
 //METODO POST

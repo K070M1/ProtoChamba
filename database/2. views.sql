@@ -49,10 +49,11 @@ CREATE VIEW vs_usuarios_listar AS
 -- =============================================================================================================
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
+
 CREATE VIEW vs_especialidades_listar AS
 	SELECT ESP.`idespecialidad`, USU.idusuario,CONCAT (PERS.`nombres` , ' ' , PERS.apellidos) AS 'datosusuario' , 
 				USU.email, PERS.telefono,
-				SRV.`nombreservicio`, USU.horarioatencion, EST.establecimiento,
+				SRV.`nombreservicio`, ESP.tarifa,EST.iddistrito, USU.horarioatencion, EST.establecimiento,DIST.iddepartamento,
 	CONCAT(
 	CASE
 		WHEN EST.tipocalle LIKE 'CA' THEN 'Calle'
@@ -68,8 +69,8 @@ CREATE VIEW vs_especialidades_listar AS
 	INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
 	INNER JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 	INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
+	INNER JOIN distritos DIST ON DIST.iddistrito = EST.iddistrito
 	GROUP BY USU.idusuario;
-
 -- =============================================================================================================
 -- VISTA DE USUARIOS - DATOS RESUMIDOS
 -- -------------------------------------------------------------------------------------------------------------

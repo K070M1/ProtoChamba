@@ -74,7 +74,6 @@
         type: 'GET',
         data: data,
         success : function(e){
-          console.log(e);
           $('#cards-servicios').html(e);
         }
       });
