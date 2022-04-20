@@ -90,7 +90,104 @@ if (isset($_GET['op'])){
     $data = $specialty->getSpecialtyByUser(["idusuario" => 1]);
     listSpecialtyControlSelect($data);
   }
-} 
+
+  
+  
+  //Listar Especialidades de un Usuario
+  function listSpecialtyUser($data){
+
+    if(count($data) <= 0){
+      echo " ";
+    }
+    else{
+      foreach($data as $row){
+
+        echo "
+          <tr>
+            <td align='center'>
+              <i class='fas fa-gavel'></i>
+            </td>
+            <td>
+              {$row['descripcion']}
+            </td>
+            <td>
+              $/.{$row['tarifa']}
+            </td>
+            <td>
+              <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-info btn-sm modificarEsp' href='#'><i class='fas fa-edit'></i></a>            
+              <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-danger btn-sm eliminarEsp' href='#'><i class='fas fa-trash-alt'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+
+          
+        ";
+      }
+    }
+
+  }
+
+  if($_GET['op'] == 'getDataSpecialty'){
+    $data = $specialty->getDataSpecialty(["idespecialidad" => $_GET['idespecialidad']]);
+    echo json_encode($data);
+  }
+
+
+  if($_GET['op'] == 'getSpecialty'){
+      $data = $specialty->getSpecialty();
+      listSpecialty($data);
+  }
+
+
+  if ($_GET['op'] == 'listSpecialtyUser'){
+
+    $data = $specialty->listSpecialtyUser(["idusuario" => 1]);
+    listSpecialtyUser($data);
+  }
+
+  //Eliminar Especialidad
+  if ($_GET['op'] == 'deleteSpecialty'){
+
+    $specialty->deleteSpecialty(["idespecialidad" => $_GET['idespecialidad']]);
+
+  }
+
+}
+
+// MÉTODO POST
+
+if (isset($_POST['op'])){
+
+  if ($_POST['op'] == 'registerSpecialtyUser'){
+
+    $datosEnviar = [
+      "idusuario"        =>  1,
+      "idservicio"       =>  $_POST["idservicio"],
+      "descripcion"      =>  $_POST["descripcion"],
+      "tarifa"           =>  $_POST["tarifa"]
+    ];
+
+    $specialty->registerSpecialtyUser($datosEnviar);
+
+  }
+
+  
+  // modificar especialidad de un usuario
+  if ($_POST['op'] == 'updateSpecialty'){
+
+    $datosEnviar = [
+      "idespecialidad"    =>  $_POST["idespecialidad"],
+      "idusuario"         =>  1,
+      "idservicio"        =>  $_POST["idservicio"],    
+      "descripcion"       =>  $_POST["descripcion"],    
+      "tarifa"            =>  $_POST["tarifa"] 
+    ];
+
+    $specialty->updateSpecialty($datosEnviar);
+  }
+
+
+}
 
 
 ?>

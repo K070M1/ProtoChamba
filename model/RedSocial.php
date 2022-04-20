@@ -3,6 +3,16 @@
 require_once '../core/model.master.php';
 class RedSocial extends ModelMaster{
 
+  //Obtener datos de una red social
+  public function getRedSocial(array $data){
+    try{
+      return parent::execProcedure($data, "spu_redessociales_getdata", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Listar por usuario
   public function getRedesSociales(array $data){
     try{
@@ -16,7 +26,7 @@ class RedSocial extends ModelMaster{
   // Registrar
   public function registerRedSocial(array $data){
     try{
-      parent::execProcedure($data, "spu_albumes_listar_usuario", false);
+      parent::execProcedure($data, "spu_redessociales_registrar", false);
     }
     catch(Exception $error){
       die($error->getMessage());
