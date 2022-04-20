@@ -348,7 +348,8 @@ END $$
 
 -- OBTENER ESTABLECIMIENTOS SEGUN EL SERVICIO QUE BRINDA EL USUARIO
 DELIMITER $$
-CREATE PROCEDURE spu_establecimientos_getdata_servicio(
+CREATE PROCEDURE spu_establecimientos_getdata_servicio
+(
 	IN _nombreservicio VARCHAR(50)
 ) BEGIN
 	SELECT
@@ -375,6 +376,8 @@ BEGIN
 	SELECT * FROM albumes 
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
+
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)
@@ -437,6 +440,7 @@ CREATE PROCEDURE spu_galerias_listar_usuario(IN _idusuario INT)
 BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
 END $$
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_album(IN _idalbum INT)
@@ -783,6 +787,8 @@ CREATE PROCEDURE spu_trabajos_registrar
 BEGIN 
 	INSERT INTO trabajos (idespecialidad , idusuario, titulo ,descripcion) VALUES
 		(_idespecialidad , _idusuario , _titulo , _descripcion);
+		
+	SELECT LAST_INSERT_ID() AS 'idtrabajo'; -- ULTIMO ID REGISTRADO
 END $$
 
 /* ACTUALIZAR */
@@ -1034,6 +1040,62 @@ END $$
 
 
 -- =============================================================================================================
+-- GENERAR PUNTUACIONES POR TRABAJO Y POR USUARIO
+-- -------------------------------------------------------------------------------------------------------------
+-- TOTAL DE TRABAJOS POR USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_total_trabajos_usuario(IN _idusuario INT)
+BEGIN
+	SELECT COUNT(*) AS 'trabajos' FROM trabajos WHERE idusuario = _idusuario;
+END $$
+
+
+
+-- TOTAL DE REACCIONES POR TRABAJO
+DELIMITER $$
+CREATE PROCEDURE spu_total_reaciones_trabajo(IN _idtrabajo INT)
+BEGIN
+	SELECT SUM(CLF.puntuacion) AS 'reaciones' 
+			FROM calificaciones CLF
+			INNER JOIN trabajos TRB ON TRB.idtrabajo = CLF.idtrabajo
+			WHERE TRB.idtrabajo = _idtrabajo
+			GROUP BY TRB.idtrabajo;
+END $$
+
+-- CALIFICACION POR TRABAJO
+DELIMITER $$
+CREATE PROCEDURE spu_estrellas_trabajo(IN _idtrabajo INT)
+BEGIN
+	DECLARE estrellas DECIMAL(4,2);
+	DECLARE total_usuario INT;
+	DECLARE total_reacion INT;
+	
+	SET total_usuario = (SELECT COUNT(*) FROM usuarios);
+	SET total_reacion = TOTALREACCIONES(_idtrabajo);
+	SET estrellas = DIVIDENUM(total_reacion, total_usuario);
+	
+	SELECT estrellas;
+END $$
+
+-- TOTAL DE ESTRELLAS POR TODOS LOS TRABAJOS DEL USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_total_calificacion_trabajos(IN _idusuario INT)
+BEGIN
+	SELECT SUM(CALIFICACIONTRABAJO(idtrabajo)) AS 'total' 
+		FROM trabajos
+		WHERE idusuario = _idusuario;
+END $$
+
+
+-- ESTRELLAS POR USUARIOS
+DELIMITER $$
+CREATE PROCEDURE spu_estrellas_usuario(IN _idusuario INT)
+BEGIN
+	SELECT DIVIDENUM(TCALIFICACIONTRABAJO(_idusuario), TOTALTRABAJOS(_idusuario)) AS 'estrellas';
+END $$
+
+
+-- =============================================================================================================
 -- GRAFICOS ESTADISTICOS 
 -- -------------------------------------------------------------------------------------------------------------
 
@@ -1047,7 +1109,17 @@ BEGIN
 	ORDER BY MONTH(fechareporte) ASC;
 END $$
 
-CALL spu_grafico_reportes();
+
+DELIMITER $$
+CREATE PROCEDURE spu_grafico_reportes_fechas(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
+		FROM reportes
+		WHERE fechareporte BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+	GROUP BY fechareporte
+	ORDER BY fechareporte ASC;
+END $$
+
 
 -- REPORTES RECIBIDOS POR AÑO --
 DELIMITER $$
@@ -1062,12 +1134,34 @@ END $$
 
 -- NIVELES DE USUARIOS --
 DELIMITER $$
-CREATE PROCEDURE spu_grafico_niveles_usu()
+CREATE PROCEDURE spu_grafico_niveles_usuario()
 BEGIN
-	SELECT nivelusuario , COUNT(idusuario) AS 'totalusuario'
+	SELECT CASE  
+					WHEN nivelusuario = 'E' THEN 'Estandar'
+					
+					WHEN nivelusuario = 'I' THEN 'Intermedio'
+					WHEN nivelusuario = 'A' THEN 'Avanzado' 
+				 END 'nivelusuario',	COUNT(idusuario) AS 'total'
 		FROM usuarios
 	GROUP BY nivelusuario;
 END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_grafico_niveles_usuario_fechas(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+	SELECT CASE  
+					WHEN nivelusuario = 'E' THEN 'Estandar'
+					
+					WHEN nivelusuario = 'I' THEN 'Intermedio'
+					WHEN nivelusuario = 'A' THEN 'Avanzado' 
+				 END 'nivelusuario',	COUNT(idusuario) AS 'total'
+		FROM usuarios
+		WHERE fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+		GROUP BY nivelusuario;
+END $$
+
+
 
 -- SERVICIOS POPULARES (Según su calificación) --
 DELIMITER $$
@@ -1081,4 +1175,26 @@ BEGIN
 	GROUP BY SER.nombreservicio;
 END $$
 
-SELECT * FROM redessociales
+-- TOTAL DE USUARIOS - POR CADA SERVICIO
+DELIMITER $$
+CREATE PROCEDURE spu_total_usuarios_servicio()
+BEGIN
+		SELECT SRV.nombreservicio, COUNT(ESP.idusuario) AS 'total' 
+			FROM servicios SRV
+			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
+			GROUP BY SRV.nombreservicio;
+END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_total_usuarios_servicio_fechas(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+		SELECT SRV.nombreservicio, COUNT(USU.idusuario) AS 'total' 
+			FROM servicios SRV
+			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
+			INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+			WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+			GROUP BY SRV.nombreservicio;
+END $$
+
+

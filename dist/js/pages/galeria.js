@@ -205,6 +205,7 @@ $(document).ready(function(){
     $(".img-container-upt").on("click", ".image-sub-despz", function(){
         $(this).parent().remove();
         var data =  $(this).attr('dataimg');
+        
         for (var i = 0; i < ElementSubidos.length; i++){
             if(ElementSubidos[i]['name'] == data){
                 ElementSubidos.splice( ElementSubidos[i], 1 );

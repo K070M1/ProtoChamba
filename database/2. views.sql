@@ -44,7 +44,7 @@ CREATE VIEW vs_usuarios_listar AS
 		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 		WHERE USU.estado = 1;
 		
-	select * from vs_usuarios_listar;
+		
 
 -- =============================================================================================================
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
@@ -85,28 +85,27 @@ CREATE VIEW vs_usuarios_listar_datos_basicos AS
 -- =============================================================================================================
 -- VISTA DE GALERIAS Y ALBUNES
 -- -------------------------------------------------------------------------------------------------------------
-create VIEW vs_galerias_listar AS
+CREATE VIEW vs_galerias_listar AS
 	SELECT 	GLR.idgaleria, ALB.idalbum, ALB.nombrealbum, 
 					VUL.idusuario, VUL.apellidos, VUL.nombres,
 					TBJ.idtrabajo, TBJ.titulo, GLR.tipo, GLR.archivo,
 					GLR.fechaalta
 		FROM 	galerias GLR
-		left JOIN albumes ALB ON ALB.idalbum = GLR.idalbum
+		LEFT JOIN albumes ALB ON ALB.idalbum = GLR.idalbum
 		INNER JOIN vs_usuarios_listar VUL ON VUL.idusuario = GLR.idusuario
-		left JOIN trabajos TBJ ON TBJ.idtrabajo = GLR.idtrabajo
+		LEFT JOIN trabajos TBJ ON TBJ.idtrabajo = GLR.idtrabajo
 		WHERE GLR.estado = 1;
 
-select * from vs_galerias_listar;
 -- =============================================================================================================
 -- VISTA DE TRABAJOS Y USUARIO
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_trabajos_listar AS 
 	SELECT 	TBJ.idtrabajo, USU.idusuario, PERS.idpersona, PERS.apellidos, 
-					PERS.nombres, TBJ.titulo AS 'trabajorealizar',TBJ.descripcion
+					PERS.nombres, TBJ.titulo, TBJ.descripcion, TBJ.fechapublicado,
+					GETDATENAME(TBJ.fechapublicado) AS 'fechalarga', TBJ.fechamodificado
 		FROM trabajos TBJ
 		INNER JOIN usuarios USU ON USU.idusuario = TBJ.idusuario
-		LEFT JOIN personas PERS ON PERS.idpersona = USU.idpersona
-		RIGHT JOIN galerias GAL ON GAL.idgaleria = TBJ.idtrabajo
+		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
 		WHERE TBJ.estado = 1;
 
 -- =============================================================================================================
@@ -139,12 +138,12 @@ CREATE VIEW vs_listar_reportes AS
 CREATE VIEW vs_calificaciones_listar AS
 	SELECT CALI.idcalificacion, TRAB.idtrabajo, TRAB.titulo AS 'titulotrabajo', 
 			 PERS.idpersona, PERS.apellidos, PERS.nombres, CALI.puntuacion
-				 PERS.idpersona, PERS.apellidos, PERS.nombres, CALI.puntuacion
 		FROM calificaciones CALI
 		INNER JOIN trabajos TRAB ON TRAB.idtrabajo = CALI.idtrabajo
 		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
 		LEFT JOIN personas PERS ON PERS.idpersona = USU.idpersona
 		WHERE CALI.estado = 1;
+
 
 -- =============================================================================================================
 -- VISTA PARA LISTAR ACTIVIDADES
@@ -156,4 +155,5 @@ CREATE VIEW vs_listar_actividades AS
 		FROM especialidades ESP
 		INNER JOIN actividades ACT ON ESP.idespecialidad = ACT.idespecialidad
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio;
-		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio;
+
+

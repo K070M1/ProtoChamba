@@ -194,6 +194,14 @@ CREATE TABLE galerias
 	CONSTRAINT fk_galerias_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
 
+<<<<<<< HEAD
+=======
+
+SELECT * FROM galerias;
+SELECT * FROM albumes;
+
+
+>>>>>>> 10ea0dc295aa9352db22f33276611e4796f3e1cd
 CREATE TABLE calificaciones 
 (
 	idcalificacion 	INT AUTO_INCREMENT PRIMARY KEY,

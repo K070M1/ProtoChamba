@@ -391,6 +391,8 @@ if (isset($_GET['op'])) {
   }
 }
 
+//METODO POST
+
 if (isset($_POST['op'])) {
 
   //Registrar usuario
@@ -439,5 +441,16 @@ if (isset($_POST['op'])) {
     ];
 
     $user->updatePasswordRest($datosUp);
+  }
+
+  // modificar descripcion de un usuario
+  if ($_POST['op'] == 'updateDescrip'){
+
+    $datosEnviar = [
+      "idusuario"       =>  1,
+      "descripcion"      =>  $_POST["descripcion"]
+    ];
+
+    $user->updateDescrip($datosEnviar);
   }
 }

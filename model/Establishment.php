@@ -6,7 +6,7 @@ class Establishment extends ModelMaster{
   // Listar establecimientos por usuario
   public function getEstablishmentsByUser(array $data){
     try{
-      return parent::execProcedure($data, "spu_albumes_listar_usuario", true);
+      return parent::execProcedure($data, "spu_establecimientos_listar_User", true);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -42,8 +42,8 @@ class Establishment extends ModelMaster{
       die($error->getMessage());
     }
   }
-  
-  // Obtener establecimientos por servicio
+
+  // Obtenr un establecimiento por servicio
   public function getEstablishmentByService(array $data){
     try{
       return parent::execProcedure($data, "spu_establecimientos_getdata_servicio", true);
