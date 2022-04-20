@@ -228,8 +228,6 @@ if (isset($_POST['op'])) {
     $user->updateDescrip($datosEnviar);
   }
 
-
-
   if($_POST['op'] == "registerGalleryPhotos"){
 
     $idtypefile = $_POST['tipoarchivo'];

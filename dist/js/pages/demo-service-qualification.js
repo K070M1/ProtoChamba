@@ -80,6 +80,38 @@ $("#data-publication-works").on("click", ".btn-show-config", function(){
   $(this).next("ul.list-public-config").toggle();
 });
 
+// Editar publicación
+$("#data-publication-works").on("click", ".btn-edit-publication", function(){
+  
+  $(this).parent("li.item-public-config").parent("ul.list-public-config").toggle(); // Cerrar opciones
+
+  let idtrabajo = $(this).attr("data-code");
+
+  $.ajax({
+    url: 'controllers/work.controller.php',
+    type: 'GET',
+    data: 'op=getAtWork&idtrabajo=' + idtrabajo,
+    success: function(result){
+      if(result != ""){
+        let dataController = JSON.parse(result);
+        console.log(dataController[0])
+
+        $("#especialidad").val(dataController.idespecialidad);
+        $("#titulo").val(dataController.titulo);
+        $("#descripcion").val(dataController.descripcion);
+
+        $("#modal-publication").modal('show');
+      }
+    }
+  });
+});
+
+// Editar publicación
+$("#data-publication-works").on("click", ".btn-delete-publication", function(){
+  confirm("Eliminar");
+  $(this).parent("li.item-public-config").parent("ul.list-public-config").toggle(); // Cerrar opciones
+});
+
 /**
  * CALIFICACIÓN - TRABAJOS
  */
@@ -402,7 +434,11 @@ function deleteVideoPreview(){
   let videoSrc = document.querySelector("#video-source");
   videoSrc.src = '';
   videoSrc.parentElement.load();
+  $("#form-upload-file")[0].reset();
   $("#input-new-video").val('');
+  $("#label-video-size").html('0 MB');
+  $(".progress .progress-bar").html('0 %');
+  $(".progress .progress-bar").css('width', 0 + '%');
   changeInterfaceToDelete(true);
 }
 

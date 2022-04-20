@@ -43,7 +43,6 @@ class Specialty extends ModelMaster{
         die($error->getMessage());
     }
   }
-
   
   // Listar por especialidad por usuario
   public function listSpecialtyUser(array $data){
@@ -74,8 +73,6 @@ class Specialty extends ModelMaster{
       die($error->getMessage());
     }
   }
-
-
 
   // Eliminar Especialidad
   public function deleteSpecialty(array $data){

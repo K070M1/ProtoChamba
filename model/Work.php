@@ -13,6 +13,16 @@ class Work extends ModelMaster{
     }
   }
 
+  // Obtener un registro de trabajo
+  public function getAtWork(array $data){
+    try{
+      return parent::execProcedure($data, "spu_trabajos_getdata", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Registrar trabajo
   public function registerWork(array $data){
     try{

@@ -16,7 +16,7 @@ if(isset($_GET['op'])){
     else{
       foreach($data as $row){
         echo "
-        <div class='target-service card'>
+        <div class='target-service card'> 
           <div class='target-header card-header'>
             <div class='user-block'>
               <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='User Image'>
@@ -29,13 +29,13 @@ if(isset($_GET['op'])){
               </span>
               <ul class='list-public-config bg-secondary'>
                 <li class='item-public-config'>
-                  <a href='javascript:void(0)'>
+                  <a href='javascript:void(0)' class='btn-edit-publication' data-code='{$row['idtrabajo']}'>
                     <i class='fas fa-pen'></i>
                     <span>Editar publicación</span>
                   </a>
                 </li>
                 <li class='item-public-config'>
-                  <a href='javascript:void(0)'>
+                  <a href='javascript:void(0)' class='btn-delete-publication' data-code='{$row['idtrabajo']}'>
                     <i class='fas fa-ban'></i>
                     <span>Eliminar publicación</span>
                   </a>
@@ -200,6 +200,15 @@ if(isset($_GET['op'])){
   if($_GET['op'] == 'getWorksByUser'){
     $data = $work->getWorksByUser(['idusuario' => 1]);
     listWorksHtml($data);
+  }
+
+  // Obtener un registro de trabajo
+  if($_GET['op'] == 'getAtWork'){
+    $data = $work->getAtWork(["idtrabajo" => $_GET['idtrabajo']]);
+
+    if($data){
+      echo json_encode($data);
+    }
   }
 }
 
