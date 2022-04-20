@@ -95,8 +95,6 @@ BEGIN
 	WHERE idpersona = _idpersona; 
 END $$
 
-SELECT * FROM personas;
-
 
 -- OBTENER DATOS DE UNA PERSONA--
 DELIMITER $$
