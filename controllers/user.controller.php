@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../model/User.php';
 require_once '../model/Person.php';
@@ -12,6 +13,8 @@ $person  = new Person();
 $album = new Album();
 $mailer = new Mailer();
 
+$_SESSION['email'] = 'joserafaelomg@gmail.com';
+$_SESSION['emailrespaldo'] = '1302314@senati.pe';
 
 if (isset($_GET['op'])) {
 
@@ -92,6 +95,243 @@ if (isset($_GET['op'])) {
     }
   }
 
+  //Cargar Modales
+  function loadContentModalsRes($step, $status){
+
+    $emailU = $_SESSION['email'];
+    $emailresU = $_SESSION['emailrespaldo'];
+
+    // Algoritmo de ocultar correo
+    function ocultEmail($email) {
+      $emailocult = '';
+      $base = '';
+      $nbase = '';
+      $fbase = '';
+      $arroba = strpos($email, '@');
+      for($i=0;$i<strlen($email);$i++){
+        if($i  < $arroba){
+          $base .= $email[$i];
+        }
+      }
+
+      $nbase = trim($base, $base[-1]);
+      $fbase = trim($nbase, $base[0]);
+
+      $emailocult = str_replace($fbase, "*****"  , $email);
+      return $emailocult;
+    }
+
+    $emailview = ocultEmail($emailU);
+    $emailviewRes = ocultEmail($emailresU);
+
+    if($step == '1'){
+      echo
+      "
+        <div id='back-icon'>
+          <a id='backi-1'>
+            <i class='fas fa-arrow-left'></i>
+          </a>
+        </div>
+        <h3 class='font-weight-bold'>Solicitar cambio de contraseña</h3>
+        <form>
+          <div class='form-group row'>
+            <div class='col-sm-12'>
+              <label for='emailDir'>Los procesos se enviarán a: </label>
+              <input type='email' class='form-control' disabled value='$emailview'>
+            </div>
+          </div>
+          <a id='secondEmailMd' href='#'>!No tengo acceso a este correo...!</a>
+        </form>
+        <div id='btn-gen-res'>
+          <button type='button' class='btn btn-secondary' id='btnRes1'>Siguiente</button>
+        </div>
+      ";
+    }elseif($step == '2'){
+      echo
+      "
+      <div id='back-icon'>
+        <a id='backi-2'>
+          <i class='fas fa-arrow-left'></i>
+        </a>
+      </div>
+      <h3 class='font-weight-bold'>Cambio de email de repaldo</h3>
+      <form>
+        <div class='form-group row'>
+          <div class='col-sm-12'>
+            <label>Los procesas han sido cambiados al email:</label>
+            <input type='email' class='form-control' disabled value='$emailviewRes'>
+          </div>
+        </div>
+      </form>
+      <div id='btn-gen-res'>
+        <button type='button' class='btn btn-secondary' id='btnRes2'>Siguiente</button>
+      </div>
+      ";
+    }elseif($step == '3'){
+      if($status == 'false'){
+        echo
+        "
+        <div id='back-icon'>
+          <a id='backi-3'>
+            <i class='fas fa-arrow-left'></i>
+          </a>
+        </div>
+        <h3 class='font-weight-bold'>He olvidado mi contraseña...!</h3>
+        <span><label>$emailview</label></span>
+        <div class='cnt-res'>
+          <h5>Obtener un código de verificación</h5>
+          <p>Se enviará un código de verificación temporal al correo indicado</p>
+        </div>
+        <div id='btn-gen-res'>
+          <button type='button' class='btn btn-secondary' id='btnRes3'>Generar Código</button>
+        </div>
+        ";
+      }else{
+        echo
+        "
+        <div id='back-icon'>
+          <a id='backi-4'>
+            <i class='fas fa-arrow-left'></i>
+          </a>
+        </div>
+        <h3 class='font-weight-bold'>He olvidado mi contraseña...!</h3>
+        <span><label>$emailviewRes</label></span>
+        <div class='cnt-res'>
+          <h5>Obtener un código de verificación</h5>
+          <p>Se enviará un código de verificación temporal al correo indicado</p>
+        </div>
+        <div id='btn-gen-res'>
+          <button type='button' class='btn btn-secondary' id='btnRes4'>Generar Código</button>
+        </div>
+        ";
+      };
+    }elseif($step == '4'){
+      if($status == 'false'){
+        echo
+        "
+        <div id='back-icon'>
+          <a id='backi-5'>
+            <i class='fas fa-arrow-left'></i>
+          </a>
+          <div class='wrapper'>
+            <div class='pie spinner'></div>
+            <div class='pie filler'></div>
+            <div class='mask'></div>
+          </div>​ 
+        </div>
+        <h3 class='font-weight-bold'>Validar el código de verificación</h3>
+        <span><label>$emailview</label></span>
+        <form>
+          <div class='form-group row'>
+            <div class='col-sm-5'>
+              <label>Ingrese el código enviado:</label>
+            </div>
+            <div class='col-sm-7'>
+              <input type='text' class='form-control' id='code-send1'>
+            </div>
+          </div>
+        </form>
+        <div id='btn-gen-res'>
+          <button type='button' class='btn btn-secondary' id='btnRes5'>Validar</button>
+        </div>
+        ";
+      }else{
+        echo
+        "
+        <div id='back-icon'>
+          <a id='backi-6'>
+            <i class='fas fa-arrow-left'></i>
+          </a>
+          <div class='wrapper'>
+            <div class='pie spinner'></div>
+            <div class='pie filler'></div>
+            <div class='mask'></div>
+          </div>​ 
+        </div>
+        <h3 class='font-weight-bold'>Validar el código de verificación</h3>
+        <span><label>$emailviewRes</label></span>
+        <form>
+          <div class='form-group row'>
+            <div class='col-sm-5'>
+              <label>Ingrese el código enviado:</label>
+            </div>
+            <div class='col-sm-7'>
+              <input type='text' class='form-control' id='code-send2'>
+            </div>
+          </div>
+        </form>
+        <div id='btn-gen-res'>
+          <button type='button' class='btn btn-secondary' id='btnRes6'>Validar</button>
+        </div>
+        ";
+      }
+    }elseif($step == '5'){
+      if($status == 'false'){
+        echo
+        "
+          <div id='back-icon'>
+            <a id='backi-7'>
+              <i class='fas fa-arrow-left'></i>
+            </a>
+          </div>
+          <h3 class='font-weight-bold'>Crear nueva contraseña</h3>
+          <form>
+            <div class='form-group row'>
+              <div class='col-sm-5'>
+                <label>Nueva contraseña:</label>
+              </div>
+              <div class='col-sm-7'>
+                <input type='password' class='form-control' id='pass-n-1'>
+              </div>
+            </div>
+            <div class='form-group row'>
+              <div class='col-sm-5'>
+                <label>Repetir contraseña:</label>
+              </div>
+              <div class='col-sm-7'>
+                <input type='password' class='form-control' id='pass-n-2'>
+              </div>
+            </div>
+          </form>
+          <div id='btn-gen-res'>
+            <button type='button' class='btn btn-secondary' id='btnRes7'>Crear contraseña</button>
+          </div>
+        ";
+      }else{
+        echo
+        "
+          <div id='back-icon '>
+            <a id='backi-8'>
+              <i class='fas fa-arrow-left'></i>
+            </a>
+          </div>
+          <h3 class='font-weight-bold'>Crear nueva contraseña</h3>
+          <form>
+            <div class='form-group row'>
+              <div class='col-sm-5'>
+                <label>Nueva contraseña:</label>
+              </div>
+              <div class='col-sm-7'>
+                <input type='password' class='form-control' id='pass-n-3'>
+              </div>
+            </div>
+            <div class='form-group row'>
+              <div class='col-sm-5'>
+                <label>Repetir contraseña:</label>
+              </div>
+              <div class='col-sm-7'>
+                <input type='password' class='form-control' id='pass-n-4'>
+              </div>
+            </div>
+          </form>
+          <div id='btn-gen-res'>
+            <button type='button' class='btn btn-secondary' id='btnRes8'>Crear contraseña</button>
+          </div>
+        ";
+        }
+    }
+  }
+
   // Busqueda realizada por nombres o apellidos - (Asignar permisos admin)
   if ($_GET['op'] == 'searchUsersByNamesAndRole') {
 
@@ -142,6 +382,13 @@ if (isset($_GET['op'])) {
       echo "No permitido";
     }
   }
+
+  //Cargar contenido en los modales
+  if($_GET['op'] == 'modalsRest'){
+    $Steps = $_GET['paso'];
+    $Status = $_GET['estado'];
+    loadContentModalsRes($Steps, $Status);
+  }
 }
 
 if (isset($_POST['op'])) {
@@ -184,9 +431,10 @@ if (isset($_POST['op'])) {
     }
   }
 
+  //Modificar contraseña
   if($_POST['op'] == 'updatePasswordRest'){
     $datosUp = [
-      "idusuario" => $_POST['idusuario'],
+      "idusuario" => '1',
       "clave"  => password_hash($_POST['clave'], PASSWORD_BCRYPT)
     ];
 

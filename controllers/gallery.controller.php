@@ -6,6 +6,7 @@ $gallery = new Gallery();
 
 if (isset($_GET['op'])) {
     
+    // Cargar todas las fotografias
     function loadGallery($data){
         if(count($data) > 0){
             foreach($data as $row){
@@ -44,6 +45,7 @@ if (isset($_GET['op'])) {
         ";
     }
 
+    // Cargar contenido en el modal de las fotografias
     function loadGalleryView($data){
         $fechaalta = $data[0]['fechaalta'];
         $cambio = strtotime($fechaalta);
@@ -82,17 +84,19 @@ if (isset($_GET['op'])) {
 
     }
 
+    // Cargar todas las fotografias
     if ($_GET['op'] == 'listGallery') {
         $data = $gallery->getGalleriesByUser(["idusuario" => $_GET['idusuario']]);
         loadGallery($data);
     }
 
-    
+    // Cargar todas las fotografias dentro de un collapse
     if ($_GET['op'] == 'listGalleryFromAlbum') {
         $data = $gallery->getGalleriesByAlbum(["idalbum" => $_GET['idalbum']]);
         loadGallery($data);
     }
 
+    //  Cargar contenido en el modal de las fotografias
     if ($_GET['op'] == 'getGalleryModal') {
         $data = $gallery->getAGallery(["idgaleria" => $_GET['idgaleria']]);
         if(count($data) > 0){
@@ -100,7 +104,7 @@ if (isset($_GET['op'])) {
         }
     }
 
-    
+    // Eliminar fotos
     if ($_GET['op'] == 'deleteGallery') {
         $data = $gallery->deleteGallery(["idgaleria" => $_GET['idgaleria']]);
     }
@@ -111,14 +115,28 @@ if (isset($_POST['op'])){
 
     if($_POST['op'] == "registerGalleryPhotos"){
 
+        // Para encriptar fotos
+        function encripPhoto(){
+            $lenght = 15;
+            $base = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $longitud = strlen($base);
+            $code = '';
+            for($i = 0; $i < $lenght; $i++){
+                $random = $base[mt_rand(0, $longitud -1)];
+                $code .= $random;
+            }
+        
+            return $code;
+        }
+
         $idtypefile = $_POST['tipoarchivo'];
 
         if($idtypefile == 'image/png'){
-            $extension = date('YmdhGs') . ".png";
+            $extension =  encripPhoto() . date('YmdhGsuv') . ".png";
         }else if($idtypefile == 'image/jpeg'){
-            $extension = date('YmdhGs') . ".jpg";
+            $extension = encripPhoto() . date('YmdhGsuv') . ".jpg";
         }else{
-            $extension = date('YmdhGs') . ".gif";
+            $extension = encripPhoto() . date('YmdhGsuv') . ".gif";
         }
 
         $enviard =   

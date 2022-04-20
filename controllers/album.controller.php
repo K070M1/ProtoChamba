@@ -7,6 +7,7 @@ $album = new Album();
 
 if (isset($_GET['op'])){
 
+    // Cargar los albumes
     function loadAlbum($data){
         if(count($data) > 0){
             foreach($data as $row){
@@ -48,6 +49,7 @@ if (isset($_GET['op'])){
         ";
     }
 
+    // Cargar el album dentro de un modal
     function loadAlbumSlcModal($data){
         if(count($data) > 0){
             echo  "<option value=''>Ninguno</option>";
@@ -60,20 +62,24 @@ if (isset($_GET['op'])){
         }
     }
 
+    // Cargar los albumes
     if($_GET['op'] == 'loadAlbum'){
         $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
         loadAlbum($data);
     }
 
+    // Eliminar album
     if($_GET['op'] == 'deleteAlbum'){
         $data = $album->deleteAlbum(["idalbum" => $_GET['idalbum']]);
     }
 
+    // Traer datos del album para el modal
     if($_GET['op'] == 'getAlbumDat'){
         $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
         echo json_encode($data);
     }
 
+    // Cargar el album dentro de un modal
     if($_GET['op'] == 'loadAlbumSlcModal'){
         $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
         loadAlbumSlcModal($data);
@@ -82,6 +88,8 @@ if (isset($_GET['op'])){
 }
 
 if(isset($_POST['op'])){
+
+    // Registrar un album
     if($_POST['op'] == "registerAlbum"){
         $enviard =   
         [
@@ -91,9 +99,8 @@ if(isset($_POST['op'])){
 
         $data = $album->registerAlbum($enviard);
     }
-}
-
-if(isset($_POST['op'])){
+    
+    // Modificar un album
     if($_POST['op'] == "updateAlbum"){
         $enviard =   
         [
@@ -103,6 +110,9 @@ if(isset($_POST['op'])){
 
         $data = $album->updateAlbum($enviard);
     }
+    
+
 }
+
 
 ?>

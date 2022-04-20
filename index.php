@@ -614,168 +614,21 @@
   </div>
   <!--./Modal de preguntas de seguridad -->
 
-  <!--Modales Restablecimiento de contraseña-->
-  <!-- Modal de restablecimiento tercer paso -->
-  <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">He olvidado mi contraseña...!</h3>
-          <span><label>Suarez*********@gmail.com</label></span>
-          <div class="cnt-res">
-            <h5>Obtener un código de verificación</h5>
-            <p>Se enviará un código de verificación temporal al correo indicado</p>
-          </div>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes3">Generar Código</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--./Modal de restablecimiento tercer paso -->
 
-  <!---Modal de restablecimiento cuarto paso-->
-  <div class="modal fade" id="modal-res-contra4" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-            <div class="wrapper">
-              <div class="pie spinner"></div>
-              <div class="pie filler"></div>
-              <div class="mask"></div>
-            </div>​ 
-          </div>
-          <h3 class="font-weight-bold">Validar el código de verificación</h3>
-          <span><label>Suarez*********@gmail.com</label></span>
-          <form id="form-horizontal"">
-              <div class=" form-group row">
-                <div class="col-sm-5">
-                  <label for="">Ingrese el código enviado:</label>
-                </div>
-                <div class="col-sm-7">
-                  <input type="password" class="form-control">
-                </div>
-            </div>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes4">Validar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!---./Modal de restablecimiento cuarto paso-->
-
-  <!-- Modal de restablecimiento quinto paso -->
-  <div class="modal fade" id="modal-res-contra5" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">Crear nueva contraseña</h3>
-          <span><label for="">Suarez*********@gmail.com</label></span>
-          <form class="">
-            <div class="form-group row">
-              <div class="col-sm-5">
-                <label for="">Nueva contraseña:</label>
-              </div>
-              <div class="col-sm-7">
-                <input type="password" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-sm-5">
-                <label for="">Repetir contraseña:</label>
-              </div>
-              <div class="col-sm-7">
-                <input type="password" class="form-control">
-              </div>
-            </div>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes5">Crear contraseña</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ./Modal de restablecimiento quinto paso -->
-
-  <!-- Modal de restablecimiento primer paso -->
+  <!-- Modal de restablecimiento -->
   <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
-          <form id="">
-            <div class="form-group row">
-              <div class="col-sm-12">
-                <label for="">Los procesos se enviarán a:</label>
-                <input type="email" class="form-control" disabled value="1299595@senati.pe" id="emailDir">
-              </div>
-            </div>
-            <a href="#" data-toggle="modal" data-target="#modal-res-contra2">!No tengo acceso a este correo...!</a>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes1">Siguiente</button>
-          </div>
+        <div class="modal-body m-res" id="m-res-lod">
+
         </div>
       </div>
     </div>
   </div>
-  <!--./Modal de restablecimiento primer paso -->
+  <!--./Modal de restablecimiento-->
 
 
-  <!-- Modal de restablecimiento segundo paso -->
-  <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
-          <form id="f">
-            <div class="form-group row">
-              <div class="col-sm-12">
-                <label for="">Los procesas han sido cambiados al email:</label>
-                <input type="email" class="form-control" disabled value="1302314@senai.pe" id="emailResp">
-              </div>
-            </div>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes2">Siguiente</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--./Modal de restablecimiento segundo paso -->
 
-  <!--./Modales Restablecimiento de contraseña-->
-
-  <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
 
@@ -813,152 +666,25 @@
   <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
   <script src="dist/js/sweet-alert-2.js"></script>
 
+  <!--Cargar datos de la galeria-->
   <script src="dist/js/pages/galeria.js"></script>
+
+  <!--Cargar datos de la galeria-->
+  <script src="dist/js/pages/index.js"></script>
+
   <script>
     $(document).ready(function() {
 
       var view = getParam("view");
-      if (view != false)
+      
+      // Cambio de contenido dinámico
+      if (view != false){
         $("#content-data").load(`views/${view}.php`);
-      else
+      }else{
         $("#content-data").load(`views/inicio-view.php`);
+      }  
 
-      /*$("#btn-regist-opn").click(function(){
-        $("#modal-perfil-img").modal('toggle');
-        $("#modalRegister").modal('hide');
-      });
-
-      $("#btn-omt-prf").click(function() {
-        $("#modal-perfil-img").modal('hide');        
-      });
-
-      /* Movimiento entre modales */
-      $("#btnRes1").click(function() {
-        var email = $("#emailDir").val();
-        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
-        $("#emailDir").val(res);
-        
-        $("#modal-res-contra1").modal("hide");
-        $("#modal-res-contra3").modal("toggle");
-      });
-
-      $("#btnRes2").click(function() {
-        var emailres = $("#emailResp").val();
-        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
-        $("#emailResp").val(res);
-        
-        $("#modal-res-contra2").modal("hide");
-        $("#modal-res-contra3").modal("toggle");
-      });
-
-      $("#btnRes3").click(function() {
-        $("#modal-res-contra3").modal("hide");
-        $("#modal-res-contra4").modal("toggle");
-      });
-
-      $("#btnRes4").click(function() {
-        $("#modal-res-contra4").modal("hide");
-        $("#modal-res-contra5").modal("toggle");
-      });
-
-      $("#btnRes5").click(function() {
-        $("#modal-res-contra5").modal("hide");
-      });
-      /* ./Movimiento entre modales */
-
-
-      /* Registrar usuario */
-
-      // Cargar datos de departamentos
-      function slclstDepartm() {
-        $.ajax({
-          url: 'controllers/ubigeo.controller.php',
-          type: 'GET',
-          data: 'op=getDepartments',
-          success: function(e) {
-            $("#slcDepartReg").html(e);
-          }
-        });
-      }
-
-      // Cargar datos de provincias
-      $("#slcDepartReg").change(function() {
-        let iddepart = $(this).val();
-
-        $.ajax({
-          url: 'controllers/ubigeo.controller.php',
-          type: 'GET',
-          data: 'op=getProvinces&iddepartamento=' + iddepart,
-          success: function(e) {
-            $("#slcProvinReg").html(e);
-          }
-        });
-
-      });
-
-      //Cargar datos de distritos
-      $("#slcProvinReg").change(function() {
-        let idprovin = $(this).val();
-
-        $.ajax({
-          url: 'controllers/ubigeo.controller.php',
-          type: 'GET',
-          data: 'op=getDistricts&idprovincia=' + idprovin,
-          success: function(e) {
-            $("#slcDistrReg").html(e);
-          }
-        });
-      });
-
-      //Registrarse
-      function registerUser() {
-
-        var formData = new FormData();
-
-        let apellidos = $("#inApellidos").val();
-        let nombres = $("#inNombres").val();
-        let fechanac = $("#inFechaNac").val();
-        let telefono = $("#inTelef").val();
-        let iddistrito = $("#slcDistrReg").val();
-        let tipocalle = $("#inTipoC").val();
-        let nombrecalle = $("#inNCalle").val();
-        let numerocalle = $("#inNC").val();
-        let pisodepa = $("#inPiso").val();
-        let email = $("#inCorreoE").val();
-        let clave = $("#inPass1").val();
-
-        formData.append("op", "registerUser");
-        formData.append("apellidos", apellidos);
-        formData.append("nombres", nombres);
-        formData.append("fechanac", fechanac);
-        formData.append("telefono", telefono);
-        formData.append("iddistrito", iddistrito);
-        formData.append("tipocalle", tipocalle);
-        formData.append("nombrecalle", nombrecalle);
-        formData.append("numerocalle", numerocalle);
-        formData.append("pisodepa", pisodepa);
-        formData.append("email", email);
-        formData.append("clave", clave);
-
-        $.ajax({
-          url: 'controllers/user.controller.php',
-          type: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false,
-          cache: false,
-          success: function(e) {
-            console.log(e);
-          }
-        });
-      }
-
-      $("#btn-regist-opn").click(registerUser);
-      slclstDepartm();
-      /*./Registrar usuario */
-
-
-      /* Verificar correo y contraseña */
+      // Verificar correo y contraseña
       $('#btn-login').click(function() {
 
         var email = $('#email').val();
@@ -980,22 +706,21 @@
           }
         })
       })
-
+      
+      // CHATBOT
+      window.watsonAssistantChatOptions = {
+      integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", 
+      region: "us-east", 
+      serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", 
+      onLoad: function(instance) { instance.render(); }
+      };
+      setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+      document.head.appendChild(t);
+      });
     });
 
-
-
-    window.watsonAssistantChatOptions = {
-    integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", // The ID of this integration.
-    region: "us-east", // The region your integration is hosted in.
-    serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", // The ID of your service instance.
-    onLoad: function(instance) { instance.render(); }
-    };
-    setTimeout(function(){
-    const t=document.createElement('script');
-    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
-    document.head.appendChild(t);
-    });
   </script>
 </body>
 </html>

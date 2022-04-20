@@ -24,17 +24,21 @@ function generateCode(){
     return $validaciones;
 }
 
-$_SESSION['code'];
-$_SESSION['tiempolimite'];
-
 if (isset($_POST['op'])) {
 
     if($_POST['op'] == "sendEmailPassword"){
+        $useEmailBackup = $_POST['emailbackup'];
         $codigogenerado = generateCode();       
         $_SESSION['code'] = $codigogenerado['code'];
         $_SESSION['tiempolimite'] = $codigogenerado['fechamuerte'];
         
-        $mailer->sendMail('1321063@senati.pe', 'Su código de verificación es: '.  $_SESSION['code']);
+        if($useEmailBackup == 'true'){
+            $mailer->sendMail($_SESSION['emailrespaldo'], 'Su código de verificación es: '.  $_SESSION['code']);
+            $_SESSION['useEmailBackup'] = $useEmailBackup;
+        }else{
+            $mailer->sendMail($_SESSION['email'], 'Su código de verificación es: '.  $_SESSION['code']);
+            $_SESSION['useEmailBackup'] = $useEmailBackup;
+        }   
 
         echo "El código es: ". $_SESSION['code'];
     };
@@ -43,8 +47,6 @@ if (isset($_POST['op'])) {
         $generado = $_SESSION['code'];
         $limite = $_SESSION['tiempolimite'];
         $comprobar = $_POST['code'];
-        echo 'El tiempo limite es '.$limite."\n";
-        echo 'El cÓdigo es '. $generado ."\n";
 
         if($limite < date('G:i:s')){
             // Se genera otro codigo
@@ -52,16 +54,18 @@ if (isset($_POST['op'])) {
             $_SESSION['code'] = $codigogenerado['code'];
             $_SESSION['tiempolimite'] = $codigogenerado['fechamuerte'];
 
-            $mailer->sendMail('1299595@senati.pe', 'Su código de verificación es: '.  $_SESSION['code']);
-
-            echo 'Tiempo acabado'. "\n";
-            echo 'Se genero otro codigo'. "\n";
-            echo $_SESSION['code'];
+            if($_SESSION['useEmailBackup'] == 'true'){
+                $mailer->sendMail($_SESSION['emailrespaldo'], 'Su código de verificación es: '.  $_SESSION['code']);
+            }else{
+                $mailer->sendMail($_SESSION['email'], 'Su código de verificación es: '.  $_SESSION['code']);
+            }   
+            echo 'Expirado';
+ 
         }else{
             if($generado == $comprobar){
-                echo 'Acceso exitoso';
+                echo 'Acceso';
             }else{
-                echo 'Intente otra vez';
+                echo 'Intente';
             }
         }
         

@@ -440,6 +440,7 @@ BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
 END $$
 
+call spu_galerias_listar_usuario (1);
 
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_album(IN _idalbum INT)
