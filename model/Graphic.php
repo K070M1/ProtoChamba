@@ -14,6 +14,16 @@ class Graphic extends ModelMaster{
   }
 
   // Reportes mensuales
+  public function monthlyReportsFilteredByDates(array $data){
+    try{
+      return parent::execProcedure($data, "spu_grafico_reportes_fechas", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Reportes mensuales
   public function annualReports(){
     try{
       return parent::getRows("spu_grafico_reportes_year");
@@ -26,7 +36,17 @@ class Graphic extends ModelMaster{
   // Niveles de usuario
   public function userLevels(){
     try{
-      return parent::getRows("spu_grafico_niveles_usu");
+      return parent::getRows("spu_grafico_niveles_usuario");
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Niveles de usuario
+  public function userLevelsFilteredByDates(array $data){
+    try{
+      return parent::execProcedure($data, "spu_grafico_niveles_usuario_fechas", true);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -43,8 +63,24 @@ class Graphic extends ModelMaster{
     }
   }
 
-  
+  // Cantidad de usuarios que tiene cada servicio
+  public function countUsersByService(){
+    try{
+      return parent::getRows("spu_total_usuarios_servicio");
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Cantidad de usuarios que tiene cada servicio
+  public function countUsersByServiceFilteredByDates(array $data){
+    try{
+      return parent::execProcedure($data, "spu_total_usuarios_servicio_fechas", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }  
 }
-
-
 ?>

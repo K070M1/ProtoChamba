@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.22-MariaDB : Database - reactivacion
+SQLyog Ultimate v12.5.1 (64 bit)
+MySQL - 10.4.24-MariaDB : Database - reactivacion
 *********************************************************************
 */
 
@@ -33,21 +33,13 @@ CREATE TABLE `actividades` (
   PRIMARY KEY (`idactividad`),
   KEY `fk_act_idespecialidad` (`idespecialidad`),
   CONSTRAINT `fk_act_idespecialidad` FOREIGN KEY (`idespecialidad`) REFERENCES `especialidades` (`idespecialidad`)
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `actividades` */
 
 insert  into `actividades`(`idactividad`,`idespecialidad`,`fechainicio`,`fechafin`,`horainicio`,`horafin`,`titulo`,`descripcion`,`direccion`) values 
-<<<<<<< HEAD
-(1,2,'2022-04-20','2022-04-20','00:00:00','05:00:00','gdg','','dgdgdf'),
-(3,2,'2022-04-06','2022-04-08','00:00:00','01:00:00','prueba','Trabajos en','dsds');
-=======
-(1,2,'2022-04-14','2022-04-14','04:00:00','05:00:00','Nuevo','','Chincha');
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8
+(1,2,'2022-04-20','2022-04-20','04:00:00','05:00:00','Nuevo','','Chincha'),
+(2,3,'2022-04-05','2022-04-07','00:00:00','01:00:00','Agenda','','Ica');
 
 /*Table structure for table `albumes` */
 
@@ -2156,63 +2148,9 @@ CREATE TABLE `galerias` (
   CONSTRAINT `fk_galerias_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albumes` (`idalbum`),
   CONSTRAINT `fk_galerias_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_galerias_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `galerias` */
-
-insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
-<<<<<<< HEAD
-(1,1,1,NULL,'F','111010.jpg','2022-04-02 18:18:02',NULL,'2'),
-(2,3,1,1,'V','012555454545447852','2022-04-02 18:18:02',NULL,'1'),
-(3,NULL,2,NULL,'F','5454484087874818','2022-04-02 22:05:41',NULL,'1'),
-(4,2,2,NULL,'F','5454484087874818','2022-04-02 22:07:19',NULL,'1'),
-(5,NULL,1,NULL,'F','2022041805502.gif','2022-04-17 22:47:02',NULL,'1');
-=======
-(1,1,1,NULL,'F','20220418092107.gif','2022-04-18 14:14:07',NULL,'1'),
-(2,NULL,1,NULL,'F','20220418092140.png','2022-04-18 14:26:40',NULL,'1'),
-(3,NULL,1,NULL,'F','20220418092140.jpg','2022-04-18 14:26:40',NULL,'1'),
-(4,NULL,1,NULL,'F','20220418092140.gif','2022-04-18 14:26:40',NULL,'1'),
-(5,NULL,1,NULL,'F','20220418092140.gif','2022-04-18 14:26:40',NULL,'1'),
-(6,NULL,1,NULL,'F','20220418092140.gif','2022-04-18 14:26:40',NULL,'1'),
-(7,NULL,1,NULL,'F','20220418092140.gif','2022-04-18 14:26:40',NULL,'1'),
-(8,NULL,1,NULL,'F','20220418092140.gif','2022-04-18 14:26:40',NULL,'1'),
-(9,NULL,1,NULL,'F','20220418092142.png','2022-04-18 14:26:42',NULL,'1'),
-(10,NULL,1,NULL,'F','20220418092142.jpg','2022-04-18 14:26:42',NULL,'1'),
-(11,NULL,1,NULL,'F','20220418092142.gif','2022-04-18 14:26:42',NULL,'1'),
-(12,NULL,1,NULL,'F','20220418092142.gif','2022-04-18 14:26:42',NULL,'1'),
-(13,NULL,1,NULL,'F','20220418092142.gif','2022-04-18 14:26:42',NULL,'1'),
-(14,NULL,1,NULL,'F','20220418092142.gif','2022-04-18 14:26:42',NULL,'1'),
-(15,NULL,1,NULL,'F','20220418092142.gif','2022-04-18 14:26:42',NULL,'1'),
-(16,NULL,1,NULL,'F','20220418092147.png','2022-04-18 14:26:47',NULL,'1'),
-(17,NULL,1,NULL,'F','20220418092147.jpg','2022-04-18 14:26:47',NULL,'1'),
-(18,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:26:47',NULL,'1'),
-(19,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:26:47',NULL,'1'),
-(20,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:26:47',NULL,'1'),
-(21,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:26:47',NULL,'1'),
-(22,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:26:47',NULL,'1'),
-(23,NULL,1,NULL,'F','20220418092147.png','2022-04-18 14:26:47',NULL,'1'),
-(24,NULL,1,NULL,'F','20220418092147.jpg','2022-04-18 14:26:47',NULL,'1'),
-(25,NULL,1,NULL,'F','20220418092148.gif','2022-04-18 14:26:48',NULL,'1'),
-(26,NULL,1,NULL,'F','20220418092148.gif','2022-04-18 14:26:48',NULL,'1'),
-(27,NULL,1,NULL,'F','20220418092148.gif','2022-04-18 14:26:48',NULL,'1'),
-(28,NULL,1,NULL,'F','20220418092148.gif','2022-04-18 14:26:48',NULL,'1'),
-(29,NULL,1,NULL,'F','20220418092148.gif','2022-04-18 14:26:48',NULL,'1'),
-(30,NULL,1,NULL,'F','20220418092102.png','2022-04-18 14:27:02',NULL,'1'),
-(31,NULL,1,NULL,'F','20220418092102.gif','2022-04-18 14:27:02',NULL,'1'),
-(32,NULL,1,NULL,'F','20220418092102.jpg','2022-04-18 14:27:02',NULL,'1'),
-(33,NULL,1,NULL,'F','20220418092102.gif','2022-04-18 14:27:02',NULL,'1'),
-(34,NULL,1,NULL,'F','20220418092102.gif','2022-04-18 14:27:02',NULL,'1'),
-(35,NULL,1,NULL,'F','20220418092102.gif','2022-04-18 14:27:02',NULL,'1'),
-(36,NULL,1,NULL,'F','20220418092102.gif','2022-04-18 14:27:02',NULL,'1'),
-(37,NULL,1,NULL,'F','20220418092141.gif','2022-04-18 14:28:41',NULL,'1'),
-(38,NULL,1,NULL,'F','20220418092141.gif','2022-04-18 14:28:41',NULL,'1'),
-(39,NULL,1,NULL,'F','20220418092141.gif','2022-04-18 14:28:41',NULL,'1'),
-(40,NULL,1,NULL,'F','20220418092145.gif','2022-04-18 14:28:45',NULL,'1'),
-(41,NULL,1,NULL,'F','20220418092145.gif','2022-04-18 14:28:45',NULL,'1'),
-(42,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:28:47',NULL,'1'),
-(43,NULL,1,NULL,'F','20220418092147.gif','2022-04-18 14:28:47',NULL,'1'),
-(44,NULL,1,NULL,'F','20220418092158.gif','2022-04-18 14:28:58',NULL,'1');
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8
 
 /*Table structure for table `personas` */
 
@@ -2499,7 +2437,7 @@ CREATE TABLE `reportes` (
 /*Data for the table `reportes` */
 
 insert  into `reportes`(`idreporte`,`idcomentario`,`motivo`,`descripcion`,`fotografia`,`fechareporte`) values 
-(1,2,'Mesaje indebido','Mala calificación del trabajo','011555555959258','2022-04-02 18:18:28');
+(1,2,'Mesaje indebido','Mala calificación del trabajo','CapturaDePantalla.png','2022-04-02 18:18:28');
 
 /*Table structure for table `seguidores` */
 
@@ -2600,53 +2538,10 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','A','cuevabill12@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'2'),
-<<<<<<< HEAD
-(2,2,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','A','Adriana@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
-(3,3,'Albañil','Miercoles y Viernes','E','A','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'2'),
-(7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'2');
-
-/* Function  structure for function  `GETMONTHNAME` */
-
-/*!50003 DROP FUNCTION IF EXISTS `GETMONTHNAME` */;
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `GETMONTHNAME`(fecha DATE) RETURNS varchar(20) CHARSET utf8
-BEGIN
-	RETURN 
-		CASE MONTH(fecha)
-		 WHEN 1 THEN 'Enero'
-		 WHEN 2 THEN 'Febrero'
-		 WHEN 3 THEN 'Marzo'
-		 WHEN 4 THEN 'Abril'
-		 WHEN 5 THEN 'Mayo'
-		 WHEN 6 THEN 'Junio'
-		 WHEN 7 THEN 'Julio'
-		 WHEN 8 THEN 'Agosto'
-		 WHEN 9 THEN 'Septiembre'
-		 WHEN 10 THEN 'Octubre'
-		 WHEN 11 THEN 'Noviembre'
-		 WHEN 12 THEN 'Diciembre'
-    END;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_actividades_getdata` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_actividades_getdata` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_actividades_getdata`(IN _idactividad INT)
-BEGIN
-	SELECT * FROM vs_listar_actividades  WHERE idactividad = _idactividad;
-END */$$
-DELIMITER ;
-=======
+(1,1,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','cuevabill12@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
 (2,2,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','Adriana@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
 (3,3,'Albañil','Miercoles y Viernes','E','A','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'1'),
 (7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'1');
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8
 
 /* Procedure structure for procedure `spu_actividades_getdata` */
 
@@ -3040,7 +2935,7 @@ BEGIN
 		JOIN servicios s ON es.idservicio = s.idservicio
 		JOIN personas p ON u.idpersona = p.idpersona
 	WHERE s.nombreservicio LIKE CONCAT('%', _nombreservicio, '%')
-	group by establecimiento;
+	GROUP BY establecimiento;
 END */$$
 DELIMITER ;
 
@@ -3344,7 +3239,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_grafico_reportes`()
 BEGIN
-	SELECT GETMONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
 		FROM reportes
 	GROUP BY MONTHNAME(fechareporte)
 	ORDER BY MONTH(fechareporte) ASC;
@@ -3503,6 +3398,7 @@ DELIMITER $$
 	IN _nombrecalle VARCHAR(60),
 	IN _numerocalle VARCHAR(5),
 	IN _pisodepa  	VARCHAR(5)
+
 )
 BEGIN
 	IF _telefono = ''  THEN SET _telefono  = NULL; END IF;
@@ -3788,8 +3684,6 @@ BEGIN
 		WHERE idtrabajo = _idtrabajo;
 END */$$
 DELIMITER ;
-<<<<<<< HEAD
-=======
 
 /* Procedure structure for procedure `spu_trabajos_eliminar` */
 
@@ -4060,6 +3954,7 @@ BEGIN
 	IF _descripcion = '' THEN SET _descripcion = NULL; END IF;
 	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
 	IF _horarioatencion = '' THEN SET _horarioatencion = NULL; END IF;
+
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
 	
@@ -4350,4 +4245,3 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos`;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8

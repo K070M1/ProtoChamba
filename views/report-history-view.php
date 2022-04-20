@@ -1,5 +1,5 @@
-<div class="alert alert-dark" role="alert">
-  <span >Banear usuarios de forma temporal</span>
+<div class="callout callout-info">
+  <h5><i class="fas fa-user-alt-slash"></i> Banear usuarios de forma temporal</h5>
 </div>
 
 <!-- Small boxes (Stat box) -->
@@ -7,7 +7,16 @@
   <div class="col-md-4">
     <div class="card card-primary">
       <div class="card-header ui-sortable-handle">
-        <h5 class="card-title">Lista de usuarios</h5>        
+        <h5 class="card-title text-uppercase">Lista de usuarios</h5>  
+        
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
       <!-- /.card-header -->
       <!-- style="max-height: calc(100vh - 275px); overflow-y: auto;" -->
@@ -29,7 +38,7 @@
   <div class="col-md-8">
     <div class="card card-primary">
       <div class="card-header ui-sortable-handle">
-        <h5 class="card-title">Historial de reportes</h5>
+        <h5 class="card-title text-uppercase">Historial de reportes</h5>
       </div>
       <div class="card-body table-responsive" >
         <table id="tbl-reports" class="table table-valign-middle" style="margin-top: 0px !important;">

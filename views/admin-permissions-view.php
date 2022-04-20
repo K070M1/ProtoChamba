@@ -1,5 +1,5 @@
-<div class="alert alert-dark" role="alert">
-  <span >Asignar o quitar permisos de administrador</span>
+<div class="callout callout-info">
+  <h5><i class="fas fa-users-cog"></i> Asignar o quitar permisos de administrador</h5>
 </div>
 
 <!-- Small boxes (Stat box) -->
@@ -7,7 +7,7 @@
   <div class="col-md-4">
     <div class="card card-primary">
       <div class="card-header ui-sortable-handle">
-        <h3 class="card-title">Filtros</h3>
+        <h3 class="card-title text-uppercase">FILTRAR POR</h3>
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -50,7 +50,7 @@
   <div class="col-md-8">
     <div class="card card-primary">
       <div class="card-header ui-sortable-handle">
-        <h3 class="card-title">Lista de usuarios</h3>
+        <h3 class="card-title text-uppercase">LISTA DE USUARIOS</h3>
       </div>
       <div class="card-body table-responsive p-4">
         <table id="tbl-usuarios" class="table table-valign-middle">

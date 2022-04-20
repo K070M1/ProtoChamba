@@ -64,7 +64,6 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
 
-SELECT * FROM usuarios;
 
 CREATE TABLE establecimientos
 (

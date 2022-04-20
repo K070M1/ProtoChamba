@@ -1,19 +1,23 @@
 // VARIABLES GLOBALES
 var isDeleteImage = false;
 var isLoadImages = true;
-var countImages = 0;
+var uploadedImages = [];  // Almacenar todos los archivos subidos
 
 // Resetear formularios del modal
-$(".btn-publication").click(function(){
+$(".btn-publication").click(clearFormPublication);
+
+// Limpiar formulario de publicación
+function clearFormPublication(){
   $("#form-publication")[0].reset();
+  $("#form-upload-file")[0].reset();
   $("#input-new-image").val(null);
   $("#input-new-video").val(null);
+  $("#container-video").hide();
   $("#titulo").focus();
   deleteAllImagespreview();
   deleteVideoPreview();
-  $("#container-video").hide();
   changeInterfaceToImages(true);
-});
+}
 
 /**
  * ALTERNAR ENTRE LA INTERFAZ DE CARGA DE IMAGENES O VIDEO
@@ -36,7 +40,7 @@ $("#btn-image").click(function () {
 // MOSTRAR CONTENIDO DE CARGAR VIDEO
 $("#btn-video").click(function () {
   // validar si existen datos subidos
-  if(countImages == 0){
+  if(uploadedImages.length == 0){
     changeInterfaceToImages(false);
   }
   else{
@@ -71,7 +75,8 @@ function changeInterfaceToImages(isImages){
  * MENU DE OPCIONES POR CADA PUBLICACIÓN
  */
 // Mostrar el menu
-$(".btn-show-config").click(function () {
+// Cargado con ajax
+$("#data-publication-works").on("click", ".btn-show-config", function(){
   $(this).next("ul.list-public-config").toggle();
 });
 
@@ -80,12 +85,12 @@ $(".btn-show-config").click(function () {
  */
 
 // Abir contenido de calificaciones
-$(".qualify").click(function () {
+$("#data-publication-works").on("click", ".qualify", function(){
   $(this).children(".content-reactions-qualify").toggleClass("reactions-show");
 });
 
 // Aplicar la clase active al estar sobre el elemento - start
-$(".reactions span").mouseover(function () {
+$("#data-publication-works").on("mouseover", ".reactions span", function(){
   // Activar los elementos anteriores
   $(this).prevAll().addClass("active");
   let numberPoint = $(this).attr("data-code");
@@ -93,18 +98,21 @@ $(".reactions span").mouseover(function () {
 });
 
 // Quitar clase active al sacar el mouse del elemento
-$(".reactions span").mouseleave(function () {
+$("#data-publication-works").on("mouseleave", ".reactions span", function(){
   $(".reactions span").removeClass("active");
   $(this).parent(".reactions").next(".number-points").html("0 Punto");
 });
+
+
+
 
 /**
  * BLOQUEAR CONTENTEDITABLE
  */
 // Bloquear el Maximo de caracteres
-$(".contenteditable").keypress(function (event) {
+$("#data-publication-works").on("keypress", ".contenteditable", function(){
   var maxlength = $(this).attr('maxlength');
-
+  
   if ($(this).html().length == maxlength) {
     return false;
   } else {
@@ -112,15 +120,17 @@ $(".contenteditable").keypress(function (event) {
   }
 });
 
+
 // Bloquear el pegar contenido dentro del contenteditable
-$(".contenteditable").on('paste', function (e) {
+$("#data-publication-works").on("paste", ".contenteditable", function(e){
   e.preventDefault();
+  sweetAlertWarning("No pegar contenido", "Acción prohibida");
 });
 
 // Bloquear el copiar contenido dentro del contenteditable
-$(".contenteditable").on('copy', function (e) {
+$("#data-publication-works").on("copy", ".contenteditable", function(e){
   e.preventDefault();
-  alert('Esta acción está prohibida');
+  sweetAlertWarning("No copiar contenido", "Acción prohibida");
 });
 
 
@@ -128,41 +138,43 @@ $(".contenteditable").on('copy', function (e) {
  * COMENTARIOS
  */
 
-// Evento keydown de la caja de comentario
-$(".text-input-auto").keydown(function (event) {
-  if (event.keyCode == 13) {
-    event.preventDefault();
+// Evento keydown de la caja de comentario - evitar salto de linea
+$("#data-publication-works").on("keydown", ".text-input-auto", function(e){
+  if (e.keyCode == 13) {
+    e.preventDefault();
   }
 });
 
+
 // Detectar ENTER en la caja de comentario
-$(".write-text-comment").keydown(function (event) {
-  if (event.keyCode == 13) {
-    event.preventDefault()
+$("#data-publication-works").on("keydown", ".write-text-comment", function(e){
+  if (e.keyCode == 13) {
+    e.preventDefault()
     var valueComment = $(this).html().trim();
     console.log(valueComment);
   }
-})
+});
 
 // Evento click en la caja de comentario para MOSTRAR LOS COMENTARIOS REALIZADOS
-$(".write-text-comment").click(function () {
+$("#data-publication-works").on("click", ".write-text-comment", function(){
   $(this).parent().parent(".write-comment").prev(".collapse").show("slow");
-})
+});
 
 // Botón enviar comentario
-$(".btn-send").click(function () {
+$("#data-publication-works").on("click", ".btn-send", function(){
   var valueComment = $(this).prev(".text-auto-height").children(".write-text-comment").html().trim();
   console.log(valueComment);
-})
+});
+
 
 /**
  * EDITAR COMENTARIOS
  */
 // Convierte la etiqueta P en una sección editable 
-$('.edit-comment').click(function () {
+$("#data-publication-works").on("click", ".edit-comment", function(){
   // Habilitar campo editable
   var isEditable = $(this).prev('p.comment-text').attr('contenteditable', true);
-
+  
   // habilitar botones
   $(this).next('.cancel-edit-comment').removeClass('d-none');
   $(this).next('.cancel-edit-comment').next('.delete-comment').addClass('d-none');
@@ -170,10 +182,10 @@ $('.edit-comment').click(function () {
 });
 
 // Cancela la edición del comentario
-$('.cancel-edit-comment').click(function () {
+$("#data-publication-works").on("click", ".cancel-edit-comment", function(){
   // Desabilitar campo editable
   $(this).prevAll('p.comment-text').attr('contenteditable', false);
-
+  
   // habilitar botones
   $(this).next('.delete-comment').removeClass('d-none');
   $(this).addClass('d-none');
@@ -184,7 +196,7 @@ $('.cancel-edit-comment').click(function () {
 /**
  * VIDEO PLAYER iNICIAR 
  */
-var reproductor = videojs('fm-video', {
+/* var reproductor = videojs('fm-video', {
   fluid: false,
   autoplay: false,
   muted: false,
@@ -195,7 +207,7 @@ var reproductor = videojs('fm-video', {
   userActions: {
     click: true
   }
-})
+}) */
 // video player
 
 /**
@@ -205,7 +217,7 @@ var reproductor = videojs('fm-video', {
 $("#btn-add-file").click(function () {
 
   if(isLoadImages){
-    countImages = 0;
+    uploadedImages = [];
     $("#input-new-image").click();
   }
   else{
@@ -235,51 +247,64 @@ $("#btn-delete-files").click(function(){
 /**
  * CARGAR IMAGENES EN EL MODAL PUBLICACIÓN
  */
+
 // Ejecutar el evento change de images
 $("#input-new-image").change(function (e) {
   var max = $(this).attr('max');
-  var files = this.files;
-  var element;
+  var files = this.files;     // Archivos cargados
+  var element;                // Almacenar cada archivo
+  var nameElement;            // Almacenar nombre de cada archivo   
   var supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
   var isValid = true;
 
+  // validar que no exceda el maximo permitido
   if (files.length > max) {
     sweetAlertInformation("5 Imagenes como maximo", "Se excedio el maximo de archivo permitido");
   } else {
+
     // recorrer y mostrar los archivos subidos
-    for (var i = 0; i < files.length && countImages <= 4; i++) {
-      element = files[i]; // Obtener cada iamgen subida
+    for (var i = 0; i < files.length && uploadedImages.length <= 4; i++) {
+      element = files[i];   // Obtener cada imagen del array
 
+      // Validar si son imagenes permitidos
       if (supportedImages.indexOf(element.type) == -1) {
-        isValid = false;
-      } else {
-        createPreviewImages(element); // Crear imagenes previas
-        countImages = $(".image-new").toArray().length; // actualizar valor del contador
+        let index = element.type.indexOf('/');
+        let ext = element.type.substr(index + 1);	
+        sweetAlertWarning("Archivo " + ext.toUpperCase() + " no permitido", "Permitidos: jpeg, jpg, png, gif");
 
-        if(countImages >= 5){
+      } else {                    
+        nameElement = files[i]['name'];                 // Obtener el nombre del archivo
+        uploadedImages.push(files[i]);                  // Almacenar en el nuevo array
+        createPreviewImages(element, nameElement);      // Crear previsualizacion de imagenes
+
+        // Condición para permitir subir imagenes
+        if(uploadedImages.length >= 5){
           $("#btn-add-file").prop('disabled', true);
         }
-        else if(countImages <= 5 && countImages > 0) {
+        else {
           $("#btn-delete-files").removeClass("d-none");
         }
       }
     }
   }
-
-  if (!isValid) {
-    sweetAlertWarning("1 Archivo no permitido", "Permitidos: jpeg, jpg, png, gif");
-  }
 });
 
 // Eliminar previsualizaciones de imagenes uno por uno
-$(document).on("click", ".image-new figure figcaption i", function (e) {
+$(document).on("click", ".image-new figure figcaption i", function () {
   $(this).parent("figcaption").parent("figure").parent(".image-new").remove();
-  countImages--;
+  let image = $(this).parent("figcaption").parent("figure").parent(".image-new").attr("data-img");
 
-  if (countImages <= 0) {
+  // Encontrar coincidencia
+  for(let i = 0; i < uploadedImages.length; i++){
+    if(uploadedImages[i]['name'] == image){
+      uploadedImages.splice(uploadedImages[i], 1); // Eliminar el elemnto encontrado
+    }
+  }
+
+  if (uploadedImages.length == 0) {
     $("#btn-delete-files").addClass("d-none");
   }
-  else if(countImages > 0 && countImages < 5) {
+  else if(uploadedImages.length > 0 && uploadedImages.length < 5) {
     $("#btn-add-file").prop('disabled', false); // Mostrar boton para subir imagen
   }
 });
@@ -287,7 +312,7 @@ $(document).on("click", ".image-new figure figcaption i", function (e) {
 // Eliminar todas las imagenes
 function deleteAllImagespreview(){
   $(".image-new").remove();
-  countImages = 0;
+  uploadedImages = [];
   changeInterfaceToDelete(true);
 }
 
@@ -322,7 +347,6 @@ $("#input-new-video").change(function (event) {
   // Iniciar en 0 el progressbar
   var percentLoad = 0;
   $("#label-video-size").html('0 MB');
-  $("#label-video-maxsize").html("  (" + valueSize + " MB)");
   $(".progress .progress-bar").html('0 %');
   $(".progress .progress-bar").addClass("progress-bar-animated").addClass("progress-bar-striped");
 
@@ -333,45 +357,44 @@ $("#input-new-video").change(function (event) {
     sweetAlertWarning("Archivo no permitido", "Permitido: mp4");
   }
   else{
-
-  }
-
-  // Validar tamaño del archivo
-  if (valueSize < sizeMegabyte) {
-    alert("Supera el tamaño maximo permitido (" + valueSize + " MB)");
-  } else {
-    // es aceptable
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader(); // instancia Objeto reader
-      var file = event.target.files[0]; // leer el video subido
-
-      reader.onload = function (e) {
-        videoSrc.src = e.target.result
-        videoSrc.parentElement.load()
-      }.bind(this)
-
-      // Leer el contenido de file
-      reader.readAsDataURL(file);
-
-      // progreso de carga
-      reader.onprogress = function (e) {
-        percentLoad = Number.parseInt(e.loaded * 100 / e.total); // calculando porcentaje
-        $(".progress .progress-bar").html('Cargando...' + percentLoad + ' %');
-        $(".progress .progress-bar").css('width', percentLoad + '%');
-      }
-
-      // carga completa
-      reader.onloadend = function (e) {
-        $("#label-video-size").html(sizeMegabyte + ' MB');
-        $("#label-video-maxsize").html("  (" + valueSize + " MB)");
-        $(".progress .progress-bar").html('Carga completa ' + percentLoad + ' %');
-        $(".progress .progress-bar").removeClass("progress-bar-animated").removeClass("progress-bar-striped");
-
-        $("#btn-add-file").prop('disabled', true);
-        $("#btn-delete-files").removeClass("d-none");
+    // Validar tamaño del archivo
+    if (valueSize < sizeMegabyte) {
+      alert("Supera el tamaño maximo permitido (" + valueSize + " MB)");
+    } else {
+      // es aceptable
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();      // instancia Objeto reader
+        var file = event.target.files[0];   // leer el video subido
+  
+        // Leer contenido
+        reader.onload = function (e) {
+          videoSrc.src = e.target.result
+          videoSrc.parentElement.load()
+        }.bind(this)
+  
+        // Leer el contenido de file
+        reader.readAsDataURL(file);
+  
+        // progreso de carga
+        reader.onprogress = function (e) {
+          percentLoad = Number.parseInt(e.loaded * 100 / e.total); // calculando porcentaje
+          $(".progress .progress-bar").html('Cargando...' + percentLoad + ' %');
+          $(".progress .progress-bar").css('width', percentLoad + '%');
+        }
+  
+        // carga completa
+        reader.onloadend = function (e) {
+          $("#label-video-size").html(sizeMegabyte + ' MB');
+          $(".progress .progress-bar").html('Carga completa ' + percentLoad + ' %');
+          $(".progress .progress-bar").removeClass("progress-bar-animated").removeClass("progress-bar-striped");
+  
+          $("#btn-add-file").prop('disabled', true);
+          $("#btn-delete-files").removeClass("d-none");
+        }
       }
     }
   }
+
 });
 
 // Eliminar video
@@ -384,10 +407,103 @@ function deleteVideoPreview(){
 }
 
 /**
+ * LISTAR ESPECIALIDADES EN EL MODAL DE PUBLICACIÓN
+ */
+function loadSpecialtySelect(){
+  $.ajax({
+    url: 'controllers/specialty.controller.php',
+    type: 'GET',
+    data: 'op=getSpecialtyByUser',
+    success: function(result){
+
+      if(result != ""){
+        $("#especialidad").html(result);
+      }
+    }
+  });
+}
+
+
+/**
+ * LISTAR TRABAJOS REALIZADOS
+ */
+function loadPublicationWorks(){
+  $.ajax({
+    url: 'controllers/work.controller.php',
+    type: 'GET',
+    data: 'op=getWorksByUser',
+    success: function(result){
+      console.log(result);
+      $("#data-publication-works").html(result);
+    }
+  });
+}
+
+
+/**
+ * REALIZAR PUBLICACIÓN
+ */
+$("#btn-add-publication").click(function(){
+
+  // Validar datos
+  if(dataFormPublicationIsEmpty()){
+    sweetAlertWarning("Datos incorrectos", "Por avor complete los campos");
+  }
+  else{
+
+    // Confirmar
+    sweetAlertConfirmQuestionSave("¿Estas seguro de hacer la publicación?").then((confirm) => {
+      if(confirm.isConfirmed){
+        console.log(uploadedImages)
+
+        var formData = new FormData();
+        formData.append("op", "registerWork");
+        formData.append("idespecialidad", $("#especialidad").val());
+        formData.append("titulo", $("#titulo").val());
+        formData.append("descripcion", $("#descripcion").val());
+      
+        // Comprobar si son imagenes o video
+        if(isLoadImages){
+          // Imagenes
+          for(let i = 0; i < uploadedImages.length; i++){
+            formData.append("images[]", uploadedImages[i]);
+          }
+        }
+        else{
+          formData.append("video", $("#input-new-video")[0].files[0]);
+        }
+      
+        $.ajax({
+          url: 'controllers/work.controller.php',
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          cache: false,
+          success: function(result){
+            console.log(result);
+            clearFormPublication();
+            $("#modal-publication").modal('hide');
+            loadPublicationWorks();
+          }
+      
+        }); // Fin ajax
+      }
+    }); // Fin Sweet alert
+  }
+});
+
+// Validar campo obligatorios
+function dataFormPublicationIsEmpty(){
+  return $("#especialidad").val() == "" || $("#titulo").val() == "" || $("#descripcion").val() == "";
+}
+
+
+/**
  * MODAL REPORTE
  */
 // Abrir modal
-$(".report-comment").click(function () {
+$("#data-publication-works").on("click", ".report-comment", function(){
   $("#modal-report").modal("show");
 });
 
@@ -395,6 +511,7 @@ $(".report-comment").click(function () {
 $("#btn-subir-imagen").click(function () {
   toggleBetweenUploadAndDelete(isDeleteImage)
 });
+
 
 // POR MEJORAR...
 // Cambia a cargar o eliminar
@@ -405,46 +522,11 @@ function toggleBetweenUploadAndDelete(isDelete = false) {
     deleteImage()
 }
 
-// Cargar iamgen
+// Cargar imagen
 function uploadImage() {
   $("#input-img-portada").click();
 }
 
-// Mostrar imagen previa a registrar
-$("#input-img-portada").change(function (e) {
-  var ext = this.value.match(/\.([^<\.]+)$/)[1];
-  switch (ext) {
-    case 'jpg':
-    case 'jpeg':
-    case 'png':
-    case 'bmp':
-    case 'tif':
-      // Cargando imagen previa
-      loadPreviewImage(e, $("#preview-image"))
-      // Mostrar boton elimanar
-      toggleLayout(false)
-      isDeleteImage = true;
-      break;
-    default:
-      // Mostrar error
-      alert("Error")
-      this.value = ''
-  }
-});
-
-// Función cargar iamgen previa
-function loadPreviewImage(event, idImage) {
-  // Creando el objeto de la clase FileReader
-  var reader = new FileReader();
-
-  // Leemos el archivo subido y se lo pasamos a nuestro filereader
-  reader.readAsDataURL(event.target.files[0]);
-
-  // Le decimos que cuando este listo ejecute el código interno
-  reader.onload = function () {
-    idImage.attr('src', reader.result);
-  }
-}
 
 // Cambiar de interfaz (Eliminar o no eliminar)
 function toggleLayout(isDelete) {
@@ -482,3 +564,7 @@ function deleteImage() {
 }
 
 // POR MEJORAR... END
+
+// EJECUTANDO LA FUNCIÓN LISTAR
+loadSpecialtySelect();
+loadPublicationWorks(); // cargar trabajos
