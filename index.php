@@ -266,27 +266,13 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="index.php?view=inicio-view" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   Inicio
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="index.php?view=inicio-view" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inicio</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="index.php?view=bcorta-view" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Filtrado V-corta</p>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="nav-header">MENU</li>
 

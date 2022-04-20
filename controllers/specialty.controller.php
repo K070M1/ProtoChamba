@@ -1,9 +1,11 @@
 <?php
 
 require_once '../model/Specialty.php';
+require_once '../model/Ubigeo.php';
 
 //creamos un objeto a partir del nombre de la clase 
 $specialty = new Specialty();
+$ubigeo = new Ubigeo();
 
 if (isset($_GET['op'])){
 
@@ -30,16 +32,16 @@ if (isset($_GET['op'])){
                       <i class='fas fa-star'></i>
                     </div>
                     <div class='name-user'>
-                        <h5>{$row->datosusuario}</h5>
-                        <h6>{$row->nombreservicio}</h6>
+                        <h6>{$row['datosusuario']}</h6>
+                        <h6>{$row['nombreservicio']}</h6>
                     </div>
                   </div>
                 </div>
                 <div class='card-body'>
                   <div class='contacts'>
-                    <a href='#'><i class='fas fa-solid fa-envelope'></i> <span>{$row->email}</span></a>
-                    <a href='#'><i class='fas fa-solid fa-phone'></i> <span>{$row->telefono}</span></a>
-                    <a href='#'><i class='fas fa-map-marker-alt'></i> <span>Ubicación</span></a>
+                    <a href='#'><i class='fas fa-solid fa-envelope'></i> <span>{$row['email']}</span></a>
+                    <a href='#'><i class='fas fa-solid fa-phone'></i> <span>{$row['telefono']}</span></a>
+                    <a href='#'><i class='fas fa-map-marker-alt'></i> <span>{$row['ubicacion']}</span></a>
                   </div>
                 </div>
               <div class='card-footer'>
@@ -55,6 +57,49 @@ if (isset($_GET['op'])){
           }
                 
       }              
+  }
+
+  function listSpecialtyLarge($data){
+    if(count($data) == 0 ){
+      echo "<h5>No hay especialidades disponibles</h5>";
+    }
+    else{
+      foreach($data as $row){
+        echo "
+        <div class='card-blarga'>
+        <div class='row'>
+          <div class='col-md-4'>
+          <img src='dist/img/avatar2.png'>
+          </div>
+          <div class='col-md-8'>
+            <div class='card-body'>
+              <div class='iconos'>
+                <i class='fas fa-star active'></i>
+                <i class='fas fa-star active'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+                <i class='fas fa-star'></i>
+              </div>
+              <div class='info-servicios'>
+                <h6 class='text-white'>{$row['datosusuario']}</h6>
+                <h5 class='text-white'>{$row['nombreservicio']}</h5>
+                <h6 class='text-white'>Tarifa estimada : {$row['tarifa']}</h6>
+                <hr style='background-color:white;'>
+                <h6 class='text-white'>Establecimiento : {$row['ubicacion']}</h6>
+                <div class='redes-sociales'>
+                  <i class='fab fa-facebook-f'></i>
+                  <i class='fab fa-instagram'></i>
+                  <i class='fab fa-whatsapp'></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+        ";
+      }
+    }
   }
 
   // listar en un control select
@@ -73,11 +118,17 @@ if (isset($_GET['op'])){
   }
 
   // Listar todas las especialidades
-  if($_GET['op'] == 'getSpecialty'){
+  /* if($_GET['op'] == 'getSpecialty'){
     $data = $specialty->getSpecialty();
     //echo json_encode($data);
     listSpecialty($data);
-  }
+  } */
+/* 
+  if($_GET['op'] == 'getSpecialtyLarge'){
+    $data = $specialty->getSpecialty();
+    //echo json_encode($data);
+    listSpecialtyLarge($data);
+  } */
 
   // Listar especialidades por servicio
   if($_GET['op'] == 'getSpecialtyByService'){
@@ -91,103 +142,43 @@ if (isset($_GET['op'])){
     listSpecialtyControlSelect($data);
   }
 
-  
-  
-  //Listar Especialidades de un Usuario
-  function listSpecialtyUser($data){
+  //Filtrar en la opcion de vista corta
+  if($_GET['op'] == 'filterSpecialty'){
 
-    if(count($data) <= 0){
-      echo " ";
-    }
-    else{
-      foreach($data as $row){
+      $data;
 
-        echo "
-          <tr>
-            <td align='center'>
-              <i class='fas fa-gavel'></i>
-            </td>
-            <td>
-              {$row['descripcion']}
-            </td>
-            <td>
-              $/.{$row['tarifa']}
-            </td>
-            <td>
-              <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-info btn-sm modificarEsp' href='#'><i class='fas fa-edit'></i></a>            
-              <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-danger btn-sm eliminarEsp' href='#'><i class='fas fa-trash-alt'></i></a>            
-            </td> 
-          </tr>
-          <hr>
-
-          
-        ";
-      }
-    }
-
-  }
-
-  if($_GET['op'] == 'getDataSpecialty'){
-    $data = $specialty->getDataSpecialty(["idespecialidad" => $_GET['idespecialidad']]);
-    echo json_encode($data);
-  }
-
-
-  if($_GET['op'] == 'getSpecialty'){
-      $data = $specialty->getSpecialty();
+      if($_GET['iddepartamento'] == '')
+        $data = $specialty->filterService(["search" => $_GET['search']]);
+      else
+      $data = $specialty->filterSpecialty(["iddepartamento" => $_GET['iddepartamento'] , "search" => $_GET['search']]);
+      
+      
       listSpecialty($data);
   }
 
+  //Filtrar en la opcion de vista de lista
+  if($_GET['op'] == 'filterSpecialtyLarge'){
 
-  if ($_GET['op'] == 'listSpecialtyUser'){
+    $data;
 
-    $data = $specialty->listSpecialtyUser(["idusuario" => 1]);
-    listSpecialtyUser($data);
+    if($_GET['iddepartamento'] == '')
+      $data = $specialty->filterService(["search" => $_GET['search']]);
+    else
+      $data = $specialty->filterSpecialty(["iddepartamento" => $_GET['iddepartamento'] , "search" => $_GET['search']]);
+    
+    listSpecialtyLarge($data);
   }
 
-  //Eliminar Especialidad
-  if ($_GET['op'] == 'deleteSpecialty'){
-
-    $specialty->deleteSpecialty(["idespecialidad" => $_GET['idespecialidad']]);
-
+  if($_GET['op'] == 'filterTarifasGrid'){
+    $data = $specialty->filterTarifas(["tarifa" => $_GET['tarifa']]);
+    listSpecialty($data);
   }
 
-}
-
-// MÉTODO POST
-
-if (isset($_POST['op'])){
-
-  if ($_POST['op'] == 'registerSpecialtyUser'){
-
-    $datosEnviar = [
-      "idusuario"        =>  1,
-      "idservicio"       =>  $_POST["idservicio"],
-      "descripcion"      =>  $_POST["descripcion"],
-      "tarifa"           =>  $_POST["tarifa"]
-    ];
-
-    $specialty->registerSpecialtyUser($datosEnviar);
-
+  if($_GET['op'] == 'filterTarifasList'){
+    $data = $specialty->filterTarifas(["tarifa" => $_GET['tarifa']]);
+    listSpecialtyLarge($data);
   }
-
-  
-  // modificar especialidad de un usuario
-  if ($_POST['op'] == 'updateSpecialty'){
-
-    $datosEnviar = [
-      "idespecialidad"    =>  $_POST["idespecialidad"],
-      "idusuario"         =>  1,
-      "idservicio"        =>  $_POST["idservicio"],    
-      "descripcion"       =>  $_POST["descripcion"],    
-      "tarifa"            =>  $_POST["tarifa"] 
-    ];
-
-    $specialty->updateSpecialty($datosEnviar);
-  }
-
-
-}
+} 
 
 
 ?>

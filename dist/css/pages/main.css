@@ -21,17 +21,18 @@
 }
 
 /* input-group */
-.input-group{
+#inputsearch{
   position: relative;
   margin-left:26%;
   width: 50%;
   margin-top: 3%;
-  
 }
 
 .servicios{
   margin-top: 4%;
 }
+
+
 
 #iconowork{
   position: absolute;

@@ -19,15 +19,19 @@
     <div class="hero align-items-center" style="height: 50vh;"id="home">
       <div class="titulos">
         <h1 class=" text-center display-3 text-white " >Bienvenido a Q'tal Chamba</h1> 
-        <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>  
+        <h5 class="text-white text-center" style ="margin-top:6%;">Hoy tenemos 150 servicios disponibles para ti</h5>  
       </div>
-      <div class="input-group">
-          <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
-            <i class="fas fa-briefcase" id="iconowork"></i>
-          <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
-            <i class="fas fa-map-marker-alt" id="iconolocation"></i>
-          <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
-      </div>
+     <div class="row" id="inputsearch">
+        <div class="col-md-4">
+         
+        </div>
+        <div class="col-md-4">
+        <a href="index.php?view=bcorta-view" class="btn btn-outline-light btn-lg" id="SearchIndex">Buscar Servicios</a>
+        </div>
+        <div class="col-md-4">
+          
+        </div>
+     </div>
 
     </div><!-- //HERO -->
         
@@ -58,19 +62,54 @@
 <script>
  $(document).ready(function (){
 
+        var data = {
+        op : 'filterSpecialty',
+        iddepartamento : '',
+        search : '',
+      };
+
     function getSpecialty(){
       $.ajax({
         url: 'controllers/specialty.controller.php',
         type: 'GET',
-        data: 'op=getSpecialty',
+        data: data,
         success : function(e){
-         /*  console.log(e); */
+          console.log(e);
           $('#cards-servicios').html(e);
         }
       });
     }
-    
-    
+
+    function slclstDepartm() {
+        $.ajax({
+          url: 'controllers/ubigeo.controller.php',
+          type: 'GET',
+          data: 'op=getDepartments',
+          success: function(e) {
+            $("#departamentos").html(e);
+          }
+        });
+      }
+
+    $("#searchEst").change(function(){
+      $("#inputService").val("").focus();
+      
+      data['iddepartamento'] = $(this).val();
+      getSpecialty();
+    });
+
+
+    $("#inputService").keyup(function(e){
+      var valueInput = $(this).val();
+
+      updateData();
+      getSpecialty();
+    });
+
+
+  
+   
+    slclstDepartm()
     getSpecialty();
 
     
