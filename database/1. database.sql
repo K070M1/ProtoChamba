@@ -64,8 +64,6 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
 
-select * from usuarios;
-
 CREATE TABLE establecimientos
 (
 	idestablecimiento	INT AUTO_INCREMENT PRIMARY KEY,
@@ -195,9 +193,6 @@ CREATE TABLE galerias
 	CONSTRAINT fk_galerias_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT fk_galerias_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
-
-delete from galerias where idgaleria >= 10 or idgaleria <= 60;
-select * from galerias; 
 
 CREATE TABLE calificaciones 
 (
