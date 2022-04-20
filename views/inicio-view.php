@@ -21,13 +21,36 @@
         <h1 class=" text-center display-3 text-white " >Bienvenido a Q'tal Chamba</h1> 
         <h5 class="text-white text-center">Hoy tenemos 150 servicios disponibles para ti</h5>  
       </div>
-      <div class="input-group">
-          <input type="text" class="form-control" placeholder="Ingrese el Servicio" aria-label="Recipient's username with two button addons"><br>
-            <i class="fas fa-briefcase" id="iconowork"></i>
-          <input type="text" class="form-control" placeholder="Ingrese la ubicacion" aria-label="Recipient's username with two button addons"><br>
-            <i class="fas fa-map-marker-alt" id="iconolocation"></i>
-          <a href="#" class="btn btn-outline-light">Buscar Servicios</a>
-      </div>
+     <div class="row" id="inputsearch">
+        <div class="col-md-4">
+          <select class ="custom-select" id="searchEst">
+            <optgroup label="Departamentos" id="departamentos">
+              <!-- <option value="1">Naranjas</option>
+              <option value="2">Manzanas</option>
+              <option value="3">Sandia</option>
+              <option value="4">Frutilla</option>
+              <option value="5">Durazno</option>
+              <option value="6">Ciruela</option> -->
+            </optgroup>
+            <!-- <optgroup label="Provincias" id="provincias">
+              <option value="7">Lechuga</option>
+              <option value="8">Acelga</option>
+              <option value="9">Zapallo</option>
+              <option value="10">Papas</option>
+              <option value="11">Batatas</option>
+              <option value="13">Zanahorias</option>
+              <option value="14">Rabanitos</option>
+              <option value="15">Calabaza</option>
+            </optgroup> -->
+          </select>
+        </div>
+        <div class="col-md-4">
+        <input type="text" class="form-control" id="inputService" placeholder="Ingrese el Servicio">
+        </div>
+        <div class="col-md-4">
+          <a href="index.php?view=bcorta-view" class="btn btn-outline-light" id="SearchIndex">Buscar Servicios</a>
+        </div>
+     </div>
 
     </div><!-- //HERO -->
         
@@ -58,19 +81,54 @@
 <script>
  $(document).ready(function (){
 
+        var data = {
+        op : 'filterSpecialty',
+        iddepartamento : '',
+        search : '',
+      };
+
     function getSpecialty(){
       $.ajax({
         url: 'controllers/specialty.controller.php',
         type: 'GET',
-        data: 'op=getSpecialty',
+        data: data,
         success : function(e){
-         /*  console.log(e); */
+          console.log(e);
           $('#cards-servicios').html(e);
         }
       });
     }
-    
-    
+
+    function slclstDepartm() {
+        $.ajax({
+          url: 'controllers/ubigeo.controller.php',
+          type: 'GET',
+          data: 'op=getDepartments',
+          success: function(e) {
+            $("#departamentos").html(e);
+          }
+        });
+      }
+
+    $("#searchEst").change(function(){
+      $("#inputService").val("").focus();
+      
+      data['iddepartamento'] = $(this).val();
+      getSpecialty();
+    });
+
+
+    $("#inputService").keyup(function(e){
+      var valueInput = $(this).val();
+
+      updateData();
+      getSpecialty();
+    });
+
+
+  
+   
+    slclstDepartm()
     getSpecialty();
 
     
