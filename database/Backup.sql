@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 SQLyog Ultimate v12.5.1 (64 bit)
+=======
+SQLyog Professional v12.5.1 (64 bit)
+>>>>>>> 9f859d16790e5c3b8da7a75721c1af7439d4ccb5
 MySQL - 10.4.24-MariaDB : Database - reactivacion
 *********************************************************************
 */
@@ -33,13 +37,21 @@ CREATE TABLE `actividades` (
   PRIMARY KEY (`idactividad`),
   KEY `fk_act_idespecialidad` (`idespecialidad`),
   CONSTRAINT `fk_act_idespecialidad` FOREIGN KEY (`idespecialidad`) REFERENCES `especialidades` (`idespecialidad`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+>>>>>>> 9f859d16790e5c3b8da7a75721c1af7439d4ccb5
 
 /*Data for the table `actividades` */
 
 insert  into `actividades`(`idactividad`,`idespecialidad`,`fechainicio`,`fechafin`,`horainicio`,`horafin`,`titulo`,`descripcion`,`direccion`) values 
+<<<<<<< HEAD
 (1,2,'2022-04-20','2022-04-20','04:00:00','05:00:00','Nuevo','','Chincha'),
 (2,3,'2022-04-05','2022-04-07','00:00:00','01:00:00','Agenda','','Ica');
+=======
+(1,2,'2022-04-14','2022-04-14','04:00:00','05:00:00','Nuevo','','Chincha');
+>>>>>>> 9f859d16790e5c3b8da7a75721c1af7439d4ccb5
 
 /*Table structure for table `albumes` */
 
@@ -2061,15 +2073,14 @@ CREATE TABLE `especialidades` (
   KEY `fk_esp_idusuario` (`idusuario`),
   CONSTRAINT `fk_esp_idservicio` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idservicio`),
   CONSTRAINT `fk_esp_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialidades` */
 
 insert  into `especialidades`(`idespecialidad`,`idservicio`,`idusuario`,`descripcion`,`tarifa`) values 
 (1,1,1,'Cálculo de secciones de líneas eléctricas',85.25),
-(2,1,1,'Electrotecnia',180.20),
-(3,1,1,'Riesgo eléctrico',85.00),
-(4,1,1,'Tensión eléctrica',540.00),
+(2,1,1,'Electrotecnia A1111',180.00),
+(3,1,1,'Riesgo eléctrico',90.00),
 (5,2,2,'Soldar tuberias antiguas',120.00),
 (6,3,3,'Soldadura Universal',120.00),
 (7,4,7,'Soldar cadenetas de fierro',120.00);
@@ -2148,10 +2159,29 @@ CREATE TABLE `galerias` (
   CONSTRAINT `fk_galerias_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albumes` (`idalbum`),
   CONSTRAINT `fk_galerias_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_galerias_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `galerias` */
 
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `galerias` */
+
+insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
+(1,8,1,NULL,'F','2022041904446.png','2022-04-18 21:58:46',NULL,'1'),
+(2,1,7,NULL,'','foto','2022-04-19 15:49:45',NULL,'1'),
+(3,1,7,NULL,'F','foto','2022-04-19 15:50:13',NULL,'1'),
+(4,1,3,NULL,'F','fotos','2022-04-19 15:54:08',NULL,'1'),
+(5,1,3,NULL,'F','fotos','2022-04-19 15:56:03',NULL,'1'),
+(6,1,3,NULL,'F','fotos','2022-04-19 15:56:08',NULL,'1'),
+(7,1,3,NULL,'F','fotos','2022-04-19 15:56:09',NULL,'1'),
+(8,1,3,NULL,'F','fotos','2022-04-19 15:56:09',NULL,'1'),
+(9,1,3,NULL,'F','fotos','2022-04-19 15:56:10',NULL,'1'),
+(10,1,3,NULL,'F','fotos','2022-04-19 15:56:10',NULL,'2');
+
+>>>>>>> 9f859d16790e5c3b8da7a75721c1af7439d4ccb5
 /*Table structure for table `personas` */
 
 DROP TABLE IF EXISTS `personas`;
@@ -2175,7 +2205,7 @@ CREATE TABLE `personas` (
 /*Data for the table `personas` */
 
 insert  into `personas`(`idpersona`,`iddistrito`,`apellidos`,`nombres`,`fechanac`,`telefono`,`tipocalle`,`nombrecalle`,`numerocalle`,`pisodepa`) values 
-(1,'010117','Magallanes Perez','Luis Enrique','1998-05-25','05695674856','AV','Las palmeras','25','5'),
+(1,'010117','Mamani quispe','juan jose','1998-05-25','+5195415121','CA','Las palmeras','25','5'),
 (2,'010118','Hernandez Monterroza','Adriana Carolina','1999-05-14','05695674858','CA','Los Sauces','150','3'),
 (3,'010119','Carvajal Vargas','Alexander','1999-05-14','05695674558','JR','Las Lomas','5','2'),
 (4,'010120','Blanca Concha','Angelica Maria','1999-05-14','05695604858','PJ','Cartajena','250','3'),
@@ -2407,12 +2437,12 @@ CREATE TABLE `redessociales` (
   PRIMARY KEY (`idredsocial`),
   KEY `fk_reds_idusuario` (`idusuario`),
   CONSTRAINT `fk_reds_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `redessociales` */
 
 insert  into `redessociales`(`idredsocial`,`idusuario`,`redsocial`,`vinculo`,`estado`) values 
-(1,1,'I','https://www.instagram.com/?hl=es-la/usuario/luis%enrique',''),
+(1,1,'Y','https://www.youtube.com/',''),
 (2,1,'F','https://web.facebook.com/?_rdc=1&_rdr/usuario/login',''),
 (3,2,'F','https://www.facebook.com/jesus.peveandazabal.14',''),
 (4,2,'I','https://www.instagram.com/jesus_p_andazabal/?hl=es',''),
@@ -2455,13 +2485,17 @@ CREATE TABLE `seguidores` (
   KEY `fk_seg_idfollower` (`idfollower`),
   CONSTRAINT `fk_seg_idfollower` FOREIGN KEY (`idfollower`) REFERENCES `usuarios` (`idusuario`),
   CONSTRAINT `fk_seg_idfollowing` FOREIGN KEY (`idfollowing`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `seguidores` */
 
 insert  into `seguidores`(`idseguidor`,`idfollowing`,`idfollower`,`fechaseguido`,`fechaeliminado`,`estado`) values 
-(1,1,2,'2022-04-02 18:13:41',NULL,''),
-(2,1,3,'2022-04-02 18:13:41',NULL,'');
+(1,1,2,'2022-04-02 18:13:41',NULL,'\0'),
+(2,1,3,'2022-04-02 18:13:41',NULL,''),
+(3,1,7,'2022-04-18 22:18:43',NULL,''),
+(4,2,1,'2022-04-18 22:19:06',NULL,'\0'),
+(5,3,1,'2022-04-18 22:19:56',NULL,''),
+(6,7,1,'2022-04-18 22:20:02',NULL,'');
 
 /*Table structure for table `servicios` */
 
@@ -2472,14 +2506,16 @@ CREATE TABLE `servicios` (
   `nombreservicio` varchar(50) NOT NULL,
   PRIMARY KEY (`idservicio`),
   UNIQUE KEY `uk_ser_nombreservicio` (`nombreservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `servicios` */
 
 insert  into `servicios`(`idservicio`,`nombreservicio`) values 
+(7,'asdasdasd'),
 (3,'Carpintero'),
 (4,'Diseñador'),
 (1,'Electricista'),
+(6,'Mecanico'),
 (5,'Programador'),
 (2,'Soldador');
 
@@ -2538,7 +2574,11 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
+<<<<<<< HEAD
 (1,1,'descripción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','cuevabill12@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
+=======
+(1,1,'\r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          \r\n          Electricista profesionalesasdasdassd\r\n        ','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','cuevabill12@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
+>>>>>>> 9f859d16790e5c3b8da7a75721c1af7439d4ccb5
 (2,2,'descipción','Atención de Lunes a Sabado de 08:00 AM a 09:00 PM','E','U','Adriana@gmail.com',NULL,'12345','2022-04-02 17:52:45',NULL,'1'),
 (3,3,'Albañil','Miercoles y Viernes','E','A','Alex@gmail.com','alex2@gmail.com','12345','2022-04-02 17:52:45',NULL,'1'),
 (7,4,'Excelente en su area','Lunes a sabado de 8:00 Am a 6:00 PM','E','U','angelica@gmail.com',NULL,'124563','2022-04-02 18:39:39',NULL,'1');
@@ -2782,6 +2822,20 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_descripcion_modificar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_descripcion_modificar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_descripcion_modificar`(IN _idusuario INT, IN _descripcion MEDIUMTEXT)
+BEGIN
+	UPDATE usuarios SET
+		descripcion = _descripcion
+	WHERE idusuario = _idusuario;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_distritos_listar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_distritos_listar` */;
@@ -2817,6 +2871,32 @@ DELIMITER $$
 )
 BEGIN
 	SELECT COUNT(*) FROM usuarios WHERE email = _email;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_eliminar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_eliminar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_eliminar`(
+	IN _idespecialidad INT
+)
+BEGIN
+	DELETE FROM especialidades WHERE idespecialidad = _idespecialidad;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_getdata`(IN _idespecialidad INT)
+BEGIN
+	SELECT * FROM especialidades WHERE idespecialidad = _idespecialidad;
 END */$$
 DELIMITER ;
 
@@ -2861,11 +2941,10 @@ DELIMITER $$
 )
 BEGIN 
     UPDATE especialidades SET
-       idusuario 		= _idusuario, 
        idservicio 	= _idservicio,
        descripcion 	= _descripcion,
        tarifa 			= _tarifa
-    WHERE idespecialidad = _idespecialidad;
+    WHERE idusuario = _idusuario and idespecialidad = _idespecialidad;
 END */$$
 DELIMITER ;
 
@@ -2913,16 +2992,15 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_establecimientos_getdata_servicio` */
+/* Procedure structure for procedure `spu_establecimientos_listar_User` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_establecimientos_getdata_servicio` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_establecimientos_listar_User` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_establecimientos_getdata_servicio`(
-	IN _nombreservicio VARCHAR(50)
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_establecimientos_listar_User`(IN _idusuario INT)
 BEGIN
+<<<<<<< HEAD
 	SELECT
 		DISTINCT(e.idestablecimiento), e.establecimiento, e.ruc, e.latitud, e.longitud,
 		u.idusuario, u.horarioatencion,
@@ -2936,6 +3014,10 @@ BEGIN
 		JOIN personas p ON u.idpersona = p.idpersona
 	WHERE s.nombreservicio LIKE CONCAT('%', _nombreservicio, '%')
 	GROUP BY establecimiento;
+=======
+	SELECT * FROM vs_especialidades_listar
+	WHERE idusuario = _idusuario;
+>>>>>>> 9f859d16790e5c3b8da7a75721c1af7439d4ccb5
 END */$$
 DELIMITER ;
 
@@ -3062,6 +3144,25 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_foto_perfil_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_foto_perfil_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_foto_perfil_registrar`(
+	in _idusuario 		int,
+	in _archivo 			varchar(100),
+	in _estado				char(1),
+	in _tipo					char(1),
+	in _idalbum				int
+)
+begin
+	insert into galerias (idusuario, archivo, estado, tipo, idalbum) values
+			(_idusuario, _archivo, _estado, _tipo, _idalbum);
+end */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_galerias_eliminar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_galerias_eliminar` */;
@@ -3089,7 +3190,7 @@ BEGIN
 			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
-					AND  USU.`idusuario` = _idusuario;
+					AND  GLR.`idusuario` = 1;
 END */$$
 DELIMITER ;
 
@@ -3353,7 +3454,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_personas_modificar`(
 	IN _idpersona 		INT,
-	IN _iddistrito 		VARCHAR(6),
 	IN _apellidos			VARCHAR(40),
 	IN _nombres				VARCHAR(40), 
 	IN _fechanac			DATE,
@@ -3369,15 +3469,14 @@ BEGIN
 	IF _pisodepa = '' THEN SET _pisodepa = NULL; END IF;
 	
 	UPDATE personas SET
-		iddistrito 	= _iddistriro,
 		apellidos 	= _apellidos, 
-		nombres 		= _nombres, 
-		fechanac 		= _fechanac,
-		telefono 		= _telefono,
+		nombres 	= _nombres, 
+		fechanac 	= _fechanac,
+		telefono 	= _telefono,
 		tipocalle 	= _tipocalle,
 		nombrecalle = _nombrecalle,
 		numerocalle = _numerocalle,
-		pisodepa 		= _pisodepa
+		pisodepa 	= _pisodepa
 	WHERE idpersona = _idpersona; 
 END */$$
 DELIMITER ;
@@ -3434,7 +3533,7 @@ DELIMITER $$
 	IN _idredsocial INT
 )
 BEGIN
-	DELETE FROM redessociaes WHERE idredsocial = _idredsocial;
+	DELETE FROM redessociales WHERE idredsocial = _idredsocial;
 END */$$
 DELIMITER ;
 
@@ -3456,6 +3555,18 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_redessociales_getdata` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_getdata` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_redessociales_getdata`(IN _idredsocial INT)
+BEGIN
+	SELECT * FROM redessociales WHERE idredsocial = _idredsocial;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_redessociales_modificar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_redessociales_modificar` */;
@@ -3463,15 +3574,16 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_redessociales_modificar`(
+	in _idusuario			int,
 	IN _idredsocial		INT,
 	IN _redsocial			CHAR(1),
 	IN _vinculo				MEDIUMTEXT
 )
 BEGIN
-	UPDATE productos SET
+	UPDATE redessociales SET
 		redsocial = _redsocial,
-		 vinculo  = _vinculo
-	WHERE idredsocial = _idredsocial;
+		vinculo  = _vinculo
+	WHERE idusuario = _idusuario and idredsocial = _idredsocial;
 END */$$
 DELIMITER ;
 
@@ -3564,6 +3676,20 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_Seguidos_agregar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_Seguidos_agregar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_Seguidos_agregar`(IN _idusuario INT, IN _following INT)
+BEGIN
+	UPDATE seguidores SET 
+			estado = 1
+	WHERE idfollower = _idusuario AND idfollowing = _following;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_seguidos_conteo` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_seguidos_conteo` */;
@@ -3573,7 +3699,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_seguidos_conteo`(IN _idusuario INT)
 BEGIN
 	SELECT COUNT(idfollower) AS 'totalseguidos'
-	FROM seguidores
+	 FROM seguidores 
 	WHERE idfollower = _idusuario AND estado = '1';
 END */$$
 DELIMITER ;
@@ -3631,6 +3757,23 @@ BEGIN
    SELECT idservicio, nombreservicio
       FROM servicios
       ORDER BY idservicio DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_servicios_listar_usuario` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_listar_usuario` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_listar_usuario`(IN _idusuario INT)
+BEGIN
+	SELECT USU.idusuario, SRV.nombreservicio
+		FROM especialidades ESP
+		INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio 
+		WHERE  ESP.idusuario = _idusuario
+		GROUP BY SRV.nombreservicio;
 END */$$
 DELIMITER ;
 
@@ -3876,6 +4019,19 @@ DELIMITER $$
 BEGIN
 	SELECT * FROM vs_usuarios_listar
 		ORDER BY idusuario DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_usuarios_listar_descripcion` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_usuarios_listar_descripcion` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_listar_descripcion`(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+	WHERE idusuario = _idusuario;
 END */$$
 DELIMITER ;
 

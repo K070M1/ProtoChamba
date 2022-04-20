@@ -197,6 +197,10 @@ CREATE TABLE galerias
 )ENGINE = INNODB;
 
 
+SELECT * FROM galerias;
+SELECT * FROM albumes;
+
+
 CREATE TABLE calificaciones 
 (
 	idcalificacion 	INT AUTO_INCREMENT PRIMARY KEY,

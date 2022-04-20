@@ -1,31 +1,72 @@
 <?php
 
 require_once '../model/Service.php';
-$service = new Service();
+$services = new Service();
 
-if(isset($_GET['op'])){
+if (isset($_GET['op'])){
 
 
-  function loadServices($data){
-    if(count($data) == 0){
-      echo "";
+  //sERVICIOS
+  function listServicesUser($data){
+
+    if(count($data) <= 0){
+      echo " ";
     }
     else{
-      echo "<option value=''>Seleccione</option>";
       foreach($data as $row){
         echo "
-          <option value='{$row->idservicio}'>{$row->nombreservicio}</option>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-briefcase'></i>
+            </td>
+            <td>{$row['nombreservicio']}</td>
+          </tr>
+          <hr>
+          
         ";
       }
     }
   }
 
-  // Listar servicios
-  if($_GET['op'] == 'getServices'){
-    $data = $service->getServices();
-    loadServices($data);
+
+  if ($_GET['op'] == 'getServicesUser'){
+
+    $data = $services->getServicesUser(["idusuario" => 1]);
+    listServicesUser($data);
+
   }
 
+
+  if($_GET['op'] == 'getServices'){
+
+    $data =  $services->getServices();
+
+    if(count($data) > 0){
+        echo "<option value='' disabled selected hidden >Seleccione:</option>";
+            foreach ($data as $row){
+                echo "<option value='$row->idservicio'>$row->nombreservicio</option>";
+            }
+    }   
+  }
+
+
 }
+
+
+if (isset($_POST['op'])){
+
+  if ($_POST['op'] == 'registerServicesUser'){
+
+    $datosEnviar = [
+      "nombreservicio"     =>  $_POST["nombreservicio"]
+    ];
+
+    $services->registerServicesUser($datosEnviar);
+
+  }
+
+
+}
+
 
 ?>

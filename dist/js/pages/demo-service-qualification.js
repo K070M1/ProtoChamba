@@ -454,7 +454,6 @@ $("#btn-add-publication").click(function(){
     // Confirmar
     sweetAlertConfirmQuestionSave("¿Estas seguro de hacer la publicación?").then((confirm) => {
       if(confirm.isConfirmed){
-        console.log(uploadedImages)
 
         var formData = new FormData();
         formData.append("op", "registerWork");

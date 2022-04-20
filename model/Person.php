@@ -23,7 +23,7 @@ class Person extends ModelMaster{
     }
   }
 
-  // Actualizar registro de la persona
+  // LISTAR DATOS de la persona
   public function getAPerson(array $data){
     try{
       parent::execProcedure($data, "spu_personas_getdata", true);
@@ -35,6 +35,15 @@ class Person extends ModelMaster{
 
     //listar datos de persona
     public function getPerson(array $data){
+      try{
+        return parent::execProcedure($data, "spu_personas_getdata", true);
+      }
+      catch(Exception $error){
+        die($error->getMessage());
+      }
+    }
+    //listar datos de persona
+    public function getDataPerson(array $data){
       try{
         return parent::execProcedure($data, "spu_personas_getdata", true);
       }
