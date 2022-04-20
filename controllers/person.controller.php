@@ -1,87 +1,109 @@
 <?php
 
 require_once '../model/Person.php';
-$persona = new Person();
+$person = new Person();
 
 if (isset($_GET['op'])){
 
-  function nombre($data){
-    foreach($data as $row){
-      echo "
-        <tr>
-          <td>{$row['nombres']} {$row['apellidos']}</td>      
-        </tr>
-      
-      ";
-    }
-  }
-
 
   //Personas
-  function listDatosPerson($data){
+  function listDataPerson($data){
 
     if(count($data) <= 0){
       echo " ";
     }
     else{
       foreach($data as $row){
+
+
         echo "
+          <tr>
+            <td>
+              <div class='text-right d-none' >
+                <a data-idpersona='{$row['idpersona']}' class='btn btn-outline-info btn-sm modificarPerson' href='#'><i class='fas fa-edit'></i></a>  
+              </div>
+            </td>
+          </tr>
           <tr>
             <td align='center'>
               <i class='fas fa-smile'></i>
             </td>
-            <td>{$row['nombres']} {$row['apellidos']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
+            <td id='no'>{$row['nombres']} {$row['apellidos']}</td>
           </tr>
-          <hr>
           <tr>
             <td align='center'>
               <i class='fas fa-phone'></i>
             </td>
-            <td>{$row['telefono']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
+            <td id='te'>{$row['telefono']}</td>
           </tr>
-          <hr>
           <tr>
             <td align='center'>
               <i class='fas fa-calendar-check'>
             </td>
-            <td>{$row['fechanac']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
+            <td id='fe'>{$row['fechanac']}</td>
           </tr>
-          <hr>
+          
           <tr>
             <td align='center'>
               <i class='fas fa-map-marked-alt'></i>
             </td>
-            <td>{$row['tipocalle']} {$row['nombrecalle']} {$row['numerocalle']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
+            <td id='ti'>{$row['tipocalle']} {$row['nombrecalle']} {$row['numerocalle']}</td>
           </tr>
+
           
         ";
       }
     }
   }
 
+
   if ($_GET['op'] == 'getPerson'){
 
-    $data = $persona->getPerson(["idpersona" => 2]);
-    listDatosPerson($data);
+    $data = $person->getPerson(["idpersona" => 1]);
+    listDataPerson($data);
   }
 
-  if ($_GET['op'] == 'getPersona'){
+  if ($_GET['op'] == 'getDataPerson'){
 
-    $data = $persona->getPerson(["idpersona" => 1]);
-    nombre($data);
+    $data = $person->getDataPerson(["idpersona" => 1]);
+    echo json_encode($data);
   }
+
+
+}
+
+
+if (isset($_POST['op'])){
+
+  // Actualizar person
+  if ($_POST['op'] == 'deleteFoller'){
+
+      $datosEnviar = [
+        "idfollower"       =>  1,
+        "idfollowing"      =>  $_POST["idfollowing"]
+      ];
+
+      $follower->deleteFoller($datosEnviar);
+  }
+
+  if ($_POST['op'] == 'updatePerson'){
+
+    $datosEnviar = [
+      "idpersona"       =>  $_POST["idpersona"],
+      "apellidos"       =>  $_POST["apellidos"],
+      "nombres"         =>  $_POST["nombres"],
+      "fechanac"        =>  $_POST["fechanac"],
+      "telefono"        =>  $_POST["telefono"],
+      "tipocalle"       =>  $_POST["tipocalle"],
+      "nombrecalle"     =>  $_POST["nombrecalle"],
+      "numerocalle"     =>  $_POST["numerocalle"],
+      "pisodepa"        =>  $_POST["pisodepa"]
+    ];
+
+    $person->updatePerson($datosEnviar);
+    var_dump($datosEnviar);
+  }
+
 
 }
 

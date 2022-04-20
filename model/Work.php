@@ -16,7 +16,7 @@ class Work extends ModelMaster{
   // Registrar trabajo
   public function registerWork(array $data){
     try{
-      parent::execProcedure($data, "spu_trabajos_registrar", false);
+      return parent::execProcedure($data, "spu_trabajos_registrar", true);
     }
     catch(Exception $error){
       die($error->getMessage());

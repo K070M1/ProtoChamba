@@ -67,9 +67,8 @@ END $$
 -- MODIFICAR PERSONA -- 
 DELIMITER $$
 CREATE PROCEDURE spu_personas_modificar
-(
+(	
 	IN _idpersona 		INT,
-	IN _iddistrito 		VARCHAR(6),
 	IN _apellidos			VARCHAR(40),
 	IN _nombres				VARCHAR(40), 
 	IN _fechanac			DATE,
@@ -85,7 +84,6 @@ BEGIN
 	IF _pisodepa = '' THEN SET _pisodepa = NULL; END IF;
 	
 	UPDATE personas SET
-		iddistrito 	= _iddistriro,
 		apellidos 	= _apellidos, 
 		nombres 	= _nombres, 
 		fechanac 	= _fechanac,
@@ -102,7 +100,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_personas_getdata(IN _idpersona INT)
 BEGIN
-	SELECT * FROM personas WHERE idpersona = _idpersona;
+	SELECT * FROM personas WHERE idpersona = 1;
 END $$
 
 -- =============================================================================================================
@@ -269,11 +267,33 @@ BEGIN
 	UPDATE usuarios SET clave = _clave WHERE idusuario = _idusuario;
 END
 
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_listar_descripcion(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+	WHERE idusuario = _idusuario;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_descripcion_modificar(IN _idusuario INT, IN _descripcion MEDIUMTEXT)
+BEGIN
+	UPDATE usuarios SET
+		descripcion = _descripcion
+	WHERE idusuario = _idusuario;
+END $$
+
 
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
 -- -------------------------------------------------------------------------------------------------------------
 -- AGREGAR ESTABLECIMIENTO --
+DELIMITER $$
+CREATE PROCEDURE spu_establecimientos_listar_User(IN _idusuario INT) 
+BEGIN
+	SELECT * FROM vs_especialidades_listar
+	WHERE idusuario = _idusuario;
+END $$
+
 DELIMITER $$
 CREATE PROCEDURE spu_establecimientos_registrar
 (
@@ -501,7 +521,7 @@ BEGIN
 			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
-					AND  USU.`idusuario` = _idusuario;
+					AND  USU.`idusuario` = 1;
 END $$
 
 DELIMITER $$
@@ -513,7 +533,7 @@ BEGIN
 			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'portada' AND GLR.`estado` = '3'
-					AND  USU.`idusuario` = _idusuario;
+					AND  USU.`idusuario` = ;
 END $$
 
 DELIMITER $$
@@ -527,6 +547,16 @@ END $$
 -- =============================================================================================================
 -- TABLA REDES
 -- -------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE spu_redessociales_getdata(IN _idredsocial INT)
+BEGIN
+	SELECT * FROM redessociales WHERE idredsocial = _idredsocial;
+END $$
+
+CALL spu_redessociales_getdata(1);
+
+SELECT * FROM redessociales;
+
 -- =============REGISTRAR REDES============
 DELIMITER $$
 CREATE PROCEDURE spu_redessociales_registrar
@@ -556,16 +586,16 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_redessociales_modificar
 (
+	IN _idusuario			INT,
 	IN _idredsocial		INT,
 	IN _redsocial			CHAR(1),
 	IN _vinculo				MEDIUMTEXT
-
 )
 BEGIN
-	UPDATE productos SET
+	UPDATE redessociales SET
 		redsocial = _redsocial,
-		 vinculo  = _vinculo
-	WHERE idredsocial = _idredsocial;
+		vinculo  = _vinculo
+	WHERE idusuario = _idusuario AND idredsocial = _idredsocial;
 END $$
 
 -- ==============FILTRAR POR USUARIO=================
@@ -685,6 +715,16 @@ BEGIN
       ORDER BY idservicio DESC;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_servicios_listar_usuario(IN _idusuario INT)
+BEGIN
+	SELECT USU.idusuario, SRV.nombreservicio
+		FROM especialidades ESP
+		INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+		INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio 
+		WHERE  ESP.idusuario = _idusuario
+		GROUP BY SRV.nombreservicio;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_servicios_registrar
@@ -712,6 +752,13 @@ END $$
 -- =============================================================================================================
 -- TABLA ESPECIALIDADES
 -- -------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_getdata(IN _idespecialidad INT)
+BEGIN
+	SELECT * FROM especialidades WHERE idespecialidad = _idespecialidad;
+END $$
+
+CALL spu_especialidades_getdata(2);
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar()
@@ -723,7 +770,7 @@ DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)
 BEGIN
    SELECT * FROM especialidades
-      WHERE idusuario = _idusuario
+      WHERE idusuario = 1
       ORDER BY idespecialidad DESC;
 END $$
 
@@ -752,13 +799,21 @@ CREATE PROCEDURE spu_especialidades_modificar
 )
 BEGIN 
     UPDATE especialidades SET
-       idusuario 		= _idusuario, 
        idservicio 	= _idservicio,
        descripcion 	= _descripcion,
        tarifa 			= _tarifa
-    WHERE idespecialidad = _idespecialidad;
+    WHERE idusuario = _idusuario AND idespecialidad = _idespecialidad;
 END $$
 
+
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_eliminar
+(
+	IN _idespecialidad INT
+)
+BEGIN
+	DELETE FROM especialidades WHERE idespecialidad = _idespecialidad;
+END $$
 
 
 /* PROCEDIMIENTOS : TRABAJOS , COMENTARIOS Y CALIFICACIONES */
@@ -1037,6 +1092,62 @@ END $$
 
 
 -- =============================================================================================================
+-- GENERAR PUNTUACIONES POR TRABAJO Y POR USUARIO
+-- -------------------------------------------------------------------------------------------------------------
+-- TOTAL DE TRABAJOS POR USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_total_trabajos_usuario(IN _idusuario INT)
+BEGIN
+	SELECT COUNT(*) AS 'trabajos' FROM trabajos WHERE idusuario = _idusuario;
+END $$
+
+-- TOTAL DE REACCIONES POR TRABAJO
+DELIMITER $$
+CREATE PROCEDURE spu_total_reaciones_trabajo(IN _idtrabajo INT)
+BEGIN
+	SELECT SUM(CLF.puntuacion) AS 'reaciones' 
+			FROM calificaciones CLF
+			INNER JOIN trabajos TRB ON TRB.idtrabajo = CLF.idtrabajo
+			WHERE TRB.idtrabajo = _idtrabajo
+			GROUP BY TRB.idtrabajo;
+END $$
+
+-- CALIFICACION POR TRABAJO
+DELIMITER $$
+CREATE PROCEDURE spu_estrellas_trabajo(IN _idtrabajo INT)
+BEGIN
+	DECLARE estrellas DECIMAL(4,2);
+	DECLARE total_usuario INT;
+	DECLARE total_reacion INT;
+	
+	SET total_usuario = (SELECT COUNT(*) FROM usuarios);
+	SET total_reacion = TOTALREACCIONES(_idtrabajo);
+	SET estrellas = DIVIDENUM(total_reacion, total_usuario);
+	
+	SELECT estrellas;
+END $$
+
+
+-- TOTAL DE ESTRELLAS POR TODOS LOS TRABAJOS DEL USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_total_calificacion_trabajos(IN _idusuario INT)
+BEGIN
+	SELECT SUM(CALIFICACIONTRABAJO(idtrabajo)) AS 'total' 
+		FROM trabajos
+		WHERE idusuario = _idusuario;
+END $$
+
+
+-- ESTRELLAS POR USUARIOS
+DELIMITER $$
+CREATE PROCEDURE spu_estrellas_usuario(IN _idusuario INT)
+BEGIN
+	SELECT DIVIDENUM(TCALIFICACIONTRABAJO(_idusuario), TOTALTRABAJOS(_idusuario)) AS 'estrellas';
+END $$
+
+
+
+-- =============================================================================================================
 -- GRAFICOS ESTADISTICOS 
 -- -------------------------------------------------------------------------------------------------------------
 
@@ -1050,7 +1161,18 @@ BEGIN
 	ORDER BY MONTH(fechareporte) ASC;
 END $$
 
-CALL spu_grafico_reportes();
+
+DELIMITER $$
+CREATE PROCEDURE spu_grafico_reportes_fechas(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+	SELECT MONTHNAME(fechareporte)AS 'mes', COUNT(idreporte)AS 'reportes'
+		FROM reportes
+		WHERE fechareporte BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+	GROUP BY fechareporte
+	ORDER BY fechareporte ASC;
+END $$
+
+CALL spu_grafico_reportes_fechas('2012-04-15', '2022-01-15');
 
 -- REPORTES RECIBIDOS POR AÑO --
 DELIMITER $$
@@ -1065,12 +1187,35 @@ END $$
 
 -- NIVELES DE USUARIOS --
 DELIMITER $$
-CREATE PROCEDURE spu_grafico_niveles_usu()
+CREATE PROCEDURE spu_grafico_niveles_usuario()
 BEGIN
-	SELECT nivelusuario , COUNT(idusuario) AS 'totalusuario'
+	SELECT CASE  
+					WHEN nivelusuario = 'E' THEN 'Estandar'
+					
+					WHEN nivelusuario = 'I' THEN 'Intermedio'
+					WHEN nivelusuario = 'A' THEN 'Avanzado' 
+				 END 'nivelusuario',	COUNT(idusuario) AS 'total'
 		FROM usuarios
 	GROUP BY nivelusuario;
 END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_grafico_niveles_usuario_fechas(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+	SELECT CASE  
+					WHEN nivelusuario = 'E' THEN 'Estandar'
+					
+					WHEN nivelusuario = 'I' THEN 'Intermedio'
+					WHEN nivelusuario = 'A' THEN 'Avanzado' 
+				 END 'nivelusuario',	COUNT(idusuario) AS 'total'
+		FROM usuarios
+		WHERE fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+		GROUP BY nivelusuario;
+END $$
+
+
+SELECT * FROM usuarios;
 
 -- SERVICIOS POPULARES (Según su calificación) --
 DELIMITER $$
@@ -1084,4 +1229,12 @@ BEGIN
 	GROUP BY SER.nombreservicio;
 END $$
 
-SELECT * FROM redessociales
+-- TOTAL DE USUARIOS - POR CADA SERVICIO
+DELIMITER $$
+CREATE PROCEDURE spu_total_usuarios_servicio()
+BEGIN
+		SELECT SRV.nombreservicio, COUNT(ESP.idusuario) AS 'total' 
+			FROM servicios SRV
+			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
+			GROUP BY SRV.nombreservicio;
+END $$

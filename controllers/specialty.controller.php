@@ -21,7 +21,7 @@ if (isset($_GET['op'])){
             <div class ='card' >
                 <div class='card-header'>
                   <div class='box-left'>
-                    <img href='index.php?view=perfil-view' src='dist/img/avatar2.png'>
+                    <img src='dist/img/avatar2.png'>
                   </div>
                   <div class='box-right'>
                     <div class='icons'>

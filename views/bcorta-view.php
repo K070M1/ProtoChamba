@@ -125,9 +125,7 @@
     <div class="col-md 8">
       
       <div class="caja">
-        <button type="button" class="btn btn-primary">
-          Resultados <span class="badge badge-light">4</span>
-        </button>
+      
         <ul class="nav nav-pills" style="margin-left:80%;" id="pills-tab" role="tablist">
 
           <li class="nav-item " role="presentation">

@@ -92,6 +92,28 @@ if (isset($_GET['op'])) {
     }
   }
 
+
+  function Descripcion($data){
+
+    if (count($data) <= 0) {
+      echo " ";
+    } else {
+      foreach ($data as $row) {
+        echo "
+          <p>{$row['descripcion']}</p>
+        ";
+      }
+    }
+  }
+
+  //Descripcion
+  if ($_GET['op'] == 'getUsersDescrip') {
+    $data = $user->getUsersDescrip(["idusuario" => 1]);
+    Descripcion($data);
+  }
+
+
+
   // Busqueda realizada por nombres o apellidos - (Asignar permisos admin)
   if ($_GET['op'] == 'searchUsersByNamesAndRole') {
 
@@ -144,6 +166,8 @@ if (isset($_GET['op'])) {
   }
 }
 
+//METODO POST
+
 if (isset($_POST['op'])) {
 
   //Registrar usuario
@@ -192,4 +216,44 @@ if (isset($_POST['op'])) {
 
     $user->updatePasswordRest($datosUp);
   }
+
+  // modificar descripcion de un usuario
+  if ($_POST['op'] == 'updateDescrip'){
+
+    $datosEnviar = [
+      "idusuario"       =>  1,
+      "descripcion"      =>  $_POST["descripcion"]
+    ];
+
+    $user->updateDescrip($datosEnviar);
+  }
+
+
+
+  if($_POST['op'] == "registerGalleryPhotos"){
+
+    $idtypefile = $_POST['tipoarchivo'];
+
+    if($idtypefile == 'image/png'){
+        $extension = date('YmdhGs') . ".png";
+    }else if($idtypefile == 'image/jpeg'){
+        $extension = date('YmdhGs') . ".jpg";
+    }else{
+        $extension = date('YmdhGs') . ".gif";
+    }
+
+    $enviard =   
+    [   
+        "idalbum"       => $_POST['idalbum'],
+        "idusuario"     => '1',
+        "idtrabajo"     => " ",
+        "tipo"          => "F",
+        "archivo"       => $extension
+    ];
+
+    $data = $gallery->registerGallery($enviard);
+    move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $extension);
+    echo $_FILES['archivo']['tmp_name'];
+    echo $extension;
+}
 }

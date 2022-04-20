@@ -1,4 +1,4 @@
-  <?php
+<?php
 
 require_once '../model/Follower.php';
 $follower = new Follower();
@@ -6,8 +6,8 @@ $follower = new Follower();
 if (isset($_GET['op'])){
 
 
-  //Seguidores
-  function listarSeguidores($data){
+  //Listado de Seguidores
+  function listFollower($data){
 
     if(count($data) <= 0){
       echo "
@@ -24,16 +24,15 @@ if (isset($_GET['op'])){
               <img src='dist/img/default_profile_avatar.svg' alt='Product 1' class='img-circle img-size-32 mr-2'>
             </td>
             <td>{$row['nombres']} {$row['apellidos']}</td>
-            </tr>
-            ";
+          </tr>
+        ";
       }
     }
       
   }
       
-    
-  //Seguidos
-  function listarSeguidos($data){
+  //Listado de Seguidos
+  function listFollowing($data){
 
     if(count($data) <= 0){
       echo " 
@@ -52,7 +51,7 @@ if (isset($_GET['op'])){
             </td>
             <td>{$row['nombres']} {$row['apellidos']}</td>
             <td>
-              <a class='btn btn-sm' title='Dejar de seguir' href=''><i class='fas fa-user-minus'></i></a>            
+              <a href='#' data-idfollowing='{$row['idfollowing']}' class='btn btn-danger btn-sm modificar' title='Dejar de seguir' ><i class='fas fa-user-minus'></i></a> 
             </td>
           </tr>
         ";
@@ -61,12 +60,18 @@ if (isset($_GET['op'])){
     
   }
   
-  // CListar seguidores
+  // Operacion Seguidores
   if ($_GET['op'] == 'getFollowersByUser'){
 
     $data = $follower->getFollowersByUser(["idusuario" => 1]);
-    listarSeguidores($data);
-  
+    listFollower($data);
+  }
+
+  // Operación Seguidos
+  if ($_GET['op'] == 'getFollowedByUser'){
+
+    $data = $follower->getFollowedByUser(["idusuario" => 1]); //$_GET['idusuario']]
+    listFollowing($data);
   }
 
 
@@ -83,15 +88,7 @@ if (isset($_GET['op'])){
     }
   }
 
-
-  // CListar seguidos
-  if ($_GET['op'] == 'getFollowedByUser'){
-
-    $data = $follower->getFollowedByUser(["idusuario" => 1]); //$_GET['idusuario']]
-    listarSeguidos($data);
-  }
-
-  //Conteo de seguidores
+  //Conteo de seguidos
   if ($_GET['op'] == 'getCountFollowedByUser'){
   
     $data = $follower->getCountFollowedByUser(["idusuario" => 1]);
@@ -104,6 +101,23 @@ if (isset($_GET['op'])){
     }
   }
 
+}
+
+
+// METODO POST
+
+if (isset($_POST['op'])){
+
+  // Dejar de Seguir
+  if ($_POST['op'] == 'deleteFoller'){
+
+      $datosEnviar = [
+        "idfollower"       =>  1,
+        "idfollowing"      =>  $_POST["idfollowing"]
+      ];
+
+      $follower->deleteFoller($datosEnviar);
+  }
 
 
 }

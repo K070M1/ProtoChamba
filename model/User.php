@@ -83,6 +83,26 @@ class User extends ModelMaster{
     }
   }
 
+  //lista la descripcion de un usuario
+  public function getUsersDescrip(array $data){
+    try{
+      return parent::execProcedure($data, "spu_usuarios_listar_descripcion", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
+  // Actualizar descripcion de un usuario
+  public function updateDescrip(array $data){
+    try{
+      parent::execProcedure($data, "spu_descripcion_modificar", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Eliminar un registro de usuario
   public function deleteUser(array $data){
     try{

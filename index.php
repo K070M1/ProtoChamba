@@ -301,7 +301,7 @@
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="fas fa-users-cog nav-icon"></i>
+                <i class="fas fa-user-cog nav-icon"></i>
                 <p>
                   Rol administrador
                   <i class="right fas fa-angle-left"></i>
@@ -323,7 +323,7 @@
                 <li class="nav-item">
                   <a href="index.php?view=graficos-view" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Graficos</p>
+                    <p>Gráficos</p>
                   </a>
                 </li>
               </ul>
@@ -425,10 +425,10 @@
 
     <!-- Main Footer -->
     <footer class="main-footer text-sm">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-      All rights reserved.
+      <strong>Copyright &copy; 2022-2023 <a href="https://adminlte.io">Q' Tal Chamba</a>.</strong>
+      Todos los derechos reservados.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 3.2.0
+        <b>Version</b> 1.0
       </div>
     </footer>
   </div>
@@ -770,6 +770,7 @@
 
   <!-- Bootstrap -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.js"></script>
 

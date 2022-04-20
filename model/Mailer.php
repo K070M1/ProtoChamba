@@ -32,7 +32,7 @@ class Mailer{
       $this->mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     
       //Recipients
-      $this->mail->setFrom('trabajosya2022@gmail.com', 'TRABAJA YA');
+      $this->mail->setFrom('trabajosya2022@gmail.com', 'Q Tal Chamba');
     
       // Copias del correo
       $this->mail->addAddress($email);                                   //Destinatarios

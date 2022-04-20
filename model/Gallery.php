@@ -55,7 +55,7 @@ class Gallery extends ModelMaster{
   // Registrar galeria
   public function registerGallery(array $data){
     try{
-      return parent::execProcedure($data, "spu_galerias_registrar", true);
+      parent::execProcedure($data, "spu_galerias_registrar", false);
     }
     catch(Exception $error){
       die($error->getMessage());
