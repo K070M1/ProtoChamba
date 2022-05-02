@@ -23,6 +23,15 @@ class Forum extends ModelMaster{
     }
   }
 
+  // obtener las consultas realizadas al usuario
+  public function getQueriesToUser(array $data){
+    try{
+      return parent::execProcedure($data, "spu_foros_listar_usuario", true);
+    } catch (Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // eliminar Comentarto del foro
   public function deleteForum(array $data){
     try{

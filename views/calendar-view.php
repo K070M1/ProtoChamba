@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="dist/css/pages/calendar.css">
 
 <script src='plugins/fullcalendar/main.js'></script>
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src='plugins/fullcalendar/locales/es.js'></script>
 
 <!-- Calendar -->
@@ -233,8 +232,8 @@
 							resetFormActivity();
 
 							// Obtener la fecha en formato string
-							var dateStart = moment(dataController.fechainicio + ' ' + dataController.horainicio).format('LLLL') // Jueves, 15 de Septiembre de 2016 0:00
-							var dateEnd = moment(dataController.fechafin + ' ' + dataController.horafin).format('LLLL') // Jueves, 15 de Septiembre de 2016 0:00
+							var dateStart = moment(dataController.fechainicio + ' ' + dataController.horainicio).format('LLLL'); // Jueves, 15 de Septiembre de 2016 0:00
+							var dateEnd = moment(dataController.fechafin + ' ' + dataController.horafin).format('LLLL'); // Jueves, 15 de Septiembre de 2016 0:00
 
 							// Asignando datos al card
 							$("#title-card").html(info.event.title);

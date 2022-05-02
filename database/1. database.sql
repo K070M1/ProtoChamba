@@ -64,7 +64,6 @@ CREATE TABLE usuarios
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
 
-
 CREATE TABLE establecimientos
 (
 	idestablecimiento	INT AUTO_INCREMENT PRIMARY KEY,
@@ -177,8 +176,7 @@ CREATE TABLE albumes
 	estado 			BIT 					NOT NULL DEFAULT 1,
 	CONSTRAINT fk_alb_idusuario FOREIGN KEY (idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT uk_alb_nombrealbum UNIQUE(idusuario, nombrealbum)
-)ENGINE = INNODB;
-
+)ENGINE = INNODB;}
 
 CREATE TABLE galerias 
 (
@@ -196,11 +194,14 @@ CREATE TABLE galerias
 	CONSTRAINT fk_galerias_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
 
+<<<<<<< HEAD
+=======
 
 SELECT * FROM galerias;
 SELECT * FROM albumes;
 
 
+>>>>>>> 10ea0dc295aa9352db22f33276611e4796f3e1cd
 CREATE TABLE calificaciones 
 (
 	idcalificacion 	INT AUTO_INCREMENT PRIMARY KEY,

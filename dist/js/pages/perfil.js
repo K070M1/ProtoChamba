@@ -1,9 +1,44 @@
 
-   var datosNuevos = true; 
-   var idusuario;
-   var idpersona;
-   var idredSocial;
-   var idespecialidad;
+  var idusuarioActivo = localStorage.getItem("idusuarioActivo");
+  idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
+
+  //localStorage.removeItem("idusuarioActivo");
+
+  var datosNuevos = true; 
+  var idusuario;
+  var idpersona;
+  var idredSocial;
+  var idespecialidad;
+
+  if(idusuarioActivo != -1){
+    disabledButtons();
+  } else {
+    enabledButtons();
+  }
+
+  // Esta función desdabilita los botones de modificación o agregación
+  function disabledButtons(){
+    $("#btnseguir").show();
+    $("#idfoto").hide();
+    $("#idfotoPrt").hide();
+    $("#btnP").hide();
+    $(".edit-come").hide();
+    $("#btnS").hide();
+    $("#btnsd").hide();
+    $("#btnrs").hide();
+  }
+  
+  // Esta función habilita los botones de modificación o agregación
+  function enabledButtons(){
+    $("#btnseguir").hide();
+    $("#idfoto").show();
+    $("#idfotoPrt").show();
+    $("#btnP").show();
+    $(".edit-come").show();
+    $("#btnS").show();
+    $("#btnsd").show();
+    $("#btnrs").show();
+  }
 
   function createPerfil(file) {
     var imgCodified = URL.createObjectURL(file);
@@ -143,13 +178,12 @@
     $(this).addClass('d-none');
   });
 
-
   
   function Descripcion(){
     $.ajax({
       url: 'controllers/user.controller.php',
       type: 'GET',
-      data: 'op=getUsersDescrip',
+      data: 'op=getUsersDescrip&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#text-descripcion").html(e);
       }
@@ -160,7 +194,7 @@
     $.ajax({
       url: 'controllers/specialty.controller.php',
       type: 'GET',
-      data: 'op=listSpecialtyUser',
+      data: 'op=listSpecialtyUser&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#especiality").html(e);
       }
@@ -171,7 +205,7 @@
     $.ajax({
       url: 'controllers/redsocial.controller.php',
       type: 'GET',
-      data: 'op=getRedesSociales',
+      data: 'op=getRedesSociales&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#redsocial").html(e);
       }
@@ -182,7 +216,7 @@
     $.ajax({
       url: 'controllers/establishment.controller.php',
       type: 'GET',
-      data: 'op=getEstablishmentsByUser',
+      data: 'op=getEstablishmentsByUser&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#empresas").html(e);
       }
@@ -193,7 +227,7 @@
     $.ajax({
       url: 'controllers/establishment.controller.php',
       type: 'GET',
-      data: 'op=getEstablishmentsInfo',
+      data: 'op=getEstablishmentsInfo&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#info-empresa").html(e);
       }
@@ -215,18 +249,19 @@
     $.ajax({
       url:'controllers/service.controller.php',
       type: 'GET',
-      data: 'op=getServicesUser',
+      data: 'op=getServicesUser&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#serviciosUsuario").html(e);
       }
     });
   }
 
+  // POR CORREGIR ??????
   function listPerson(){
     $.ajax({
       url:'controllers/person.controller.php',
       type: 'GET',
-      data: 'op=getPersona',
+      data: 'op=getPersonq',
       success: function(e){
         $("#per").html(e);
       }
@@ -237,7 +272,7 @@
     $.ajax({
       url: 'controllers/person.controller.php',
       type: 'GET',
-      data: 'op=getPerson',
+      data: 'op=getPerson&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#personas").html(e);
       }
@@ -248,7 +283,7 @@
     $.ajax({
       url: 'controllers/follower.controller.php',
       type: 'GET',
-      data: 'op=getFollowersByUser',
+      data: 'op=getFollowersByUser&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#seguidores").html(e);
       }
@@ -259,7 +294,7 @@
     $.ajax({
       url: 'controllers/follower.controller.php',
       type: 'GET',
-      data: 'op=getFollowedByUser',
+      data: 'op=getFollowedByUser&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#seguidos").html(e);
       }
@@ -392,10 +427,7 @@
   });
 
 
-  function RegistrarPersonas(){
- 
-    
-
+  function RegistrarPersonas(){  
     let nombres = $("#nombres").val();
     let apellidos = $("#apellidos").val();
     let fechanac = $("#fechanaci").val();
@@ -474,10 +506,6 @@
       })
     } 
   }
-
-
- 
-  
 
 
   //Registrar RedSocial

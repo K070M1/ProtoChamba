@@ -43,6 +43,16 @@ class Establishment extends ModelMaster{
     }
   }
 
+  // Obtenr un establecimiento por servicio
+  public function getEstablishmentByService(array $data){
+    try{
+      return parent::execProcedure($data, "spu_establecimientos_getdata_servicio", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Listar todos los establecimientos
   public function getEstablishments(array $data) {
     try {

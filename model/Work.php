@@ -33,7 +33,7 @@ class Work extends ModelMaster{
     }
   }
 
-  // Registrar trabajo
+  // Actualizar trabajo
   public function updateWork(array $data){
     try{
       parent::execProcedure($data, "spu_trabajos_modificar", false);
@@ -52,8 +52,36 @@ class Work extends ModelMaster{
       die($error->getMessage());
     }
   }
+  
+  // Total de trabajos por usuario
+  public function countWorksByUser(array $data){
+    try{
+      return parent::execProcedure($data, "spu_total_trabajos_usuario", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+  
+  // Total de puntuación del trabajo
+  public function totalWorkScore(array $data){
+    try{
+      return parent::execProcedure($data, "spu_total_reaciones_trabajo", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+  
+  // Obtener la calificación del trabajo publicado
+  public function workQualification(array $data){
+    try{
+      return parent::execProcedure($data, "spu_estrellas_trabajo", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
 
 }
-
-
 ?>

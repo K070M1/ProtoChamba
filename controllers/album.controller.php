@@ -1,108 +1,125 @@
-<?php 
-
+<?php
+session_start();
 require_once '../model/Album.php';
 
 $album = new Album();
 
 
-if (isset($_GET['op'])){
+if (isset($_GET['op'])) {
 
-    function loadAlbum($data){
-        if(count($data) > 0){
-            foreach($data as $row){
-                echo
-                "
-                  <div class='col-md-3 user-cd-img user-cd-albm' >
-                        <div class='image-container' >
-                            <figure >
-                                <img src='./dist/img/photo1.png' >
-                                <h4>{$row['nombrealbum']}</h4>
-                                <figcaption >
-                                    <ul>
-                                        <li>
-                                            <i class='fas fa-pen btn-modif' data-alb-act='{$row['idalbum']}'></i>
-                                        </li>
-                                        <li>
-                                            <i class='fas fa-trash btn-elim' data-alb-eli='{$row['idalbum']}'></i>
-                                        </li>
-                                        <li>
-                                            <i class='fas fa-folder-open btn-abr' data-alb-open='{$row['idalbum']}' data-alb-open-name='{$row['nombrealbum']}'></i>
-                                        </li>
-                                    </ul>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                ";
-            }
-        }
-        
-        echo 
+  // Cargar los albumes
+  function loadAlbum($data, $visible) {
+    if (count($data) > 0) {
+      foreach ($data as $row) {
+        echo
         "
-            <div class='col-md-3' >
-              <div class='add-album-cd' title='Crear nuevo album' id='agr-albm' >
-                <i class='fas fa-plus' ></i>
-              </div>
+          <div class='col-md-3 user-cd-img user-cd-albm' >
+            <div class='image-container' >
+              <figure >
+                <img src='./dist/img/photo1.png' >
+                <h4>{$row['nombrealbum']}</h4>
+                <figcaption >
+                    <ul>
+                        <li>
+                            <i class='fas fa-pen btn-modif' data-alb-act='{$row['idalbum']}' {$visible}></i>
+                        </li>
+                        <li>
+                            <i class='fas fa-trash btn-elim' data-alb-eli='{$row['idalbum']}' {$visible}></i>
+                        </li>
+                        <li>
+                            <i class='fas fa-folder-open btn-abr' data-alb-open='{$row['idalbum']}' data-alb-open-name='{$row['nombrealbum']}'></i>
+                        </li>
+                    </ul>
+                </figcaption>
+              </figure>
             </div>
-        
+            </div>
         ";
+      }
     }
 
-    function loadAlbumSlcModal($data){
-        if(count($data) > 0){
-            echo  "<option value=''>Ninguno</option>";
-            foreach($data as $row){
-                echo
-                "
+    echo
+    "
+      <div class='col-md-3' {$visible}>
+        <div class='add-album-cd' title='Crear nuevo album' id='agr-albm' >
+          <i class='fas fa-plus' ></i>
+        </div>
+      </div>
+  
+  ";
+  }
+
+  // Cargar el album dentro de un modal
+  function loadAlbumSlcModal($data)
+  {
+    if (count($data) > 0) {
+      echo  "<option value=''>Ninguno</option>";
+      foreach ($data as $row) {
+        echo
+        "
                     <option value='{$row['idalbum']}'>{$row['nombrealbum']}</option>
                 ";
-            }
-        }
+      }
+    }
+  }
+
+  // Cargar los albumes
+  if ($_GET['op'] == 'loadAlbum') {
+
+    $idusuario;
+    $visible;
+
+    if ($_GET['idusuarioactivo'] != -1) {
+      $idusuario = $_GET['idusuarioactivo'];
+      $visible = 'hidden';
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+      $visible = 'visible';
     }
 
-    if($_GET['op'] == 'loadAlbum'){
-        $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
-        loadAlbum($data);
-    }
+    $data = $album->getAlbumsByUser(["idusuario" => $idusuario]);
+    loadAlbum($data, $visible);
+  }
 
-    if($_GET['op'] == 'deleteAlbum'){
-        $data = $album->deleteAlbum(["idalbum" => $_GET['idalbum']]);
-    }
+  // Eliminar album
+  if ($_GET['op'] == 'deleteAlbum') {
+    $data = $album->deleteAlbum(["idalbum" => $_GET['idalbum']]);
+  }
 
-    if($_GET['op'] == 'getAlbumDat'){
-        $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
-        echo json_encode($data);
-    }
+  // Traer datos del album para el modal
+  if ($_GET['op'] == 'getAlbumDat') {
+    $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
+    echo json_encode($data);
+  }
 
-    if($_GET['op'] == 'loadAlbumSlcModal'){
-        $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
-        loadAlbumSlcModal($data);
-    }
-
+  // Cargar el album dentro de un modal
+  if ($_GET['op'] == 'loadAlbumSlcModal') {
+    $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
+    loadAlbumSlcModal($data);
+  }
 }
 
-if(isset($_POST['op'])){
-    if($_POST['op'] == "registerAlbum"){
-        $enviard =   
-        [
-            "idusuario"     => '1',
-            "nombrealbum"   => $_POST['nombrealbum']
-        ];
+if (isset($_POST['op'])) {
 
-        $data = $album->registerAlbum($enviard);
-    }
+  // Registrar un album
+  if ($_POST['op'] == "registerAlbum") {
+    $enviard =
+      [
+        "idusuario"     => '1',
+        "nombrealbum"   => $_POST['nombrealbum']
+      ];
+
+    $data = $album->registerAlbum($enviard);
+  }
+
+  // Modificar un album
+  if ($_POST['op'] == "updateAlbum") {
+    $enviard =
+      [
+        "idalbum"     => $_POST['idalbum'],
+        "nombrealbum"   => $_POST['nombrealbum']
+      ];
+
+    $data = $album->updateAlbum($enviard);
+  }
 }
-
-if(isset($_POST['op'])){
-    if($_POST['op'] == "updateAlbum"){
-        $enviard =   
-        [
-            "idalbum"     => $_POST['idalbum'],
-            "nombrealbum"   => $_POST['nombrealbum']
-        ];
-
-        $data = $album->updateAlbum($enviard);
-    }
-}
-
-?>

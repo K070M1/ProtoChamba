@@ -49,10 +49,11 @@ CREATE VIEW vs_usuarios_listar AS
 -- =============================================================================================================
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
+
 CREATE VIEW vs_especialidades_listar AS
 	SELECT ESP.`idespecialidad`, USU.idusuario,CONCAT (PERS.`nombres` , ' ' , PERS.apellidos) AS 'datosusuario' , 
 				USU.email, PERS.telefono,
-				SRV.`nombreservicio`, USU.horarioatencion, EST.establecimiento,
+				SRV.`nombreservicio`, ESP.tarifa,EST.iddistrito, USU.horarioatencion, EST.establecimiento,DIST.iddepartamento,
 	CONCAT(
 	CASE
 		WHEN EST.tipocalle LIKE 'CA' THEN 'Calle'
@@ -68,8 +69,8 @@ CREATE VIEW vs_especialidades_listar AS
 	INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
 	INNER JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 	INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
+	INNER JOIN distritos DIST ON DIST.iddistrito = EST.iddistrito
 	GROUP BY USU.idusuario;
-
 -- =============================================================================================================
 -- VISTA DE USUARIOS - DATOS RESUMIDOS
 -- -------------------------------------------------------------------------------------------------------------
@@ -101,11 +102,11 @@ CREATE VIEW vs_galerias_listar AS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_trabajos_listar AS 
 	SELECT 	TBJ.idtrabajo, USU.idusuario, PERS.idpersona, PERS.apellidos, 
-					PERS.nombres, TBJ.titulo AS 'trabajorealizar',TBJ.descripcion
+					PERS.nombres, TBJ.titulo, TBJ.descripcion, TBJ.fechapublicado,
+					GETDATENAME(TBJ.fechapublicado) AS 'fechalarga', TBJ.fechamodificado
 		FROM trabajos TBJ
 		INNER JOIN usuarios USU ON USU.idusuario = TBJ.idusuario
-		LEFT JOIN personas PERS ON PERS.idpersona = USU.idpersona
-		RIGHT JOIN galerias GAL ON GAL.idgaleria = TBJ.idtrabajo
+		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
 		WHERE TBJ.estado = 1;
 
 -- =============================================================================================================
@@ -137,21 +138,14 @@ CREATE VIEW vs_listar_reportes AS
 -- ===========================================================================================================
 CREATE VIEW vs_calificaciones_listar AS
 	SELECT CALI.idcalificacion, TRAB.idtrabajo, TRAB.titulo AS 'titulotrabajo', 
-<<<<<<< HEAD
 			 PERS.idpersona, PERS.apellidos, PERS.nombres, CALI.puntuacion
-=======
-				 PERS.idpersona, PERS.apellidos, PERS.nombres, CALI.puntuacion
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8
 		FROM calificaciones CALI
 		INNER JOIN trabajos TRAB ON TRAB.idtrabajo = CALI.idtrabajo
 		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
 		LEFT JOIN personas PERS ON PERS.idpersona = USU.idpersona
 		WHERE CALI.estado = 1;
-<<<<<<< HEAD
-	
-=======
-		
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8
+
+
 -- =============================================================================================================
 -- VISTA PARA LISTAR ACTIVIDADES
 -- -------------------------------------------------------------------------------------------------------------
@@ -161,11 +155,6 @@ CREATE VIEW vs_listar_actividades AS
 				 ACT.fechainicio, ACT.horainicio, ACT.fechafin, ACT.horafin, ACT.titulo, ACT.descripcion, ACT.direccion 
 		FROM especialidades ESP
 		INNER JOIN actividades ACT ON ESP.idespecialidad = ACT.idespecialidad
-<<<<<<< HEAD
 		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio;
 
 
-
-=======
-		INNER JOIN servicios SER ON SER.idservicio = ESP.idservicio;
->>>>>>> f78ae9ccf5312eda4fb47c775cf6bce13c3605d8

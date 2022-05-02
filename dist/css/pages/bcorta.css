@@ -20,7 +20,7 @@
 }
 
 /* input-group */
-.input-group{
+#inputsearch{
   position: relative;
   margin-left:26%;
   width: 50%;
@@ -63,7 +63,7 @@
   font-size: 25px;
   margin-top: 5px;
   cursor: pointer;
-  color: #244289;
+  color: #000000;
 }
 
 #icono-grid{
@@ -71,8 +71,9 @@
   margin-top: 5px;
   margin-left: 10px;
   cursor: pointer;
-  color: #244289;
+  color: #000000;
 }
+
 
 .servicios{
   margin-top: 4%;
@@ -137,6 +138,7 @@
   border-radius: 60%;
   object-fit: cover;
   object-position: center center;
+  cursor: pointer;
 }
 
 /* CARD - RIGHT */
@@ -198,6 +200,7 @@
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
   margin: auto;
   margin-top: 2%;
+  height: 23vh;
 }
 
 
@@ -211,17 +214,29 @@
 
 }
 
+.card-blarga img{
+  margin-left: 25%;
+  border-radius: 50%;
+  width:50%;
+  margin-top: 10%;
+  cursor: pointer;
+}
+
+
 .card-blarga .iconos i{
+  color: rgb(161, 159, 159);
+  
+}
+
+.card-blarga .iconos i.active{
+  color: orange;
   font-size: 18px;
-  margin-right: 10px;
-  color: #eeca00;
+
 }
 
 
 .card-blarga .redes-sociales{
   margin-left: 76%;
-  padding: 0%;
-  
 }
 
 .card-blarga .redes-sociales i{

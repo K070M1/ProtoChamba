@@ -30,8 +30,15 @@ if (isset($_GET['op'])){
 
 
   if ($_GET['op'] == 'getServicesUser'){
+    $idusuario;
+    
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
 
-    $data = $services->getServicesUser(["idusuario" => 1]);
+    $data = $services->getServicesUser(["idusuario" => $idusuario]);
     listServicesUser($data);
 
   }

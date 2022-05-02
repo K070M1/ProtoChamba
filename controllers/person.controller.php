@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once '../model/Person.php';
 $person = new Person();
 
@@ -56,10 +56,16 @@ if (isset($_GET['op'])){
     }
   }
 
-
   if ($_GET['op'] == 'getPerson'){
+    $idusuario;
+    
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
 
-    $data = $person->getPerson(["idpersona" => 1]);
+    $data = $person->getPerson(["idpersona" => $idusuario]);
     listDataPerson($data);
   }
 
@@ -68,8 +74,6 @@ if (isset($_GET['op'])){
     $data = $person->getDataPerson(["idpersona" => 1]);
     echo json_encode($data);
   }
-
-
 }
 
 
@@ -103,9 +107,5 @@ if (isset($_POST['op'])){
     $person->updatePerson($datosEnviar);
     var_dump($datosEnviar);
   }
-
-
 }
-
-
 ?>

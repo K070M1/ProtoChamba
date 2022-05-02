@@ -182,6 +182,16 @@ class User extends ModelMaster{
       die($error->getMessage());
     }
   }
+
+  // Calificación del usuario
+  public function userQualification(array $data){
+    try{
+     return parent::execProcedure($data, "spu_estrellas_usuario", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
 }
 
 ?>

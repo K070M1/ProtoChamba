@@ -1,17 +1,13 @@
-var owl = $('.owl-carousel');
-owl.owlCarousel({
-    stagePadding: 10,
+$('.owl-carousel').owlCarousel({
     dots: false,                    // Leyenda de pagina
     loop:false,                     // Repetir
     autoplay:false,
     autoplayTimeout:1400,
     autoplayHoverPause:true,
-    animateOut: 'slideOutDown',     // Animación salida (estilo css)
-    animateIn: 'flipInX',           // Animación entrada (estilo css)
     margin: 10,                     // Margen
     nav:true,                       // Navegación
-    autoWidth: true,               // Ajustar ancho
-    autoHeight: true,               // Ajustar altura
+    autoWidth: false,               // Ajustar ancho
+    autoHeight: false,               // Ajustar altura
     autoHeightClass: 'owl-height',  // Clase CSS
     autoWidthClass: 'owl-width',    // Clase CSS
     responsiveClass:true,        
@@ -19,12 +15,12 @@ owl.owlCarousel({
         0:{
             items:1
         },
-        960:{
+        600:{
             items:4,
             stagePadding: 1
         },
         1260:{
-            items:8,
+            items:5,
             stagePadding: 1
         }
     }

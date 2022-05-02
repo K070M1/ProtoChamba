@@ -1,10 +1,13 @@
 $(document).ready(function(){
+
+    var idusuarioActivo = localStorage.getItem("idusuarioActivo");
+    idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
     
+    // Variables generales
     var disabledSelector = true;
     var modificarAlbum = false;
     var añdAlbm = true;
     var ElementSubidos = [];
-    /* var files; */
 
     var idalbum;
     var idgaleria;
@@ -16,7 +19,79 @@ $(document).ready(function(){
         $(img).insertBefore(".img-upd-container");
     }
 
-    // Fin de los modales
+    // Cargar album 
+    function loadAlbum(){
+        $.ajax({
+            url: 'controllers/album.controller.php',
+            type: 'GET',
+            data: 'op=loadAlbum&idusuarioactivo=' + idusuarioActivo,
+            success: function(e) {
+                $("#load-album").html(e);
+            }
+        });
+    }
+
+    // Cargar galeria 
+    function loadGallery(){
+        $.ajax({
+          url: 'controllers/gallery.controller.php',
+          type: 'GET',
+          data: 'op=listGallery&idusuarioactivo=' + idusuarioActivo,
+          success: function(e) {
+            $("#load-Gallery").html(e);
+          }
+        });
+    }
+
+    // Cargar galeria en el modal
+    function loadGalleryModal(idgaleria, idalbm, estado){
+        var idmalbm = idalbm;
+        $.ajax({
+            url: 'controllers/gallery.controller.php',
+            type: 'GET',
+            data: 'op=getGalleryModal&idgaleria=' + idgaleria,
+            success: function(e) {
+                $("#loadGalleryModal").html(e);
+                loadAlbumSlcModalGallery(idmalbm);
+                if(estado == false){
+                    $ ("#btn-cmb-alb"). attr ("style", "display: none;");
+                }else{
+                    $ ("#btn-cmb-alb"). attr ("style", "display: block;");
+                }
+            }
+        });
+    }
+
+    // Cagar select de modal de la galeria
+    function loadAlbumSlcModalGallery(idalbm){
+        $.ajax({
+            url: 'controllers/album.controller.php',
+            type: 'GET',
+            data: 'op=loadAlbumSlcModal&idusuario=1',
+            success: function(e) {
+              $("#slc-album-md").html(e);
+              if(añdAlbm == false){
+                  $("#slc-album-md").val(idalbm);
+              }else{
+                  $("#alb-add-gal").html(e);
+              }
+            }
+          });
+    }
+
+    // Cargar select del modal de añadir galeria
+    function loadAlbumSlcModalAddGallery(){
+        $.ajax({
+            url: 'controllers/album.controller.php',
+            type: 'GET',
+            data: 'op=loadAlbumSlcModal&idusuario=1',
+            success: function(e) {
+                $("#alb-add-gal").html(e);
+            }
+          });
+    }
+
+    // Cargado de las imagenes
     $("#add-new-photo").on("change", function(){
 
         var archivoCargados = this.files;
@@ -24,27 +99,15 @@ $(document).ready(function(){
         var namelement;
 
         for (var i = 0; i < archivoCargados.length; i++) {
+            ElementSubidos.push(archivoCargados[i]);
             elementos = archivoCargados[i];
             namelement = archivoCargados[i]['name'];
-            ElementSubidos.push(archivoCargados[i]);
             createPreview(elementos, namelement);
         }
     
     });
 
-    /*Cargar album */
-    function loadAlbum(){
-        $.ajax({
-          url: 'controllers/album.controller.php',
-          type: 'GET',
-          data: 'op=loadAlbum&idusuario=1',
-          success: function(e) {
-            $("#load-album").html(e);
-          }
-        });
-    }
-
-    /*Registrar Album */
+    // Registrar Album
     $("#load-album").on("click", "#agr-albm", function(){
         $("#md-album-cd-img").modal("toggle");
         $("#añadir-albm").html("Añadir");
@@ -53,7 +116,7 @@ $(document).ready(function(){
         modificarAlbum = false;
     });
     
-    /* Agregar album */
+    // Agregar album 
     $("#añadir-albm").click(function(){
     let nalbum = $("#nmb-album-add").val();
         
@@ -86,7 +149,7 @@ $(document).ready(function(){
         });
     });
 
-    /* Eliminar album */
+    // Eliminar album 
     $("#load-album").on("click", ".btn-elim",function(){
         $idalbum = $(this).attr("data-alb-eli");
         $.ajax({
@@ -99,14 +162,14 @@ $(document).ready(function(){
         });
     });
 
-    /* Abrir album */
+    // Abrir album
     $("#load-album").on("click", ".btn-abr",function(){
         $idalbum = $(this).attr("data-alb-open");
         $namealbum = $(this).attr("data-alb-open-name");
         $.ajax({
             url: 'controllers/gallery.controller.php',
             type: 'GET',
-            data: 'op=listGalleryFromAlbum&idalbum=' + $idalbum,
+            data: 'op=listGalleryFromAlbum&idalbum=' + $idalbum + '&idusuarioactivo=' + idusuarioActivo,
             success: function(e) {
                 $("#content-collapse-albm").html(e);
                 $("#img-album-open-collap").collapse("toggle");
@@ -115,7 +178,7 @@ $(document).ready(function(){
         });
     });
 
-    /* Modificar album */
+    // Modificar album
     $("#load-album").on("click", ".btn-modif",function(){
         $idalbum = $(this).attr("data-alb-act");
         idalbum = $idalbum;
@@ -135,20 +198,7 @@ $(document).ready(function(){
         
     });
     
-
-    /*Cargar galeria */
-    function loadGallery(){
-        $.ajax({
-          url: 'controllers/gallery.controller.php',
-          type: 'GET',
-          data: 'op=listGallery&idusuario=1',
-          success: function(e) {
-            $("#load-Gallery").html(e);
-          }
-        });
-    }
-
-    /* Abrir modal de subir imagen */
+    // Abrir modal de subir imagen
     $("#load-Gallery").on("click", "#agr-gal", function(){
         $("#md-add-img").modal("toggle");
         loadAlbumSlcModalAddGallery();
@@ -167,17 +217,12 @@ $(document).ready(function(){
         console.log(ElementSubidos);
     });
 
-    /* Subir imagen temporales*/
+    // Subir imagen temporales
     $("#btn-up-cnt-img").on("click", function(){
         $("#add-new-photo").click();
     });
 
-    /* Eliminar fotos cargadas */
-   /*  $("#btn-cnl-img").on("click", function(){
-        $(".image-sub-despz").parent().remove();
-    }); */
-
-    /* Ver fotografia*/
+    // Ver fotografia
     $("#load-Gallery").on("click", ".btn-vw", function(){
         var idgal = $(this).attr("data-gal-open");
         var idalbm = $(this).attr("data-gal-albm");
@@ -189,7 +234,7 @@ $(document).ready(function(){
         
     });
 
-    /* Eliminar galeria*/
+    // Eliminar galeria
     $("#load-Gallery").on("click", ".btn-elim", function(){
         $idgaleria = $(this).attr("data-gal-eli");
         $.ajax({
@@ -203,7 +248,7 @@ $(document).ready(function(){
         
     });
 
-    /* Modificar Galleria */
+    // Modificar Galleria
     $("#load-Gallery").on("click", ".btn-modif", function(){
         var idgaleGl = $(this).attr("data-gal-act");
         var idalbm =  $(this).attr("data-gal-albm");
@@ -218,7 +263,7 @@ $(document).ready(function(){
         $("#btn-cmb-alb").html("Cambiar"); 
     });
 
-    /*Modificaciones en el modal */
+    // Modificaciones en el modal
     $("#loadGalleryModal").on("click", "#btn-cmb-alb" , function(){
         $("#slc-album-md").addClass("view-only-img");
         if(disabledSelector == true){
@@ -252,6 +297,7 @@ $(document).ready(function(){
         }
     });
 
+    // Registrar varias fotos
     $("#btn-add-gal-md").click(function(){
         let idalbum = $("#alb-add-gal").val();
         var formData = new FormData();
@@ -278,59 +324,8 @@ $(document).ready(function(){
         }
 
     }); 
-
-
-    /*Cargar galeria en el modal */
-    function loadGalleryModal(idgaleria, idalbm, estado){
-        var idmalbm = idalbm;
-        $.ajax({
-            url: 'controllers/gallery.controller.php',
-            type: 'GET',
-            data: 'op=getGalleryModal&idgaleria=' + idgaleria,
-            success: function(e) {
-                $("#loadGalleryModal").html(e);
-                loadAlbumSlcModalGallery(idmalbm);
-                if(estado == false){
-                    $ ("#btn-cmb-alb"). attr ("style", "display: none;");
-                }else{
-                    $ ("#btn-cmb-alb"). attr ("style", "display: block;");
-                }
-            }
-        });
-    }
-
-    /*Cagar select de modal de la galeria */
-    function loadAlbumSlcModalGallery(idalbm){
-        $.ajax({
-            url: 'controllers/album.controller.php',
-            type: 'GET',
-            data: 'op=loadAlbumSlcModal&idusuario=1',
-            success: function(e) {
-              $("#slc-album-md").html(e);
-              if(añdAlbm == false){
-                  $("#slc-album-md").val(idalbm);
-              }else{
-                  $("#alb-add-gal").html(e);
-              }
-            }
-          });
-    }
-
-    /*Cargar select del modal de añadir galeria */
-    function loadAlbumSlcModalAddGallery(){
-        $.ajax({
-            url: 'controllers/album.controller.php',
-            type: 'GET',
-            data: 'op=loadAlbumSlcModal&idusuario=1',
-            success: function(e) {
-                $("#alb-add-gal").html(e);
-            }
-          });
-    }
-
-
     
-
+    /************** LLAMADO DE LAS FUNCIONES ******************/
     loadAlbum();
     loadGallery();
 });

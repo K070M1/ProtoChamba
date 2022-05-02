@@ -151,3 +151,22 @@
 }
 
 
+/* Nuevos botones */
+.dark-mode .btn-light {
+  color: #fff;
+  background-color: #343a40;
+  border-color: #343a40;
+  box-shadow: none;
+}
+
+.dark-mode .btn-light:hover {
+  color: #fff;
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+.dark-mode .btn-light:focus, .btn-light.focus {
+  color: #fff;
+  background-color: #23272b;
+  border-color: #1d2124;
+  box-shadow: 0 0 0 0 rgba(82, 88, 93, 0.5);
+}

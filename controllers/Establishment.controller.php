@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../model/Establishment.php';
 
 // Objeto establishment
@@ -15,8 +16,6 @@ if (isset($_GET['op'])) {
   //     # code...
   //     break;
   // }
-
-
 
   //Establecimiento
   function listEstablishment($data){
@@ -65,7 +64,6 @@ if (isset($_GET['op'])) {
             <li><i class='far fa-building'></i> {$row['establecimiento']}</li>
             <li><i class='fas fa-business-time'></i> {$row['horarioatencion']}</li>
             <li><i class='fas fa-map-marker-alt'></i> {$row['ubicacion']}</li>
-            <li><iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15523.146567111802!2d-76.14548722093855!3d-13.425529598205369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91101686897e15b7%3A0x471a0acba7a881d!2sChincha%20Alta%2011702!5e0!3m2!1ses!2spe!4v1648176214359!5m2!1ses!2spe' width='800' height='600' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe></li>
           </ul>
           
         ";
@@ -74,18 +72,89 @@ if (isset($_GET['op'])) {
     
   }
 
+  //Establecimiento para mapas
+  function listarEstablecimiento($data){
+
+    if(count($data) <= 0){
+      echo "";
+    }
+    else{
+      foreach($data as $row){
+        echo "
+          <tr>
+            <td align='center'>
+              <i class='fas fa-business-time'></i>
+            </td>
+            <td>{$row['establecimiento']}</td>
+            <td>
+              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-map-marked-alt'></i>
+            </td>
+            <td>{$row['tipocalle']} {$row['nombrecalle']} {$row['numerocalle']}</td>
+            <td>
+              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-asterisk'></i>
+            </td>
+            <td>{$row['referencia']}</td>
+            <td>
+              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+        ";
+      }
+    }
+  }
+
 
 
   if ($_GET['op'] == 'getEstablishmentsByUser'){
+    $idusuario;
 
-    $data = $establishment->getEstablishmentsByUser(["idusuario" => 1]);
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
+
+    $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
     listEstablishment($data);
     
   }
+
   if ($_GET['op'] == 'getEstablishmentsInfo'){
 
-    $data = $establishment->getEstablishmentsByUser(["idusuario" => 1]);
+    $idusuario;
+
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
+
+    $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
     listInfo($data);
-    
+  }
+
+  if ($_GET['op'] == 'getAEstablishment'){
+
+    $data = $establishment->getAEstablishment(["idestablecimiento" => 1]);
+    listarEstablecimiento($data);
+  }
+
+  if ($_GET['op'] == 'getEstablishmentByService') {
+
+    $data = $establishment->getEstablishmentByService(["nombreservicio" => $_GET['nombreservicio']]);
+    echo json_encode($data);
   }
 }

@@ -149,14 +149,14 @@ body> div#modal-res-contra3 > .modal-dialog > .modal-content > .m-res{
 
 /*Temporizador*/
 
-body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper { 
+body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper { 
   width:30px;
   height:30px;
   background:white;
   float: right;
 }
 
-body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .pie {
+body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .pie {
   width: 50%;
   height: 100%;
   transform-origin: 100% 50%;
@@ -165,14 +165,14 @@ body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back
   border: 1.5px solid #232323;
 }
 
-body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner {
+body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner {
   border-radius: 100% 0 0 100% / 50% 0 0 50%;
   z-index: 200;
   border-right:none;
   animation: rota 25s linear infinite;
 }
 
-body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner:after {
+body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner:after {
     position:absolute;
     width:10px;
     height:10px;
@@ -186,7 +186,7 @@ body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back
   	display: none;
 }
 
-body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .filler {
+body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .filler {
   border-radius: 0 100% 100% 0 / 0 50% 50% 0; 
   left: 50%;
   opacity: 0;
@@ -195,7 +195,7 @@ body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back
   border-left: none;
 }
 
-body> div#modal-res-contra4 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .mask {
+body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .mask {
   width: 50%;
   height: 100%;
   position: absolute;

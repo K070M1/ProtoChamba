@@ -6,17 +6,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PROTO CHAMBA</title>
+  <title>Q' Tal Chamba</title>
   <link rel="shortcut icon" href="dist/img/trabaja.png" type="image/x-icon">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
+  <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+
   <!-- Sweetalert2 -->
   <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+
+  <!-- Ion Slider -->
+  <link rel="stylesheet" href="plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
 
   <!-- DataTables -->
   <link rel="stylesheet" href="./plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -243,75 +249,33 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
-        <i class="nav-icon fab fa-qq ml-4" style="font-size: 24px;"></i>
+      <a href="index.php?view=main-view" class="brand-link">
+        <i class="nav-icon fab fa-qq ml-3" style="font-size: 24px;"></i>
         <span class="brand-text font-weight-bold"> Q' Tal Chamba</span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="#" class="d-block">Nombre del usuario</a>
-          </div>
-        </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar text-sm flex-column nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+            <li class="nav-header">MENU</li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="index.php?view=main-view" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   Inicio
-                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="index.php?view=inicio-view" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inicio</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="index.php?view=bcorta-view" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Filtrado V-corta</p>
-                  </a>
-                </li>
-              </ul>
             </li>
-            <li class="nav-header">MENU</li>
-
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>
-                  Gestión de perfil
-                  <i class="right fas fa-angle-left"></i>
-                </p>
+              <a href="index.php?view=profile-view" class="nav-link btn-profile-index">
+              <i class="nav-icon fas fa-user"></i>
+                <p>Mi Perfil</p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="index.php?view=perfil-view" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Mi Perfil</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="index.php?view=geolocalizacion-view" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Geolocalización</p>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -335,7 +299,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="index.php?view=graficos-view" class="nav-link">
+                  <a href="index.php?view=graphics-view" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Gráficos</p>
                   </a>
@@ -354,18 +318,10 @@
             </li>
             <li class="nav-item">
               <a href="index.php?view=geolocalizacion-view" class="nav-link">
-                <i class="nav-icon fas fa-map-marker-alt"></i>
+                <i class="nav-icon fas fa-map"></i>
                 <p>
                   Ubicaciones
                 </p>
-              </a>
-            </li>
-
-            <!--  -->
-            <li class="nav-item">
-              <a href="index.php?view=work-done-view" class="nav-link">
-                <i class="fas fa-briefcase nav-icon"></i>
-                <p>Trabajos publicados</p>
               </a>
             </li>
           </ul>
@@ -395,7 +351,7 @@
       <!-- /.content -->
 
       <!-- Subir al inicio -->
-      <a id="back-to-top" href="#content-body" class="btn btn-dark back-to-top d-none" role="button" aria-label="Scroll to top">
+      <a id="back-to-top" href="#content-body" style="bottom: 110px;" class="btn btn-dark back-to-top d-none" role="button" aria-label="Scroll to top">
         <i class="fas fa-chevron-up"></i>
       </a>
     </div>
@@ -614,168 +570,19 @@
   </div>
   <!--./Modal de preguntas de seguridad -->
 
-  <!--Modales Restablecimiento de contraseña-->
-  <!-- Modal de restablecimiento tercer paso -->
-  <div class="modal fade" id="modal-res-contra3" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">He olvidado mi contraseña...!</h3>
-          <span><label>Suarez*********@gmail.com</label></span>
-          <div class="cnt-res">
-            <h5>Obtener un código de verificación</h5>
-            <p>Se enviará un código de verificación temporal al correo indicado</p>
-          </div>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes3">Generar Código</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--./Modal de restablecimiento tercer paso -->
 
-  <!---Modal de restablecimiento cuarto paso-->
-  <div class="modal fade" id="modal-res-contra4" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-            <div class="wrapper">
-              <div class="pie spinner"></div>
-              <div class="pie filler"></div>
-              <div class="mask"></div>
-            </div>​ 
-          </div>
-          <h3 class="font-weight-bold">Validar el código de verificación</h3>
-          <span><label>Suarez*********@gmail.com</label></span>
-          <form id="form-horizontal"">
-              <div class=" form-group row">
-                <div class="col-sm-5">
-                  <label for="">Ingrese el código enviado:</label>
-                </div>
-                <div class="col-sm-7">
-                  <input type="password" class="form-control">
-                </div>
-            </div>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes4">Validar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!---./Modal de restablecimiento cuarto paso-->
-
-  <!-- Modal de restablecimiento quinto paso -->
-  <div class="modal fade" id="modal-res-contra5" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">Crear nueva contraseña</h3>
-          <span><label for="">Suarez*********@gmail.com</label></span>
-          <form class="">
-            <div class="form-group row">
-              <div class="col-sm-5">
-                <label for="">Nueva contraseña:</label>
-              </div>
-              <div class="col-sm-7">
-                <input type="password" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-sm-5">
-                <label for="">Repetir contraseña:</label>
-              </div>
-              <div class="col-sm-7">
-                <input type="password" class="form-control">
-              </div>
-            </div>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes5">Crear contraseña</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- ./Modal de restablecimiento quinto paso -->
-
-  <!-- Modal de restablecimiento primer paso -->
+  <!-- Modal de restablecimiento -->
   <div class="modal fade" id="modal-res-contra1" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">Solicitar cambio de contraseña</h3>
-          <form id="">
-            <div class="form-group row">
-              <div class="col-sm-12">
-                <label for="">Los procesos se enviarán a:</label>
-                <input type="email" class="form-control" disabled value="1299595@senati.pe" id="emailDir">
-              </div>
-            </div>
-            <a href="#" data-toggle="modal" data-target="#modal-res-contra2">!No tengo acceso a este correo...!</a>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes1">Siguiente</button>
-          </div>
+        <div class="modal-body m-res" id="m-res-lod">
+
         </div>
       </div>
     </div>
   </div>
-  <!--./Modal de restablecimiento primer paso -->
+  <!--./Modal de restablecimiento-->
 
-
-  <!-- Modal de restablecimiento segundo paso -->
-  <div class="modal fade" id="modal-res-contra2" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body m-res">
-          <div id="back-icon">
-            <a href="#">
-              <i class="fas fa-arrow-left"></i>
-            </a>
-          </div>
-          <h3 class="font-weight-bold">Cambio de email de repaldo</h3>
-          <form id="f">
-            <div class="form-group row">
-              <div class="col-sm-12">
-                <label for="">Los procesas han sido cambiados al email:</label>
-                <input type="email" class="form-control" disabled value="1302314@senai.pe" id="emailResp">
-              </div>
-            </div>
-          </form>
-          <div id="btn-gen-res">
-            <button type="button" class="btn btn-secondary" id="btnRes2">Siguiente</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--./Modal de restablecimiento segundo paso -->
-
-  <!--./Modales Restablecimiento de contraseña-->
-
-  <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
 
@@ -784,6 +591,9 @@
 
   <!-- Bootstrap -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Ion Slider -->
+  <script src="plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
   
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.js"></script>
@@ -803,6 +613,10 @@
   <script src="./plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <!-- /. plugins - Datatable -->
 
+  
+  <!-- Select2 -->
+  <script src="plugins/select2/js/select2.full.min.js"></script>
+
   <!-- Moment -->
   <script src="plugins/moment/moment.min.js"></script>
   <script src="plugins/moment/locale/es.js"></script>
@@ -814,152 +628,25 @@
   <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
   <script src="dist/js/sweet-alert-2.js"></script>
 
+  <!--Cargar datos de la galeria-->
   <script src="dist/js/pages/galeria.js"></script>
+
+  <!--Cargar datos de la galeria-->
+  <script src="dist/js/pages/index.js"></script>
+
   <script>
     $(document).ready(function() {
 
       var view = getParam("view");
-      if (view != false)
+      
+      // Cambio de contenido dinámico
+      if (view != false){
         $("#content-data").load(`views/${view}.php`);
-      else
-        $("#content-data").load(`views/inicio-view.php`);
+      }else{
+        $("#content-data").load(`views/main-view.php`);
+      }  
 
-      /*$("#btn-regist-opn").click(function(){
-        $("#modal-perfil-img").modal('toggle');
-        $("#modalRegister").modal('hide');
-      });
-
-      $("#btn-omt-prf").click(function() {
-        $("#modal-perfil-img").modal('hide');        
-      });
-
-      /* Movimiento entre modales */
-      $("#btnRes1").click(function() {
-        var email = $("#emailDir").val();
-        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
-        $("#emailDir").val(res);
-        
-        $("#modal-res-contra1").modal("hide");
-        $("#modal-res-contra3").modal("toggle");
-      });
-
-      $("#btnRes2").click(function() {
-        var emailres = $("#emailResp").val();
-        var res = email.replace(/[a-z0-9\-_.]+@/ig, (c) => c.substr(0, 3) + c.split('').slice(3, -1).map(v => '*').join('') + '@');
-        $("#emailResp").val(res);
-        
-        $("#modal-res-contra2").modal("hide");
-        $("#modal-res-contra3").modal("toggle");
-      });
-
-      $("#btnRes3").click(function() {
-        $("#modal-res-contra3").modal("hide");
-        $("#modal-res-contra4").modal("toggle");
-      });
-
-      $("#btnRes4").click(function() {
-        $("#modal-res-contra4").modal("hide");
-        $("#modal-res-contra5").modal("toggle");
-      });
-
-      $("#btnRes5").click(function() {
-        $("#modal-res-contra5").modal("hide");
-      });
-      /* ./Movimiento entre modales */
-
-
-      /* Registrar usuario */
-
-      // Cargar datos de departamentos
-      function slclstDepartm() {
-        $.ajax({
-          url: 'controllers/ubigeo.controller.php',
-          type: 'GET',
-          data: 'op=getDepartments',
-          success: function(e) {
-            $("#slcDepartReg").html(e);
-          }
-        });
-      }
-
-      // Cargar datos de provincias
-      $("#slcDepartReg").change(function() {
-        let iddepart = $(this).val();
-
-        $.ajax({
-          url: 'controllers/ubigeo.controller.php',
-          type: 'GET',
-          data: 'op=getProvinces&iddepartamento=' + iddepart,
-          success: function(e) {
-            $("#slcProvinReg").html(e);
-          }
-        });
-
-      });
-
-      //Cargar datos de distritos
-      $("#slcProvinReg").change(function() {
-        let idprovin = $(this).val();
-
-        $.ajax({
-          url: 'controllers/ubigeo.controller.php',
-          type: 'GET',
-          data: 'op=getDistricts&idprovincia=' + idprovin,
-          success: function(e) {
-            $("#slcDistrReg").html(e);
-          }
-        });
-      });
-
-      //Registrarse
-      function registerUser() {
-
-        var formData = new FormData();
-
-        let apellidos = $("#inApellidos").val();
-        let nombres = $("#inNombres").val();
-        let fechanac = $("#inFechaNac").val();
-        let telefono = $("#inTelef").val();
-        let iddistrito = $("#slcDistrReg").val();
-        let tipocalle = $("#inTipoC").val();
-        let nombrecalle = $("#inNCalle").val();
-        let numerocalle = $("#inNC").val();
-        let pisodepa = $("#inPiso").val();
-        let email = $("#inCorreoE").val();
-        let clave = $("#inPass1").val();
-
-        formData.append("op", "registerUser");
-        formData.append("apellidos", apellidos);
-        formData.append("nombres", nombres);
-        formData.append("fechanac", fechanac);
-        formData.append("telefono", telefono);
-        formData.append("iddistrito", iddistrito);
-        formData.append("tipocalle", tipocalle);
-        formData.append("nombrecalle", nombrecalle);
-        formData.append("numerocalle", numerocalle);
-        formData.append("pisodepa", pisodepa);
-        formData.append("email", email);
-        formData.append("clave", clave);
-
-        $.ajax({
-          url: 'controllers/user.controller.php',
-          type: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false,
-          cache: false,
-          success: function(e) {
-            console.log(e);
-          }
-        });
-      }
-
-      $("#btn-regist-opn").click(registerUser);
-      slclstDepartm();
-      /*./Registrar usuario */
-
-
-      /* Verificar correo y contraseña */
+      // Verificar correo y contraseña
       $('#btn-login').click(function() {
 
         var email = $('#email').val();
@@ -982,21 +669,25 @@
         })
       })
 
+      // Click en el botón de perfil
+      $(".btn-profile-index").click(function(){
+        localStorage.removeItem("idusuarioActivo");
+      });
+      
+      // CHATBOT
+      window.watsonAssistantChatOptions = {
+        integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", 
+        region: "us-east", 
+        serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", 
+        onLoad: function(instance) { instance.render(); }
+        };
+        setTimeout(function(){
+        const t=document.createElement('script');
+        t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+        document.head.appendChild(t);
+      });
     });
 
-
-
-    window.watsonAssistantChatOptions = {
-    integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", // The ID of this integration.
-    region: "us-east", // The region your integration is hosted in.
-    serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", // The ID of your service instance.
-    onLoad: function(instance) { instance.render(); }
-    };
-    setTimeout(function(){
-    const t=document.createElement('script');
-    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
-    document.head.appendChild(t);
-    });
   </script>
 </body>
 </html>

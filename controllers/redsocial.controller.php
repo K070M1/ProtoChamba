@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../model/RedSocial.php';
 $redsocial = new RedSocial();
@@ -7,7 +8,7 @@ if (isset($_GET['op'])){
 
 
   //sERVICIOS
-  function listRedSocial($data){
+  function listRedSocial($data, $visible){
 
     if(count($data) <= 0){
       echo " ";
@@ -15,7 +16,7 @@ if (isset($_GET['op'])){
     else{
       foreach($data as $row){
 
-        $icono;
+        $icono = "";
         $red = $row['redsocial'];
         $icono = $red;
 
@@ -49,7 +50,7 @@ if (isset($_GET['op'])){
             <td>
               <a  href='{$row['vinculo']}'>$red</a>
             </td>
-            <td>
+            <td {$visible}>
               <a data-idredSocial='{$row['idredsocial']}' class='btn btn-outline-info btn-sm modificarRed' href='#'><i class='fas fa-edit'></i></a>  
               <a data-idredSocial='{$row['idredsocial']}' class='btn btn-outline-danger btn-sm eliminarRed' href='#'><i class='fas fa-trash-alt'></i></a>             
             </td> 
@@ -69,9 +70,19 @@ if (isset($_GET['op'])){
 
   //Listar redesSociales
   if ($_GET['op'] == 'getRedesSociales'){
+    $idusuario;
+    $visible;
+    
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+      $visible = 'hidden';
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+      $visible = 'visible';
+    }
 
-    $data = $redsocial->getRedesSociales(["idusuario" => 1]);
-    listRedSocial($data);
+    $data = $redsocial->getRedesSociales(["idusuario" => $idusuario]);
+    listRedSocial($data, $visible);
   }
 
   //Eliminar RedSocial
