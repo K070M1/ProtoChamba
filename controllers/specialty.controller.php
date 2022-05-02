@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 $_SESSION['imgdefault'] = "default_profile_avatar.svg";
 
@@ -15,20 +14,20 @@ $service = new Service();
 $specialty = new Specialty();
 $ubigeo = new Ubigeo();
 
-if (isset($_GET['op'])){
+if (isset($_GET['op'])) {
 
   // generar carouseles
-  function generateCarousels($data){
-    if(count($data) == 0){
+  function generateCarousels($data)
+  {
+    if (count($data) == 0) {
       echo '';
-    }
-    else{
-      foreach($data as $row){
+    } else {
+      foreach ($data as $row) {
         // Obtener el numero de especialidades de acuerdo al servicio
         $numberOfSpecialties = countSpecialties($row->idservicio);
-        $cardDisabled = $numberOfSpecialties <= 5? 'disabled': 'enabled';
+        $cardDisabled = $numberOfSpecialties <= 5 ? 'disabled' : 'enabled';
 
-        if($numberOfSpecialties > 0){
+        if ($numberOfSpecialties > 0) {
           echo "
           <div class='card'>
             <div class='card-header'>
@@ -42,9 +41,9 @@ if (isset($_GET['op'])){
               </div>
             </div>
             <div class='card-body  pt-2' data-more='{$row->idservicio}'>
-              <div class='owl-carousel'>";                
-                generateUserCards($row->idservicio);  
-              echo "
+              <div class='owl-carousel'>";
+          generateUserCards($row->idservicio);
+          echo "
               </div> <!-- /. carousel -->
             </div>
           </div>
@@ -55,11 +54,12 @@ if (isset($_GET['op'])){
   }
 
   // generar tarjetas de presentación en grid
-  function generateContentGrid($idservicio){
+  function generateContentGrid($idservicio)
+  {
     echo "
     <div class='row'>
       <div class='col-md-4 mb-4'>";
-        generateUserCards($idservicio);  
+    generateUserCards($idservicio);
     echo "
       </div>
     </div>
@@ -67,37 +67,40 @@ if (isset($_GET['op'])){
   }
 
   // Filtrados por el nombre del servicio y el iddepartamento
-  function generateSpecialtiesFiltered($data, $wSize){
-    if(count($data) == 0){
+  function generateSpecialtiesFiltered($data, $wSize)
+  {
+    if (count($data) == 0) {
       echo "<h4>Sin registros encontrados</h4> ";
-    }
-    else{
+    } else {
       createUserCard($data, $wSize);
     }
   }
 
   // obtener el total de especialidades
-  function countSpecialties($idservicio){
+  function countSpecialties($idservicio)
+  {
     $specialty = new Specialty();
     $specialties = $specialty->getSpecialtyByService(["idservicio" => $idservicio]);
     return count($specialties);
   }
 
   // generar tarjetas de presentaciones
-  function generateUserCards($idservicio){
+  function generateUserCards($idservicio)
+  {
     $specialty = new Specialty();
     $specialties = $specialty->getSpecialtyByService(["idservicio" => $idservicio]);
-    
+
     // genera una lista de cards
-    createUserCard($specialties);                
+    createUserCard($specialties);
   }
 
   // Crear tarjetas de presentación a partir de un arreglo de datos
-  function createUserCard($data, $wSize = "box-sm"){
-    if(count($data) > 0){
-      foreach ($data as $row){
+  function createUserCard($data, $wSize = "box-sm")
+  {
+    if (count($data) > 0) {
+      foreach ($data as $row) {
         $getImage = getImageProfileUser($row['idusuario']);
-        $imageProfile = $getImage != ''? $getImage : $_SESSION['imgdefault'];
+        $imageProfile = $getImage != '' ? $getImage : $_SESSION['imgdefault'];
         $scoreUser = getScoreUser($row['idusuario']);
         $scoreUser = ceil($scoreUser); // Redondeado hacia el entero siguiente
 
@@ -128,21 +131,21 @@ if (isset($_GET['op'])){
                   </div>
                   <div class='box-right'>
                     <div class='icons-score'>";
-    
-                      /* con estrellas */
-                      for($i = 0; $i < $scoreUser; $i++){
-                        echo "
+
+        /* con estrellas */
+        for ($i = 0; $i < $scoreUser; $i++) {
+          echo "
                           <i class='fas fa-star active'></i>
                         ";
-                      }
-    
-                      /* sin estrellas */
-                      for($i = 0; $i < 5 - $scoreUser; $i++){
-                        echo "
+        }
+
+        /* sin estrellas */
+        for ($i = 0; $i < 5 - $scoreUser; $i++) {
+          echo "
                           <i class='fas fa-star'></i>
                         ";
-                      }
-                    echo "</div>
+        }
+        echo "</div>
                   </div>
                 </div>
                 <hr>
@@ -165,9 +168,9 @@ if (isset($_GET['op'])){
     
                   <!-- redes sociales -->
                   <div class='social-media box-right'>";
-                    listRedsocialUser($row['idusuario']);
-    
-                echo "</div>
+        listRedsocialUser($row['idusuario']);
+
+        echo "</div>
                 </div>
     
               </div>
@@ -180,27 +183,30 @@ if (isset($_GET['op'])){
   }
 
   // Obtener imagen de perfil
-  function getImageProfileUser($idusuario){
+  function getImageProfileUser($idusuario)
+  {
     $gallery = new Gallery();
     $images = $gallery->getProfilePicture(["idusuario" => $idusuario]);
 
-    return isset($images[0]) ? $images[0]['archivo']: '';
+    return isset($images[0]) ? $images[0]['archivo'] : '';
   }
 
   // Obtener la calificación del usuario (Estrellas)
-  function getScoreUser($idusuario){
+  function getScoreUser($idusuario)
+  {
     $qualify = new Qualify();
     $score = $qualify->getScoreUser(["idusuario" => $idusuario]);
-    return isset($score[0]) ? $score[0]['estrellas']: 0;
+    return isset($score[0]) ? $score[0]['estrellas'] : 0;
   }
 
   // Obtener las redes del usuario
-  function listRedsocialUser($idusuario){
+  function listRedsocialUser($idusuario)
+  {
     $redsocial = new RedSocial();
     $data = $redsocial->getRedesSociales(["idusuario" => $idusuario]);
 
-    if(count($data) > 0){
-      foreach($data as $row){
+    if (count($data) > 0) {
+      foreach ($data as $row) {
         $icon = getIconRedSocial($row['redsocial']);
 
         echo "
@@ -211,94 +217,42 @@ if (isset($_GET['op'])){
   }
 
   // Obtener el icono de la red social
-  function getIconRedSocial($red){
+  function getIconRedSocial($red)
+  {
 
     $icon = "";
 
-    if ($red == 'I'){
+    if ($red == 'I') {
       $red = "Instagram";
       $icon = '<i class="fab fa-instagram icon-instagram"></i>';
-    }elseif($red == 'F'){
+    } elseif ($red == 'F') {
       $red = "Facebook";
-      $icon ='<i class="fab fa-facebook-f icon-facebook"></i>';
-    }elseif($red == 'W'){
+      $icon = '<i class="fab fa-facebook-f icon-facebook"></i>';
+    } elseif ($red == 'W') {
       $red = "WhatsApp";
-      $icon ='<i class="fab fa-whatsapp icon-whatsapp"></i>';
-    }elseif($red == 'T'){
+      $icon = '<i class="fab fa-whatsapp icon-whatsapp"></i>';
+    } elseif ($red == 'T') {
       $red = "Twitter";
-      $icon ='<i class="fab fa-twitter icon-twitter"></i>';
-    }elseif($red == 'Y'){
+      $icon = '<i class="fab fa-twitter icon-twitter"></i>';
+    } elseif ($red == 'Y') {
       $red = "YouTube";
-      $icon ='<i class="fab fa-youtube icon-youtube"></i>';
-    }
-    elseif($red == 'K'){
+      $icon = '<i class="fab fa-youtube icon-youtube"></i>';
+    } elseif ($red == 'K') {
       $red = "Tik Tok";
-      $icon ='<i class="fab fa-tiktok icon-tiktok"></i>';
+      $icon = '<i class="fab fa-tiktok icon-tiktok"></i>';
     }
 
     return $icon;
   }
 
-  /****** OLD */
-  //Listar los cards 
-  function listSpecialty($data){
-
-    if(count($data) == 0 ){
-        echo "<h5>No hay especialidades disponibles</h5>";
-    }
-    else{
-        foreach($data as $row){
-          echo "
-          <div class ='card' >
-              <div class='card-header'>
-                <div class='box-left'>
-                  <img src='dist/img/avatar2.png'>
-                </div>
-                <div class='box-right'>
-                  <div class='icons'>
-                    <i class='fas fa-star active'></i>
-                    <i class='fas fa-star active'></i>
-                    <i class='fas fa-star'></i>
-                    <i class='fas fa-star'></i>
-                    <i class='fas fa-star'></i>
-                  </div>
-                  <div class='name-user'>
-                      <h6>{$row['datosusuario']}</h6>
-                      <h6>{$row['nombreservicio']}</h6>
-                  </div>
-                </div>
-              </div>
-              <div class='card-body'>
-                <div class='contacts'>
-                  <a href='#'><i class='fas fa-solid fa-envelope'></i> <span>{$row['email']}</span></a>
-                  <a href='#'><i class='fas fa-solid fa-phone'></i> <span>{$row['telefono']}</span></a>
-                  <a href='#'><i class='fas fa-map-marker-alt'></i> <span>{$row['ubicacion']}</span></a>
-                </div>
-              </div>
-            <div class='card-footer'>
-              <div class='social-media'>
-                <a href='#'><i class='fab fa-facebook-f'></i></a>     
-                <a href='#'><i class='fab fa-instagram'></i></a>     
-                <a href='#'><i class='fab fa-whatsapp'></i></a>       
-              </div>
-            </div>
-              </div>   
-                
-          ";
-        }
-              
-    }              
-  }
-
-
   // listar en un control select
-  function listSpecialtyControlSelect($data){
-    if(count($data) == 0){
+  function listSpecialtyControlSelect($data)
+  {
+    if (count($data) == 0) {
       echo " <option value=''>Sin registros</option> ";
-    }
-    else{
+    } else {
       echo " <option value=''>Seleccione</option> ";
-      foreach($data as $row){
+      foreach ($data as $row) {
         echo "
           <option value='{$row['idespecialidad']}'>{$row['descripcion']}</option>
         ";
@@ -306,63 +260,89 @@ if (isset($_GET['op'])){
     }
   }
 
- 
+
   // Listar especialidades por servicio
-  if($_GET['op'] == 'getSpecialtyByService'){
+  if ($_GET['op'] == 'getSpecialtyByService') {
     $data = $specialty->getSpecialtyByService(['idservicio' => $_GET['idservicio']]);
     listSpecialtyControlSelect($data);
   }
 
+  function listSpecialtyUser($data, $visible){
+    if (count($data) <= 0) {
+      echo " ";
+    } else {
+
+      foreach ($data as $row) {
+        echo "
+          <tr>
+            <td align='center'>
+              <i class='fas fa-gavel'></i>
+            </td>
+            <td>
+              {$row['descripcion']}
+            </td>
+            <td>
+              $/.{$row['tarifa']}
+            </td>
+            <td {$visible}>
+              <a class='btn btn-info btn-sm edit-nombre' href='#'><i class='fas fa-edit'></i></a>            
+              <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-danger btn-sm eliminarEsp' href='#'><i class='fas fa-trash-alt'></i></a>            
+            </td>
+          </tr>
+          <hr>       
+
+        ";
+      }
+    }
+  }
+
   // Listar especialidades por usuario
-  if($_GET['op'] == 'listSpecialtyUser'){
+  if ($_GET['op'] == 'listSpecialtyUser') {
     $idusuario;
+    $visible;
     
-    if($_GET['idusuarioactivo'] != -1){
+    if ($_GET['idusuarioactivo'] != -1) {
       $idusuario = $_GET['idusuarioactivo'];
+      $visible = 'hidden';
     } else {
       $idusuario = $_SESSION['idusuario'];
+      $visible = 'visible';
     }
 
+    $data = $specialty->listSpecialtyUser(["idusuario" => $idusuario]);
+    listSpecialtyUser($data, $visible);
   }
 
-  if($_GET['op'] == 'getSpecialtyByUser'){
-    $data = $specialty->getSpecialtyByUser(['idusuario' => 1]);
+  // Listar en el control select
+  if ($_GET['op'] == 'getSpecialtyByUser') {
+    $data = $specialty->getSpecialtyByUser(["idusuario" => $_SESSION['idusuario']]);
     listSpecialtyControlSelect($data);
   }
-                                                                             
-  if($_GET['op'] == 'filterTarifasGrid'){
-    $data = $specialty->filterTarifas(['tarifa' => $_GET['tarifa']]);
-    listSpecialty($data);
-  }
 
-  if($_GET['op'] == 'filterTarifasList'){
-    $data = $specialty->filterTarifas(['tarifa' => $_GET['tarifa']]);
-    listSpecialtyLarge($data);
-  }
 
   // Listar los carouseles
-  if($_GET['op'] == 'listCarousels'){
+  if ($_GET['op'] == 'listCarousels') {
     $services = $service->getServices();
     generateCarousels($services);
   }
 
   // Mostrar especialidades relacionados al servicio (GRID)
-  if($_GET['op'] == 'generateContentGrid'){
+  if ($_GET['op'] == 'generateContentGrid') {
     generateContentGrid($_GET['idservicio']);
   }
 
   // Filtrados por servicio y departamento
-  if($_GET['op'] == 'specialtiesFilteredByServiceAndDepartment'){
+  if ($_GET['op'] == 'specialtiesFilteredByServiceAndDepartment') {
     $data = $specialty->specialtiesFilteredByServiceAndDepartment([
       "nombreservicio"  => $_GET['nombreservicio'],
       "iddepartamento"  => $_GET['iddepartamento']
     ]);
-    
+
     generateSpecialtiesFiltered($data, $_GET['wsize']);
   }
 
   // Filtrados por servicio y provincia
-  if($_GET['op'] == 'specialtiesFilteredByServiceAndProvince'){
+  if ($_GET['op'] == 'specialtiesFilteredByServiceAndProvince') {
     $data = $specialty->specialtiesFilteredByServiceAndProvince([
       "nombreservicio"  => $_GET['nombreservicio'],
       "idprovincia"     => $_GET['idprovincia']
@@ -372,7 +352,7 @@ if (isset($_GET['op'])){
   }
 
   // Filtrados por servicio y distrito
-  if($_GET['op'] == 'specialtiesFilteredByServiceAndDistrict'){
+  if ($_GET['op'] == 'specialtiesFilteredByServiceAndDistrict') {
     $data = $specialty->specialtiesFilteredByServiceAndDistrict([
       "nombreservicio"  => $_GET['nombreservicio'],
       "iddistrito"      => $_GET['iddistrito']
@@ -382,7 +362,7 @@ if (isset($_GET['op'])){
   }
 
   // Filtrados por servicio y distrito
-  if($_GET['op'] == 'specialtiesFilteredByServiceAndFee'){
+  if ($_GET['op'] == 'specialtiesFilteredByServiceAndFee') {
     $data = $specialty->specialtiesFilteredByServiceAndFee([
       "nombreservicio"  => $_GET['nombreservicio'],
       "iddepartamento"  => $_GET['iddepartamento'],
@@ -392,7 +372,38 @@ if (isset($_GET['op'])){
 
     generateSpecialtiesFiltered($data, $_GET['wsize']);
   }
-} 
+}
 
+// MÉTODO POST
+if (isset($_POST['op'])){
+
+  if ($_POST['op'] == 'registerSpecialtyUser'){
+
+    $datosEnviar = [
+      "idusuario"        =>  $_SESSION['idusuario'],
+      "idservicio"       =>  $_POST["idservicio"],
+      "descripcion"      =>  $_POST["descripcion"],
+      "tarifa"           =>  $_POST["tarifa"]
+
+    ];
+
+    $specialty->registerSpecialtyUser($datosEnviar);
+  } 
+
+  // modificar descripcion de un usuario
+  if ($_POST['op'] == 'updateSpecialty'){
+    $datosEnviar = [
+      "idespecialidad"    =>  $_POST["idespecialidad"],
+      "idusuario"         =>  $_SESSION['idusuario'],
+      "idservicio"        =>  $_POST["idservicio"],    
+      "descripcion"       =>  $_POST["descripcion"],    
+      "tarifa"            =>  $_POST["tarifa"]
+    ];
+
+    $specialty->updateSpecialty($datosEnviar);
+
+  }
+
+}
 
 ?>

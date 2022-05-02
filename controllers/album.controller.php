@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 session_start();
 require_once '../model/Album.php';
 
@@ -86,11 +87,17 @@ if (isset($_GET['op'])) {
     $data = $album->deleteAlbum(["idalbum" => $_GET['idalbum']]);
   }
 
-  // Traer datos del album para el modal
-  if ($_GET['op'] == 'getAlbumDat') {
-    $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
-    echo json_encode($data);
-  }
+    // Traer datos del album para el modal
+    if($_GET['op'] == 'getAlbumDat'){
+        $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
+        echo json_encode($data);
+    }
+
+    // Cargar el album dentro de un modal
+    if($_GET['op'] == 'loadAlbumSlcModal'){
+        $data = $album->getAlbumsByUser(["idusuario" => $_SESSION['idusuario']]);
+        loadAlbumSlcModal($data);
+    }
 
   // Cargar el album dentro de un modal
   if ($_GET['op'] == 'loadAlbumSlcModal') {
@@ -101,13 +108,13 @@ if (isset($_GET['op'])) {
 
 if (isset($_POST['op'])) {
 
-  // Registrar un album
-  if ($_POST['op'] == "registerAlbum") {
-    $enviard =
-      [
-        "idusuario"     => '1',
-        "nombrealbum"   => $_POST['nombrealbum']
-      ];
+    // Registrar un album
+    if($_POST['op'] == "registerAlbum"){
+        $enviard =   
+        [
+            "idusuario"     => $_SESSION['idusuario'],
+            "nombrealbum"   => $_POST['nombrealbum']
+        ];
 
     $data = $album->registerAlbum($enviard);
   }

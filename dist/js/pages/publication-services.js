@@ -292,7 +292,7 @@ $("#data-publication-works").on("mouseleave", ".reactions span", function(){
 $("#data-publication-works").on("click", ".reactions span", function(){
   let idtrabajo = $(this).parent(".reactions").attr("data-code-work");
   let idreaccion =$(this).parent(".reactions").attr("data-code-reaction"); // id
-  let reaccion =$(this).parent(".reactions").attr("data-reaction");        // Puntaje anterior
+  let reaccion = $(this).parent(".reactions").attr("data-reaction");        // Puntaje anterior
   let puntuacion = $(this).attr("data-code");
 
   let dataSend = {
@@ -315,7 +315,9 @@ function qualifyService(dataSend){
     url: 'controllers/qualify.controller.php',
     data: dataSend,
     success: function(result){
-      if(result == ""){
+      if(result != ""){
+        sweetAlertWarning(result, 'Debe iniciar sesión o registrarse');
+      } else {
         loadPublicationWorks();
       }
     }
@@ -427,9 +429,10 @@ function registerComment(dataSend){
     url: 'controllers/comment.controller.php',
     type: 'GET',
     data: dataSend,
-    success: function(result){
-      
-      if(result == ""){
+    success: function(result){      
+      if(result != ""){
+        sweetAlertWarning(result, "Debe iniciar sesión o registrase");
+      } else {
         // Limpiar caja
         $(".write-text-comment").html('');
         loadPublicationWorks(); // Actualizar datos en la vista
@@ -536,7 +539,6 @@ function deleteComment(idcomentario){
 /**
  * FORO DE CONSULTAS
  */
-var idusuarioForum = 2;
 
 // Bloquear saltos de linea
 $(".content-forum .contenteditable").keypress(function (e){
@@ -626,9 +628,10 @@ function registerCommentForum(dataSend){
     type: 'GET',
     data: dataSend,
     success: function(result){
-      console.log(result)
-
-      if(result == ""){
+      
+      if(result != ""){
+        sweetAlertWarning(result, "Debe iniciar sesión o registrarse");
+      } else {
         loadQueriesForumToUser(idusuarioForum);
       }
     }
@@ -691,7 +694,7 @@ function deleteQueryForum(idforo){
 }
 
 // Listar consultas del foro
-function loadQueriesForumToUser(idusuario){
+function loadQueriesForumToUser(){
   $.ajax({
     url: 'controllers/forum.controller.php',
     type: 'GET',
@@ -705,7 +708,7 @@ function loadQueriesForumToUser(idusuario){
 }
 
 // ejecutar la carga de consultas
-loadQueriesForumToUser(idusuarioForum);
+loadQueriesForumToUser();
 
 /**
  * VIDEO PLAYER iNICIAR 

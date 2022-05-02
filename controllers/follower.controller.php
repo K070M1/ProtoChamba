@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once '../model/Follower.php';
 $follower = new Follower();
 
@@ -94,8 +95,13 @@ if (isset($_GET['op'])){
 
   //Conteo de seguidores
   if ($_GET['op'] == 'getCountFollowersByUser'){
-    
-    $data = $follower->getCountFollowersByUser(["idusuario" => 1]);
+    $data;
+
+    if(isset($_SESSION['idusuario'])){
+      $data = $follower->getCountFollowersByUser(["idusuario" => $_SESSION['idusuario']]);
+    } else {
+      $data = $follower->getCountFollowersByUser(["idusuario" => $_GET['idusuarioactivo']]);
+    }
 
     if($data <= 0){
       echo "0";
@@ -103,12 +109,18 @@ if (isset($_GET['op'])){
     else{
       echo json_encode($data);
     }
+    
   }
 
   //Conteo de seguidos
   if ($_GET['op'] == 'getCountFollowedByUser'){
-  
-    $data = $follower->getCountFollowedByUser(["idusuario" => 1]);
+    $dat;
+
+    if(isset($_SESSION['idusuario'])){
+      $data = $follower->getCountFollowedByUser(["idusuario" => $_SESSION['idusuario']]);
+    } else {
+      $data = $follower->getCountFollowedByUser(["idusuario" => $_GET['idusuarioactivo']]);
+    }
 
     if($data <= 0){
       echo "0";
@@ -116,6 +128,7 @@ if (isset($_GET['op'])){
     else{
       echo json_encode($data);
     }
+
   }
 
 }

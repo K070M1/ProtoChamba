@@ -154,7 +154,7 @@ $("#range-money").change(function () {
 
 // Abrir en el mapa
 $("#btn-open-map").click(function () {
-  alert("Abrir mapa");
+  //alert("Abrir mapa");
   //redirect(serviciobuscado);
 });
 

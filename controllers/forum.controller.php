@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['idusuario'] = 3;
-$_SESSION['imagedefault'] = 'default_profile_avatar.svg';
 
 require_once '../model/Forum.php';
 require_once '../model/Gallery.php';
@@ -79,11 +77,15 @@ if(isset($_GET['op'])){
 
   // Registrar publicación de consulta
   if($_GET['op'] == 'commentForum'){
-    $forum->commentForum([
-      'idtousuario'   => $_SESSION['idusuario'],
-      'idfromusuario' => $_GET['idusuario'],
-      'consulta'      => $_GET['consulta']
-    ]);
+    if(isset($_SESSION['idusuario'])){
+      $forum->commentForum([
+        'idfromusuario' => $_SESSION['idusuario'],
+        'idtousuario'   => $_GET['idusuario'],
+        'consulta'      => $_GET['consulta']
+      ]);
+    } else {
+      echo "Iniciar sesión";
+    }
   }
 
   // Actualizar publicación de consulta

@@ -101,7 +101,7 @@ if (isset($_POST['op'])){
   if ($_POST['op'] == 'registerRedSocial'){
 
     $datosEnviar = [
-      "idusuario"      =>  1,
+      "idusuario"      =>  $_SESSION['idusuario'],
       "redsocial"       =>  $_POST["redsocial"],
       "vinculo"         =>  $_POST["vinculo"]
     ];
@@ -113,7 +113,7 @@ if (isset($_POST['op'])){
   if ($_POST['op'] == 'updateRedSocial'){
 
     $datosEnviar = [
-      "idusuario"       =>  1,
+      "idusuario"       =>  $_SESSION['idusuario'],
       "idredsocial"     =>  $_POST["idredsocial"],
       "redsocial"       =>  $_POST["redsocial"],
       "vinculo"         =>  $_POST["vinculo"]

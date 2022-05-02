@@ -8,19 +8,27 @@ if(isset($_GET['op'])){
 
   // Registrar
   if($_GET['op'] == 'registerQualify'){
-    $qualify->registerQualify([
-      "idtrabajo"   => $_GET['idtrabajo'],
-      "idusuario"   => $_SESSION['idusuario'],
-      "puntuacion"  => $_GET['puntuacion']
-    ]);
+    if(isset($_SESSION['idusuario'])){
+      $qualify->registerQualify([
+        "idtrabajo"   => $_GET['idtrabajo'],
+        "idusuario"   => $_SESSION['idusuario'],
+        "puntuacion"  => $_GET['puntuacion']
+      ]);
+    } else {
+      echo "Iniciar sesión";
+    }
   }
   
   // Actualizar puntuación
   if($_GET['op'] == 'updateQualify'){
-    $qualify->updateQualify([
-      "idcalificacion"  => $_GET['idcalificacion'],
-      "puntuacion"      => $_GET['puntuacion']
-    ]);
+    if(isset($_SESSION['idusuario'])){
+      $qualify->updateQualify([
+        "idcalificacion"  => $_GET['idcalificacion'],
+        "puntuacion"      => $_GET['puntuacion']
+      ]);
+    } else {
+      echo "Iniciar sesión";
+    }
   }
 }
 

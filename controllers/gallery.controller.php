@@ -1,9 +1,14 @@
-<?php
+<?php 
 session_start();
+date_default_timezone_set("America/Lima");
+
+if(isset($_SESSION['idusuario'])){
+    $sidusuario = $_SESSION['idusuario'];
+}
+
 require_once '../model/Gallery.php';
 
 $gallery = new Gallery();
-date_default_timezone_set("America/Lima");
 
 if (isset($_GET['op'])) {
 
@@ -136,96 +141,188 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'deleteGallery') {
     $data = $gallery->deleteGallery(["idgaleria" => $_GET['idgaleria']]);
   }
+
+  if($_GET['op'] == 'getAPicturePort'){
+    $idusuario;
+
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
+
+    $data = $gallery->getPortPicture(["idusuario" => $idusuario]);
+    echo json_encode($data);
+  }
+
+  if($_GET['op'] == 'getAPicturePerfil'){
+    $idusuario;
+
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
+
+    $data = $gallery->getProfilePicture(["idusuario" => $idusuario]);
+    echo json_encode($data);
+  }
 }
 
-if (isset($_POST['op'])) {
-
-  // Registrar
-  if ($_POST['op'] == "registerGalleryPhotos") {
-
-    // Para encriptar fotos
-    function encripPhoto()
-    {
+if (isset($_POST['op'])){
+  // Para encriptar fotos
+  function encripPhoto(){
       $lenght = 15;
       $base = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       $longitud = strlen($base);
       $code = '';
-      for ($i = 0; $i < $lenght; $i++) {
-        $random = $base[mt_rand(0, $longitud - 1)];
-        $code .= $random;
+      for($i = 0; $i < $lenght; $i++){
+          $random = $base[mt_rand(0, $longitud -1)];
+          $code .= $random;
+      }
+  
+      return $code;
+  }
+
+  if($_POST['op'] == "registerGalleryPhotos"){
+
+      $idtypefile = $_POST['tipoarchivo'];
+
+      if($idtypefile == 'image/png'){
+          $extension =  encripPhoto() . date('YmdhGsuv') . ".png";
+      }else if($idtypefile == 'image/jpeg'){
+          $extension = encripPhoto() . date('YmdhGsuv') . ".jpg";
+      }else{
+          $extension = encripPhoto() . date('YmdhGsuv') . ".gif";
       }
 
-      return $code;
-    }
-
-    $idtypefile = $_POST['tipoarchivo'];
-
-    if ($idtypefile == 'image/png') {
-      $extension =  encripPhoto() . date('YmdhGsuv') . ".png";
-    } else if ($idtypefile == 'image/jpeg') {
-      $extension = encripPhoto() . date('YmdhGsuv') . ".jpg";
-    } else {
-      $extension = encripPhoto() . date('YmdhGsuv') . ".gif";
-    }
-
-    $enviard =
-      [
-        "idalbum"       => $_POST['idalbum'],
-        "idusuario"     => '1',
-        "idtrabajo"     => " ",
-        "tipo"          => "F",
-        "archivo"       => $extension
+      $enviard =   
+      [   
+          "idalbum"       => $_POST['idalbum'],
+          "idusuario"     => $_SESSION['idusuario'],
+          "idtrabajo"     => " ",
+          "tipo"          => "F",
+          "archivo"       => $extension,
+          "estado"        => "1"
       ];
 
-    $data = $gallery->registerGallery($enviard);
-    move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/user/" . $extension);
-    echo $_FILES['archivo']['tmp_name'];
-    echo $extension;
+      $data = $gallery->registerGallery($enviard);
+      move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $extension);
+      echo $extension;
   }
 
-  // Actualizar
-  if ($_POST['op'] == "updateGallery") {
+  if($_POST['op'] == "updateGallery"){
 
-    $enviard =
-      [
-        "idgaleria"     => $_POST['idgaleria'],
-        "idalbum"       => $_POST['idalbum']
+      $enviard =   
+      [   
+          "idgaleria"     => $_POST['idgaleria'],
+          "idalbum"       => $_POST['idalbum'],
+          "estado"        => '1'
       ];
 
-    $data = $gallery->updateGallery($enviard);
+      $data = $gallery->updateGallery($enviard);
+  }
+  
+  if($_POST['op'] == "updateUserPerfilPort"){ 
+      $dataPor = $gallery->getPortPicture(["idusuario" => $_SESSION['idusuario']]);
+      $dataPer = $gallery->getProfilePicture(["idusuario" => $_SESSION['idusuario']]);
+      $regIDAlbumPer = $gallery->getIDAlbum(["idusuario" => $_SESSION['idusuario'] , "tipoalbum" => 'PE']);
+      $regIDAlbumPor = $gallery->getIDAlbum(["idusuario" => $_SESSION['idusuario'], "tipoalbum" => 'PO']);
+
+
+      if(isset($_FILES['archivo'])){
+          $ext = explode('.', $_FILES['archivo']['name']);
+          $image = encripPhoto().date('Ymdhis'). '.' . $ext[1];
+
+          //Portada
+          if($_POST['estado'] == 'true'){
+              if(sizeof($dataPor) == '0'){
+                  $datregister = [
+                      "idalbum"       => $regIDAlbumPor[0]['idalbum'],
+                      "idusuario"     => $_SESSION['idusuario'],
+                      "idtrabajo"     => " ",
+                      "tipo"          => "F",
+                      "archivo"       => $image,
+                      "estado"        => "3"
+                  ];
+      
+                  $gallery->registerGallery($datregister);
+                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+              }else{
+                  $idporgal = $dataPor[0]['idgaleria'];
+                  $idalbumpor = $dataPor[0]['idalbum'];
+      
+                  $enviarDat =
+                  [
+                      'idgaleria' => $idporgal,
+                      'idalbum'   => $idalbumpor,
+                      'estado'    => '1'
+                  ];
+                  
+                  $gallery->updateGallery($enviarDat);
+      
+                  $datregister = [
+                      "idalbum"       => $regIDAlbumPor[0]['idalbum'],
+                      "idusuario"     => $_SESSION['idusuario'],
+                      "idtrabajo"     => " ",
+                      "tipo"          => "F",
+                      "archivo"       => $image,
+                      "estado"        => "3"
+                  ];
+      
+                  $gallery->registerGallery($datregister);
+                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+              }
+              echo $image;
+          
+              // Perfil
+          }else{
+              if(sizeof($dataPer) == '0'){
+                  $datregister = [
+                      "idalbum"       => $regIDAlbumPer[0]['idalbum'],
+                      "idusuario"     => $_SESSION['idusuario'],
+                      "idtrabajo"     => " ",
+                      "tipo"          => "F",
+                      "archivo"       => $image,
+                      "estado"        => "2"
+                  ];
+                  var_dump($datregister);
+          
+                  $data = $gallery->registerGallery($datregister);
+                  var_dump($data);
+                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+              }else{
+                  echo 'Paso Equivocado';
+                  $idpergal = $dataPer[0]['idgaleria'];
+                  $idalbumper = $dataPer[0]['idalbum'];
+                  
+                  $enviarDat =
+                  [
+                      'idgaleria' => $idpergal,
+                      'idalbum'   => $idalbumper,
+                      'estado'    => '1'
+                  ];
+                  $gallery->updateGallery($enviarDat);
+  
+                  $datregister = [
+                      "idalbum"       => $regIDAlbumPer[0]['idalbum'],
+                      "idusuario"     => $_SESSION['idusuario'],
+                      "idtrabajo"     => " ",
+                      "tipo"          => "F",
+                      "archivo"       => $image,
+                      "estado"        => "2"
+                  ];
+                  
+                  $gallery->registerGallery($datregister);
+                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+              }
+              echo $image;
+          } 
+      }else{
+          echo "ERROR";
+      }
+      
   }
 
-  // DEMOS
-  // Eliminar imagen de la carpeta
-  if ($_POST['op'] == 'deleteImg') {
-    $result;
-    
-    if (unlink('../dist/img/202204200525472.jpg')) {
-      $result = " Imagen (202204200525472.jpg) Eliminado";
-    } else {
-      $result = " Error";
-    }
-
-    echo $result;
-  }
-
-  // Renombrar imagen de la carpeta
-  if ($_POST['op'] == 'renameImg') {
-    $oldName = "202204200352290.jpg";
-    $newName = "Eliminar.jpg";
-    $result;
-    
-    if(rename("../dist/img/" . $oldName, "../dist/img/" . $newName)){
-      $result = "Renombrado";
-    }
-    else{
-      $result = "Error al renombrar";
-
-    }
-
-    echo $result;
-  }
-
-  // FIN DEMOS
 }
 ?>

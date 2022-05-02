@@ -9,11 +9,15 @@ if(isset($_GET['op'])){
 
   // Registrar
   if($_GET['op'] == 'registerComment'){
-    $comment->registerComment([
-      "idtrabajo"   => $_GET['idtrabajo'],
-      "idusuario"   => $_SESSION['idusuario'],
-      "comentario"  => $_GET['comentario']
-    ]);
+    if(isset($_SESSION['idusuario'])){
+      $comment->registerComment([
+        "idtrabajo"   => $_GET['idtrabajo'],
+        "idusuario"   => $_SESSION['idusuario'],
+        "comentario"  => $_GET['comentario']
+      ]);
+    } else {
+      echo "Iniciar sesión";
+    }
   }
   
   // Actualizar

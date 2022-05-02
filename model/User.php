@@ -16,7 +16,7 @@ class User extends ModelMaster{
   // Registrar usuario
   public function registerUser(array $data){
     try{
-      return parent::execProcedurePerso($data, "spu_usuarios_registrar");
+      return parent::execProcedure($data, "spu_usuarios_registrar", true);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -83,6 +83,16 @@ class User extends ModelMaster{
     }
   }
 
+  // Obtener un registro de preguntas de usuario
+  public function getAUserQuest(array $data){
+    try{
+      return parent::execProcedure($data, "spu_usuarios_quest", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   //lista la descripcion de un usuario
   public function getUsersDescrip(array $data){
     try{
@@ -93,6 +103,17 @@ class User extends ModelMaster{
     }
   }
 
+
+  //lista la descripcion de un usuario
+  public function getNameUser(array $data){
+    try{
+      return parent::execProcedure($data, "spu_personas_getname_user", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+  
   // Actualizar descripcion de un usuario
   public function updateDescrip(array $data){
     try{
@@ -172,6 +193,16 @@ class User extends ModelMaster{
       die($error->getMessage());
     }
   }
+
+  //Verificacion de existencia de correo de respaldo
+    public function getEmailVRes(array $data){
+      try{
+        return parent::execProcedurePerso($data,"spu_email_verifi_res");
+      }
+      catch(Exception $error){
+        die($error->getMessage());
+      }
+    }
 
   //Cambiar contraseña
   public function updatePasswordRest(array $data){

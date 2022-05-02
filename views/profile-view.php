@@ -1,3 +1,5 @@
+
+
 <!-- css perfil -->
 <link rel="stylesheet" href="./dist/css/pages/perfil.css">
 <link rel="stylesheet" href="./dist/css/pages/styleGaleria.css">
@@ -15,21 +17,24 @@
   <!--Contenido-->
   <section class="perfil-usuario align-items-end">
     <div class="contenedor-perfil">
+      <!--Portada-->
       <div class="portada-perfil" id="visual">
-        <img src="./dist/img/port.jpg" alt="">
+        <img src="" id="refer-port-img" data-img-por=''>
 
-        <div class="sombra"></div>
-        <div class="avatar-perfil" id="preview">
-          <img src="./dist/img/user1.jpg" alt="">
-          <a href="#" class="cambiar-foto" id="idfoto">
-            <i class="fas fa-camera"></i>
-            <span>Cambiar foto</span>
-          </a>
+        <div class="sombra" >
         </div>
+          <!--Perfil-->
+          <div class="avatar-perfil" id="preview">
+            <img src="" id="refer-perf-img" data-img-per=''>
+            <a href="#" class="cambiar-foto" id="idfotoPerf">
+                <i class="fas fa-camera"></i> 
+                <span>Cambiar foto</span>
+            </a>
+          </div>
         <div class="datos-perfil">
-          <h5 class="titulo-usuario" id="nombreUsu">nombreUsuario</h5>
+          <h1 class="titulo-usuario" id="nombreUsu"></h1>
         </div>
-
+        
         <div class="opcciones-perfil">
           <a href="#" class="cambiar-Portada" id="idfotoPrt">
             <button type="" id="btn-Por"><i class="fas fa-camera"></i></button>
@@ -38,17 +43,21 @@
 
         <!-- FOTO PERFIL -->
         <div class="btnfile" style="display: none;">
-          <input type="file" id="fileFotografia" accept=".jpg" name="archivoImagen">
+          <input type="file" id="filePerfil" accept=".jpg, .png, .gif" name="archivoPerfil">
         </div>
         <!-- FOTO PORTADA -->
         <div class="btnPortada" style="display: none;">
-          <input type="file" id="fileImagen" accept=".jpg" name="archivoFoto">
+          <input type="file" id="filePortada" accept=".jpg, .png, .gif" name="archivoPortada">
         </div>
 
       </div>
     </div>
 
+
     <div class="row">
+      <!-- <div class="col-md-4">
+
+          </div> -->
       <div class="col-md-7 col-sm-6 col-xs-6 justify-content-end">
         <!-- Seccion de segui... -->
         <div class="container1">
@@ -73,6 +82,7 @@
             </div>
           </div>
         </div>
+
       </div>
       <div class="col-md-3 col-sm-6 col-xs-6 ">
         <!-- Seccion de CALIFICACIONES -->
@@ -97,10 +107,14 @@
       <div class="col-md-2 col-sm-12">
         <button class="btn btn-info" id="btnseguir">Seguir</button>
       </div>
+
+
     </div>
+
 
   </section>
   <!--====  End section  ====-->
+
 </div>
 
 <!-- === Inicio de nav === -->
@@ -112,50 +126,50 @@
       <a class="nav-link" id="nav-galeria-tab" data-toggle="tab" href="#nav-galeria" role="tab" aria-controls="nav-galeria" aria-selected="false">Galeria</a>
       <a class="nav-link" id="nav-amigos-tab" data-toggle="tab" href="#nav-amigos" role="tab" aria-controls="nav-amigos" aria-selected="false">Amigos</a>
       <a class="nav-link" id="nav-configuracion-tab" data-toggle="tab" href="#nav-servicios" role="tab" aria-controls="nav-servicios" aria-selected="false">Servicios</a>
-      <a class="nav-link" id="nav-forum-tab" data-toggle="tab" href="#nav-forum" role="tab" aria-selected="false">Foro</a>
+      <a class="nav-link" id="nav-forum-tab" data-toggle="tab" href="#nav-forum" role="tab"  aria-selected="false">Foro</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
     <!-- General nav -->
     <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
 
-      <div class="contenedor-perfil">
-        <div class="profile-info">
-          <div class="info-col">
-            <div class="profile-intro">
-              <h3>Información:</h3>
-              <hr>
-              <div id="info-empresa">
-                <!-- Dinamico -->
+          <div class="contenedor-perfil">
+          <div class="profile-info">
+              <div class="info-col">
+                <div class="profile-intro">
+                  <h3>Información:</h3>
+                  <hr>
+                  <div id="info-empresa">
+                    <!-- Dinamico -->
+                  </div>
+        
+                </div>
               </div>
+              <div class="post-col">
+                <div class="sdasd">
+                  <div class="profile-der">
+                    <div class="row">
+                      <div class="col-md-9">
+                        <h3>Descripción: </h3>
+                      </div>
+                      <div class="col-md-3">              
+                        <a href="javascript:void(0)" class="btn btn-outline-info edit-come"><i class='fas fa-edit'></i></a>
+                        <a href="javascript:void(0)" class="btn btn-outline-warning edit-come-cancel d-none"><i class="far fa-save"></i></a>
+                      </div>
+                    </div>
+                    <hr>
+                    
+                    <div id="text-descripcion">
+                      <!-- DINAMICO -->
+                    </div>
 
-            </div>
-          </div>
-          <div class="post-col">
-            <div class="sdasd">
-              <div class="profile-der">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h3>Descripción: </h3>
-                  </div>
-                  <div class="col-md-3">
-                    <a href="javascript:void(0)" class="btn btn-outline-info edit-come"><i class='fas fa-edit'></i></a>
-                    <a href="javascript:void(0)" class="btn btn-outline-warning edit-come-cancel d-none"><i class="far fa-save"></i></a>
                   </div>
                 </div>
-                <hr>
-
-                <div id="text-descripcion">
-                  <!-- DINAMICO -->
-                </div>
-
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- fin general nav -->
+        <!-- fin general nav -->
 
     <!--Información nav-->
     <div class="tab-pane fade " id="nav-informacion" role="tabpanel" aria-labelledby="nav-informacion-tab" style="margin-top: 2em;">
@@ -172,20 +186,20 @@
         <div class="col-9">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
+              
               <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Datos Personales</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnP" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <i class='fas fa-edit'></i>
-                    </button>
+                <div class="card" style="padding: 10px" id="card">
+                  <div class="row">
+                    <div class="col-md-10 text-center">
+                      <h5>Datos Personales</h5>
+                    </div>
+                    <div class="col-md-2  text-right">
+                      <button id="btnP" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class='fas fa-edit'></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </p>
               <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="agregarser">
@@ -210,7 +224,7 @@
                         <input type="tel" class="form-control form-control-border" id="telefono">
                       </div>
                     </div>
-
+                    
                     <div class="form-group row">
                       <div class="col-sm-12">
                         <label>Dirección:</label>
@@ -254,18 +268,18 @@
             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
               <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Servicios</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnS" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
+                <div class="card" style="padding: 10px" id="card">
+                  <div class="row">
+                    <div class="col-md-10 text-center">
+                      <h5>Servicios</h5>
+                    </div>
+                    <div class="col-md-2  text-right">
+                      <button id="btnS" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </p>
               <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="agregarser">
@@ -289,18 +303,18 @@
 
             <div class="tab-pane fade" id="v-pills-esp" role="tabpanel" aria-labelledby="v-pills-esp-tab">
               <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Especialidades</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
+                <div class="card" style="padding: 10px" id="card">
+                  <div class="row">
+                    <div class="col-md-10 text-center">
+                      <h5>Especialidades</h5>
+                    </div>
+                    <div class="col-md-2  text-right">
+                      <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </p>
               <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="agregarser">
@@ -351,18 +365,18 @@
 
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
               <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Redes Sociales</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
+                <div class="card" style="padding: 10px" id="card">
+                  <div class="row">
+                    <div class="col-md-10 text-center">
+                      <h5>Redes Sociales</h5>
+                    </div>
+                    <div class="col-md-2  text-right">
+                      <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               </p>
               <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="agregarser">
@@ -370,7 +384,7 @@
                     <label for="">Nombre de red social:</label>
                     <!-- <input type="text" class="form-control form-control-border" id="nombrered"> -->
                     <Select class="custom-select form-control-border" id="nombrered">
-                      <option value='' disabled selected hidden>Seleccione:</option>
+                      <option value='' disabled selected hidden >Seleccione:</option>
                       <option value="I">Instagram</option>
                       <option value="F">Facebook</option>
                       <option value="W">WhatsApp</option>
@@ -413,7 +427,7 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
+        
           <table class="table seguidores">
             <tbody id="seguidores">
               <!-- Cargado de forma dinamica -->
@@ -422,7 +436,7 @@
 
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
+          
           <table class="table seguidos">
             <tbody id="seguidos">
               <!-- Cargado de dinamica -->
@@ -458,7 +472,7 @@
         </div>
 
         <!-- Publicaciones de servicios -->
-        <div class="content-service col-12">
+        <div class="content-service col-md-12">
 
           <!-- Contenido de las publicaciones -->
           <div class="content-data-publication" id="data-publication-works">
@@ -486,8 +500,8 @@
         <!--Fotos-->
         <div class="tab-pane fade show active" id="pills-foto" role="tabpanel">
           <div class="row" id="load-Gallery">
-
-
+            
+            
           </div>
         </div>
         <!--./Fotos-->
@@ -495,14 +509,14 @@
         <!--Albumes-->
         <div class="tab-pane fade" id="pills-album" role="tabpanel">
           <div class="row" id="load-album">
-
-
+            
+            
           </div>
           <!---Collapse de fotos en los albumes-->
           <div class="collapse" id="img-album-open-collap">
             <h2 id="tittle-collapse"></h2>
             <div class="row" id="content-collapse-albm">
-
+              
             </div>
           </div>
           <!---./Collapse de fotos en los albumes-->
@@ -521,14 +535,14 @@
             <div class="card-header">
               <h4>Foro de consultas</h4>
             </div>
-            <div class="card-body p-2 pt-3">
+            <div class="card-body p-2 pt-3" >
               <!-- Escribir comentario -->
               <div class="write-comment">
                 <img src="dist/img/avatar5.png" style="align-self:flex-start" />
                 <div class="text-auto-height">
                   <div class="text-input-auto contenteditable write-text-comment" contenteditable="true" maxlength="250"> </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-send" style="align-self:flex-start">
+                <button type="button" class="btn btn-primary btn-send" style="align-self:flex-start" >
                   <i class="fas fa-paper-plane"></i>
                 </button>
               </div>
@@ -541,8 +555,8 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <div class="content-comments" id="content-data-forum" style="max-height: 450px;">
-                <!-- Cargados de forma asincrona -->
+              <div class="content-comments" style="max-height: 450px;" id="content-data-forum">
+                <!-- dinamicos -->
               </div>
             </div>
           </div>
@@ -555,232 +569,232 @@
 
 
 <!--Modales -->
-<!--Modal de Añadir imagenes-->
-<div class="modal fade" id="md-add-img" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Agregar a mi galería</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="upload.php" method="post" enctype="multipart/form-data">
-          <div class="form-group row">
-            <div class="col-lg-2 align-self-center">
-              <label class="form-label">Album:</label>
-            </div>
-            <div class="col-lg-5">
-              <select class="form-control" id="alb-add-gal">
+  <!--Modal de Añadir imagenes-->
+  <div class="modal fade" id="md-add-img" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar a mi galería</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="upload.php" method="post" enctype="multipart/form-data">
+            <div class="form-group row">
+              <div class="col-lg-2 align-self-center">
+                <label class="form-label">Album:</label>
+              </div>
+              <div class="col-lg-5">
+                <select class="form-control" id="alb-add-gal">
 
-              </select>
+                </select>
+              </div>
+              <div class="form-group col-sm-5 text-right">
+                <input type="file" multiple id="add-new-photo" accept=".jpg, .gif, .png" name="archivo[]">
+                <button type="button" class="btn btn-outline-secondary form-button" id="btn-up-cnt-img">Subir imágenes</button>
+              </div>
             </div>
-            <div class="form-group col-sm-5 text-right">
-              <input type="file" multiple id="add-new-photo" accept=".jpg, .gif, .png" name="archivo[]">
-              <button type="button" class="btn btn-outline-secondary form-button" id="btn-up-cnt-img">Subir imágenes</button>
-            </div>
-          </div>
-        </form>
-        <h7>Tus capturas o imágenes:</h7>
-        <div class="img-cnt-add">
-          <div class="row img-container-upt">
+          </form>
+          <h7>Tus capturas o imágenes:</h7>
+          <div class="img-cnt-add">
+            <div class="row img-container-upt">
 
-            <!--Solo para referencia-->
-            <div class="img-upd-container"></div>
+              <!--Solo para referencia-->
+              <div class="img-upd-container"></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cnl-img">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="btn-add-gal-md">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--./Modal de Añadir imagenes-->
-
-<!--Modal de ver la imagen-->
-<div class="modal fade" id="modal-view-img" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" id="loadGalleryModal">
-
-    </div>
-  </div>
-</div>
-<!--./Modal de ver la imagen-->
-
-<!--Modal de añadir album-->
-<div class="modal fade" id="md-album-cd-img" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="t-md-albm">Crear nuevo álbum</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="">
-          <label for="">Nombre del álbum:</label>
-          <input type="text" class="form-control" id="nmb-album-add">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="añadir-albm">Añadir</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cnl-img">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btn-add-gal-md">Guardar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!--./Modal de añadir album-->
+  <!--./Modal de Añadir imagenes-->
 
-<!-- Modal PUBLICACIÓN DE TRABAJOS-->
-<div class="modal fade" id="modal-publication" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="title-modal-publication">Crear una nueva publicación de trabajo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form autocomplete="off" id="form-publication">
-          <div class="form-group">
-            <label for="especialidad">Especialidad:</label>
-            <select class="custom-select rounded-0 form-control-border" id="especialidad">
-              <!-- datos dinamicos -->
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="titulo">Titulo:</label>
-            <input type="text" id="titulo" class="form-control form-control-border">
-          </div>
-          <div class="form-group">
-            <label for="descripcion" class="col-form-label">Descripción:</label>
-            <textarea class="form-control form-control-border rounded-0" id="descripcion"></textarea>
-          </div>
-
-          <!-- opciones para cargar archivos -->
-          <div class="row">
-            <div class="col-6">
-              <div class="btn-group" role="group">
-                <button id="btn-options-files" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown">
-                  Tipo de archivo
-                </button>
-                <div class="dropdown-menu" aria-labelledby="btn-options-files">
-                  <a href="javascript:void(0)" class="dropdown-item" id="btn-image">Imagenes</a>
-                  <a href="javascript:void(0)" class="dropdown-item" id="btn-video">Video</a>
-                </div>
-              </div>
-              <div class="badge badge-success text-nowrap text-uppercase" id="title-options">Imagenes</div>
-            </div>
-            <div class="col-6 text-right">
-              <button type="button" class="btn btn-sm btn-primary" id="btn-add-file"><i class="fas fa-folder-open"></i> <span>Cargar imagenes</span></button>
-              <button type="button" class="btn btn-sm btn-danger d-none" id="btn-delete-files"><i class="fas fa-trash-alt"></i> Eliminar archivos</button>
-            </div>
-          </div>
-
-          <!-- Contenido de Images previas -->
-          <div class="row" id="container-images">
-            <!-- Aquì se cargan las imagenes previas -->
-          </div>
-
-          <!-- Contenido del video vista previa -->
-          <div id="container-video">
-            <!-- progressbar -->
-            <div class="row">
-              <div class="col-sm-8">
-                <div class="progress">
-                  <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">0%</div>
-                </div>
-              </div>
-              <div class="col-sm-4 text-right">
-                <span>Peso del video: </span>
-                <span id="label-video-size">0 MB</span>
-              </div>
-            </div>
-
-            <!-- Previsualizador de video -->
-            <div class="row">
-              <div class="col-md-12">
-                <video controls id="video-tag">
-                  <source id="video-source" src="">
-                </video>
-              </div>
-            </div>
-          </div>
-          <!-- /. Contenido del video vista previa -->
-        </form>
-
-        <!-- Formulario contiene los inputs (imagen / video)-->
-        <form id="form-upload-file">
-          <input type="file" id="input-new-image" accept="image/*" max="5" multiple hidden />
-          <input type="file" id="input-new-video" accept="video/*" size="45" hidden />
-        </form>
-        <!-- /. Formulario de etiquetas inputs -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="btn-add-publication">Publicar</button>
-        <button type="button" class="btn btn-info d-none" id="btn-modify-publication">Modificar</button>
+  <!--Modal de ver la imagen-->
+  <div class="modal fade" id="modal-view-img" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" id="loadGalleryModal">
+        
       </div>
     </div>
   </div>
-</div>
-<!-- /. Modal PUBLICACIÓN DE TRABAJOS-->
+  <!--./Modal de ver la imagen-->
 
-<!-- Modal REPORTAR-->
-<div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="Modal reporte" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Denunciar usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <!--Modal de añadir album-->
+  <div class="modal fade" id="md-album-cd-img" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="t-md-albm">Crear nuevo álbum</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <label for="">Nombre del álbum:</label>
+            <input type="text" class="form-control" id="nmb-album-add">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="añadir-albm">Añadir</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <form id="form-report">
-          <div class="form-group">
-            <label for="motivo">Motivo:</label>
-            <select class="custom-select  form-control-border" id="motivo">
-              <option selected>Selecione</option>
-              <option value="">Contenido obsceno</option>
-              <option value="">Contenido ofensivo</option>
-              <option value="">Discriminatorio</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="comentario" class="col-form-label">Cuéntanos más sobre tu denuncia:</label>
-            <textarea class="form-control form-control-border" id="comentario" maxlength="200"></textarea>
-          </div>
-        </form>
-        <form id="formulario-image">
-          <div class="row" id="container-image-report">
-            <!-- Imagenes cargadas desde js -->
-          </div>
-          <div class="form-group">
-            <input type="file" hidden id="input-load-image-report" accept=".jpg, .jpeg, .png" lang="es">
-            <button type="button" id="btn-load-image-report" class="btn btn-block btn-primary">
-              <i class="fa fas fa-camera-retro"></i> <span>Subir imagen</span>
+    </div>
+  </div>
+  <!--./Modal de añadir album-->
+
+  <!-- Modal PUBLICACIÓN DE TRABAJOS-->
+  <div class="modal fade" id="modal-publication" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crear una nueva publicación de trabajo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar proceso</button>
-        <button type="button" class="btn btn-danger">Denunciar</button>
+        </div>
+        <div class="modal-body">
+          <form autocomplete="off" id="form-publication">
+            <div class="form-group">
+              <label for="especialidad">Especialidad:</label>
+              <select class="custom-select rounded-0 form-control-border" id="especialidad">
+                  <!-- datos dinamicos -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="titulo">Titulo:</label>
+              <input type="text" id="titulo" class="form-control form-control-border">
+            </div>
+            <div class="form-group">
+              <label for="descripcion" class="col-form-label">Descripción:</label>
+              <textarea class="form-control form-control-border rounded-0" id="descripcion"></textarea>
+            </div>
+
+            <!-- opciones para cargar archivos -->
+            <div class="row">
+              <div class="col-6">
+                <div class="btn-group" role="group">
+                  <button id="btn-options-files" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" >
+                    Tipo de archivo
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-options-files">
+                    <a href="javascript:void(0)" class="dropdown-item" id="btn-image" >Imagenes</a>
+                    <a href="javascript:void(0)" class="dropdown-item" id="btn-video" >Video</a>
+                  </div>
+                </div>
+                <div class="badge badge-success text-nowrap text-uppercase" id="title-options">Imagenes</div>
+              </div>
+              <div class="col-6 text-right">
+                <button type="button" class="btn btn-sm btn-primary" id="btn-add-file"><i class="fas fa-folder-open"></i> <span>Cargar imagenes</span></button>
+                <button type="button" class="btn btn-sm btn-danger d-none" id="btn-delete-files"><i class="fas fa-trash-alt"></i> Eliminar archivos</button>
+              </div>
+            </div>
+
+            <!-- Contenido de Images previas -->
+            <div class="row" id="container-images" >
+              <!-- Aquì se cargan las imagenes previas -->
+            </div>
+
+            <!-- Contenido del video vista previa -->
+            <div id="container-video">
+              <!-- progressbar -->
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">0%</div>
+                  </div>
+                </div>
+                <div class="col-sm-4 text-right">
+                  <span>Peso del video: </span>
+                  <span id="label-video-size">0 MB</span>
+                </div>
+              </div>
+
+              <!-- Previsualizador de video -->
+              <div class="row">
+                <div class="col-md-12">
+                  <video controls id="video-tag">
+                    <source id="video-source" src="">
+                  </video>
+                </div>
+              </div>
+            </div>
+            <!-- /. Contenido del video vista previa -->
+          </form>
+
+          <!-- Formulario contiene los inputs (imagen / video)-->
+          <form id="form-upload-file">
+            <input type="file" id="input-new-image" accept="image/*" max="5" multiple hidden/>
+            <input type="file" id="input-new-video" accept="video/*" size="150" hidden/>
+          </form> 
+          <!-- /. Formulario de etiquetas inputs -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btn-add-publication">Publicar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!--./Modal REPORTAR-->
+  <!-- /. Modal PUBLICACIÓN DE TRABAJOS-->
 
+  <!-- Modal REPORTAR-->
+  <div class="modal fade" id="modal-report" tabindex="-1" role="dialog" aria-labelledby="Modal reporte" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Denunciar usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <form id="form-report">
+            <div class="form-group">
+              <label for="motivo">Motivo:</label>
+              <select class="custom-select  rounded-0" id="motivo">
+                <option selected>Selecione</option>
+                <option value="">Agresión</option>
+                <option value="">Insulto</option>
+                <option value="">Otros</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="comentario" class="col-form-label">Comentario:</label>
+              <textarea class="form-control rounded-0" id="comentario"></textarea>
+            </div>
+          </form>
+          <form id="formulario-image">
+              <div class="form-group">
+                  <label for="imagenportada">Imagén o captura (Opcional)</label>        
+                  <input type="file" hidden class="custom-file-input form-control" accept=".jpg, .jpeg, .png" id="input-img-portada" lang="es">
+                  <div class="container-image d-none">
+                      <img src="dist/img/photo3.jpg" id="preview-image" class="image-responsive">
+                  </div>
+                  <button type="button" id="btn-subir-imagen" class="btn btn-flat btn-block btn-primary">
+                      <i class="fa fas fa-camera-retro"></i> <span>Subir imagen</span>
+                  </button>
+              </div>                        
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-flat btn-secondary" data-dismiss="modal">Cancelar proceso</button>
+          <button type="button" class="btn btn-flat btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--./Modal REPORTAR-->
+  
 <!-- ZONA DE SCRIPTS -->
 <!-- Perfil -->
-<script src="dist/js/pages/perfil.js"></script>
+<script src="dist/js/pages/profile.js"></script>
 <script src="dist/js/pages/galeria.js"></script>
 
 <!-- video js -->

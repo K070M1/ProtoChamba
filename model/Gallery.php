@@ -42,10 +42,31 @@ class Gallery extends ModelMaster{
     }
   }
 
+  
+  // Obtener la foto de portada
+  public function getPortPicture(array $data){
+    try{
+      return parent::execProcedure($data, "spu_galerias_foto_portada", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Obtener un registro
   public function getAGallery(array $data){
     try{
       return parent::execProcedure($data, "spu_galerias_getdata", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+  
+  //Obtener id de album segun su nombre
+  public function getIDAlbum(array $data){
+    try{
+      return parent::execProcedure($data, "spu_search_idalbum_user", true);
     }
     catch(Exception $error){
       die($error->getMessage());

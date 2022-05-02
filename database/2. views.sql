@@ -73,15 +73,29 @@ CREATE VIEW vs_especialidades_listar AS
 	GROUP BY USU.idusuario;
 -- =============================================================================================================
 -- VISTA DE USUARIOS - DATOS RESUMIDOS
--- -------------------------------------------------------------------------------------------------------------
+
 CREATE VIEW vs_usuarios_listar_datos_basicos AS
 	SELECT 	USU.idusuario, VPL.idpersona, CONCAT(VPL.nombres, ' ', VPL.apellidos) AS 'nombres',
-					USU.email, USU.rol, VPL.fechanac, USU.fechaalta, USU.estado
+					USU.email, USU.emailrespaldo, USU.rol, VPL.fechanac, USU.fechaalta, USU.estado
 		FROM usuarios USU
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
 		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 		WHERE USU.estado = 1 OR USU.estado = 2
-		ORDER BY USU.rol ASC;		
+		ORDER BY USU.rol ASC;
+
+-- =============================================================================================================
+-- VISTA DE DATOS PARA PREGUNTA DE SEGURIDAD
+-- -------------------------------------------------------------------------------------------------------------		
+	CREATE VIEW vs_usuarios_listar_quest AS
+		SELECT 	USU.idusuario, VPL.nombres, VPL.apellidos,
+						USU.email, USU.emailrespaldo, USU.rol, VPL.fechanac, USU.fechaalta, USU.estado,
+						VPL.distrito, VPL.provincia, VPL.departamento
+			FROM usuarios USU
+			INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
+			LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
+			WHERE USU.estado = 1 OR USU.estado = 2
+			ORDER BY USU.rol ASC;
+
 
 -- =============================================================================================================
 -- VISTA DE GALERIAS Y ALBUNES

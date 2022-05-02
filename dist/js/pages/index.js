@@ -1,12 +1,15 @@
+var idusuarioActivo = localStorage.getItem("idusuarioActivo");
+idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 
 var dejarIr = false;
+var NewUserImg = [];
 
 // Cargar contenido de restablecimiento paso 1
 function updtRes1(){
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
-        data: 'op=modalsRest&paso=1&estado=false',
+        data: 'op=modalsRest&paso=1',
         success: function(e) {
             $("#m-res-lod").html(e);
         }   
@@ -20,7 +23,7 @@ function slclstDepartm() {
         type: 'GET',
         data: 'op=getDepartments',
         success: function(e) {
-        $("#slcDepartReg").html(e);
+            $("#slcDepartReg").html(e);
         }
     });
 }
@@ -41,20 +44,56 @@ function registerUser() {
     let pisodepa = $("#inPiso").val();
     let email = $("#inCorreoE").val();
     let clave = $("#inPass1").val();
+    let clave2 = $("#inPass2").val();
+
+    if(apellidos == '' || nombres == '' || fechanac == '' || telefono == '' || iddistrito == null || nombrecalle == '' || numerocalle == '' || pisodepa == '' || email == '' || clave == ''){
+        sweetAlertWarning('Q tal Chamba', 'Faltan completar algunas casillas');
+    }else{
+        if(clave != clave2){
+            sweetAlertWarning('Q tal Chamba', 'Las contraseñas no coinciden');
+        }else{
+            formData.append("op", "registerUser");
+            formData.append("apellidos", apellidos);
+            formData.append("nombres", nombres);
+            formData.append("fechanac", fechanac);
+            formData.append("telefono", '51'+ telefono);
+            formData.append("iddistrito", iddistrito);
+            formData.append("tipocalle", tipocalle);
+            formData.append("nombrecalle", nombrecalle);
+            formData.append("numerocalle", numerocalle);
+            formData.append("pisodepa", pisodepa);
+            formData.append("email", email);
+            formData.append("clave", clave);
+            
+            $.ajax({
+                url: 'controllers/user.controller.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function(e) {
+                    if(e == '.'){
+                        sweetAlertError('Q tal Chamba', 'Correo ya registrado');
+                    }else{
+                        $("#modalRegister").modal('hide');
+                        $("#modal-perfil-img-new").modal('toggle');
+                        sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
+                    }
+                }
+            });
+        
+        }
+    }
     
-    formData.append("op", "registerUser");
-    formData.append("apellidos", apellidos);
-    formData.append("nombres", nombres);
-    formData.append("fechanac", fechanac);
-    formData.append("telefono", telefono);
-    formData.append("iddistrito", iddistrito);
-    formData.append("tipocalle", tipocalle);
-    formData.append("nombrecalle", nombrecalle);
-    formData.append("numerocalle", numerocalle);
-    formData.append("pisodepa", pisodepa);
-    formData.append("email", email);
-    formData.append("clave", clave);
-    
+
+}
+
+// Registrar foto de perfil de nuevo usuario
+function newProfileUser(){
+    var formData = new FormData();
+    formData.append("op", "newUserProfile");
+    formData.append("archivo", NewUserImg[0]);
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'POST',
@@ -63,69 +102,167 @@ function registerUser() {
         processData: false,
         cache: false,
         success: function(e) {
-        console.log(e);
+            $("#modal-perfil-img-new").modal('hide');
+            window.location.reload();
         }
     });
 }
 
-// Cargar contenido de restablecimiento con email de respaldo
+//Cargar foto de perfil
+function loadPicturePerfil(){
+    $.ajax({
+        url: 'controllers/gallery.controller.php',
+        type: 'GET',
+        data: 'op=getAPicturePerfil',
+        success: function(e){
+            /* console.log(e);
+            if(e == '.' || e == '[]' || e == ' ' || e === null){
+                $("#userImageIndexNav").attr('src', 'dist/img/user/userdefault.jpg');
+                $("#userImageIndexNav1").attr('src', 'dist/img/user/userdefault.jpg');
+                $("#imgQuestI").attr('src', 'dist/img/user/userdefault.jpg');
+            }else{
+                var img = JSON.parse(e);
+                $("#userImageIndexNav").attr('src', 'dist/img/user/' + img[0]['archivo']);
+                $("#userImageIndexNav1").attr('src', 'dist/img/user/' + img[0]['archivo']);
+                $("#imgQuestI").attr('src', 'dist/img/user/' + img[0]['archivo']);
+            } */
+        }
+    });
+}
 
-$("#m-res-lod").on("click", "#secondEmailMd", function(){
+//Foto de perfil de nuevo usuario
+$("#btn-omt-prf").click(function(){
+    $("#modal-perfil-img-new").modal('hide');
+    window.location.reload();
+});
+
+$("#newUserFile").change(function(){
+    var datos = this.files;
+    if(datos.length == 0){
+        sweetAlertWarning('Q tal Chamba', 'Ningun archivo seleccionado');    
+    }else{
+        var element = datos[0];
+        NewUserImg.push(element);
+        var img = URL.createObjectURL(element);
+        $("#File-imgUserNew").attr('src', img);
+        sweetAlertConfirmQuestionSave("¿Estas seguro de asignar esta foto de perfil?").then((confirm) => {
+            if(confirm.isConfirmed){
+              sweetAlertSuccess('Realizado', 'Imagen de perfil registrado');
+              newProfileUser();
+            }
+        });
+    }
+});
+
+// Cargar contenido de un select 
+
+function loadSlcQuestions(){
+
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
-        data: 'op=modalsRest&paso=2&estado=false',
+        data: 'op=questionLogin',
         success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
+            $("#slcQuestAl").html(e);
+        }
     });
+}
+
+$("#btnOpenModalRegisterIN").click(function(){
+    $("#modalRegister").modal('toggle');
+    $("#inApellidos").val('');
+    $("#inNombres").val('');
+    $("#inFechaNac").val('');
+    $("#inTelef").val('');
+    $("#slcProvinReg").val('');
+    $("#slcDepartReg").val('');
+    $("#slcDistrReg").val('');
+    $("#inTipoC").val("AV");
+    $("#inNCalle").val('');
+    $("#inNC").val('');
+    $("#inPiso").val('');
+    $("#inCorreoE").val('');
+    $("#inPass1").val('');
+    $("#inPass2").val('');
 });
 
-// Cargar contenido de restablecimiento desde ambos email
+// Verificar respuestas
+$("#checkQuestion").click(function(){
+    let quest = $("#slcQuestAl").val();
+    let answer = $("#answerSlc").val();
 
-            /* Principal */
+    var data = {
+        'op'        : 'answerQuest',
+        'quest'     : quest,
+        'answer'    : answer
+    };
+
+    if(answer == ''){
+        sweetAlertWarning('Q tal Chamba', 'Coloque su respuesta');
+    }else{
+        $.ajax({
+            url: 'controllers/user.controller.php',
+            type: 'GET',
+            data: data,
+            success: function(e) {
+                if(e == '1'){
+                    $("#modal-perfil-img-new").modal('hide');
+                    $("#modal-question").modal('hide');
+                    sweetAlertSuccess('Q tal Chamba', 'Acceso exitoso');
+                    window.location.reload();
+                }else{
+                    loadSlcQuestions();
+                }
+            }
+        });
+    }
+
+});   
+
+// Cargar contenido de restablecimiento 
 $("#m-res-lod").on("click", "#btnRes1", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=3&estado=false',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
+    var email = $("#inptEmailRes").val();
+    localStorage.removeItem("email");
+    
+    if(email == ''){
+        sweetAlertWarning('Q tal Chamba', 'Debes colocar tu correo');
+    }else{
+        $.ajax({
+            url: 'controllers/user.controller.php',
+            type: 'GET',
+            data: 'op=modalsRest&paso=2&email=' + email,
+            success: function(e) {
+                if(e == 'No permitido'){
+                    sweetAlertError('Q tal Chamba', 'Este correo no esta registrado');
+                }else{
+                    localStorage.setItem('email', email);
+                    $("#m-res-lod").html(e);
+                }
+            }   
+        });
+    }
+
 });
 
-            /* Respaldo */
+// Cargar contenido de restablecimiento paso 2
 $("#m-res-lod").on("click", "#btnRes2", function(){
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
-        data: 'op=modalsRest&paso=3&estado=true',
+        data: 'op=modalsRest&paso=3',
         success: function(e) {
             $("#m-res-lod").html(e);
         }   
     });
 });
 
-// Cargar contenido de restablecimiento paso 2
-
-            /* Principal */
-$("#m-res-lod").on("click", "#btnRes3", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=4&estado=false',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
 
 //Envio de codigo al correo
-$("#m-res-lod").on("click", "#btnRes3", function(){
+$("#m-res-lod").on("click", "#btnRes2", function(){
     var formData = new FormData();
+    var emailenv = localStorage.getItem('email');
     formData.append("op", "sendEmailPassword");
-    formData.append("emailbackup", "false");
+    formData.append("email", emailenv);
     $.ajax({
         url: 'controllers/mailer.controller.php',
         type: 'POST',
@@ -134,51 +271,21 @@ $("#m-res-lod").on("click", "#btnRes3", function(){
         processData: false,
         cache: false,
         success: function(e) {
+            sweetAlertSuccess('Q tal Chamba', 'Código enviado');
             console.log(e);
         }   
     });
 });
 
-            /* Respaldo */
-$("#m-res-lod").on("click", "#btnRes4", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=4&estado=true',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
-
-//Envio al correo de respaldo
-$("#m-res-lod").on("click", "#btnRes4", function(){
-    var formData = new FormData();
-    formData.append("op", "sendEmailPassword");
-    formData.append("emailbackup", "true");
-    $.ajax({
-        url: 'controllers/mailer.controller.php',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        success: function(e) {
-            console.log(e);
-        }   
-    });
-});
 
 // Cargar contenido de restablecimiento paso 3
 
-
-            /* Principal */
-$("#m-res-lod").on("click", "#btnRes5", function(){
+$("#m-res-lod").on("click", "#btnRes3", function(){
     if(dejarIr == true){
         $.ajax({
             url: 'controllers/user.controller.php',
             type: 'GET',
-            data: 'op=modalsRest&paso=5&estado=false',
+            data: 'op=modalsRest&paso=4',
             success: function(e) {
                 $("#m-res-lod").html(e);
                 dejarIr = false;
@@ -188,182 +295,87 @@ $("#m-res-lod").on("click", "#btnRes5", function(){
 });
 
 //Verificacion de codigo al correo
-$("#m-res-lod").on("click", "#btnRes5", function(){
-    $code =$("#code-send1").val();
-    $("#btnRes5").html('Siguiente');
+$("#m-res-lod").on("click", "#btnRes3", function(){
+    var emailenv = localStorage.getItem('email');
+    var code =$("#code-send1").val();
+    $("#btnRes3").html('Siguiente');
     var formData = new FormData();
 
     formData.append("op", "autentificationCode");
-    formData.append("code", $code);
-    $.ajax({
-        url: 'controllers/mailer.controller.php',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        success: function(e) {
-            console.log(e);
-            if(e == 'Expirado'){
-                dejarIr = false;
-                $.ajax({
-                    url: 'controllers/user.controller.php',
-                    type: 'GET',
-                    data: 'op=modalsRest&paso=4&estado=false',
-                    success: function(e) {
-                        $("#m-res-lod").html(e)
-                    }   
-                });
-            }else if(e == 'Acceso'){
-                dejarIr = true;
-                $("#btnRes5").html('Siguiente');
-            }else if (e == 'Intente'){
-                $("#btnRes5").html('Validar');
-                dejarIr = false;
-            }else{
-                alert("Error");
-            }
-                
-        }   
-    });
+    formData.append("code", code);
+    formData.append("email", emailenv);
+
+    if(code == ''){
+        sweetAlertWarning('Q tal Chamba', 'Debe colocar el código');
+    }else{
+        $.ajax({
+            url: 'controllers/mailer.controller.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(e) {
+                console.log(e);
+                if(e == 'Expirado'){
+                    sweetAlertError('Q tal Chamba', 'Código expirado, se enviará otro código');
+                    dejarIr = false;
+                    $.ajax({
+                        url: 'controllers/user.controller.php',
+                        type: 'GET',
+                        data: 'op=modalsRest&paso=3',
+                        success: function(e) {
+                            $("#m-res-lod").html(e)
+                        }   
+                    });
+                }else if(e == 'Acceso'){
+                    dejarIr = true;
+                    $("#btnRes3").html('Siguiente');
+                }else if (e == 'Intente'){
+                    sweetAlertWarning('Q tal Chamba', 'Código equivocado');
+                    $("#btnRes3").html('Validar');
+                    dejarIr = false;
+                }else{
+                    sweetAlertError('Q tal Chamba', 'ERROR');
+                    dejarIr = false;
+                }
+                    
+            }   
+        });
+    }
 });
-
-
-            /* Respaldo */
-$("#m-res-lod").on("click", "#btnRes6", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=5&estado=true',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
-
-//Verificacion de codigo al correo de respaldo
-$("#m-res-lod").on("click", "#btnRes6", function(){
-    $code =$("#code-send2").val();
-    $("#btnRes6").html('Siguiente');
-    var formData = new FormData();
-
-    formData.append("op", "autentificationCode");
-    formData.append("code", $code);
-    $.ajax({
-        url: 'controllers/mailer.controller.php',
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        cache: false,
-        success: function(e) {
-            console.log(e);
-            if(e == 'Expirado'){
-                dejarIr = false;
-                $.ajax({
-                    url: 'controllers/user.controller.php',
-                    type: 'GET',
-                    data: 'op=modalsRest&paso=4&estado=true',
-                    success: function(e) {
-                        $("#m-res-lod").html(e)
-                    }   
-                });
-            }else if(e == 'Acceso'){
-                dejarIr = true;
-                $("#btnRes6").html('Siguiente');
-            }else if (e == 'Intente'){
-                $("#btnRes6").html('Validar');
-                dejarIr = false;
-            }else{
-                alert("Error");
-            }
-                
-        }   
-    });
-});
-
-
 
 // Manejo de retroceso de modales 
-
-// 5 > 4 - true
-$("#m-res-lod").on("click", "#backi-8", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=4&estado=true',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
-
-// 5 > 4 - false
-$("#m-res-lod").on("click", "#backi-7", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=4&estado=false',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
-
-// 4 > 3 - true
-$("#m-res-lod").on("click", "#backi-6", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=3&estado=true',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
-
-// 4 > 3 - false
+// 5 > 4 
 $("#m-res-lod").on("click", "#backi-5", function(){
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
-        data: 'op=modalsRest&paso=3&estado=false',
+        data: 'op=modalsRest&paso=1',
         success: function(e) {
             $("#m-res-lod").html(e);
         }   
     });
 });
 
-// 3 > 2 - true
+// 4 > 3
 $("#m-res-lod").on("click", "#backi-4", function(){
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
-        data: 'op=modalsRest&paso=2&estado=false',
+        data: 'op=modalsRest&paso=1',
         success: function(e) {
             $("#m-res-lod").html(e);
         }   
     });
 });
 
-// 3 > 1 - falso
+// 3 > 2 
 $("#m-res-lod").on("click", "#backi-3", function(){
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
-        data: 'op=modalsRest&paso=1&estado=true',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
-
-// 2 > 1
-$("#m-res-lod").on("click", "#backi-2", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=1&estado=false',
+        data: 'op=modalsRest&paso=1',
         success: function(e) {
             $("#m-res-lod").html(e);
         }   
@@ -375,57 +387,46 @@ $("#m-res-lod").on("click", "#backi-1", function(){
     $("#modal-res-contra1").modal("toggle");
 });
 
-//Cambio de contraseña v1 - Principal
-$("#m-res-lod").on("click", "#btnRes7", function(){
+// Cambio de contraseña 
+$("#m-res-lod").on("click", "#btnRes4", function(){
     var pass1 = $("#pass-n-1").val();
-    var pass2 = $("#pass-n-1").val();
+    var pass2 = $("#pass-n-2").val();
+    var emailres = localStorage.getItem('email');
     var formData = new FormData();
 
-    if(pass1 != pass2){
-        alert("No coinciden");
+    if(pass1 == '' || pass2 == ''){
+        sweetAlertWarning('Q tal Chamba', 'Falta completar las casillas');
     }else{
-        formData.append("op", "updatePasswordRest");
-        formData.append("clave", pass1);
-
-        $.ajax({
-            url: 'controllers/user.controller.php',
-            type: 'GET',
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(e) {
-                console.log('Salio bien');
-            }   
-        });
+        if(pass1 != pass2){
+            sweetAlertWarning('Q tal Chamba', 'Las contraseñas no coinciden');
+        }else{
+            sweetAlertConfirmQuestionSave("¿Estas seguro de cambiar tu contraseña?").then((confirm) => {
+                if(confirm.isConfirmed){
+                    formData.append("op", "updatePasswordRest");
+                    formData.append("clave", pass1);
+                    formData.append("email", emailres);
+                    
+                    $.ajax({
+                        url: 'controllers/user.controller.php',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        success: function(e) {
+                            console.log(e);
+                            sweetAlertSuccess('Q tal Chamba', 'Contraseña cambiada correctamente');
+                            $("#modal-res-contra1").modal("toggle");
+                            localStorage.removeItem('email');
+                        }   
+                    });
+                }
+            });
+            
+        }
     }
 });
 
-//Cambio de contraseña v2 -Respaldo
-$("#m-res-lod").on("click", "#btnRes8", function(){
-    var pass3 = $("#pass-n-3").val();
-    var pass4 = $("#pass-n-4").val();
-    var formData = new FormData();
-
-    if(pass3 != pass4){
-        alert("No coinciden");
-    }else{
-        formData.append("op", "updatePasswordRest");
-        formData.append("clave", pass3);
-
-        $.ajax({
-            url: 'controllers/user.controller.php',
-            type: 'GET',
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(e) {
-                console.log('Salio bien');
-            }   
-        });
-    }
-});
 
 // Cargar datos de provincias
 $("#slcDepartReg").change(function() {
@@ -442,23 +443,117 @@ $.ajax({
 
 });
 
-//Cargar datos de distritos
+// Cargar datos de distritos
 $("#slcProvinReg").change(function() {
 let idprovin = $(this).val();
 
-$.ajax({
-    url: 'controllers/ubigeo.controller.php',
-    type: 'GET',
-    data: 'op=getDistricts&idprovincia=' + idprovin,
-    success: function(e) {
-    $("#slcDistrReg").html(e);
-    }
-});
+    $.ajax({
+        url: 'controllers/ubigeo.controller.php',
+        type: 'GET',
+        data: 'op=getDistricts&idprovincia=' + idprovin,
+        success: function(e) {
+        $("#slcDistrReg").html(e);
+        }
+    });
 });
 
+// Login
+$("#btnLogin").click(function(){
+    let email = $("#emailInpt").val();
+    let pass = $("#passwordInpt").val();
+
+    if($("#rememberUser").prop('checked')){
+        var remember = true;
+    }else{
+        var remember = false;
+    }
+
+    var data = 
+    {
+        'op' : 'loginUser',
+        'email' : email,
+        'password' : pass,
+        'remember'  : remember
+    };
+
+    if(email == "" || pass == ""){
+        sweetAlertWarning('Q tal Chamba', 'Faltan completar algunas casillas');
+    }else{
+        $.ajax({
+            url: 'controllers/user.controller.php',
+            type: 'GET',
+            data: data,
+            success: function(e) {
+                if(e == 'Inexistente'){
+                    sweetAlertWarning('Q tal Chamba', 'Este correo no existe');
+                }else if (e == 'Acceso'){
+                    $("#modal-question").modal('toggle');
+                    loadPicturePerfil();
+                    loadNameUserIndex();
+                    localStorage.removeItem("idusuarioActivo");
+                    //window.location.href = 'index.php';
+                }else if(e  == 'Incorrecto'){
+                    sweetAlertError('Q tal Chamba', 'Contraseña incorrecta');
+                }else{
+                    sweetAlertError('Q tal Chamba', 'ERROR EN EL SISTEMA');
+                }
+            }
+        });
+    }
+    
+});
+
+//Nombre del usuario
+function loadNameUserIndex(){
+    $.ajax({
+      url: 'controllers/user.controller.php',
+      type: 'GET',
+      data: 'op=getUserName&idusuarioactivo=' + -1,
+      success: function(e){
+        $("#nameUserIndex").html(e);
+        $("#nameUserIndex2").html(e);
+        $("#questNameI").html(e);
+      }
+    });
+}
+
+//Contador de seguidores
+function countFollower(){
+    $.ajax({
+      url:'controllers/follower.controller.php',
+      type: 'GET',
+      data: 'op=getCountFollowersByUser&idusuarioactivo=' + idusuarioActivo,
+      success: function(e){
+          if(e != ''){
+              let datos = JSON.parse(e);
+              $("#countSeguidoresIndex").html("Seguidores:" + " " +  datos);
+          }
+      }
+    });
+}
+
+//Contador de seguidos
+function countFollowing(){
+$.ajax({
+    url:'controllers/follower.controller.php',
+    type: 'GET',
+    data: 'op=getCountFollowedByUser&idusuarioactivo=' + idusuarioActivo,
+    success: function(e){
+        if(e != ''){
+            let datos1 = JSON.parse(e);
+            $("#countSeguidosIndex").html("Seguidos:" + " "+  datos1);
+        }
+    }
+});
+}
 
 
 /************** LLAMADO DE LAS FUNCIONES ******************/
 $("#btn-regist-opn").click(registerUser);
 slclstDepartm();
 updtRes1();
+loadPicturePerfil();
+loadNameUserIndex();
+countFollower();
+countFollowing();
+loadSlcQuestions();

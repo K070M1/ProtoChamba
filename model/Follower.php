@@ -47,7 +47,7 @@ class Follower extends ModelMaster{
   // Eliminar follower logica
   public function deleteFoller(array $data){
     try{
-      parent::execProcedure($data, "spu_Seguidos_eliminar", false);
+      parent::execProcedure($data, "spu_seguidos_eliminar", false);
     }
     catch(Exception $error){
       die($error->getMessage());

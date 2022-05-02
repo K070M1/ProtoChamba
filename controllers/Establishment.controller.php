@@ -72,51 +72,6 @@ if (isset($_GET['op'])) {
     
   }
 
-  //Establecimiento para mapas
-  function listarEstablecimiento($data){
-
-    if(count($data) <= 0){
-      echo "";
-    }
-    else{
-      foreach($data as $row){
-        echo "
-          <tr>
-            <td align='center'>
-              <i class='fas fa-business-time'></i>
-            </td>
-            <td>{$row['establecimiento']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
-          </tr>
-          <hr>
-          <tr>
-            <td align='center'>
-              <i class='fas fa-map-marked-alt'></i>
-            </td>
-            <td>{$row['tipocalle']} {$row['nombrecalle']} {$row['numerocalle']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
-          </tr>
-          <hr>
-          <tr>
-            <td align='center'>
-              <i class='fas fa-asterisk'></i>
-            </td>
-            <td>{$row['referencia']}</td>
-            <td>
-              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
-            </td> 
-          </tr>
-          <hr>
-        ";
-      }
-    }
-  }
-
-
 
   if ($_GET['op'] == 'getEstablishmentsByUser'){
     $idusuario;
@@ -144,12 +99,6 @@ if (isset($_GET['op'])) {
 
     $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
     listInfo($data);
-  }
-
-  if ($_GET['op'] == 'getAEstablishment'){
-
-    $data = $establishment->getAEstablishment(["idestablecimiento" => 1]);
-    listarEstablecimiento($data);
   }
 
   if ($_GET['op'] == 'getEstablishmentByService') {

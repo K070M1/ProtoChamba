@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../model/Activity.php';
 $activity = new Activity();
@@ -7,7 +8,7 @@ if(isset($_GET['op'])){
 
   // Listar actividades por usuario
   if($_GET['op'] == 'activitiesFilterByUser'){
-    $data = $activity->activitiesFilterByUser(["idusuario" => 1]);
+    $data = $activity->activitiesFilterByUser(["idusuario" => $_SESSION['idusuario']]);
     if($data){
       echo json_encode($data);
     }

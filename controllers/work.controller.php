@@ -1,7 +1,6 @@
 <?php
 session_start();
 date_default_timezone_set("America/Lima");
-$_SESSION['idusuario'] = 1;
 $_SESSION['imgdefault'] = "default_profile_avatar.svg";
 
 require_once '../model/Work.php';
@@ -15,7 +14,7 @@ $gallery = new Gallery();
 if(isset($_GET['op'])){
 
   // Generar estructura HTML
-  function listWorksHtml($data, $visible){
+  function listWorksHtml($data, $idusuario, $visible){
     if(count($data) == 0){
       echo '<h4> No existen registros</h4>';
     }
@@ -30,7 +29,7 @@ if(isset($_GET['op'])){
         $totalusersReacted = getTotalUsersReacted($row['idtrabajo']);
 
         // Puntuación del usuario
-        $dataScore = getWorkScoreByUser($row['idtrabajo'], $_SESSION['idusuario']);
+        $dataScore = getWorkScoreByUser($row['idtrabajo'], $idusuario);
         $idcalification = $dataScore != ''? $dataScore['idcalificacion']: 0;
         $userScore = $dataScore != ''? $dataScore['puntuacion']: 0;
 
@@ -174,13 +173,15 @@ if(isset($_GET['op'])){
                   $imageProfile = $getImage != ''? $getImage : 'default_profile_avatar.svg'; 
                   $options = "";
 
-                  if($_SESSION['idusuario'] == $comment['idusuario']){
-                    $options = "
-                      <a href='javascript:void(0)' class='text-info edit-comment'>Editar</a>
-                      <a href='javascript:void(0)' class='text-danger delete-comment' data-code='{$comment['idcomentario']}'>Eliminar</a>
-                      <a href='javascript:void(0)' class='text-info update-comment d-none mr-2' data-code='{$comment['idcomentario']}'>Actualizar</a>
-                      <a href='javascript:void(0)' class='text-secondary cancel-edit-comment d-none'>Cancelar</a>
-                    ";
+                  if(isset($_SESSION['idusuario'])){
+                    if($_SESSION['idusuario'] == $comment['idusuario']){
+                      $options = "
+                        <a href='javascript:void(0)' class='text-info edit-comment'>Editar</a>
+                        <a href='javascript:void(0)' class='text-danger delete-comment' data-code='{$comment['idcomentario']}'>Eliminar</a>
+                        <a href='javascript:void(0)' class='text-info update-comment d-none mr-2' data-code='{$comment['idcomentario']}'>Actualizar</a>
+                        <a href='javascript:void(0)' class='text-secondary cancel-edit-comment d-none'>Cancelar</a>
+                      ";
+                    }
                   }
                   else{
                     $options = "
@@ -190,7 +191,7 @@ if(isset($_GET['op'])){
   
                   echo "
                   <div class='box-comment'>
-                    <img src='dist/img/{$imageProfile}' alt='' />
+                    <img src='dist/img/user/{$imageProfile}' alt='' />
   
                     <div class='box-content-commented'>
                       <div class='name-user'>
@@ -295,7 +296,7 @@ if(isset($_GET['op'])){
     }
 
     $data = $work->getWorksByUser(['idusuario' => $idusuario]);
-    listWorksHtml($data, $visible);
+    listWorksHtml($data, $idusuario, $visible);
   }
 
   // Obtener un registro de trabajo
@@ -436,7 +437,7 @@ if(isset($_POST['op'])){
   
           $gallery->registerGallery([   
             'idalbum'       => '',
-            'idusuario'     => '1',
+            'idusuario'     => $_SESSION['idusuario'],
             'idtrabajo'     => $idtrabajo,
             'tipo'          => 'F',
             'archivo'       => $image

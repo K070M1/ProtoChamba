@@ -67,7 +67,7 @@ $(document).ready(function(){
         $.ajax({
             url: 'controllers/album.controller.php',
             type: 'GET',
-            data: 'op=loadAlbumSlcModal&idusuario=1',
+            data: 'op=loadAlbumSlcModal',
             success: function(e) {
               $("#slc-album-md").html(e);
               if(añdAlbm == false){
@@ -84,7 +84,7 @@ $(document).ready(function(){
         $.ajax({
             url: 'controllers/album.controller.php',
             type: 'GET',
-            data: 'op=loadAlbumSlcModal&idusuario=1',
+            data: 'op=loadAlbumSlcModal',
             success: function(e) {
                 $("#alb-add-gal").html(e);
             }
