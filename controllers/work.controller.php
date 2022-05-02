@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../model/Work.php';
 require_once '../model/Gallery.php';
@@ -198,7 +199,7 @@ if(isset($_GET['op'])){
 
   // Listar trabajos
   if($_GET['op'] == 'getWorksByUser'){
-    $data = $work->getWorksByUser(['idusuario' => 1]);
+    $data = $work->getWorksByUser(['idusuario' => $_SESSION['idusuario']]);
     listWorksHtml($data);
   }
 }
@@ -210,7 +211,7 @@ if(isset($_POST['op'])){
     // Registrar trabajo
     $data = $work->registerWork([
       'idespecialidad' => $_POST['idespecialidad'],
-      'idusuario'      => 1,
+      'idusuario'      => $_SESSION['idusuario'],
       'titulo'         => $_POST['titulo'],
       'descripcion'    => $_POST['descripcion']
     ]);
@@ -229,7 +230,7 @@ if(isset($_POST['op'])){
   
           $gallery->registerGallery([   
             'idalbum'       => '',
-            'idusuario'     => '1',
+            'idusuario'     => $_SESSION['idusuario'],
             'idtrabajo'     => $idtrabajo,
             'tipo'          => 'F',
             'archivo'       => $image

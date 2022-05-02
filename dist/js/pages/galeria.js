@@ -21,7 +21,7 @@ $(document).ready(function(){
         $.ajax({
             url: 'controllers/album.controller.php',
             type: 'GET',
-            data: 'op=loadAlbum&idusuario=1',
+            data: 'op=loadAlbum',
             success: function(e) {
                 $("#load-album").html(e);
             }
@@ -33,7 +33,7 @@ $(document).ready(function(){
         $.ajax({
           url: 'controllers/gallery.controller.php',
           type: 'GET',
-          data: 'op=listGallery&idusuario=1',
+          data: 'op=listGallery',
           success: function(e) {
             $("#load-Gallery").html(e);
           }
@@ -64,7 +64,7 @@ $(document).ready(function(){
         $.ajax({
             url: 'controllers/album.controller.php',
             type: 'GET',
-            data: 'op=loadAlbumSlcModal&idusuario=1',
+            data: 'op=loadAlbumSlcModal',
             success: function(e) {
               $("#slc-album-md").html(e);
               if(añdAlbm == false){
@@ -81,7 +81,7 @@ $(document).ready(function(){
         $.ajax({
             url: 'controllers/album.controller.php',
             type: 'GET',
-            data: 'op=loadAlbumSlcModal&idusuario=1',
+            data: 'op=loadAlbumSlcModal',
             success: function(e) {
                 $("#alb-add-gal").html(e);
             }

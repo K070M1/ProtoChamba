@@ -1,5 +1,6 @@
 <?php 
 
+session_start();
 require_once '../model/Album.php';
 
 $album = new Album();
@@ -64,7 +65,7 @@ if (isset($_GET['op'])){
 
     // Cargar los albumes
     if($_GET['op'] == 'loadAlbum'){
-        $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
+        $data = $album->getAlbumsByUser(["idusuario" => $_SESSION['idusuario']]);
         loadAlbum($data);
     }
 
@@ -81,7 +82,7 @@ if (isset($_GET['op'])){
 
     // Cargar el album dentro de un modal
     if($_GET['op'] == 'loadAlbumSlcModal'){
-        $data = $album->getAlbumsByUser(["idusuario" => $_GET['idusuario']]);
+        $data = $album->getAlbumsByUser(["idusuario" => $_SESSION['idusuario']]);
         loadAlbumSlcModal($data);
     }
 
@@ -93,7 +94,7 @@ if(isset($_POST['op'])){
     if($_POST['op'] == "registerAlbum"){
         $enviard =   
         [
-            "idusuario"     => '1',
+            "idusuario"     => $_SESSION['idusuario'],
             "nombrealbum"   => $_POST['nombrealbum']
         ];
 

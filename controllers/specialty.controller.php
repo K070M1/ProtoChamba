@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../model/Specialty.php';
 require_once '../model/Ubigeo.php';
@@ -138,7 +139,7 @@ if (isset($_GET['op'])){
 
   // Listar especialidades por usuario
   if($_GET['op'] == 'getSpecialtyByUser'){
-    $data = $specialty->getSpecialtyByUser(["idusuario" => 1]);
+    $data = $specialty->getSpecialtyByUser(["idusuario" => $_SESSION['idusuario']]);
     listSpecialtyControlSelect($data);
   }
 

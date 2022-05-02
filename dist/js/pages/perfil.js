@@ -5,35 +5,136 @@
    var idredSocial;
    var idespecialidad;
 
-  function createPerfil(file) {
+   var imgUpdtP = [];
+
+  function createPerfil(file, estado = true) {
     var imgCodified = URL.createObjectURL(file);
-    var img = $("<img src='"+imgCodified+"' alt=''><a href='#' class='cambiar-foto' id='idfoto'><i class='fas fa-camera'></i> <span>Cambiar foto</span></a>");
-    $("#preview").html(img);
+    if(estado == true){
+      console.log(imgUpdtP);
+      $("#refer-port-img").attr('src', imgCodified);
+      sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar tu foto de portada?").then((confirm) => {
+        if(confirm.isConfirmed){
+          sweetAlertSuccess('Realizado', 'Imagen de portada cambiado');
+          var formData = new FormData();
+          formData.append("op", "updateUserPerfilPort");
+          formData.append("archivo", imgUpdtP[0]);
+          formData.append("estado", true);
+          
+          $.ajax({
+            url: 'controllers/gallery.controller.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(e){
+              console.log(e);
+              loadPicturePort();
+            }
+          });
+
+        }else{
+          console.log("Cancelado");
+        }
+      });
+    }else{
+        $("#refer-perf-img").attr('src', imgCodified);
+        sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar tu foto de perfil?").then((confirm) => {
+          if(confirm.isConfirmed){
+            sweetAlertSuccess('Realizado', 'Imagen de perfil cambiado');
+            var formData = new FormData();
+            formData.append('op', 'updateUserPerfilPort');
+            formData.append("archivo", imgUpdtP[0]);
+            formData.append("estado", false);
+            
+            $.ajax({
+              url: 'controllers/gallery.controller.php',
+              type: 'POST',
+              data: formData,
+              contentType: false,
+              processData: false,
+              cache: false,
+              success: function(e){
+                console.log(e);
+                loadPicturePerfil();
+              }
+            });
+          }else{
+            console.log('cancelado');
+          }
+        });
+    }
   }
       
-  $("#fileFotografia").on("change", function(){
-    console.log(this.files);
+  $("#filePerfil").on("change", function(){
     console.log("Se cargo una vez");
-    var files = this.files;
-    var element = files[0];
-
-    createPerfil(element);
+    var element = this.files[0];
+    console.log(element);
+    imgUpdtP.push(element);
+    createPerfil(element, false);
   });
 
-  function createPortada(file) {
-    var imgCodified = URL.createObjectURL(file);
-    var img = $("<img src='"+imgCodified+"' alt=''><a href='#' class='cambiar-Portada'><button type='' id='btn-Por'><i class='fas fa-camera'></i></button></a>");
-    $("#visual").html(img);
+  $("#filePortada").on("change", function(){
+    console.log("Se cargo una vez");
+    var element = this.files[0];
+    imgUpdtP.push(element);
+    createPerfil(element, true);
+  });
+
+  $("#idfotoPrt").click(function(){
+    $("#filePortada").click();
+  });
+
+  $("#idfotoPerf").click(function(){
+    $("#filePerfil").click();
+  });
+
+  function loadPicturePort(){
+    $.ajax({
+      url: 'controllers/gallery.controller.php',
+      type: 'GET',
+      data: 'op=getAPicturePort',
+      success: function(e){
+        var img = JSON.parse(e);
+        if(img == ''){
+          $("#refer-port-img").attr('src', 'dist/img/user/portdefault.gif');
+          $("#refer-port-img").attr('data-img-por', '-1');
+        }else{
+          $("#refer-port-img").attr('src', 'dist/img/user/' + img[0]['archivo']);
+          $("#refer-port-img").attr('data-img-por',  img[0]['idgaleria']);
+        }
+      }
+    });
   }
 
-  $("#fileImagen").on("change", function(){
-    console.log(this.files);
-    console.log("Se cargo una vez");
-    var files = this.files;
-    var element = files[0];
+  function loadPicturePerfil(){
+    $.ajax({
+      url: 'controllers/gallery.controller.php',
+      type: 'GET',
+      data: 'op=getAPicturePerfil',
+      success: function(e){
+        var img = JSON.parse(e);
+        if(img == ''){
+          $("#refer-perf-img").attr('src', 'dist/img/user/userdefault.jpg');
+          $("#refer-perf-img").attr('data-img-per', '-1');
+        }else{
+          $("#refer-perf-img").attr('src', 'dist/img/user/' + img[0]['archivo']);
+          $("#refer-perf-img").attr('data-img-per',  img[0]['idgaleria']);
+        }
+      }
+    });
+  }
 
-    createPortada(element);
-  });
+  function loadNameUser(){
+    $.ajax({
+      url: 'controllers/user.controller.php',
+      type: 'GET',
+      data: 'op=getUserName',
+      success: function(e){
+        $(".titulo-usuario").html(e);
+      }
+    });
+  }
 
 
   $(".profile-der").on("click",".edit-come", function(){
@@ -94,14 +195,11 @@
     }); 
   });
 
-
   $(".edit-come").click(function(){
     let text = $("#text-descripcion").text();
     // let text =  $('div').attr('data-value');;
     console.log(text);
   });
-
-
 
   // HABILITA SER EDITABLE
   $("#personas").on("click",".edit-nombre", function(){
@@ -130,14 +228,17 @@
     $("#no").attr('contenteditable', false);
     $(this).addClass('d-none');
   });
+
   $("#personas").on("click",".cancel-te", function(){
     $("#te").attr('contenteditable', false);
     $(this).addClass('d-none');
   });
+
   $("#personas").on("click",".cancel-fe", function(){
     $("#fe").attr('contenteditable', false);
     $(this).addClass('d-none');
   });
+
   $("#personas").on("click",".cancel-ti", function(){
     $("#ti").attr('contenteditable', false);
     $(this).addClass('d-none');
@@ -475,11 +576,6 @@
     } 
   }
 
-
- 
-  
-
-
   //Registrar RedSocial
   function RegisterRedSocial(){
 
@@ -713,29 +809,6 @@
   }
 
 
-
-
-  //ABRIR IMAGEN PERFIL
-  function abrirImagen(){
-    $("input[name='archivoImagen']").trigger("click");
-  }
-
-  $("#preview").on("click", "#idfoto", function (){
-    $("input[name='archivoImagen']").trigger("click");
-  }); 
-
-  //ABRIR IMAGEN PORTADA
-  function abrirFoto(){
-    $("input[name='archivoFoto']").trigger("click");
-  }
-
-  $("#visual").on("click", "#btnPort", function (){
-    $("input[name='archivoFoto']").trigger("click");
-  }); 
-
-
-
-
   //Eliminar RedSocial
   $("#redsocial").on("click", ".eliminarRed", function(){
 
@@ -776,9 +849,6 @@
   });
 
 
-  $("#idfoto").click(abrirImagen);
-  $("#idfotoPrt").click(abrirFoto);
-
   $("#agregarEsp").click(RegisterSpecialtyUser);
   $("#agregarred").click(RegisterRedSocial);
   $("#btnServices").click(RegisterServices);
@@ -797,4 +867,6 @@
   listServices();
   listRedSocial();
   listEspeciality();
-
+  loadPicturePort();
+  loadPicturePerfil();
+  loadNameUser();

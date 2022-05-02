@@ -27,19 +27,12 @@ function generateCode(){
 if (isset($_POST['op'])) {
 
     if($_POST['op'] == "sendEmailPassword"){
-        $useEmailBackup = $_POST['emailbackup'];
         $codigogenerado = generateCode();       
         $_SESSION['code'] = $codigogenerado['code'];
         $_SESSION['tiempolimite'] = $codigogenerado['fechamuerte'];
         
-        if($useEmailBackup == 'true'){
-            $mailer->sendMail($_SESSION['emailrespaldo'], 'Su código de verificación es: '.  $_SESSION['code']);
-            $_SESSION['useEmailBackup'] = $useEmailBackup;
-        }else{
-            $mailer->sendMail($_SESSION['email'], 'Su código de verificación es: '.  $_SESSION['code']);
-            $_SESSION['useEmailBackup'] = $useEmailBackup;
-        }   
-
+        $mailer->sendMail($_POST['email'], 'Su código de verificación es: '.  $_SESSION['code']);
+            
         echo "El código es: ". $_SESSION['code'];
     };
 
@@ -54,11 +47,8 @@ if (isset($_POST['op'])) {
             $_SESSION['code'] = $codigogenerado['code'];
             $_SESSION['tiempolimite'] = $codigogenerado['fechamuerte'];
 
-            if($_SESSION['useEmailBackup'] == 'true'){
-                $mailer->sendMail($_SESSION['emailrespaldo'], 'Su código de verificación es: '.  $_SESSION['code']);
-            }else{
-                $mailer->sendMail($_SESSION['email'], 'Su código de verificación es: '.  $_SESSION['code']);
-            }   
+            $mailer->sendMail($_POST['email'], 'Su código de verificación es: '.  $_SESSION['code']);
+       
             echo 'Expirado';
  
         }else{

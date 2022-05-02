@@ -48,7 +48,7 @@ BEGIN
 	INSERT INTO personas (iddistrito, apellidos, nombres, fechanac, telefono, tipocalle, nombrecalle, numerocalle, pisodepa)
 		VALUES (_iddistrito, _apellidos, _nombres, _fechanac, _telefono, _tipocalle, _nombrecalle, _numerocalle, _pisodepa);
 		
-	SELECT LAST_INSERT_ID();
+	SELECT LAST_INSERT_ID() AS 'idpersona';
 END $$
 
 
@@ -59,10 +59,17 @@ CREATE PROCEDURE spu_email_verifi
 	IN _email VARCHAR(70)
 )
 BEGIN
-	SELECT COUNT(*) FROM usuarios WHERE email = _email;
+	SELECT COUNT(*) FROM usuarios WHERE email = _email OR emailrespaldo = _email;
 END $$
 
-
+DELIMITER $$
+CREATE PROCEDURE spu_email_verifi_res
+(
+	IN _emailres VARCHAR(70)
+)
+BEGIN
+	SELECT COUNT(*) FROM usuarios WHERE emailrespaldo = _emailres OR email = _emailres;
+END $$
 
 -- MODIFICAR PERSONA -- 
 DELIMITER $$
@@ -105,6 +112,14 @@ BEGIN
 	SELECT * FROM personas WHERE idpersona = _idpersona;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_personas_getname_user(IN _idusuario INT)
+BEGIN 
+	SELECT * FROM personas PER 
+	INNER JOIN usuarios USU ON USU.idpersona = PER.idpersona
+	WHERE USU.idusuario = _idusuario;
+END $$
+
 -- =============================================================================================================
 -- TABLA USUARIOS
 -- -------------------------------------------------------------------------------------------------------------
@@ -134,7 +149,7 @@ BEGIN
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
 	
-	SELECT LAST_INSERT_ID();
+	SELECT LAST_INSERT_ID()AS 'idusuario';
 END $$
 
 
@@ -158,6 +173,13 @@ BEGIN
 		WHERE idusuario = _idusuario;
 END $$
 
+-- Información para las preguntas
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_quest(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_usuarios_listar_quest
+		WHERE idusuario = _idusuario;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_modificar
@@ -197,20 +219,6 @@ BEGIN
 	SELECT * FROM usuarios
 		WHERE email = _email;
 END $$
-
-/*
--- INICIO ---------
-DELIMITER $$
-CREATE PROCEDURE spu_usuarios_filtrar
-(
-	IN _idservicio 		 INT,
-	IN _iddepartamento VARCHAR(2)
-)
-BEGIN
-		SELECT * FROM vs_usuarios_servicio
-			WHERE idservicio = _idservicio OR iddepartamento = _iddepartamento;
-END $$
-*/
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_filtrar_rol(IN _rol CHAR(1))
@@ -262,14 +270,29 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_edit_pass
 (
-	IN _idusuario INT,
+	IN _email VARCHAR(70),
 	IN _clave VARCHAR(80)
 )
 BEGIN
-	UPDATE usuarios SET clave = _clave WHERE idusuario = _idusuario;
+	UPDATE usuarios SET clave = _clave WHERE email = _email OR emailrespaldo = _email;
 END
 
+-- Buscar el album correspondiente
+DELIMITER $$
+CREATE PROCEDURE spu_search_idalbum_user(IN _idusuario INT, IN _tipoalbum CHAR(2))
+BEGIN
+	IF _tipoalbum = 'PE' THEN
+	SELECT idalbum FROM albumes WHERE nombrealbum = 'Perfil' AND idusuario = _idusuario;
+	ELSE
+	SELECT idalbum FROM albumes WHERE nombrealbum = 'Portada' AND idusuario = _idusuario;
+	END IF;
+END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_search_idalbum_user(IN _idusuario INT)
+BEGIN
+SELECT idalbum FROM albumes WHERE nombrealbum = 'Perfil' AND idusuario = _idusuario;
+END $$
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
 -- -------------------------------------------------------------------------------------------------------------
@@ -468,14 +491,15 @@ CREATE PROCEDURE spu_galerias_registrar
 	IN _idusuario INT,
 	IN _idtrabajo INT,
 	IN _tipo 			CHAR(1),
-	IN _archivo 	VARCHAR(100)
+	IN _archivo 	VARCHAR(100),
+	IN _estado		CHAR(1)
 )
 BEGIN
 	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
 	IF _idtrabajo = '' THEN SET _idtrabajo = NULL; END IF;
 	
-	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, archivo) VALUES
-		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo);
+	INSERT INTO galerias (idalbum, idusuario, idtrabajo, tipo, archivo, estado) VALUES
+		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo, _estado);
 END $$
 
 
@@ -483,13 +507,14 @@ DELIMITER $$
 CREATE PROCEDURE spu_galerias_modificar
 (
 	IN _idgaleria INT,
-	IN _idalbum 	INT
+	IN _idalbum 	INT,
+	IN _estado		CHAR(1)
 )
 BEGIN
 	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
 	
 	UPDATE galerias SET
-		idalbum 	= _idalbum
+		idalbum 	= _idalbum, estado = _estado
 	WHERE idgaleria = _idgaleria;
 END $$
 
@@ -499,19 +524,24 @@ BEGIN
 		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
 						GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
 			FROM galerias GLR
-			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
+			 JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
 					AND  USU.`idusuario` = _idusuario;
 END $$
 
+CALL spu_galerias_foto_perfil(2);
+CALL spu_galerias_foto_portada(2);
+SELECT * FROM albumes;
+SELECT * FROM usuarios;
+SELECT * FROM galerias;
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_foto_portada(IN _idusuario INT)
 BEGIN	
 		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
 						GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
 			FROM galerias GLR
-			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
+			 JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'portada' AND GLR.`estado` = '3'
 					AND  USU.`idusuario` = _idusuario;
@@ -523,7 +553,6 @@ BEGIN
 	UPDATE galerias SET estado = 0
 		WHERE idgaleria = _idgaleria;
 END $$
-
 
 -- =============================================================================================================
 -- TABLA REDES

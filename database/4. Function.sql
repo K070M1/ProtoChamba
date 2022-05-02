@@ -113,4 +113,3 @@ BEGIN
 				
 	RETURN _total;
 END $$
-

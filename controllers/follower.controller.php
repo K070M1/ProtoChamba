@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once '../model/Follower.php';
 $follower = new Follower();
@@ -63,42 +64,44 @@ if (isset($_GET['op'])){
   // Operacion Seguidores
   if ($_GET['op'] == 'getFollowersByUser'){
 
-    $data = $follower->getFollowersByUser(["idusuario" => 1]);
+    $data = $follower->getFollowersByUser(["idusuario" => $_SESSION['idusuario']]);
     listFollower($data);
   }
 
   // Operación Seguidos
   if ($_GET['op'] == 'getFollowedByUser'){
 
-    $data = $follower->getFollowedByUser(["idusuario" => 1]); //$_GET['idusuario']]
+    $data = $follower->getFollowedByUser(["idusuario" => $_SESSION['idusuario']]); //$_GET['idusuario']]
     listFollowing($data);
   }
 
 
   //Conteo de seguidores
   if ($_GET['op'] == 'getCountFollowersByUser'){
+    if(isset($_SESSION['idusuario'])){
+      $data = $follower->getCountFollowersByUser(["idusuario" => $_SESSION['idusuario']]);
+      if($data <= 0){
+        echo "0";
+      }
+      else{
+        echo json_encode($data);
+      }
+    }
     
-    $data = $follower->getCountFollowersByUser(["idusuario" => 1]);
-
-    if($data <= 0){
-      echo "0";
-    }
-    else{
-      echo json_encode($data);
-    }
   }
 
   //Conteo de seguidos
   if ($_GET['op'] == 'getCountFollowedByUser'){
-  
-    $data = $follower->getCountFollowedByUser(["idusuario" => 1]);
+    if(isset($_SESSION['idusuario'])){
+      $data = $follower->getCountFollowedByUser(["idusuario" => $_SESSION['idusuario']]);
+      if($data <= 0){
+        echo "0";
+      }
+      else{
+        echo json_encode($data);
+      }
+    }
 
-    if($data <= 0){
-      echo "0";
-    }
-    else{
-      echo json_encode($data);
-    }
   }
 
 }

@@ -13,8 +13,6 @@ $person  = new Person();
 $album = new Album();
 $mailer = new Mailer();
 
-$_SESSION['email'] = 'joserafaelomg@gmail.com';
-$_SESSION['emailrespaldo'] = '1302314@senati.pe';
 
 if (isset($_GET['op'])) {
 
@@ -44,15 +42,17 @@ if (isset($_GET['op'])) {
                 <label class='custom-control-label' for='{$row['idusuario']}'></label>
               </div>
             </td>
-          </tr>
-        ";
-      }
-    }
+            </tr>
+            ";
+          }
+        }
   }
 
   // Obtener imagen de perfil
   function getImageProfileUser($idusuario){
+
     $gallery = new Gallery();
+
     $images = $gallery->getProfilePicture(["idusuario" => $idusuario]);
 
     return isset($images[0]) ? $images[0]['archivo']: '';
@@ -95,35 +95,77 @@ if (isset($_GET['op'])) {
     }
   }
 
+  // Ver descripcion de información de usuario
   function desc_user($data){
     if (count($data) <= 0) {
-
       echo " ";
-
     } else {
-
       foreach ($data as $row) {
-
         echo "
-
           <p>{$row['descripcion']}</p>
-
         ";
-
       }
-
     }
 
   }
 
-  //Cargar Modales
-  function loadContentModalsRes($step, $status){
+  //Cargar modal de paso 1 (email principal)
+  function loadContentModalsRes1(){
+    echo
+    "
+      <div id='back-icon'>
+        <a id='backi-1'>
+          <i class='fas fa-arrow-left'></i>
+        </a>
+      </div>
+      <h3 class='font-weight-bold'>Solicitar cambio de contraseña</h3>
+      <form>
+        <div class='form-group row'>
+          <div class='col-sm-12'>
+            <label for='emailDir'>Los procesos se enviarán a tu correo: </label>
+            <input type='email' class='form-control' id='inptEmailRes'>
+          </div>
+        </div>
+      </form>
+      <div id='btn-gen-res'>
+        <button type='button' class='btn btn-secondary' id='btnRes1'>Siguiente</button>
+      </div>
+    ";
+  }
 
-    $emailU = $_SESSION['email'];
-    $emailresU = $_SESSION['emailrespaldo'];
+  //Cargar modal de paso 2
+  function loadContentModalsRes2($email){
+    $user = new User();
+    $searchRes = $user->getEmailVRes(["email" => $email]);
 
+    if ($searchRes == 0) {
+      echo "No permitido";
+    }else{
+      echo
+      "
+      <div id='back-icon'>
+        <a id='backi-3'>
+          <i class='fas fa-arrow-left'></i>
+        </a>
+      </div>
+      <h3 class='font-weight-bold'>He olvidado mi contraseña...!</h3>
+      <div class='cnt-res'>
+        <h5>Obtener un código de verificación</h5>
+        <p>Se enviará un código de verificación temporal al correo indicado</p>
+      </div>
+      <div id='btn-gen-res'>
+        <button type='button' class='btn btn-secondary' id='btnRes2'>Generar Código</button>
+      </div>
+      ";
+    }
+
+  }
+
+  // Cargar resto de modales
+  function loadContentModalsRes($step){
+    
     // Algoritmo de ocultar correo
-    function ocultEmail($email) {
+    /*function ocultEmail($email) {
       $emailocult = '';
       $base = '';
       $nbase = '';
@@ -140,98 +182,13 @@ if (isset($_GET['op'])) {
 
       $emailocult = str_replace($fbase, "*****"  , $email);
       return $emailocult;
-    }
+    } */
 
-    $emailview = ocultEmail($emailU);
-    $emailviewRes = ocultEmail($emailresU);
-
-    if($step == '1'){
+     if($step == '3'){
       echo
-      "
-        <div id='back-icon'>
-          <a id='backi-1'>
-            <i class='fas fa-arrow-left'></i>
-          </a>
-        </div>
-        <h3 class='font-weight-bold'>Solicitar cambio de contraseña</h3>
-        <form>
-          <div class='form-group row'>
-            <div class='col-sm-12'>
-              <label for='emailDir'>Los procesos se enviarán a: </label>
-              <input type='email' class='form-control' disabled value='$emailview'>
-            </div>
-          </div>
-          <a id='secondEmailMd' href='#'>!No tengo acceso a este correo...!</a>
-        </form>
-        <div id='btn-gen-res'>
-          <button type='button' class='btn btn-secondary' id='btnRes1'>Siguiente</button>
-        </div>
-      ";
-    }elseif($step == '2'){
-      echo
-      "
-      <div id='back-icon'>
-        <a id='backi-2'>
-          <i class='fas fa-arrow-left'></i>
-        </a>
-      </div>
-      <h3 class='font-weight-bold'>Cambio de email de repaldo</h3>
-      <form>
-        <div class='form-group row'>
-          <div class='col-sm-12'>
-            <label>Los procesas han sido cambiados al email:</label>
-            <input type='email' class='form-control' disabled value='$emailviewRes'>
-          </div>
-        </div>
-      </form>
-      <div id='btn-gen-res'>
-        <button type='button' class='btn btn-secondary' id='btnRes2'>Siguiente</button>
-      </div>
-      ";
-    }elseif($step == '3'){
-      if($status == 'false'){
-        echo
-        "
-        <div id='back-icon'>
-          <a id='backi-3'>
-            <i class='fas fa-arrow-left'></i>
-          </a>
-        </div>
-        <h3 class='font-weight-bold'>He olvidado mi contraseña...!</h3>
-        <span><label>$emailview</label></span>
-        <div class='cnt-res'>
-          <h5>Obtener un código de verificación</h5>
-          <p>Se enviará un código de verificación temporal al correo indicado</p>
-        </div>
-        <div id='btn-gen-res'>
-          <button type='button' class='btn btn-secondary' id='btnRes3'>Generar Código</button>
-        </div>
-        ";
-      }else{
-        echo
         "
         <div id='back-icon'>
           <a id='backi-4'>
-            <i class='fas fa-arrow-left'></i>
-          </a>
-        </div>
-        <h3 class='font-weight-bold'>He olvidado mi contraseña...!</h3>
-        <span><label>$emailviewRes</label></span>
-        <div class='cnt-res'>
-          <h5>Obtener un código de verificación</h5>
-          <p>Se enviará un código de verificación temporal al correo indicado</p>
-        </div>
-        <div id='btn-gen-res'>
-          <button type='button' class='btn btn-secondary' id='btnRes4'>Generar Código</button>
-        </div>
-        ";
-      };
-    }elseif($step == '4'){
-      if($status == 'false'){
-        echo
-        "
-        <div id='back-icon'>
-          <a id='backi-5'>
             <i class='fas fa-arrow-left'></i>
           </a>
           <div class='wrapper'>
@@ -241,7 +198,6 @@ if (isset($_GET['op'])) {
           </div>​ 
         </div>
         <h3 class='font-weight-bold'>Validar el código de verificación</h3>
-        <span><label>$emailview</label></span>
         <form>
           <div class='form-group row'>
             <div class='col-sm-5'>
@@ -253,106 +209,121 @@ if (isset($_GET['op'])) {
           </div>
         </form>
         <div id='btn-gen-res'>
-          <button type='button' class='btn btn-secondary' id='btnRes5'>Validar</button>
+          <button type='button' class='btn btn-secondary' id='btnRes3'>Validar</button>
         </div>
         ";
-      }else{
-        echo
-        "
+    }else if($step == '4'){
+      
+      echo
+      "
         <div id='back-icon'>
-          <a id='backi-6'>
+          <a id='backi-5'>
             <i class='fas fa-arrow-left'></i>
           </a>
-          <div class='wrapper'>
-            <div class='pie spinner'></div>
-            <div class='pie filler'></div>
-            <div class='mask'></div>
-          </div>​ 
         </div>
-        <h3 class='font-weight-bold'>Validar el código de verificación</h3>
-        <span><label>$emailviewRes</label></span>
+        <h3 class='font-weight-bold'>Crear nueva contraseña</h3>
         <form>
           <div class='form-group row'>
             <div class='col-sm-5'>
-              <label>Ingrese el código enviado:</label>
+              <label>Nueva contraseña:</label>
             </div>
             <div class='col-sm-7'>
-              <input type='text' class='form-control' id='code-send2'>
+              <input type='password' class='form-control' id='pass-n-1'>
+            </div>
+          </div>
+          <div class='form-group row'>
+            <div class='col-sm-5'>
+              <label>Repetir contraseña:</label>
+            </div>
+            <div class='col-sm-7'>
+              <input type='password' class='form-control' id='pass-n-2'>
             </div>
           </div>
         </form>
         <div id='btn-gen-res'>
-          <button type='button' class='btn btn-secondary' id='btnRes6'>Validar</button>
+          <button type='button' class='btn btn-secondary' id='btnRes4'>Crear contraseña</button>
         </div>
-        ";
-      }
-    }elseif($step == '5'){
-      if($status == 'false'){
-        echo
-        "
-          <div id='back-icon'>
-            <a id='backi-7'>
-              <i class='fas fa-arrow-left'></i>
-            </a>
-          </div>
-          <h3 class='font-weight-bold'>Crear nueva contraseña</h3>
-          <form>
-            <div class='form-group row'>
-              <div class='col-sm-5'>
-                <label>Nueva contraseña:</label>
-              </div>
-              <div class='col-sm-7'>
-                <input type='password' class='form-control' id='pass-n-1'>
-              </div>
-            </div>
-            <div class='form-group row'>
-              <div class='col-sm-5'>
-                <label>Repetir contraseña:</label>
-              </div>
-              <div class='col-sm-7'>
-                <input type='password' class='form-control' id='pass-n-2'>
-              </div>
-            </div>
-          </form>
-          <div id='btn-gen-res'>
-            <button type='button' class='btn btn-secondary' id='btnRes7'>Crear contraseña</button>
-          </div>
-        ";
-      }else{
-        echo
-        "
-          <div id='back-icon '>
-            <a id='backi-8'>
-              <i class='fas fa-arrow-left'></i>
-            </a>
-          </div>
-          <h3 class='font-weight-bold'>Crear nueva contraseña</h3>
-          <form>
-            <div class='form-group row'>
-              <div class='col-sm-5'>
-                <label>Nueva contraseña:</label>
-              </div>
-              <div class='col-sm-7'>
-                <input type='password' class='form-control' id='pass-n-3'>
-              </div>
-            </div>
-            <div class='form-group row'>
-              <div class='col-sm-5'>
-                <label>Repetir contraseña:</label>
-              </div>
-              <div class='col-sm-7'>
-                <input type='password' class='form-control' id='pass-n-4'>
-              </div>
-            </div>
-          </form>
-          <div id='btn-gen-res'>
-            <button type='button' class='btn btn-secondary' id='btnRes8'>Crear contraseña</button>
-          </div>
-        ";
-        }
+      ";
     }
+
   }
 
+  // Cargar preguntas para el cuestionario
+  function loadQuestionModal(){
+
+        echo "<option value='' disabled selected hidden >Selecciona tu pregunta</option>";
+        
+        $questions = array
+        (
+            "<option value='1'>¿En qué distrito vives?</option>",
+            "<option value='2'>¿En qué provincia vives?</option>",
+            "<option value='3'>¿En qué departamento vives?</option>",
+            "<option value='4'>¿Qué día naciste?</option>",
+            "<option value='5'>¿Qué mes naciste?</option>",
+            "<option value='6'>¿Qué año naciste?</option>"
+        );
+
+        $random_quest = array_rand($questions, 3);
+        for($i = 0; $i <= 2; $i++){
+          echo $questions[$random_quest[$i]];
+        }
+      
+  }
+
+  // Login
+  if($_GET['op'] == 'loginUser'){
+    if($_GET['remember'] == 'false'){
+      $data = $user->loginUser(["email" => $_GET['email']]);
+      if(count($data) <= 0){
+        echo 'Inexistente';
+      }else{
+        $contraseña = $data[0]['clave'];
+        $sendpass = $_GET['password'];
+        $login = password_verify($sendpass, $contraseña);
+        if($login){
+          echo 'Acceso';
+          $_SESSION['login'] = 0;
+          $_SESSION['email'] = $data[0]['email'];
+          $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
+          $_SESSION['idusuario'] = $data[0]['idusuario'];
+          $_SESSION['rol'] = $data[0]['rol'];
+        }else{
+          echo 'Incorrecto';
+        }
+      }
+    }else{
+      if(isset($_COOKIE['email'])){
+        $data = $user->loginUser(["email" => $_COOKIE['email']]);
+        if(count($data) <= 0){
+          echo 'Inexistente';
+        }else{
+          $contraseña = $data[0]['clave'];
+          $sendpass = $_COOKIE['password'];
+          $login = password_verify($sendpass, $contraseña);
+          if($login){
+            echo 'Acceso';
+            $_SESSION['login'] = 0;
+            $_SESSION['email'] = $data[0]['email'];
+            $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
+            $_SESSION['idusuario'] = $data[0]['idusuario'];
+            $_SESSION['rol'] = $data[0]['rol'];
+          }else{
+            echo 'Incorrecto';
+          }
+        }
+      }else{
+        setcookie("email", $_GET['email'], time() + 60 * 60);
+        setcookie("password", $_GET['password'], time() + 60 * 60);
+      }
+    }
+    
+
+  }
+  
+  if($_GET['op'] == 'logout'){
+    session_destroy();
+    session_unset();
+  }
   // Busqueda realizada por nombres o apellidos - (Asignar permisos admin)
   if ($_GET['op'] == 'searchUsersByNamesAndRole') {
 
@@ -407,16 +378,99 @@ if (isset($_GET['op'])) {
   //Cargar contenido en los modales
   if($_GET['op'] == 'modalsRest'){
     $Steps = $_GET['paso'];
-    $Status = $_GET['estado'];
-    loadContentModalsRes($Steps, $Status);
+    if($Steps == '1'){
+      loadContentModalsRes1();
+    }else if($Steps == '2'){
+      loadContentModalsRes2($_GET['email']);
+    }else{
+      loadContentModalsRes($Steps);
+    }
   }
 
+  // Ver descripcion de información de usuario
   if ($_GET['op'] == 'getUsersDescrip') {
 
-    $data = $user->getUsersDescrip(["idusuario" => 1]);
+    $data = $user->getUsersDescrip(["idusuario" => $_SESSION['idusuario']]);
 
     desc_user($data);
 
+  }
+
+  // Conseguir nombre de usuario
+  if($_GET['op'] == 'getUserName'){
+    if(isset($_SESSION['idusuario'])){
+      $data = $user->getNameUser(["idusuario" => $_SESSION['idusuario']]);
+      echo $data[0]['apellidos'].' '.$data[0]['nombres'];
+    }
+  }
+
+  // Elaborar preguntas
+  if($_GET['op'] == 'questionLogin'){
+    loadQuestionModal();
+  }
+
+  // Comprobar respuesta
+  if($_GET['op'] == 'answerQuest'){
+    if(isset($_SESSION['idusuario'])){
+      $data = $user->getAUserQuest(["idusuario" => $_SESSION['idusuario']]);
+      $quest = $_GET['quest'];
+      $answer = $_GET['answer'];
+      if($quest == '1'){
+        if($data[0]['distrito'] == $answer){
+          $_SESSION['login'] = 1;
+          echo '1';
+        }else{
+          echo '0';
+        }
+      }else if($quest == '2'){
+        if($data[0]['provincia'] == $answer){
+          $_SESSION['login'] = 1;
+          echo '1';
+        }else{
+          echo '0';
+        }
+      }else if($quest == '3'){
+        if($data[0]['departamento'] == $answer){
+          $_SESSION['login'] = 1;
+          echo '1';
+        }else{
+          echo '0';
+        }
+      }else if($quest == '4'){
+        $fecha = $data[0]['fechanac'];
+        $date = strtotime($fecha);
+        $day = date("d", $date);
+        if($day == $answer){
+          $_SESSION['login'] = 1;
+          echo '1';
+        }else{
+          echo '0';
+        }
+      }else if($quest == '5'){
+        $fecha = $data[0]['fechanac'];
+        $date = strtotime($fecha);
+        $month = date("m", $date);
+        if($month == $answer){
+          $_SESSION['login'] = 1;
+          echo '1';
+        }else{
+          echo '0';
+        }
+      }else if($quest == '6'){
+        $fecha = $data[0]['fechanac'];
+        $date = strtotime($fecha);
+        $year = date("Y", $date);
+        if($year == $answer){
+          $_SESSION['login'] = 1;
+          echo '1';
+        }else{
+          echo '0';
+        }
+      }else{
+        $_SESSION['login'] = 0;
+        echo '0';
+      }
+    }
   }
 
 }
@@ -446,7 +500,7 @@ if (isset($_POST['op'])) {
       $idperson = $person->registerPerson($datosIngresados);
 
       $datosRegistrar = [
-        "idpersona"       => $idperson,
+        "idpersona"       => $idperson[0]['idpersona'],
         "descripcion"     => " ",
         "horarioatencion" => " ",
         "email"           => $_POST['email'],
@@ -456,8 +510,18 @@ if (isset($_POST['op'])) {
 
       $iduser = $user->registerUser($datosRegistrar);
 
-      $album->registerAlbumDefault(["idusuario" => $iduser]);
-      echo "Correct";
+      $album->registerAlbumDefault(["idusuario" => $iduser[0]['idusuario']]);
+      echo $iduser[0]['idusuario'];
+
+      $idusern = $iduser[0]['idusuario'];
+      $data = $user->getAUser(["idusuario" => $idusern]);
+
+      $_SESSION['login'] = true;
+      $_SESSION['email'] = $data[0]['email'];
+      $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
+      $_SESSION['idusuario'] = $data[0]['idusuario'];
+      $_SESSION['rol'] = $data[0]['rol'];
+
     } else {
       echo ".";
     }
@@ -465,22 +529,67 @@ if (isset($_POST['op'])) {
 
   //Modificar contraseña
   if($_POST['op'] == 'updatePasswordRest'){
+
+    $emailenv = $_POST['email'];
+
     $datosUp = [
-      "idusuario" => '1',
+      "email" => $emailenv,
       "clave"  => password_hash($_POST['clave'], PASSWORD_BCRYPT)
     ];
 
     $user->updatePasswordRest($datosUp);
+    echo  $emailenv;
+
   }
 
   // modificar descripcion de un usuario
   if ($_POST['op'] == 'updateDescrip'){
 
     $datosEnviar = [
-      "idusuario"       =>  1,
+      "idusuario"       => $_SESSION['idusuario'],
       "descripcion"      =>  $_POST["descripcion"]
     ];
 
     $user->updateDescrip($datosEnviar);
+  }
+
+  // Agregar nueva foto de perfil de nuevo usuario
+  if($_POST['op'] == 'newUserProfile'){
+    $gallery = new Gallery();
+    $regIDAlbumPer = $gallery->getIDAlbum(["idusuario" => $_SESSION['idusuario'] , "tipoalbum" => 'PE']);
+
+    function encripPhoto(){
+      $lenght = 15;
+      $base = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $longitud = strlen($base);
+      $code = '';
+      for($i = 0; $i < $lenght; $i++){
+          $random = $base[mt_rand(0, $longitud -1)];
+          $code .= $random;
+      }
+  
+      return $code;
+    }
+
+    if(isset($_FILES['archivo'])){
+
+      $ext = explode('.', $_FILES['archivo']['name']);
+      $image = encripPhoto().date('Ymdhis'). '.' . $ext[1];
+
+      $datregister = [
+        "idalbum"       => $regIDAlbumPer[0]['idalbum'],
+        "idusuario"     => $_SESSION['idusuario'],
+        "idtrabajo"     => " ",
+        "tipo"          => "F",
+        "archivo"       => $image,
+        "estado"        => "2"
+      ];
+      
+      $gallery->registerGallery($datregister);
+      move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+
+    }else{
+      echo 'ERROR';
+    }
   }
 }

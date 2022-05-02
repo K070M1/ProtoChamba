@@ -15,19 +15,22 @@
   <!--Contenido-->
   <section class="perfil-usuario align-items-end">
     <div class="contenedor-perfil">
+      <!--Portada-->
       <div class="portada-perfil" id="visual">
-        <img src="./dist/img/port.jpg" alt="">
+        <img src="" id="refer-port-img" data-img-por=''>
 
-        <div class="sombra"></div>
+        <div class="sombra" >
+        </div>
+          <!--Perfil-->
           <div class="avatar-perfil" id="preview">
-            <img src="./dist/img/user1.jpg" alt="">
-            <a href="#" class="cambiar-foto" id="idfoto">
+            <img src="" id="refer-perf-img" data-img-per=''>
+            <a href="#" class="cambiar-foto" id="idfotoPerf">
                 <i class="fas fa-camera"></i> 
                 <span>Cambiar foto</span>
             </a>
           </div>
         <div class="datos-perfil">
-          <h5 class="titulo-usuario" id="nombreUsu">nombreUsuario</h5>
+          <h1 class="titulo-usuario" id="nombreUsu"></h1>
         </div>
         
         <div class="opcciones-perfil">
@@ -38,11 +41,11 @@
 
         <!-- FOTO PERFIL -->
         <div class="btnfile" style="display: none;">
-          <input type="file" id="fileFotografia" accept=".jpg" name="archivoImagen">
+          <input type="file" id="filePerfil" accept=".jpg, .png, .gif" name="archivoPerfil">
         </div>
         <!-- FOTO PORTADA -->
         <div class="btnPortada" style="display: none;">
-          <input type="file" id="fileImagen" accept=".jpg" name="archivoFoto">
+          <input type="file" id="filePortada" accept=".jpg, .png, .gif" name="archivoPortada">
         </div>
 
       </div>
