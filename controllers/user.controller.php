@@ -18,17 +18,18 @@ $mailer = new Mailer();
 if (isset($_GET['op'])) {
 
   // Generar estructura HTML listando todos los usuarios (vista permisos)
-  function loadUsersViewPermissions($data){
+  function loadUsersViewPermissions($data)
+  {
 
     if (count($data) == 0) {
       echo " ";
     } else {
       // Mostrar registros
       foreach ($data as $row) {
-        $isAdmin = $row['rol'] == 'A' ? 'checked' : '';    
+        $isAdmin = $row['rol'] == 'A' ? 'checked' : '';
 
         $getImage = getImageProfileUser($row['idusuario']);
-        $imageProfile = $getImage != ''? $getImage : 'default_profile_avatar.svg'; 
+        $imageProfile = $getImage != '' ? $getImage : 'default_profile_avatar.svg';
 
         echo "
           <tr>
@@ -45,21 +46,23 @@ if (isset($_GET['op'])) {
             </td>
             </tr>
             ";
-          }
-        }
+      }
+    }
   }
 
   // Obtener imagen de perfil
-  function getImageProfileUser($idusuario){
+  function getImageProfileUser($idusuario)
+  {
 
     $gallery = new Gallery();
     $images = $gallery->getProfilePicture(["idusuario" => $idusuario]);
 
-    return isset($images[0]) ? $images[0]['archivo']: '';
+    return isset($images[0]) ? $images[0]['archivo'] : '';
   }
 
   // Listar los usuaros filtrados - (vista reportes)
-  function loadListUsersViewHistory($data){
+  function loadListUsersViewHistory($data)
+  {
     if (count($data) == 0) {
       echo "
         <tr>
@@ -69,12 +72,12 @@ if (isset($_GET['op'])) {
     } else {
       // Mostrar registros
       foreach ($data as $row) {
-        $classIcon = $row['estado'] == 1? "fa-user-slash": "fa-user-check";
-        $classBtn = $row['estado'] == 1? "btn-danger": "btn-primary";
-        $title = $row['estado'] == 1? "Banear cuenta": "Activar cuenta";
+        $classIcon = $row['estado'] == 1 ? "fa-user-slash" : "fa-user-check";
+        $classBtn = $row['estado'] == 1 ? "btn-danger" : "btn-primary";
+        $title = $row['estado'] == 1 ? "Banear cuenta" : "Activar cuenta";
 
         $getImage = getImageProfileUser($row['idusuario']);
-        $imageProfile = $getImage != ''? $getImage : 'default_profile_avatar.svg'; 
+        $imageProfile = $getImage != '' ? $getImage : 'default_profile_avatar.svg';
 
         echo "
           <tr>
@@ -96,7 +99,8 @@ if (isset($_GET['op'])) {
   }
 
   // Ver descripcion de información de usuario
-  function desc_user($data){
+  function desc_user($data)
+  {
     if (count($data) <= 0) {
       echo " ";
     } else {
@@ -106,11 +110,11 @@ if (isset($_GET['op'])) {
         ";
       }
     }
-
   }
 
   //Cargar modal de paso 1 (email principal)
-  function loadContentModalsRes1(){
+  function loadContentModalsRes1()
+  {
     echo
     "
       <div id='back-icon'>
@@ -134,13 +138,14 @@ if (isset($_GET['op'])) {
   }
 
   //Cargar modal de paso 2
-  function loadContentModalsRes2($email){
+  function loadContentModalsRes2($email)
+  {
     $user = new User();
     $searchRes = $user->getEmailVRes(["email" => $email]);
 
     if ($searchRes == 0) {
       echo "No permitido";
-    }else{
+    } else {
       echo
       "
       <div id='back-icon'>
@@ -158,12 +163,12 @@ if (isset($_GET['op'])) {
       </div>
       ";
     }
-
   }
 
   // Cargar resto de modales
-  function loadContentModalsRes($step){
-    
+  function loadContentModalsRes($step)
+  {
+
     // Algoritmo de ocultar correo
     /*function ocultEmail($email) {
       $emailocult = '';
@@ -184,9 +189,9 @@ if (isset($_GET['op'])) {
       return $emailocult;
     } */
 
-     if($step == '3'){
+    if ($step == '3') {
       echo
-        "
+      "
         <div id='back-icon'>
           <a id='backi-4'>
             <i class='fas fa-arrow-left'></i>
@@ -212,8 +217,8 @@ if (isset($_GET['op'])) {
           <button type='button' class='btn btn-secondary' id='btnRes3'>Validar</button>
         </div>
         ";
-    }else if($step == '4'){
-      
+    } else if ($step == '4') {
+
       echo
       "
         <div id='back-icon'>
@@ -245,72 +250,70 @@ if (isset($_GET['op'])) {
         </div>
       ";
     }
-
   }
 
   // Cargar preguntas para el cuestionario
-  function loadQuestionModal(){
+  function loadQuestionModal()
+  {
 
-        echo "<option value='' disabled selected hidden >Selecciona tu pregunta</option>";
-        
-        $questions = array
-        (
-            "<option value='1'>¿En qué distrito vives?</option>",
-            "<option value='2'>¿En qué provincia vives?</option>",
-            "<option value='3'>¿En qué departamento vives?</option>",
-            "<option value='4'>¿Qué día naciste?</option>",
-            "<option value='5'>¿Qué mes naciste?</option>",
-            "<option value='6'>¿Qué año naciste?</option>"
-        );
+    echo "<option value='' disabled selected hidden >Selecciona tu pregunta</option>";
 
-        $random_quest = array_rand($questions, 3);
-        for($i = 0; $i <= 2; $i++){
-          echo $questions[$random_quest[$i]];
-        }
-      
+    $questions = array(
+      "<option value='1'>¿En qué distrito vives?</option>",
+      "<option value='2'>¿En qué provincia vives?</option>",
+      "<option value='3'>¿En qué departamento vives?</option>",
+      "<option value='4'>¿Qué día naciste?</option>",
+      "<option value='5'>¿Qué mes naciste?</option>",
+      "<option value='6'>¿Qué año naciste?</option>"
+    );
+
+    $random_quest = array_rand($questions, 3);
+    for ($i = 0; $i <= 2; $i++) {
+      echo $questions[$random_quest[$i]];
+    }
   }
 
   // Login
-  if($_GET['op'] == 'loginUser'){
-    if($_GET['remember'] == 'false'){
+  if ($_GET['op'] == 'loginUser') {
+    if ($_GET['remember'] == 'false') {
       $data = $user->loginUser(["email" => $_GET['email']]);
-      if(count($data) <= 0){
+      if (count($data) <= 0) {
         echo 'Inexistente';
-      }else{
+      } else {
         $contraseña = $data[0]['clave'];
         $sendpass = $_GET['password'];
 
         $login = password_verify($sendpass, $contraseña);
-        if($login){
+        if ($login) {
           echo 'Acceso';
           $_SESSION['login'] = true;
           $_SESSION['email'] = $data[0]['email'];
           $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
           $_SESSION['idusuario'] = $data[0]['idusuario'];
-          $_SESSION['rol'] = $data[0]['rol'];   
-          
+          $_SESSION['rol'] = $data[0]['rol'];
+
           $image = getImageProfileUser($data[0]['idusuario']);
-          $_SESSION['imagenusuario'] = $image != ''? $image: 'default_profile_avatar.svg';
-        }else{
+          $_SESSION['imagenusuario'] = $image != '' ? $image : 'default_profile_avatar.svg';
+        } else {
           echo 'Incorrecto';
           $_SESSION['login'] = false;
           $_SESSION['email'] = '';
           $_SESSION['emailrespaldo'] = '';
           $_SESSION['idusuario'] = '';
-          $_SESSION['rol'] = '';   
+          $_SESSION['rol'] = '';
           $_SESSION['imagenusuario'] = '';
         }
       }
-    }else{
-      if(isset($_COOKIE['email'])){
+    } else {
+      if (isset($_COOKIE['email'])) {
         $data = $user->loginUser(["email" => $_COOKIE['email']]);
-        if(count($data) <= 0){
+        if (count($data) <= 0) {
           echo 'Inexistente';
-        }else{
+        } else {
           $contraseña = $data[0]['clave'];
           $sendpass = $_COOKIE['password'];
           $login = password_verify($sendpass, $contraseña);
-          if($login){
+          if ($login) {
             echo 'Acceso';
             $_SESSION['login'] = true;
             $_SESSION['email'] = $data[0]['email'];
@@ -319,40 +322,38 @@ if (isset($_GET['op'])) {
             $_SESSION['rol'] = $data[0]['rol'];
 
             $image = getImageProfileUser($data[0]['idusuario']);
-            $_SESSION['imagenusuario'] = $image != ''? $image: 'default_profile_avatar.svg';
-          }else{
+            $_SESSION['imagenusuario'] = $image != '' ? $image : 'default_profile_avatar.svg';
+          } else {
             echo 'Incorrecto';
             $_SESSION['login'] = false;
             $_SESSION['email'] = '';
             $_SESSION['emailrespaldo'] = '';
             $_SESSION['idusuario'] = '';
-            $_SESSION['rol'] = '';   
+            $_SESSION['rol'] = '';
             $_SESSION['imagenusuario'] = '';
           }
         }
-      }else{
+      } else {
         setcookie("email", $_GET['email'], time() + 60 * 60);
         setcookie("password", $_GET['password'], time() + 60 * 60);
       }
     }
-    
-
   }
-  
-  if($_GET['op'] == 'logout'){
+
+  if ($_GET['op'] == 'logout') {
     session_destroy();
     session_unset();
-    header('Location:../index.php?view=main-view');
+    header('Location:../index.php');
   }
   // Busqueda realizada por nombres o apellidos - (Asignar permisos admin)
   if ($_GET['op'] == 'searchUsersByNamesAndRole') {
 
     $data;
 
-    if($_GET['rol'] == '')
+    if ($_GET['rol'] == '')
       $data = $user->searchUsersByNames(["search" => $_GET['search']]);
     else
-      $data = $user->searchUsersByNamesAndRole(["rol" => $_GET['rol'], "search" => $_GET['search']]);    
+      $data = $user->searchUsersByNamesAndRole(["rol" => $_GET['rol'], "search" => $_GET['search']]);
 
     loadUsersViewPermissions($data);
   }
@@ -364,21 +365,21 @@ if (isset($_GET['op'])) {
   }
 
   // Camvbiar rol de usuario
-  if($_GET['op'] == 'updateUserRole'){
+  if ($_GET['op'] == 'updateUserRole') {
     $user->updateUserRole(["idusuario" => $_GET['idusuario'],  "rol" => $_GET['rol']]);
   }
 
   // banear usuario
-  if($_GET['op'] == 'banUser'){
+  if ($_GET['op'] == 'banUser') {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->banUser(["idusuario" => $_GET['idusuario']]);
-    
+
     $mailer->sendMail($data[0]['email'], "Su cuenta a sido baneado temporalmente debido a...");
     //echo json_encode($data[0]['email']);
   }
 
   // banear usuario
-  if($_GET['op'] == 'reactivateUser'){
+  if ($_GET['op'] == 'reactivateUser') {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->reactivateUser(["idusuario" => $_GET['idusuario']]);
     $mailer->sendMail($data[0]['email'], "Su cuenta a sido restablecido");
@@ -396,13 +397,13 @@ if (isset($_GET['op'])) {
   }
 
   //Cargar contenido en los modales
-  if($_GET['op'] == 'modalsRest'){
+  if ($_GET['op'] == 'modalsRest') {
     $Steps = $_GET['paso'];
-    if($Steps == '1'){
+    if ($Steps == '1') {
       loadContentModalsRes1();
-    }else if($Steps == '2'){
+    } else if ($Steps == '2') {
       loadContentModalsRes2($_GET['email']);
-    }else{
+    } else {
       loadContentModalsRes($Steps);
     }
   }
@@ -411,7 +412,7 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'getUsersDescrip') {
 
     $idusuario;
-    if($_GET['idusuarioactivo'] != -1){
+    if ($_GET['idusuarioactivo'] != -1) {
       $idusuario = $_GET['idusuarioactivo'];
     } else {
       $idusuario = $_SESSION['idusuario'];
@@ -422,88 +423,87 @@ if (isset($_GET['op'])) {
   }
 
   // Conseguir nombre de usuario
-  if($_GET['op'] == 'getUserName'){
+  if ($_GET['op'] == 'getUserName') {
     $idusuario;
-    
-    if($_GET['idusuarioactivo'] != -1){
+
+    if ($_GET['idusuarioactivo'] != -1) {
       $idusuario = $_GET['idusuarioactivo'];
     } else {
       $idusuario = $_SESSION['idusuario'];
     }
-    
+
     $data = $user->getNameUser(["idusuario" => $idusuario]);
-    echo $data[0]['nombres'].' '.$data[0]['apellidos'];
+    echo $data[0]['nombres'] . ' ' . $data[0]['apellidos'];
   }
 
   // Elaborar preguntas
-  if($_GET['op'] == 'questionLogin'){
+  if ($_GET['op'] == 'questionLogin') {
     loadQuestionModal();
   }
 
   // Comprobar respuesta
-  if($_GET['op'] == 'answerQuest'){
-    if(isset($_SESSION['idusuario'])){
+  if ($_GET['op'] == 'answerQuest') {
+    if (isset($_SESSION['idusuario'])) {
       $data = $user->getAUserQuest(["idusuario" => $_SESSION['idusuario']]);
       $quest = $_GET['quest'];
       $answer = $_GET['answer'];
-      if($quest == '1'){
-        if($data[0]['distrito'] == $answer){
+      if ($quest == '1') {
+        if ($data[0]['distrito'] == $answer) {
           $_SESSION['login'] = 1;
           echo '1';
-        }else{
+        } else {
           echo '0';
         }
-      }else if($quest == '2'){
-        if($data[0]['provincia'] == $answer){
+      } else if ($quest == '2') {
+        if ($data[0]['provincia'] == $answer) {
           $_SESSION['login'] = 1;
           echo '1';
-        }else{
+        } else {
           echo '0';
         }
-      }else if($quest == '3'){
-        if($data[0]['departamento'] == $answer){
+      } else if ($quest == '3') {
+        if ($data[0]['departamento'] == $answer) {
           $_SESSION['login'] = 1;
           echo '1';
-        }else{
+        } else {
           echo '0';
         }
-      }else if($quest == '4'){
+      } else if ($quest == '4') {
         $fecha = $data[0]['fechanac'];
         $date = strtotime($fecha);
         $day = date("d", $date);
-        if($day == $answer){
+        if ($day == $answer) {
           $_SESSION['login'] = 1;
           echo '1';
-        }else{
+        } else {
           echo '0';
         }
-      }else if($quest == '5'){
+      } else if ($quest == '5') {
         $fecha = $data[0]['fechanac'];
         $date = strtotime($fecha);
         $month = date("m", $date);
-        if($month == $answer){
+        if ($month == $answer) {
           $_SESSION['login'] = 1;
           echo '1';
-        }else{
+        } else {
           echo '0';
         }
-      }else if($quest == '6'){
+      } else if ($quest == '6') {
         $fecha = $data[0]['fechanac'];
         $date = strtotime($fecha);
         $year = date("Y", $date);
-        if($year == $answer){
+        if ($year == $answer) {
           $_SESSION['login'] = 1;
           echo '1';
-        }else{
+        } else {
           echo '0';
         }
-      }else{
+      } else {
         $_SESSION['login'] = 0;
         echo '0';
       }
     }
   }
-
 }
 
 //METODO POST
@@ -552,14 +552,13 @@ if (isset($_POST['op'])) {
       $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
       $_SESSION['idusuario'] = $data[0]['idusuario'];
       $_SESSION['rol'] = $data[0]['rol'];
-
     } else {
       echo ".";
     }
   }
 
   //Modificar contraseña
-  if($_POST['op'] == 'updatePasswordRest'){
+  if ($_POST['op'] == 'updatePasswordRest') {
 
     $emailenv = $_POST['email'];
 
@@ -570,11 +569,10 @@ if (isset($_POST['op'])) {
 
     $user->updatePasswordRest($datosUp);
     echo  $emailenv;
-
   }
 
   // modificar descripcion de un usuario
-  if ($_POST['op'] == 'updateDescrip'){
+  if ($_POST['op'] == 'updateDescrip') {
 
     $datosEnviar = [
       "idusuario"       => $_SESSION['idusuario'],
@@ -585,27 +583,28 @@ if (isset($_POST['op'])) {
   }
 
   // Agregar nueva foto de perfil de nuevo usuario
-  if($_POST['op'] == 'newUserProfile'){
+  if ($_POST['op'] == 'newUserProfile') {
     $gallery = new Gallery();
-    $regIDAlbumPer = $gallery->getIDAlbum(["idusuario" => $_SESSION['idusuario'] , "tipoalbum" => 'PE']);
+    $regIDAlbumPer = $gallery->getIDAlbum(["idusuario" => $_SESSION['idusuario'], "tipoalbum" => 'PE']);
 
-    function encripPhoto(){
+    function encripPhoto()
+    {
       $lenght = 15;
       $base = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       $longitud = strlen($base);
       $code = '';
-      for($i = 0; $i < $lenght; $i++){
-          $random = $base[mt_rand(0, $longitud -1)];
-          $code .= $random;
+      for ($i = 0; $i < $lenght; $i++) {
+        $random = $base[mt_rand(0, $longitud - 1)];
+        $code .= $random;
       }
-  
+
       return $code;
     }
 
-    if(isset($_FILES['archivo'])){
+    if (isset($_FILES['archivo'])) {
 
       $ext = explode('.', $_FILES['archivo']['name']);
-      $image = encripPhoto().date('Ymdhis'). '.' . $ext[1];
+      $image = encripPhoto() . date('Ymdhis') . '.' . $ext[1];
 
       $datregister = [
         "idalbum"       => $regIDAlbumPer[0]['idalbum'],
@@ -615,11 +614,10 @@ if (isset($_POST['op'])) {
         "archivo"       => $image,
         "estado"        => "2"
       ];
-      
+
       $gallery->registerGallery($datregister);
       move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
-
-    }else{
+    } else {
       echo 'ERROR';
     }
   }

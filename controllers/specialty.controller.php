@@ -132,22 +132,22 @@ if (isset($_GET['op'])) {
                   <div class='box-right'>
                     <div class='icons-score'>";
 
-        /* con estrellas */
-        for ($i = 0; $i < $scoreUser; $i++) {
-          echo "
-                          <i class='fas fa-star active'></i>
-                        ";
-        }
+                      /* con estrellas */
+                      for ($i = 0; $i < $scoreUser; $i++) {
+                        echo "
+                            <i class='fas fa-star active'></i>
+                          ";
+                      }
 
-        /* sin estrellas */
-        for ($i = 0; $i < 5 - $scoreUser; $i++) {
-          echo "
-                          <i class='fas fa-star'></i>
-                        ";
-        }
-        echo "</div>
-                  </div>
-                </div>
+                      /* sin estrellas */
+                      for ($i = 0; $i < 5 - $scoreUser; $i++) {
+                        echo "
+                              <i class='fas fa-star'></i>
+                            ";
+                      }
+                      echo "</div>
+                              </div>
+                            </div>
                 <hr>
     
                 <!-- Contenido del servicio -->
@@ -163,14 +163,14 @@ if (isset($_GET['op'])) {
                 <div class='row margin-0 content-social-location '>
                   <!-- ubicación -->
                   <div class='location box-left'>
-                    <a href='https://www.google.com/maps' target='_blank'><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
+                    <a href='index.php?view=geolocalizacion-view' target='_blank'><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
                   </div>
     
                   <!-- redes sociales -->
                   <div class='social-media box-right'>";
-        listRedsocialUser($row['idusuario']);
+                  listRedsocialUser($row['idusuario']);
 
-        echo "</div>
+                  echo "</div>
                 </div>
     
               </div>
@@ -267,7 +267,8 @@ if (isset($_GET['op'])) {
     listSpecialtyControlSelect($data);
   }
 
-  function listSpecialtyUser($data, $visible){
+  function listSpecialtyUser($data, $visible)
+  {
     if (count($data) <= 0) {
       echo " ";
     } else {
@@ -300,7 +301,7 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'listSpecialtyUser') {
     $idusuario;
     $visible;
-    
+
     if ($_GET['idusuarioactivo'] != -1) {
       $idusuario = $_GET['idusuarioactivo'];
       $visible = 'hidden';
@@ -375,9 +376,9 @@ if (isset($_GET['op'])) {
 }
 
 // MÉTODO POST
-if (isset($_POST['op'])){
+if (isset($_POST['op'])) {
 
-  if ($_POST['op'] == 'registerSpecialtyUser'){
+  if ($_POST['op'] == 'registerSpecialtyUser') {
 
     $datosEnviar = [
       "idusuario"        =>  $_SESSION['idusuario'],
@@ -388,22 +389,18 @@ if (isset($_POST['op'])){
     ];
 
     $specialty->registerSpecialtyUser($datosEnviar);
-  } 
+  }
 
   // modificar descripcion de un usuario
-  if ($_POST['op'] == 'updateSpecialty'){
+  if ($_POST['op'] == 'updateSpecialty') {
     $datosEnviar = [
       "idespecialidad"    =>  $_POST["idespecialidad"],
       "idusuario"         =>  $_SESSION['idusuario'],
-      "idservicio"        =>  $_POST["idservicio"],    
-      "descripcion"       =>  $_POST["descripcion"],    
+      "idservicio"        =>  $_POST["idservicio"],
+      "descripcion"       =>  $_POST["descripcion"],
       "tarifa"            =>  $_POST["tarifa"]
     ];
 
     $specialty->updateSpecialty($datosEnviar);
-
   }
-
 }
-
-?>

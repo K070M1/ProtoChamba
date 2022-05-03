@@ -64,7 +64,8 @@ if(isset($_SESSION["login"])){
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__wobble" src="dist/img/logo.png" alt="AdminLTELogo" height="60" width="60">
+      <i class='nav-icon fab fa-qq ml-4' style='font-size: 58px;'></i>
+      <h4 class="mt-2">Cargando...</h4>
     </div>
 
     <!-- Navbar -->
@@ -199,7 +200,7 @@ if(isset($_SESSION["login"])){
     <!-- Main Sidebar Container -->
     <aside class='main-sidebar sidebar-dark-primary elevation-4'>
       <!-- Brand Logo -->
-      <a href='index.php?view=main-view' class='brand-link'>
+      <a href='index.php' class='brand-link'>
         <i class='nav-icon fab fa-qq ml-4' style='font-size: 24px;'></i>
         <span class='brand-text font-weight-bold'> Q' Tal Chamba</span>
       </a>
@@ -255,7 +256,7 @@ if(isset($_SESSION["login"])){
                       </a>
                     </li>
                     <li class='nav-item'>
-                      <a href='index.php?view=graficos-view' class='nav-link'>
+                      <a href='index.php?view=graphics-view' class='nav-link'>
                         <i class='far fa-circle nav-icon'></i>
                         <p>Gráficos</p>
                       </a>
@@ -582,7 +583,6 @@ if(isset($_SESSION["login"])){
   <script src="./plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <!-- /. plugins - Datatable -->
 
-  
   <!-- Select2 -->
   <script src="plugins/select2/js/select2.full.min.js"></script>
 
