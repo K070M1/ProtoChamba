@@ -17,19 +17,30 @@ if (isset($_GET['op'])) {
           <div class='col-md-3 user-cd-img user-cd-albm' >
             <div class='image-container' >
               <figure >
-                <img src='./dist/img/photo1.png' >
+                <img src='./dist/img/albumdefa.png' >
                 <h4>{$row['nombrealbum']}</h4>
                 <figcaption >
-                    <ul>
-                        <li>
-                            <i class='fas fa-pen btn-modif' data-alb-act='{$row['idalbum']}' {$visible}></i>
-                        </li>
-                        <li>
-                            <i class='fas fa-trash btn-elim' data-alb-eli='{$row['idalbum']}' {$visible}></i>
-                        </li>
+                    <ul>";
+
+                    if($row['nombrealbum'] == 'Portada' || $row['nombrealbum'] == 'Perfil' || $row['nombrealbum'] == 'Publicaciones'){
+                      echo "
                         <li>
                             <i class='fas fa-folder-open btn-abr' data-alb-open='{$row['idalbum']}' data-alb-open-name='{$row['nombrealbum']}'></i>
-                        </li>
+                        </li>";
+                    }else{
+                      echo"
+                      <li>
+                          <i class='fas fa-pen btn-modif' data-alb-act='{$row['idalbum']}' {$visible}></i>
+                      </li>
+                      <li>
+                          <i class='fas fa-trash btn-elim' data-alb-eli='{$row['idalbum']}' {$visible}></i>
+                      </li>
+                      <li>
+                            <i class='fas fa-folder-open btn-abr' data-alb-open='{$row['idalbum']}' data-alb-open-name='{$row['nombrealbum']}'></i>
+                      </li>
+                        ";
+                    }
+                        echo "
                     </ul>
                 </figcaption>
               </figure>
@@ -56,10 +67,14 @@ if (isset($_GET['op'])) {
     if (count($data) > 0) {
       echo  "<option value=''>Ninguno</option>";
       foreach ($data as $row) {
-        echo
-        "
-                    <option value='{$row['idalbum']}'>{$row['nombrealbum']}</option>
-                ";
+        if($row['nombrealbum'] == 'Portada' || $row['nombrealbum'] == 'Perfil'){
+          continue;
+        }else{
+          echo
+          "
+            <option value='{$row['idalbum']}'>{$row['nombrealbum']}</option>
+          ";
+        }
       }
     }
   }

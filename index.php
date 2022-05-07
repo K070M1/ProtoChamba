@@ -93,14 +93,12 @@ if(isset($_SESSION["login"])){
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-    
+
         <!-- User Account: style can be found in dropdown.less -->
         <?php
         if($login){
         echo "
           <li class='nav-item dropdown user user-menu'>
-  
-          
             <a href='#' class='nav-link' data-toggle='dropdown'>
               <img src='dist/img/user/{$_SESSION['imagenusuario']}' class='user-image user-image-top' alt='User Image' id='userImageIndexNav'>
               <span class='hidden-xs'id='nameUserIndex'></span>
@@ -291,14 +289,6 @@ if(isset($_SESSION["login"])){
       </div>
       <!-- /.sidebar -->
     </aside>
-    <?php
-      if($login ){
-        echo
-        "
-        ";
-      }
-    ?>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper text-sm" id="content-body">
       <!-- Content Header (Page header) -->
@@ -353,10 +343,24 @@ if(isset($_SESSION["login"])){
           <input type="checkbox" class="mr-1" checked id="cbox-small-text-content-wrapper">
           <span>Contenido</span>
         </div>
-        <div class="mb-1">
+        <div class="mb-4">
           <input type="checkbox" class="mr-1" id="cbox-small-text-sidebar" checked>
           <span>Barra lateral (Izq, Der)</span>
         </div>
+
+      <?php
+      if($login){
+        echo
+        "
+          <h6>Opción de seguridad</h6>
+          <div class='mb-1'>
+            <input type='checkbox' class='mr-1' id='questionLoginHab'>
+            <span>Pregunta de seguridad</span>
+          </div>
+        ";
+      }
+      ?>
+
       </div>
     </aside>
   
@@ -384,15 +388,15 @@ if(isset($_SESSION["login"])){
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form autocomplete="off">
             <div class="form-group row">
               <div class="col-sm-6">
                 <label for="inApellidos">Apellidos:</label>
-                <input type="text" class="form-control form-control-border" id="inApellidos" placeholder="Apellidos">
+                <input type="text" class="form-control form-control-border" id="inApellidos" placeholder="Apellidos" onpaste="return false" >
               </div>
               <div class="col-sm-6">
                 <label for="inNombres">Nombres:</label>
-                <input type="text" class="form-control form-control-border" id="inNombres" placeholder="Nombres">
+                <input type="text" class="form-control form-control-border" id="inNombres" placeholder="Nombres" onpaste="return false" >
               </div>
             </div>
             <div class=" form-group row">
@@ -406,7 +410,7 @@ if(isset($_SESSION["login"])){
               </div>
               <div class="col-sm-6">
                 <label for="inTelef">Telefono:</label>
-                <input type="tel" class="form-control form-control-border" id="inTelef" placeholder="Telefono" maxlength="9">
+                <input type="tel" class="form-control form-control-border" id="inTelef" placeholder="Telefono" maxlength="9" onpaste="return false" >
               </div>
             </div>
             <div class="form-group row">
@@ -444,21 +448,33 @@ if(isset($_SESSION["login"])){
                     </Select>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="inNCalle">
+                    <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="inNCalle" onpaste="return false" >
                   </div>
                   <div class="col-md-2">
-                    <input type="number" class="form-control form-control-border" placeholder="N°" id="inNC" maxlength="5" min="1" max="99999">
+                    <input type="number" class="form-control form-control-border" placeholder="N°" id="inNC" maxlength="5" min="1" max="99999" onpaste="return false">
                   </div>
                   <div class="col-md-2">
-                    <input type="number" class="form-control form-control-border" placeholder="Piso" id="inPiso" maxlength="5" min="1" max="99999">
+                    <input type="number" class="form-control form-control-border" placeholder="Piso" id="inPiso" maxlength="5" min="1" max="99999" onpaste="return false" >
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group row">
-              <div class="col-sm-12">
+              <div class="col-md-12">
                 <label for="inCorreoE">Correo Electrónico:</label>
-                <input type="email" class="form-control form-control-border" id="inCorreoE" placeholder="Correo Electronico">
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <input type="email" class="form-control form-control-border" id="inCorreoE" placeholder="Correo Electronico" onpaste="return false">
+                  </div>
+                  <div class="col-sm-4">
+                    <select class="custom-select form-control-border" id="inTipEmail">
+                      <option value="@hotmail.com">@hotmail.com</option>
+                      <option value="@gmail.com">@gmail.com</option>
+                      <option value="@senati.pe">@senati.pe</option>
+                      <option value="@outlook.com">@outlook.com</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -498,7 +514,7 @@ if(isset($_SESSION["login"])){
             <img src="dist/img/user2-160x160.jpg" class="img-circle" id='File-imgUserNew' width="50%">
             <div class="btn-file-up">
               <button class="btn-upload" id="btnUserFileNew"><i class="fas fa-upload"></i></button>
-              <input class="inpt-file" type="file" id='newUserFile'>
+              <input class="inpt-file" type="file" id='newUserFile' accept=".jpg, .png, .gif" >
             </div>
           </div>
           <div class="btn-omitir">

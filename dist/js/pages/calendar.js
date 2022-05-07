@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
                   placement: 'top',
                   container: 'body'
               });
-              console.log("Hola")
       },
       eventDrop: function(info){
           //alert(info.event.title + " was dropped on " + info.event.start.toISOString());

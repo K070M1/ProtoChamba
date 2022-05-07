@@ -2,18 +2,14 @@
 session_start();
 date_default_timezone_set("America/Lima");
 
-if(isset($_SESSION['idusuario'])){
-    $sidusuario = $_SESSION['idusuario'];
-}
-
 require_once '../model/Gallery.php';
 
 $gallery = new Gallery();
 
 if (isset($_GET['op'])) {
-
   // Cargar todas las fotografias
-  function loadGallery($data, $visible) {
+  function loadGallery($data, $visible, $portada, $perfil, $NoCollapse){
+
     if (count($data) > 0) {
       foreach ($data as $row) {
         echo
@@ -22,42 +18,69 @@ if (isset($_GET['op'])) {
             <div class='image-container'>
                 <figure>
                     <img src='./dist/img/user/{$row['archivo']}'>
-                    <figcaption>
-                        <ul>
-                        <li>
-                            <i class='fas fa-pen-square btn-modif' {$visible}  data-gal-act='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}' ></i>
-                        </li>
-                        <li>
-                            <i class='fas fa-trash-alt btn-elim' {$visible}  data-gal-eli='{$row['idgaleria']}' ></i>
-                        </li>
-                        <li>
-                            <i class='fas fa-eye btn-vw' data-gal-open='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}'></i>
-                        </li>
-                        </ul>
-                    </figcaption>
-                </figure>
-            </div>
-        </div>
-        ";
+                    ";
+                        if($row['idalbum'] == $portada || $row['idalbum'] == $perfil){
+                          echo "
+                                </figure>
+                              </div>
+                          </div>";
+                        }else{
+                          if($NoCollapse === false){
+                              echo "
+                                  </figure>
+                                </div>
+                            </div>";
+                          }else{
+                            echo
+                            "
+                                  <figcaption>
+                                    <ul>
+                                      <li>
+                                          <i class='fas fa-pen-square btn-modif' {$visible}  data-gal-act='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}' ></i>
+                                      </li>
+                                      <li>
+                                          <i class='fas fa-trash-alt btn-elim' {$visible}  data-gal-eli='{$row['idgaleria']}' ></i>
+                                      </li>
+                                      <li>
+                                          <i class='fas fa-eye btn-vw' data-gal-open='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}'></i>
+                                      </li>
+                                    </ul>
+                                    </figcaption>
+                                  </figure>
+                              </div>
+                            </div>";
+                          }
+                        }
       }
-    }
-    echo
-    "
+    }else{
+      echo
+      "
       <div class='col-md-3' {$visible}>
-        <div class='add-img-cd' title='Subir una imágen a mi galería' id='agr-gal'>
-          <i class='fas fa-camera'></i>
+        <div class='add-img-cd' title='Sin archivos'>
+          <h5>Sin Archivos</h5>
         </div>
       </div>
       ";
+    }
+
+    if($NoCollapse){
+      echo
+      "
+        <div class='col-md-3' {$visible}>
+          <div class='add-img-cd' title='Subir una imágen a mi galería' id='agr-gal'>
+            <i class='fas fa-camera'></i>
+          </div>
+        </div>
+        ";
+    }
   }
 
   // Cargar contenido en el modal de las fotografias
-  function loadGalleryView($data)
-  {
+  function loadGalleryView($data){
+    
     $fechaalta = $data[0]['fechaalta'];
     $cambio = strtotime($fechaalta);
     $nuevaFecha = date("Y-m-d", $cambio);
-
     echo
     "
             <div class='modal-header'>
@@ -102,22 +125,32 @@ if (isset($_GET['op'])) {
       $visible = 'visible';
     }
 
+    $dataPer = $gallery->getIDAlbum(["idusuario" => $idusuario , "tipoalbum" => 'PE']);
+    $dataPor = $gallery->getIDAlbum(["idusuario" => $idusuario , "tipoalbum" => 'PO']);
+
     $data = $gallery->getGalleriesByUser(["idusuario" => $idusuario]);
-    loadGallery($data, $visible);
+
+    loadGallery($data, $visible, $dataPor[0]['idalbum'], $dataPer[0]['idalbum'], true);
   }
 
   // Cargar todas las fotografias dentro de un collapse
   if ($_GET['op'] == 'listGalleryFromAlbum') {
     $visible;
-    
+    $idusuario;
+
     if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
       $visible = 'hidden';
     } else {
+      $idusuario = $_SESSION['idusuario'];
       $visible = 'visible';
     }
 
+    $dataPer = $gallery->getIDAlbum(["idusuario" => $idusuario , "tipoalbum" => 'PE']);
+    $dataPor = $gallery->getIDAlbum(["idusuario" => $idusuario , "tipoalbum" => 'PO']);
+    
     $data = $gallery->getGalleriesByAlbum(["idalbum" => $_GET['idalbum']]);
-    loadGallery($data, $visible);
+    loadGallery($data, $visible, $dataPor[0]['idalbum'], $dataPer[0]['idalbum'], false);
   }
 
   //  Cargar contenido en el modal de las fotografias
@@ -170,6 +203,7 @@ if (isset($_GET['op'])) {
 }
 
 if (isset($_POST['op'])){
+  
   // Para encriptar fotos
   function encripPhoto(){
       $lenght = 15;
@@ -185,30 +219,25 @@ if (isset($_POST['op'])){
   }
 
   if($_POST['op'] == "registerGalleryPhotos"){
-
-      $idtypefile = $_POST['tipoarchivo'];
-
-      if($idtypefile == 'image/png'){
-          $extension =  encripPhoto() . date('YmdhGsuv') . ".png";
-      }else if($idtypefile == 'image/jpeg'){
-          $extension = encripPhoto() . date('YmdhGsuv') . ".jpg";
-      }else{
-          $extension = encripPhoto() . date('YmdhGsuv') . ".gif";
+    if(isset($_FILES['archivo'])){
+      if(is_array(($_FILES))){
+        foreach($_FILES['archivo']['name'] as $key => $value){
+          $ext = explode('.', $_FILES['archivo']['name'][$key]);
+          $extension = encripPhoto() . date('Ymdhis') . '.' . end($ext);
+          
+          $gallery->registerGallery([
+            "idalbum"       => $_POST['idalbum'],
+            "idusuario"     => $_SESSION['idusuario'],
+            "idtrabajo"     => " ",
+            "tipo"          => "F",
+            "archivo"       => $extension,
+            "estado"        => "1"
+          ]);
+          
+          move_uploaded_file($_FILES['archivo']['tmp_name'][$key], "../dist/img/user/" . $extension);
+        }
       }
-
-      $enviard =   
-      [   
-          "idalbum"       => $_POST['idalbum'],
-          "idusuario"     => $_SESSION['idusuario'],
-          "idtrabajo"     => " ",
-          "tipo"          => "F",
-          "archivo"       => $extension,
-          "estado"        => "1"
-      ];
-
-      $data = $gallery->registerGallery($enviard);
-      move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $extension);
-      echo $extension;
+    }
   }
 
   if($_POST['op'] == "updateGallery"){

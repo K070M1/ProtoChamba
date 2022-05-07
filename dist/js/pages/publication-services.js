@@ -119,7 +119,7 @@ $("#data-publication-works").on("click", ".btn-show-config", function(){
   $(this).next("ul.list-public-config").toggle();
 });
 
-// Editar publicación (traer datos del servidor y mostrarlo en panatalla)
+// Editar publicación (traer datos del servidor y mostrarlo en pantalla)
 $("#data-publication-works").on("click", ".btn-edit-publication", function(){
   
   $(this).parent("li.item-public-config").parent("ul.list-public-config").toggle(); // Cerrar opciones

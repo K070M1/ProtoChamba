@@ -15,9 +15,10 @@ $(document).ready(function(){
     // Previsualizaciones
     function createPreview(file, dataname) {
         var imgCod = URL.createObjectURL(file);
-        var img = $('<div class="col-md-4"><div class="image-sub-despz" dataimg="'+ dataname +'"> <figure> <img src="' + imgCod+ '" alt="Foto del usuario" width="100%"> <figcaption><i class="fas fa-trash-alt"></i></figcaption> </figure> </div></div>');
-        $(img).insertBefore(".img-upd-container");
-    }
+        var img = $('<div class="col-md-4" id="capImgindex"><div class="image-sub-despz" dataimg="'+ dataname +'"> <figure> <img src="' + imgCod+ '" alt="Foto del usuario" width="100%"> <figcaption><i class="fas fa-trash-alt"></i></figcaption> </figure> </div></div>');
+        //$(img).insertBefore(".img-upd-container");
+        $(".img-container-upt").append(img);
+    }   
 
     // Cargar album 
     function loadAlbum(){
@@ -118,7 +119,7 @@ $(document).ready(function(){
     
     // Agregar album 
     $("#añadir-albm").click(function(){
-    let nalbum = $("#nmb-album-add").val();
+        let nalbum = $("#nmb-album-add").val();
         
         var formData = new FormData();
 
@@ -131,49 +132,69 @@ $(document).ready(function(){
         
         formData.append("nombrealbum", nalbum);
 
-        $.ajax({
-            url: 'controllers/album.controller.php',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(e) {
-                console.log(e);
-                loadAlbum();
-                $("#md-album-cd-img").modal("hide");
-                $("#añadir-albm").html("Añadir");
-                $("#t-md-albm").html("Crear nuevo álbum");
-                modificarAlbum = false;
+        if(nalbum == '' || nalbum == ' '){
+            sweetAlertWarning("Q tal chamba", "Debes escribir el nombre del álbum");
+        }else{
+            if(nalbum == 'Perfil' || nalbum == 'Portada' || nalbum == 'Publicaciones'){
+                sweetAlertError("Q tal chamba", "Album ya existente");
+            }else{
+                sweetAlertConfirmQuestionSave("¿Estas seguro de realizar esta operación ?").then((confirm) => {
+                    if(confirm.isConfirmed){
+                        $.ajax({
+                            url: 'controllers/album.controller.php',
+                            type: 'POST',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            cache: false,
+                            success: function(e) {
+                                console.log(e);
+                                loadAlbum();
+                                $("#md-album-cd-img").modal("hide");
+                                $("#añadir-albm").html("Añadir");
+                                $("#t-md-albm").html("Crear nuevo álbum");
+                                modificarAlbum = false;
+                                sweetAlertSuccess("Q tal chamba", "Operación realizada correctamente");
+                            }
+                        });
+                    }
+                });
             }
-        });
+        }
     });
 
     // Eliminar album 
     $("#load-album").on("click", ".btn-elim",function(){
         $idalbum = $(this).attr("data-alb-eli");
-        $.ajax({
-            url: 'controllers/album.controller.php',
-            type: 'GET',
-            data: 'op=deleteAlbum&idalbum=' + $idalbum,
-            success: function(e) {
-                loadAlbum();
+
+        sweetAlertConfirmQuestionSave("¿Estas seguro de eliminar este album ?").then((confirm) => {
+            if(confirm.isConfirmed){
+                $.ajax({
+                    url: 'controllers/album.controller.php',
+                    type: 'GET',
+                    data: 'op=deleteAlbum&idalbum=' + $idalbum,
+                    success: function(e) {
+                        loadAlbum();
+                        sweetAlertSuccess("Q tal chamba", "Eliminado correctamente");
+                    }
+                });
             }
         });
+
     });
 
     // Abrir album
     $("#load-album").on("click", ".btn-abr",function(){
-        $idalbum = $(this).attr("data-alb-open");
-        $namealbum = $(this).attr("data-alb-open-name");
+        var idalbum = $(this).attr("data-alb-open");
+        var namealbum = $(this).attr("data-alb-open-name");
         $.ajax({
             url: 'controllers/gallery.controller.php',
             type: 'GET',
-            data: 'op=listGalleryFromAlbum&idalbum=' + $idalbum + '&idusuarioactivo=' + idusuarioActivo,
+            data: 'op=listGalleryFromAlbum&idalbum=' + idalbum + '&idusuarioactivo=' + idusuarioActivo,
             success: function(e) {
                 $("#content-collapse-albm").html(e);
                 $("#img-album-open-collap").collapse("toggle");
-                $("#tittle-collapse").html("Álbum: " + $namealbum);
+                $("#tittle-collapse").html("Álbum: " + namealbum);
             }
         });
     });
@@ -201,20 +222,17 @@ $(document).ready(function(){
     // Abrir modal de subir imagen
     $("#load-Gallery").on("click", "#agr-gal", function(){
         $("#md-add-img").modal("toggle");
+        ElementSubidos = [];
+        $(".img-container-upt").empty();
         loadAlbumSlcModalAddGallery();
+        console.log(ElementSubidos);
     });
     
     // Eliminar previsualizacion
     $(".img-container-upt").on("click", ".image-sub-despz", function(){
         $(this).parent().remove();
         var data =  $(this).attr('dataimg');
-        
-        for (var i = 0; i < ElementSubidos.length; i++){
-            if(ElementSubidos[i]['name'] == data){
-                ElementSubidos.splice( ElementSubidos[i], 1 );
-            };
-        }
-        console.log(ElementSubidos);
+        removeItemFromArrayObject(ElementSubidos, data);
     });
 
     // Subir imagen temporales
@@ -237,12 +255,17 @@ $(document).ready(function(){
     // Eliminar galeria
     $("#load-Gallery").on("click", ".btn-elim", function(){
         $idgaleria = $(this).attr("data-gal-eli");
-        $.ajax({
-            url: 'controllers/gallery.controller.php',
-            type: 'GET',
-            data: 'op=deleteGallery&idgaleria=' + $idgaleria,
-            success: function() {
-                loadGallery();
+        sweetAlertConfirmQuestionSave("¿Estas seguro de eliminar este archivo ?").then((confirm) => {
+            if(confirm.isConfirmed){
+                $.ajax({
+                    url: 'controllers/gallery.controller.php',
+                    type: 'GET',
+                    data: 'op=deleteGallery&idgaleria=' + $idgaleria,
+                    success: function() {
+                        loadGallery();
+                        sweetAlertSuccess("Q tal chamba", "Eliminado correctamente");
+                    }
+                });
             }
         });
         
@@ -263,7 +286,7 @@ $(document).ready(function(){
         $("#btn-cmb-alb").html("Cambiar"); 
     });
 
-    // Modificaciones en el modal
+    // Modificar en galeria
     $("#loadGalleryModal").on("click", "#btn-cmb-alb" , function(){
         $("#slc-album-md").addClass("view-only-img");
         if(disabledSelector == true){
@@ -278,22 +301,30 @@ $(document).ready(function(){
             var formData = new FormData();
             let idalbumm =  $("#slc-album-md").val();
 
-            formData.append("op", "updateGallery");
-            formData.append("idgaleria", idgaleria);
-            formData.append("idalbum", idalbumm );
+            
+            sweetAlertConfirmQuestionSave("¿Estas modificar este archivo ?").then((confirm) => {
+                if(confirm.isConfirmed){
 
-            $.ajax({
-                url: 'controllers/gallery.controller.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function(e) {
-                    console.log(e);
-                    loadGallery();
+                    formData.append("op", "updateGallery");
+                    formData.append("idgaleria", idgaleria);
+                    formData.append("idalbum", idalbumm );
+
+                    $.ajax({
+                        url: 'controllers/gallery.controller.php',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        success: function() {
+                            loadGallery();
+                            sweetAlertSuccess("Q tal chamba", "Archivo modificado correctamente");
+                        }
+                    });
                 }
             });
+            
+           
         }
     });
 
@@ -302,27 +333,43 @@ $(document).ready(function(){
         let idalbum = $("#alb-add-gal").val();
         var formData = new FormData();
 
-        formData.append("op", "registerGalleryPhotos");
-        formData.append("idalbum", idalbum);
-
-        for (var i = 0; i < ElementSubidos.length; i++){
-            formData.append("archivo", ElementSubidos[i]);
-            formData.append("tipoarchivo", ElementSubidos[i]['type'])
-
-            $.ajax({
-                url: 'controllers/gallery.controller.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function(e) {
-                    console.log(e);
-                    loadGallery();
+        if(ElementSubidos.length == ''){
+            sweetAlertWarning("Q tal Chamba", "No hay archivos para subir");
+        }else{
+            sweetAlertConfirmQuestionSave("¿Estas seguro de registrar estos  archivos ?").then((confirm) => {
+                if(confirm.isConfirmed){
+                    formData.append("op", "registerGalleryPhotos");
+                    formData.append("idalbum", idalbum);
+                    for(let i = 0; i < ElementSubidos.length; i++){
+                        formData.append("archivo[]", ElementSubidos[i]);
+                    }
+        
+                    $.ajax({
+                        url: 'controllers/gallery.controller.php',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        success: function() {
+                            ElementSubidos = [];
+                            $("#md-add-img").modal("hide");
+                            sweetAlertSuccess("Q tal Chamba", "Archivos subidos correctamente");
+                            loadGallery();
+                            console.log(ElementSubidos);
+                        }
+                    });
                 }
             });
         }
 
+    });
+    
+    // Comprobar no espacios
+    $("#nmb-album-add").keyup(function(){              
+        var valor =   this.value;
+        letras =   valor.replace(/ /g, "");
+        this.value = letras;
     }); 
     
     /************** LLAMADO DE LAS FUNCIONES ******************/
