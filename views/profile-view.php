@@ -340,7 +340,7 @@
               <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="agregarser">
                   <div class="form-group" id="formred">
-                    <label for="">Nombre de red social:</label>
+                    <label>Nombre de red social:</label>
                     <!-- <input type="text" class="form-control form-control-border" id="nombrered"> -->
                     <Select class="custom-select form-control-border" id="nombrered">
                       <option value='' disabled selected hidden>Seleccione:</option>
@@ -450,7 +450,7 @@
           <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-foto" role="tab" aria-controls="pills-home" aria-selected="true">Fotos</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-album" role="tab" aria-controls="pills-profile" aria-selected="false">Albumnes</a>
+          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-album" role="tab" aria-controls="pills-profile" aria-selected="false">Albumes</a>
         </li>
       </ul>
       <!--./Nav de fotos y albumes-->
@@ -530,7 +530,7 @@
 <!--Modales -->
 <!--Modal de Añadir imagenes-->
 <div class="modal fade" id="md-add-img" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Agregar a mi galería</h5>
@@ -541,10 +541,10 @@
       <div class="modal-body">
         <form action="upload.php" method="post" enctype="multipart/form-data">
           <div class="form-group row">
-            <div class="col-lg-2 align-self-center">
+            <div class="col-sm-2 align-self-center">
               <label class="form-label">Album:</label>
             </div>
-            <div class="col-lg-5">
+            <div class="col-sm-5">
               <select class="form-control" id="alb-add-gal">
 
               </select>
@@ -559,8 +559,7 @@
         <div class="img-cnt-add">
           <div class="row img-container-upt">
 
-            <!--Solo para referencia-->
-            <div class="img-upd-container"></div>
+           
           </div>
         </div>
       </div>
@@ -575,7 +574,7 @@
 
 <!--Modal de ver la imagen-->
 <div class="modal fade" id="modal-view-img" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content" id="loadGalleryModal">
 
     </div>
@@ -594,7 +593,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form autocomplete="off">
           <label for="">Nombre del álbum:</label>
           <input type="text" class="form-control" id="nmb-album-add">
         </form>

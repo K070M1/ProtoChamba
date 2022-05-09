@@ -44,7 +44,7 @@ if(isset($_GET['op'])){
         <div class='target-service card'> 
           <div class='target-header card-header'>
             <div class='user-block'>
-              <img class='img-circle' src='dist/img/{$imageProfile}'>
+              <img class='img-circle' src='dist/img/user/{$imageProfile}'>
               <span class='username'><a href='#'>{$row['nombres']} {$row['apellidos']}</a></span>
               <span class='description'>{$row['fechalarga']}</span>
             </div>
@@ -149,26 +149,7 @@ if(isset($_GET['op'])){
             <!-- /. menu (comentarios, calificaciones) -->
 
             <!-- Contenido de los comentarios -->
-            <div class='content-comments collapse'>
-              <!-- Comentario 1 -->
-              <!-- <div class='box-comment'>
-                <img src='dist/img/avatar2.png' alt='' />
-
-                <div class='box-content-commented'>
-                  <div class='name-user'>
-                    <span>Nombre del usuario</span>
-                    <small class='fecha text-muted'>12-05-2022 04:45 PM</small>
-                  </div>
-                  <p class='comment-text'>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Quia illum mollitia dolores sit vero sint minima incidunt,
-                    fugiat quos ullam.
-                  </p>
-                  <a href='javascript:void(0)' class='text-primary edit-comment'>Editar</a>
-                  <a href='javascript:void(0)' class='text-info cancel-edit-comment d-none'>Cancelar</a>
-                  <a href='javascript:void(0)' class='text-danger delete-comment'>Eliminar</a>
-                </div>
-              </div> -->";           
+            <div class='content-comments collapse'>";           
 
               if($totalComments > 0){
                 foreach ($comments as $comment){
@@ -226,7 +207,7 @@ if(isset($_GET['op'])){
 
             <!-- Escribir comentario -->
             <div class='write-comment'>
-              <img src='dist/img/{$_SESSION['imgdefault']}' alt='' />
+              <img src='dist/img/user/{$_SESSION['imgdefault']}' alt='' />
               <div class='text-auto-height'>
                 <div class='text-input-auto contenteditable write-text-comment' contenteditable='true' maxlength='250' data-code='{$row['idtrabajo']}'> </div>
               </div>

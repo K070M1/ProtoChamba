@@ -275,7 +275,6 @@ if (isset($_GET['op'])) {
 
   // Login
   if ($_GET['op'] == 'loginUser') {
-    if ($_GET['remember'] == 'false') {
       $data = $user->loginUser(["email" => $_GET['email']]);
       if (count($data) <= 0) {
         echo 'Inexistente';
@@ -304,42 +303,9 @@ if (isset($_GET['op'])) {
           $_SESSION['imagenusuario'] = '';
         }
       }
-    } else {
-      if (isset($_COOKIE['email'])) {
-        $data = $user->loginUser(["email" => $_COOKIE['email']]);
-        if (count($data) <= 0) {
-          echo 'Inexistente';
-        } else {
-          $contraseña = $data[0]['clave'];
-          $sendpass = $_COOKIE['password'];
-          $login = password_verify($sendpass, $contraseña);
-          if ($login) {
-            echo 'Acceso';
-            $_SESSION['login'] = true;
-            $_SESSION['email'] = $data[0]['email'];
-            $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
-            $_SESSION['idusuario'] = $data[0]['idusuario'];
-            $_SESSION['rol'] = $data[0]['rol'];
-
-            $image = getImageProfileUser($data[0]['idusuario']);
-            $_SESSION['imagenusuario'] = $image != '' ? $image : 'default_profile_avatar.svg';
-          } else {
-            echo 'Incorrecto';
-            $_SESSION['login'] = false;
-            $_SESSION['email'] = '';
-            $_SESSION['emailrespaldo'] = '';
-            $_SESSION['idusuario'] = '';
-            $_SESSION['rol'] = '';
-            $_SESSION['imagenusuario'] = '';
-          }
-        }
-      } else {
-        setcookie("email", $_GET['email'], time() + 60 * 60);
-        setcookie("password", $_GET['password'], time() + 60 * 60);
-      }
-    }
   }
 
+  // Logout
   if ($_GET['op'] == 'logout') {
     session_destroy();
     session_unset();
@@ -449,21 +415,21 @@ if (isset($_GET['op'])) {
       $answer = $_GET['answer'];
       if ($quest == '1') {
         if ($data[0]['distrito'] == $answer) {
-          $_SESSION['login'] = 1;
+          $_SESSION['login'] = true;
           echo '1';
         } else {
           echo '0';
         }
       } else if ($quest == '2') {
         if ($data[0]['provincia'] == $answer) {
-          $_SESSION['login'] = 1;
+          $_SESSION['login'] = true;
           echo '1';
         } else {
           echo '0';
         }
       } else if ($quest == '3') {
         if ($data[0]['departamento'] == $answer) {
-          $_SESSION['login'] = 1;
+          $_SESSION['login'] = true;
           echo '1';
         } else {
           echo '0';
@@ -473,7 +439,7 @@ if (isset($_GET['op'])) {
         $date = strtotime($fecha);
         $day = date("d", $date);
         if ($day == $answer) {
-          $_SESSION['login'] = 1;
+          $_SESSION['login'] = true;
           echo '1';
         } else {
           echo '0';
@@ -483,7 +449,7 @@ if (isset($_GET['op'])) {
         $date = strtotime($fecha);
         $month = date("m", $date);
         if ($month == $answer) {
-          $_SESSION['login'] = 1;
+          $_SESSION['login'] = true;
           echo '1';
         } else {
           echo '0';
@@ -493,13 +459,13 @@ if (isset($_GET['op'])) {
         $date = strtotime($fecha);
         $year = date("Y", $date);
         if ($year == $answer) {
-          $_SESSION['login'] = 1;
+          $_SESSION['login'] = true;
           echo '1';
         } else {
           echo '0';
         }
       } else {
-        $_SESSION['login'] = 0;
+        $_SESSION['login'] = false;
         echo '0';
       }
     }

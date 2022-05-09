@@ -1,9 +1,17 @@
+var question = localStorage.getItem('QuestionLogin');
+if(question == null){
+    question = false;
+}
 var idusuarioActivo = localStorage.getItem("idusuarioActivo");
 idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 
 var dejarIr = false;
 var NewUserImg = [];
 
+var remember = localStorage.getItem('remember');
+if(remember == null){
+    remember = false;
+}
 // Cargar contenido de restablecimiento paso 1
 function updtRes1(){
     $.ajax({
@@ -43,43 +51,49 @@ function registerUser() {
     let numerocalle = $("#inNC").val();
     let pisodepa = $("#inPiso").val();
     let email = $("#inCorreoE").val();
+    let tipEmail = $("#inTipEmail").val();
     let clave = $("#inPass1").val();
     let clave2 = $("#inPass2").val();
 
-    if(apellidos == '' || nombres == '' || fechanac == '' || telefono == '' || iddistrito == null || nombrecalle == '' || numerocalle == '' || pisodepa == '' || email == '' || clave == ''){
+    if(apellidos == '' || nombres == '' || fechanac == '' || telefono == '' || iddistrito == null || nombrecalle == '' ||  email == '' || clave == ''){
         sweetAlertWarning('Q tal Chamba', 'Faltan completar algunas casillas');
     }else{
         if(clave != clave2){
             sweetAlertWarning('Q tal Chamba', 'Las contraseñas no coinciden');
         }else{
-            formData.append("op", "registerUser");
-            formData.append("apellidos", apellidos);
-            formData.append("nombres", nombres);
-            formData.append("fechanac", fechanac);
-            formData.append("telefono", '51'+ telefono);
-            formData.append("iddistrito", iddistrito);
-            formData.append("tipocalle", tipocalle);
-            formData.append("nombrecalle", nombrecalle);
-            formData.append("numerocalle", numerocalle);
-            formData.append("pisodepa", pisodepa);
-            formData.append("email", email);
-            formData.append("clave", clave);
-            
-            $.ajax({
-                url: 'controllers/user.controller.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                cache: false,
-                success: function(e) {
-                    if(e == '.'){
-                        sweetAlertError('Q tal Chamba', 'Correo ya registrado');
-                    }else{
-                        $("#modalRegister").modal('hide');
-                        $("#modal-perfil-img-new").modal('toggle');
-                        sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
-                    }
+            sweetAlertConfirmQuestionSave("¿Deseas registrar esta nueva cuenta?").then((confirm) => {
+                if(confirm.isConfirmed){
+                    formData.append("op", "registerUser");
+                    formData.append("apellidos", apellidos);
+                    formData.append("nombres", nombres);
+                    formData.append("fechanac", fechanac);
+                    formData.append("telefono", '51'+ telefono);
+                    formData.append("iddistrito", iddistrito);
+                    formData.append("tipocalle", tipocalle);
+                    formData.append("nombrecalle", nombrecalle);
+                    formData.append("numerocalle", numerocalle);
+                    formData.append("pisodepa", pisodepa);
+                    formData.append("email", email + tipEmail);
+                    formData.append("clave", clave);
+                    
+                    $.ajax({
+                        url: 'controllers/user.controller.php',
+                        type: 'POST',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        success: function(e) {
+                            if(e == '.'){
+                                sweetAlertError('Q tal Chamba', 'Correo ya registrado');
+                            }else{
+                                $("#modalRegister").modal('hide');
+                                $("#modal-perfil-img-new").modal('toggle');
+                                sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
+                                window.location.reload();
+                            }
+                        }
+                    });
                 }
             });
         
@@ -113,19 +127,15 @@ function loadPicturePerfil(){
     $.ajax({
         url: 'controllers/gallery.controller.php',
         type: 'GET',
-        data: 'op=getAPicturePerfil',
+        data: 'op=getAPicturePerfil&idusuarioactivo=-1',
         success: function(e){
-            /* console.log(e);
+            console.log(e);
             if(e == '.' || e == '[]' || e == ' ' || e === null){
-                $("#userImageIndexNav").attr('src', 'dist/img/user/userdefault.jpg');
-                $("#userImageIndexNav1").attr('src', 'dist/img/user/userdefault.jpg');
                 $("#imgQuestI").attr('src', 'dist/img/user/userdefault.jpg');
             }else{
                 var img = JSON.parse(e);
-                $("#userImageIndexNav").attr('src', 'dist/img/user/' + img[0]['archivo']);
-                $("#userImageIndexNav1").attr('src', 'dist/img/user/' + img[0]['archivo']);
                 $("#imgQuestI").attr('src', 'dist/img/user/' + img[0]['archivo']);
-            } */
+            } 
         }
     });
 }
@@ -208,7 +218,7 @@ $("#checkQuestion").click(function(){
                 if(e == '1'){
                     $("#modal-perfil-img-new").modal('hide');
                     $("#modal-question").modal('hide');
-                    sweetAlertSuccess('Q tal Chamba', 'Acceso exitoso');
+                    localStorage.removeItem("idusuarioActivo");
                     window.location.reload();
                 }else{
                     loadSlcQuestions();
@@ -330,7 +340,8 @@ $("#m-res-lod").on("click", "#btnRes3", function(){
                     });
                 }else if(e == 'Acceso'){
                     dejarIr = true;
-                    $("#btnRes3").html('Siguiente');
+                    $("#btnRes3").html('Siguiente...');
+                    $("#btnRes3").click();
                 }else if (e == 'Intente'){
                     sweetAlertWarning('Q tal Chamba', 'Código equivocado');
                     $("#btnRes3").html('Validar');
@@ -459,21 +470,14 @@ let idprovin = $(this).val();
 
 // Login
 $("#btnLogin").click(function(){
-    let email = $("#emailInpt").val();
-    let pass = $("#passwordInpt").val();
-
-    if($("#rememberUser").prop('checked')){
-        var remember = true;
-    }else{
-        var remember = false;
-    }
+    var email = $("#emailInpt").val();
+    var pass = $("#passwordInpt").val();
 
     var data = 
     {
         'op' : 'loginUser',
         'email' : email,
-        'password' : pass,
-        'remember'  : remember
+        'password' : pass
     };
 
     if(email == "" || pass == ""){
@@ -487,11 +491,25 @@ $("#btnLogin").click(function(){
                 if(e == 'Inexistente'){
                     sweetAlertWarning('Q tal Chamba', 'Este correo no existe');
                 }else if (e == 'Acceso'){
-                    $("#modal-question").modal('toggle');
-                    loadPicturePerfil();
-                    loadNameUserIndex();
-                    localStorage.removeItem("idusuarioActivo");
-                    //window.location.href = 'index.php';
+                    if(question == 'true'){
+                        $("#modal-question").modal('toggle');
+                        loadNameUserIndex();
+                        loadPicturePerfil();
+                    }else{
+                        loadNameUserIndex();
+                        localStorage.removeItem("idusuarioActivo");
+                        window.location.reload();
+                        
+                    }
+                    
+                    if(remember){
+                        localStorage.setItem('uEmailCas', email);
+                        localStorage.setItem('uPassCas', pass);
+                    }else{
+                        localStorage.removeItem('uEmailCas', email);
+                        localStorage.removeItem('uPassCas', pass);   
+                    }
+                    loadRememberData();
                 }else if(e  == 'Incorrecto'){
                     sweetAlertError('Q tal Chamba', 'Contraseña incorrecta');
                 }else{
@@ -547,13 +565,141 @@ $.ajax({
 });
 }
 
+//Cargar checkbox de Question
+function loadQuestionCheck(){
+    if(question == 'true'){
+        $("#questionLoginHab").prop('checked', true);
+    }else{
+        $("#questionLoginHab").prop('checked', false);
+    }
+}
+
+// Solo letras y numeros
+$("#inApellidos").bind('keypress', function(e){
+    var condicional = new RegExp("^[a-zA-Z ]+$");
+    var valor = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (!condicional.test(valor)) {
+        e.preventDefault();
+    }
+    
+});
+
+$("#inNombres").bind('keypress', function(e){
+    var condicional = new RegExp("^[a-zA-Z ]+$");
+    var valor = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (!condicional.test(valor)) {
+        e.preventDefault();
+    }
+    
+});
+
+$("#inTelef").bind('keypress', function(e) {
+    var condicional = new RegExp("^[0-9]+$");
+    var valor = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (!condicional.test(valor)) {
+      e.preventDefault();
+    }
+});
+
+// Maxlength limitada
+$("#inNC").on('input', function(){
+    if(this.value.length > this.maxLength){
+        this.value = this.value.slice(0, this.maxLength);
+    }
+    if(this.value < 1){
+        this.value = '';
+    }
+});
+
+$("#inPiso").on('input', function(){
+    if(this.value.length > this.maxLength){
+        this.value = this.value.slice(0, this.maxLength);
+    }
+
+    if(this.value < 1){
+        this.value = '';
+    }
+});
+
+// Detectar Arroba
+$("#inCorreoE").bind('keypress', function(e){
+    if(e.charCode == 64){
+        e.preventDefault();
+    }
+});
+
+// Restringir fecha de nacimiento
+$("#inFechaNac").on('blur', function(){
+    var date = new Date();
+    var d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+    
+    var newDate = new Date((y-18) + "-" + (m+1) + "-" + d);
+    var nDate = newDate.toISOString();
+    var fechaconv = nDate.split("T")[0];
+    
+    var olDate = new Date((y-100) + "-" + (m+1) + "-" + d );
+    var oDate = olDate.toISOString();
+    var oldConv = oDate.split("T")[0];
+
+    var fecharecibida = new Date(this.value);
+    var fechalimite = new Date(fechaconv);
+    var fechaantes = new Date(oldConv);
+    if(fecharecibida.getTime() > fechalimite.getTime()){
+        sweetAlertWarning('Q tal Chamba', 'Debes ser mayor de edad');
+        this.value = '';
+    }else if(fecharecibida.getTime() < fechaantes.getTime()){
+        sweetAlertWarning('Q tal Chamba', 'Fecha Inválida');
+        this.value = '';
+    }   
+});
+
+//Habilitar pregunta de seguridad
+$("#questionLoginHab").change(function(){
+    
+    if($("#questionLoginHab").prop('checked')){
+        localStorage.setItem('QuestionLogin', true);
+    }else{
+        localStorage.setItem('QuestionLogin', false);
+    }
+});
+
+//Cargar datos de remember
+$("#rememberUser").change(function(){
+        if($("#rememberUser").prop('checked')){
+            localStorage.setItem('remember', true);
+            remember = true;
+        }else{
+            localStorage.setItem('remember', false);
+            remember = false;
+        }
+});
+
+//Cargar datos de remember
+function loadRememberData(){
+    var email = localStorage.getItem('uEmailCas');
+    var pass = localStorage.getItem('uPassCas');
+
+    if(remember == 'true'){
+        $("#rememberUser").prop('checked', true);
+        $("#emailInpt").val(email);
+        $("#passwordInpt").val(pass);
+    }else{
+        $("#rememberUser").prop('checked', false);
+        $("#emailInpt").val();
+        $("#passwordInpt").val();
+    }
+    console.log(remember);
+}
 
 /************** LLAMADO DE LAS FUNCIONES ******************/
 $("#btn-regist-opn").click(registerUser);
 slclstDepartm();
 updtRes1();
-loadPicturePerfil();
 loadNameUserIndex();
 countFollower();
 countFollowing();
 loadSlcQuestions();
+loadQuestionCheck();
+loadRememberData();
