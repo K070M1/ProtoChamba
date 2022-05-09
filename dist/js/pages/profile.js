@@ -875,12 +875,71 @@
     }); 
   });
 
+  function scoreUser(){
+    $.ajax({
+      url: 'controllers/qualify.controller.php',
+      type: "GET",
+      data: 'op=getScoreUser&idusuarioactivo=' + idusuarioActivo,
+      success: function (result){
+        $("#content-starts").html(result);
+      }
+    });
+  };
+
+  // Seguir
+  $("#btnseguir").click(function(){
+
+    sweetAlertConfirmQuestionSave("¿Está seguro de seguir a esta persona?").then((confirm) => {
+      if(confirm.isConfirmed){
+        registerFollower({
+          op             : 'registerFollower',
+          idusuarioactivo: idusuarioActivo
+        });
+      }
+    });
+  });
+
+  // Registrar seguidor
+  function registerFollower(dataSend){
+    $.ajax({
+      url: 'controllers/follower.controller.php',
+      type: 'GET',
+      data: dataSend,
+      success: function(result){
+        if(result == ""){
+          countFollower();
+          countFollowing();
+          listFollower();
+          listFollowing();
+          validateFollower();
+        }
+      }
+    });
+  }
+
+  // validar seguidor
+  function validateFollower(){
+    $.ajax({
+      url: 'controllers/follower.controller.php',
+      type: 'GET',
+      data: 'op=validateFollower&idusuarioactivo=' + idusuarioActivo,
+      success: function(result){
+        if(result == "Seguido"){
+          $("#btnseguir").removeClass("btn-info").addClass("btn-success");
+        } else {
+          $("#btnseguir").removeClass("btn-success").addClass("btn-info");
+        }
+        $("#btnseguir").html(result);
+      }
+    });
+  }
 
   $("#agregarEsp").click(RegisterSpecialtyUser);
   $("#agregarred").click(RegisterRedSocial);
   $("#btnServices").click(RegisterServices);
   $("#actualizarPer").click(RegistrarPersonas);
 
+  validateFollower();
   listFollower();
   listFollowing();
   listDatosPerson();
@@ -896,3 +955,4 @@
   loadPicturePort();
   loadPicturePerfil();
   loadNameUser();
+  scoreUser();

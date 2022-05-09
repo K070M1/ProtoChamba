@@ -54,6 +54,7 @@ if(isset($_SESSION["login"])){
   <link rel="stylesheet" href="dist/css/adminlte.css">
   <link rel="stylesheet" href="dist/css/themes.css">
   <link rel="stylesheet" href="dist/css/switch-dark-mode.css">
+  <link rel="stylesheet" href="dist/css/loader.css">
 
   <!--Estilos de los modales y formularios-->
   <link rel="stylesheet" href="dist/css/pages/modal-forms.css">
@@ -596,6 +597,9 @@ if(isset($_SESSION["login"])){
   <!-- Sweetalert2 -->
   <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
   <script src="dist/js/sweet-alert-2.js"></script>
+
+  <!-- Animación de carga -->
+  <script src="dist/js/loader.js"></script>
 
   <!--Cargar datos de la galeria-->
   <script src="dist/js/pages/galeria.js"></script>

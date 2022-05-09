@@ -16,67 +16,43 @@ $ubigeo = new Ubigeo();
 
 if (isset($_GET['op'])) {
 
-  // generar carouseles
-  function generateCarousels($data)
+
+  // generar tarjetas de presentación en formato grid
+  function generateContentGrid($data)
   {
-    if (count($data) == 0) {
-      echo '';
+    if(count($data) <= 0){
+      echo "<h5>Sin registro</h5>";
     } else {
-      foreach ($data as $row) {
-        // Obtener el numero de especialidades de acuerdo al servicio
-        $numberOfSpecialties = countSpecialties($row->idservicio);
-        $cardDisabled = $numberOfSpecialties <= 5 ? 'disabled' : 'enabled';
-
-        if ($numberOfSpecialties > 0) {
-          echo "
-          <div class='card'>
-            <div class='card-header'>
-              <div class='row'>
-                <div class='col-6 col-xs-6'>
-                  <h5 class='text-bold'>{$row->nombreservicio} <span class='badge badge-primary'> {$numberOfSpecialties}</span></h5>
-                </div>
-                <div class='col-6 col-xs-6 text-right'>
-                  <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='{$row->idservicio}' {$cardDisabled}> Ver más</button>
-                </div>
-              </div>
-            </div>
-            <div class='card-body  pt-2' data-more='{$row->idservicio}'>
-              <div class='owl-carousel'>";
-          generateUserCards($row->idservicio);
-          echo "
-              </div> <!-- /. carousel -->
-            </div>
-          </div>
-          ";
-        }
+      // genera una lista de cards
+      echo "<div class='flex-box'>";
+      foreach($data as $row){
+        echo "<div class='col-flex'>";
+          createUserCard($row, "box-sm");
+        echo "</div>";
       }
+      echo "</div>";
     }
-  }
-
-  // generar tarjetas de presentación en grid
-  function generateContentGrid($idservicio)
-  {
-    echo "
-    <div class='row'>
-      <div class='col-md-4 mb-4'>";
-    generateUserCards($idservicio);
-    echo "
-      </div>
-    </div>
-    ";
   }
 
   // Filtrados por el nombre del servicio y el iddepartamento
   function generateSpecialtiesFiltered($data, $wSize)
   {
     if (count($data) == 0) {
-      echo "<h4>Sin registros encontrados</h4> ";
+      echo "<h5>Sin registros encontrados</h5> ";
     } else {
-      createUserCard($data, $wSize);
+      echo "<div class='flex-box'>";
+      
+        $classCol = $wSize == "box-sm"? "col-flex-50": "col-flex-100";
+        foreach ($data as $row) {
+          echo "<div class='{$classCol}'>";
+            createUserCard($row, $wSize);             
+          echo "</div>";                 
+        }
+      echo "</div>";
     }
   }
 
-  // obtener el total de especialidades
+  // obtener el total de especialidades por cada servicio
   function countSpecialties($idservicio)
   {
     $specialty = new Specialty();
@@ -84,102 +60,102 @@ if (isset($_GET['op'])) {
     return count($specialties);
   }
 
-  // generar tarjetas de presentaciones
-  function generateUserCards($idservicio)
+  // Generar carousel
+  function generateCarousel($data)
   {
-    $specialty = new Specialty();
-    $specialties = $specialty->getSpecialtyByService(["idservicio" => $idservicio]);
-
-    // genera una lista de cards
-    createUserCard($specialties);
-  }
-
-  // Crear tarjetas de presentación a partir de un arreglo de datos
-  function createUserCard($data, $wSize = "box-sm")
-  {
-    if (count($data) > 0) {
-      foreach ($data as $row) {
-        $getImage = getImageProfileUser($row['idusuario']);
-        $imageProfile = $getImage != '' ? $getImage : $_SESSION['imgdefault'];
-        $scoreUser = getScoreUser($row['idusuario']);
-        $scoreUser = ceil($scoreUser); // Redondeado hacia el entero siguiente
-
-        echo "
-        <div class='box {$wSize} outline-dark-red '>
-          <div class='box-body'>
-            <div class='row'>
-              <div class='col-left'>
-                <!-- Imagen -->
-                <div class='content-img'>
-                  <a href='javascript:void(0)' class='link-user' data-user='{$row['idusuario']}'>
-                    <img class='img-user' src='dist/img/user/{$imageProfile}'>
-                  </a>
-                </div>
-              </div>
-    
-              <div class='col-right'>
-                <!-- nombre -->
-                <div class='row margin-0 content-name-user'>
-                  <div class='box-left'>
-                    <a href='javascript:void(0)' class='name-user' data-user='{$row['idusuario']}'>
-                      <span class='single-line'>{$row['nombres']}</span>
-                    </a>
-                    <div class='contacts'>
-                      <a href='tel:{$row['telefono']}' class='btn btn-sm btn-success'><i class='fas fa-phone-alt'></i> <span>Llamar</span> </a>
-                      <a href='mailto:{$row['email']}' class='btn btn-sm btn-info'><i class='fas fa-solid fa-envelope'></i> <span>Enviar email</span></a>
-                    </div>
-                  </div>
-                  <div class='box-right'>
-                    <div class='icons-score'>";
-
-                      /* con estrellas */
-                      for ($i = 0; $i < $scoreUser; $i++) {
-                        echo "
-                            <i class='fas fa-star active'></i>
-                          ";
-                      }
-
-                      /* sin estrellas */
-                      for ($i = 0; $i < 5 - $scoreUser; $i++) {
-                        echo "
-                              <i class='fas fa-star'></i>
-                            ";
-                      }
-                      echo "</div>
-                              </div>
-                            </div>
-                <hr>
-    
-                <!-- Contenido del servicio -->
-                <div class='row margin-0 content-service'>
-                  <span class='name-service'><i class='fab fa-accusoft'></i> {$row['especialidad']}</span>
-                  <span class='fee'> S/. {$row['tarifa']}</span>
-                  <p class='description'>
-                  {$row['biografia']}
-                  </p>
-                </div>
-    
-                <!-- Redes soaciles y ubicación -->
-                <div class='row margin-0 content-social-location '>
-                  <!-- ubicación -->
-                  <div class='location box-left'>
-                    <a href='index.php?view=geolocalizacion-view' target='_blank'><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
-                  </div>
-    
-                  <!-- redes sociales -->
-                  <div class='social-media box-right'>";
-                  listRedsocialUser($row['idusuario']);
-
-                  echo "</div>
-                </div>
-    
-              </div>
-            </div> 
-          </div> 
-        </div>
-        ";
+    if(count($data) <= 0){
+      echo "<h5>Sin registro</h5>";
+    } else {
+      echo "<div class='owl-carousel'>";
+      foreach($data as $row){
+        createUserCard($row);
       }
+      echo "</div>";
     }
+  }
+  
+  // Crear tarjetas de presentación a partir de una colección de datos
+  function createUserCard($row, $wSize = "box-sm")
+  {
+    $getImage = getImageProfileUser($row['idusuario']);
+    $imageProfile = $getImage != '' ? $getImage : $_SESSION['imgdefault'];
+    $scoreUser = getScoreUser($row['idusuario']);
+    $scoreUser = ceil($scoreUser); // Redondeado hacia el entero siguiente
+
+    echo "
+    <div class='box {$wSize} outline-goldenrod'>
+      <div class='box-body'>
+        <div class='row'>
+          <div class='col-left'>
+            <!-- Imagen -->
+            <div class='content-img'>
+              <a href='javascript:void(0)' class='link-user' data-user='{$row['idusuario']}'>
+                <img class='img-user' src='dist/img/user/{$imageProfile}'>
+              </a>
+            </div>
+          </div>
+
+          <div class='col-right'>
+            <!-- nombre -->
+            <div class='row margin-0 content-name-user'>
+              <div class='box-left'>
+                <a href='javascript:void(0)' class='name-user' data-user='{$row['idusuario']}'>
+                  <span class='single-line'>{$row['nombres']}</span>
+                </a>
+                <div class='contacts'>
+                  <a href='tel:{$row['telefono']}' class='btn btn-sm btn-success'><i class='fas fa-phone-alt'></i> <span>Llamar</span> </a>
+                  <a href='mailto:{$row['email']}' class='btn btn-sm btn-info'><i class='fas fa-solid fa-envelope'></i> <span>Enviar email</span></a>
+                </div>
+              </div>
+              <div class='box-right'>
+                <div class='icons-score'>";
+
+                  /* con estrellas */
+                  for ($i = 0; $i < $scoreUser; $i++) {
+                    echo "
+                        <i class='fas fa-star active'></i>
+                      ";
+                  }
+
+                  /* sin estrellas */
+                  for ($i = 0; $i < 5 - $scoreUser; $i++) {
+                    echo "
+                          <i class='fas fa-star'></i>
+                        ";
+                  }
+                  echo "</div>
+                          </div>
+                        </div>
+            <hr>
+
+            <!-- Contenido del servicio -->
+            <div class='row margin-0 content-service'>
+              <span class='name-service'><i class='fab fa-accusoft'></i> {$row['especialidad']}</span>
+              <span class='fee'> S/. {$row['tarifa']}</span>
+              <p class='description'>
+              {$row['biografia']}
+              </p>
+            </div>
+
+            <!-- Redes soaciles y ubicación -->
+            <div class='row margin-0 content-social-location '>
+              <!-- ubicación -->
+              <div class='location box-left'>
+                <a href='index.php?view=geolocalizacion-view' target='_blank'><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
+              </div>
+
+              <!-- redes sociales -->
+              <div class='social-media box-right'>";
+              listRedsocialUser($row['idusuario']);
+
+              echo "</div>
+            </div>
+
+          </div>
+        </div> 
+      </div> 
+    </div>
+    ";
   }
 
   // Obtener imagen de perfil
@@ -207,11 +183,9 @@ if (isset($_GET['op'])) {
 
     if (count($data) > 0) {
       foreach ($data as $row) {
-        $icon = getIconRedSocial($row['redsocial']);
 
-        echo "
-          <a href='{$row['vinculo']}' target='_blank'>{$icon}</a>
-        ";
+        $icon = getIconRedSocial($row['redsocial']);
+        echo "<a href='{$row['vinculo']}' target='_blank'>{$icon}</a>";
       }
     }
   }
@@ -219,38 +193,32 @@ if (isset($_GET['op'])) {
   // Obtener el icono de la red social
   function getIconRedSocial($red)
   {
-
     $icon = "";
 
     if ($red == 'I') {
-      $red = "Instagram";
       $icon = '<i class="fab fa-instagram icon-instagram"></i>';
     } elseif ($red == 'F') {
-      $red = "Facebook";
       $icon = '<i class="fab fa-facebook-f icon-facebook"></i>';
     } elseif ($red == 'W') {
-      $red = "WhatsApp";
       $icon = '<i class="fab fa-whatsapp icon-whatsapp"></i>';
     } elseif ($red == 'T') {
-      $red = "Twitter";
       $icon = '<i class="fab fa-twitter icon-twitter"></i>';
     } elseif ($red == 'Y') {
-      $red = "YouTube";
       $icon = '<i class="fab fa-youtube icon-youtube"></i>';
     } elseif ($red == 'K') {
-      $red = "Tik Tok";
       $icon = '<i class="fab fa-tiktok icon-tiktok"></i>';
     }
 
     return $icon;
   }
 
-  // listar en un control select
+  // listar especialidades en un control select
   function listSpecialtyControlSelect($data)
   {
     if (count($data) == 0) {
       echo " <option value=''>Sin registros</option> ";
     } else {
+
       echo " <option value=''>Seleccione</option> ";
       foreach ($data as $row) {
         echo "
@@ -260,13 +228,13 @@ if (isset($_GET['op'])) {
     }
   }
 
-
   // Listar especialidades por servicio
   if ($_GET['op'] == 'getSpecialtyByService') {
     $data = $specialty->getSpecialtyByService(['idservicio' => $_GET['idservicio']]);
     listSpecialtyControlSelect($data);
   }
 
+  // Mostrar especialidades del usuario (TABLA)
   function listSpecialtyUser($data, $visible)
   {
     if (count($data) <= 0) {
@@ -320,24 +288,39 @@ if (isset($_GET['op'])) {
     listSpecialtyControlSelect($data);
   }
 
-
-  // Listar los carouseles
-  if ($_GET['op'] == 'listCarousels') {
-    $services = $service->getServices();
-    generateCarousels($services);
+  // mostrar especialidades recomendados en carousel
+  if ($_GET['op'] == 'listCarouselRecommendation') {
+    $data = $specialty->getRandomSpecials(["limit" => 20, "offset" => 0]);
+    generateCarousel($data);
   }
 
-  // Mostrar especialidades relacionados al servicio (GRID)
-  if ($_GET['op'] == 'generateContentGrid') {
-    generateContentGrid($_GET['idservicio']);
+  // Mostrar especialidades recomendados en formato (GRID)
+  if ($_GET['op'] == 'listGridRecommendation') {
+    $data = $specialty->getRandomSpecials(["limit" => 20, "offset" => 0]);
+    generateContentGrid($data);
   }
 
   // Filtrados por servicio y departamento
   if ($_GET['op'] == 'specialtiesFilteredByServiceAndDepartment') {
-    $data = $specialty->specialtiesFilteredByServiceAndDepartment([
-      "nombreservicio"  => $_GET['nombreservicio'],
-      "iddepartamento"  => $_GET['iddepartamento']
-    ]);
+
+    $data;
+
+    if($_GET['iddepartamento'] == ''){
+      $data = $specialty->specialtiesFilteredByService([
+        "nombreservicio"  => $_GET['nombreservicio'],
+        "order"           => $_GET['order'],
+        "limit"           => 10,
+        "offset"          => 0
+      ]);
+    } else {
+      $data = $specialty->specialtiesFilteredByServiceAndDepartment([
+        "nombreservicio"  => $_GET['nombreservicio'],
+        "iddepartamento"  => $_GET['iddepartamento'],
+        "order"           => $_GET['order'],
+        "limit"           => 10,
+        "offset"          => 0
+      ]);
+    }
 
     generateSpecialtiesFiltered($data, $_GET['wsize']);
   }
@@ -346,9 +329,11 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'specialtiesFilteredByServiceAndProvince') {
     $data = $specialty->specialtiesFilteredByServiceAndProvince([
       "nombreservicio"  => $_GET['nombreservicio'],
-      "idprovincia"     => $_GET['idprovincia']
+      "idprovincia"     => $_GET['idprovincia'],
+      "order"           => $_GET['order'],
+      "limit"           => 10,
+      "offset"          => 0
     ]);
-
     generateSpecialtiesFiltered($data, $_GET['wsize']);
   }
 
@@ -356,22 +341,62 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'specialtiesFilteredByServiceAndDistrict') {
     $data = $specialty->specialtiesFilteredByServiceAndDistrict([
       "nombreservicio"  => $_GET['nombreservicio'],
-      "iddistrito"      => $_GET['iddistrito']
+      "iddistrito"      => $_GET['iddistrito'],
+      "order"           => $_GET['order'],
+      "limit"           => 10,
+      "offset"          => 0
     ]);
 
     generateSpecialtiesFiltered($data, $_GET['wsize']);
   }
 
-  // Filtrados por servicio y distrito
+  // Filtrados por servicio y tarifas
   if ($_GET['op'] == 'specialtiesFilteredByServiceAndFee') {
     $data = $specialty->specialtiesFilteredByServiceAndFee([
       "nombreservicio"  => $_GET['nombreservicio'],
-      "iddepartamento"  => $_GET['iddepartamento'],
       "tarifa1"         => $_GET['tarifa1'],
       "tarifa2"         => $_GET['tarifa2'],
+      "order"           => $_GET['order'],
+      "limit"           => 10,
+      "offset"          => 0
     ]);
 
     generateSpecialtiesFiltered($data, $_GET['wsize']);
+  }
+
+  // Total de servicios encontrado al realizar la busqueda
+  if($_GET['op'] == 'totalSpecialtiesFound'){
+    $data;
+    $specialties = $specialty->totalSpecialtiesAvailable();
+    $totalSp = $specialties[0]->total;
+
+    if($_GET['iddepartamento'] == ''){
+      $data = $specialty->specialtiesFilteredByService([
+        "nombreservicio"  => $_GET['nombreservicio'],
+        "order"           => 'N',
+        "limit"           => $totalSp,
+        "offset"          => 0
+      ]);
+    } else {
+      $data = $specialty->specialtiesFilteredByServiceAndDepartment([
+        "nombreservicio"  => $_GET['nombreservicio'],
+        "iddepartamento"  => $_GET['iddepartamento'],
+        "order"           => 'N',
+        "limit"           => $totalSp,
+        "offset"          => 0
+      ]);
+    }
+
+    echo count($data);
+  }
+
+  // Total de servicios ofrecidos
+  if($_GET['op'] == 'totalSpecialtiesAvailable'){
+    $data = $specialty->totalSpecialtiesAvailable();
+
+    if(isset($data[0])){
+      echo $data[0]->total;
+    }
   }
 }
 
@@ -385,7 +410,6 @@ if (isset($_POST['op'])) {
       "idservicio"       =>  $_POST["idservicio"],
       "descripcion"      =>  $_POST["descripcion"],
       "tarifa"           =>  $_POST["tarifa"]
-
     ];
 
     $specialty->registerSpecialtyUser($datosEnviar);

@@ -50,10 +50,10 @@ $("#input-search").keyup(function(e){
   var valueInput = $(this).val();
   
   if(valueInput == ''){
-    buttonPrimary();
+    $("#btn-search i").removeClass("fa-times").addClass('fa-search');
   }
   else{
-    buttonDanger();
+    $("#btn-search i").removeClass("fa-search").addClass('fa-times');
   }
 
   updateDataSendController();
@@ -62,7 +62,7 @@ $("#input-search").keyup(function(e){
 
 // Limpiar texto de busqueda
 $("#btn-search").click(function(){
-  buttonPrimary();
+  $("#btn-search i").removeClass("fa-times").addClass('fa-search');
   $("#input-search").val('').focus();
   //$("#typeuser").prop("selectedIndex", 0).val();
 
@@ -70,17 +70,7 @@ $("#btn-search").click(function(){
   loadUsersTable();
 });
 
-// Boton rojo
-function buttonDanger(){
-  //$("#btn-search").removeClass('btn-primary').addClass('btn-danger');
-  $("#btn-search i").removeClass("fa-search").addClass('fa-times');
-}
 
-//Botón azul
-function buttonPrimary(){
-  //$("#btn-search").removeClass('btn-danger').addClass('btn-primary');
-  $("#btn-search i").removeClass("fa-times").addClass('fa-search');
-}
 
 // Evento on clic para cambiar de rol de usuario
 $("#tbl-permissions-user").on("click", ".switch-role", function(){
@@ -106,17 +96,14 @@ function updateDataSendController(){
 
 // Cambiar rol de usuario
 function changeUserRole(idusuario, role){
-
-  let dataSend = {
-    op        : 'updateUserRole', 
-    idusuario : idusuario,
-    rol       : role
-  };
-
   $.ajax({
     url: 'controllers/user.controller.php',
     type: 'GET',
-    data: dataSend,
+    data: {
+      op        : 'updateUserRole', 
+      idusuario : idusuario,
+      rol       : role
+    },
     success: function(result){
       // Actualizar datos
       updateDataSendController();

@@ -16,7 +16,11 @@ if(isset($_GET['op'])){
   // Generar estructura HTML
   function listWorksHtml($data, $idusuario, $visible){
     if(count($data) == 0){
-      echo '<h4> No existen registros</h4>';
+      echo "
+        <div class='card card-body'>
+          <h5> No existen publicaciones</h5>
+        </div>
+      ";
     }
     else{
       foreach($data as $row){
@@ -181,9 +185,12 @@ if(isset($_GET['op'])){
                         <a href='javascript:void(0)' class='text-info update-comment d-none mr-2' data-code='{$comment['idcomentario']}'>Actualizar</a>
                         <a href='javascript:void(0)' class='text-secondary cancel-edit-comment d-none'>Cancelar</a>
                       ";
+                    } else {
+                      $options = "
+                      <a href='javascript:void(0)' class='text-danger  report-comment' data-code='{$comment['idcomentario']}' >Denunciar</a>
+                      ";
                     }
-                  }
-                  else{
+                  } else{
                     $options = "
                     <a href='javascript:void(0)' class='text-danger  report-comment' data-code='{$comment['idcomentario']}'>Denunciar</a>
                     ";
@@ -284,18 +291,25 @@ if(isset($_GET['op'])){
 
   // Listar trabajos
   if($_GET['op'] == 'getWorksByUser'){
+    $idusuarioactivo;
     $idusuario;
     $visible;
     
     if($_GET['idusuarioactivo'] != -1){
-      $idusuario = $_GET['idusuarioactivo'];
       $visible = 'hidden';
+      $idusuarioactivo = $_GET['idusuarioactivo'];
     } else {
-      $idusuario = $_SESSION['idusuario'];
       $visible = 'visible';
+      $idusuarioactivo = $_SESSION['idusuario'];
+    }
+    
+    if(isset($_SESSION['idusuario'])){
+      $idusuario = $_SESSION['idusuario'];
+    } else {
+      $idusuario = 0;
     }
 
-    $data = $work->getWorksByUser(['idusuario' => $idusuario]);
+    $data = $work->getWorksByUser(['idusuario' => $idusuarioactivo]);
     listWorksHtml($data, $idusuario, $visible);
   }
 
@@ -345,7 +359,8 @@ if(isset($_POST['op'])){
             'idusuario'     => $_SESSION['idusuario'],
             'idtrabajo'     => $idtrabajo,
             'tipo'          => 'F',
-            'archivo'       => $image
+            'archivo'       => $image,
+            'estado'        => '1'
           ]);
       
           // Mover a la carpeta img indicada
@@ -368,7 +383,8 @@ if(isset($_POST['op'])){
         'idusuario'     => $_SESSION['idusuario'],
         'idtrabajo'     => $idtrabajo,
         'tipo'          => 'V',
-        'archivo'       => $video
+        'archivo'       => $video,
+        'estado'        => '1'
       ]);
       
       // Mover a la carpeta img indicada
@@ -380,55 +396,32 @@ if(isset($_POST['op'])){
     echo $result;
   }
 
-  function incomingFiles(){
-    $files = $_FILES;
-    $files2 = [];
-
-    foreach($files as $input => $infoArr){
-      $fileByInputs = [];
-
-      foreach ($infoArr as $key => $valueArr){
-        if(is_array($valueArr)){
-          foreach($valueArr as $i => $value){
-            $fileByInputs[$i][$key] = $value;
-          }
-        }
-        else{
-          $fileByInputs[] = $infoArr;
-          break;
-        }
-      }
-
-      $files2 = array_merge($files2, $fileByInputs);
-    }
-
-    $files3 = [];
-    foreach($files2 as $file){
-      if(!$file['error']) $files3[] = $file;
-    }
-
-    return $files3;
-  }
-
   // Actualizar trabajo con imagenes o video
   if($_POST['op'] == 'updateWork'){
-    // Actualizar trabajo
-    $data = $work->updateWork([
+    // Actualizar registro de trabajo
+    $work->updateWork([
       'idtrabajo'      => $_POST['idtrabajo'],
       'idespecialidad' => $_POST['idespecialidad'],
-      'idusuario'      => 1,
+      'idusuario'      => $_SESSION['idusuario'],
       'titulo'         => $_POST['titulo'],
       'descripcion'    => $_POST['descripcion']
     ]);
-   
-    // Obtener id galeria publicacion
+
+    $deletedFiles = explode(',', $_POST['eliminados']);  
+
+    // Elimar archivos indicados
+    if($_POST['eliminados'] != ""){
+      for($i = 0; $i < count($deletedFiles); $i++){
+        $gallery->deleteGallery(["idgaleria" => $deletedFiles[$i]]);
+      }
+    }
 
     $idtrabajo = $_POST['idtrabajo'];
     $countImg = 0;
     $result = '';
 
     // Si existe imagenes
-    /* if (isset($_FILES['images'])){
+    if (isset($_FILES['images'])){
       // Validar el array de archivos
       if(is_array($_FILES)){
         foreach($_FILES['images']['name'] as $key => $value){
@@ -440,11 +433,12 @@ if(isset($_POST['op'])){
             'idusuario'     => $_SESSION['idusuario'],
             'idtrabajo'     => $idtrabajo,
             'tipo'          => 'F',
-            'archivo'       => $image
+            'archivo'       => $image,
+            'estado'        => '1'
           ]);
       
           // Mover a la carpeta img indicada
-          if(move_uploaded_file($_FILES['images']['tmp_name'][$key], '../dist/img/' . $image)){
+          if(move_uploaded_file($_FILES['images']['tmp_name'][$key], '../dist/img/user/' . $image)){
               $countImg++;
           };
         }
@@ -457,14 +451,21 @@ if(isset($_POST['op'])){
     if(isset($_FILES['video'])){
       $ext = explode('.', $_FILES['video']['name']);  // Obtener extensión del video
       $video = date('Ymdhis') . '.' . $ext[1];        // Renombrar
+
+      $gallery->registerGallery([   
+        'idalbum'       => '',
+        'idusuario'     => $_SESSION['idusuario'],
+        'idtrabajo'     => $idtrabajo,
+        'tipo'          => 'V',
+        'archivo'       => $video,
+        'estado'        => '1'
+      ]);
       
       // Mover a la carpeta video indicada
       if(move_uploaded_file($_FILES['video']['tmp_name'], '../dist/video/' . $video)){
         $result = 'Se agrego un video ' . $_FILES['video']['name'] . " (" . $video . ")";
       };
-    } */
-
-    //echo $result;
+    }
   }
 
 }

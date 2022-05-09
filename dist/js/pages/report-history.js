@@ -1,4 +1,4 @@
-// Array (enviar datos controller)
+// Array asociativo (enviar datos controller)
 var dataSendController = {
   op: 'searchUsersByNamesViewHistory',
   search: ''
@@ -81,37 +81,43 @@ function reactivateUser(idusuario) {
   });
 }
 
-// Buscar usuario
+// Buscador de usuario 
 $("#input-search-user").keyup(function () {
   $("#btn-search i").removeClass("fa-search").addClass('fa-times');
-
   var valueSearch = $(this).val();
+
   //console.log(valuSearch);
   if (valueSearch == '') {
-    buttonPrimary();
-  }
-  else {
-    buttonDanger();
-    // Actualizando datos
+    $("#btn-search i").removeClass('fa-times').addClass("fa-search");
+    dataSendController['search'] = '';
+  } else {
     dataSendController['search'] = valueSearch;
-    loadUsersTable();
   }
+
+  // caragr datos
+  loadUsersTable();
 });
 
 // Botón buscar
 $("#btn-search").click(function () {
   $("#input-search-user").val('').focus();
-  buttonPrimary();
+  $("#btn-search i").removeClass('fa-times').addClass("fa-search");
 
   // Actualizando datos
   dataSendController['search'] = '';
   loadUsersTable();
 });
 
-// Evento on clic, para mostrar imagen
+// Evento on clic, para mostrar imagen del reporte
 $("#tbody-reports").on("click", ".btn-open-modal-report", function () {
-  $("#img-report-preview").attr("src", "dist/img/" + $(this).attr("data-img"));
-  $("#modalImageReport").modal('show');
+  let imagen = $(this).attr("data-img");
+
+  if(imagen == ""){
+    sweetAlertInformation("No existe imagen por mostrar", "");
+  } else {
+    $("#img-report-preview").attr("src", "dist/img/user/" + imagen);
+    $("#modalImageReport").modal('show');
+  }
 });
 
 // Evento on clic, para banear usuario desde la lista de usuarios
@@ -124,7 +130,6 @@ $("#tbody-users").on("click", ".btn-ban-user", function () {
 
   else
     reactivateUser(idusuario);
-
 });
 
 // Evento on clic, para banear usuario desde el historial de reporte
@@ -133,18 +138,7 @@ $("#tbody-reports").on("click", ".btn-ban-user", function () {
   banUser(idusuario);
 });
 
-// Boton rojo
-function buttonDanger() {
-  //$("#btn-search").removeClass('bg-primary').addClass('bg-danger');
-  $("#btn-search i").removeClass('fa-search').addClass('fa-times');
-}
 
-//Botón azul
-function buttonPrimary() {
-  //$("#btn-search").removeClass('bg-danger').addClass('bg-primary');
-  $("#btn-search i").removeClass('fa-times').addClass('fa-search');
-}
-
-// ejecutar función
+// ejecutar funciones al cargar 
 loadUsersTable();
 loadReportsTable();

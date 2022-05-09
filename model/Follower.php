@@ -3,6 +3,16 @@
 require_once '../core/model.master.php';
 class Follower extends ModelMaster{
 
+  // registrar seguidor
+  public function registerFollower(array $data){
+    try{
+      parent::execProcedure($data, "spu_seguidor_registrar", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Listar seguidores
   public function getFollowersByUser(array $data){
     try{

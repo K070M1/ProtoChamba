@@ -20,18 +20,20 @@
       </div>
       <!-- /.card-header -->
       <!-- style="max-height: calc(100vh - 275px); overflow-y: auto;" -->
-      <div class="card-body p-0" >
+      <div class="card-body p-0">
         <div class="input-group" style="width: 90%; margin: 1em auto 1em auto;">
           <input type="text" class="form-control" id="input-search-user">
           <div class="input-group-append">
             <span class="input-group-text bg-primary" id="btn-search"><i class="fas fa-search"></i></span>
           </div>
         </div>
-        <table class="table projects">
-          <tbody id="tbody-users">
-            <!-- Cargado de forma asincrona -->
-          </tbody>
-        </table>
+        <div style="max-height: calc(100vh - 285px); overflow-y: auto;">
+          <table class="table projects" >
+            <tbody id="tbody-users" >
+              <!-- Cargado de forma asincrona -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -62,7 +64,7 @@
 
 <!-- Modal visor de imagen -->
 <div class="modal fade" id="modalImageReport" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Archivo adjunto</h5>

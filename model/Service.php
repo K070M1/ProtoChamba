@@ -34,15 +34,5 @@ class Service extends ModelMaster{
     }
   }
 
-  // Actualizar
-  // public function updateRedSocial(array $data){
-  //   try{
-  //     parent::execProcedure($data, "spu_redessociales_modificar", false);
-  //   }
-  //   catch(Exception $error){
-  //     die($error->getMessage());
-  //   }
-  // }
-
 }
 ?>

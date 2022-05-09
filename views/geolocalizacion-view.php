@@ -13,7 +13,7 @@
         <form id="search-servicio" class="input-group mb-3">
           <input id="servicio-buscado" type="text" class="form-control" placeholder="Ingrese un servicio">
           <span class="input-group-append">
-            <button type="submit" class="btn btn-info fas fa-search"></button>
+            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
           </span>
         </form>
         <div id="lista-establecimientos">
@@ -24,7 +24,7 @@
               <small>{apellidos}, {nombres}</small>
               <small>Horario: {horarioatencion}</small>
               <button id="trazar-ruta" class="btn btn-sm btn-primary">
-                <i class="fa fa-route"></i>
+                <i class="fas fa-route"></i>
                 Ver ruta <span id="distancia"></span>
               </button>
             </div>

@@ -60,3 +60,9 @@
   height: auto;
   margin: auto;
 }
+
+
+.image-new.h-350 figure {
+  max-height: 350px !important;
+  height: 350px;
+}

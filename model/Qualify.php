@@ -31,7 +31,7 @@ class Qualify extends ModelMaster{
     }
   }
 
-  // Obtener la calificación en estrellas dek usuario
+  // Obtener la calificación en estrellas del usuario
   public function getScoreUser(array $data){
     try{
       return parent::execProcedure($data, "spu_estrellas_usuario", true);

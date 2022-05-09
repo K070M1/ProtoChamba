@@ -18,20 +18,23 @@ if(isset($_GET['op'])){
       foreach ($data as $row){
 
         $getImage = getImageProfileUser($row['idtousuario']);
-        $imageProfile = $getImage != ''? $getImage : $_SESSION['imagedefault']; 
+        $imageProfile = $getImage != ''? $getImage : 'default_profile_avatar.svg'; 
         $options = "";
 
-        if($_SESSION['idusuario'] == $row['idtousuario']){
-          $options = "
-            <a href='javascript:void(0)' class='text-info edit-comment'>Editar</a>
-            <a href='javascript:void(0)' class='text-danger delete-comment' data-code-forum='{$row['idforo']}'>Eliminar</a>
-            <a href='javascript:void(0)' class='text-info update-comment d-none mr-2' data-code-forum='{$row['idforo']}'>Actualizar</a>
-            <a href='javascript:void(0)' class='text-secondary cancel-edit-comment d-none'>Cancelar</a>
-          ";
-        } else{
-          $options = "
-          <a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>
-          ";
+        if(isset($_SESSION['idusuario'])){
+          if($_SESSION['idusuario'] == $row['idtousuario']){
+            $options = "
+              <a href='javascript:void(0)' class='text-info edit-comment'>Editar</a>
+              <a href='javascript:void(0)' class='text-danger delete-comment' data-code-forum='{$row['idforo']}'>Eliminar</a>
+              <a href='javascript:void(0)' class='text-info update-comment d-none mr-2' data-code-forum='{$row['idforo']}'>Actualizar</a>
+              <a href='javascript:void(0)' class='text-secondary cancel-edit-comment d-none'>Cancelar</a>
+            ";
+          } else {
+            $options = "<a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>";
+          }
+        }
+         else{
+          $options = "<a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>";
         }
 
         echo "

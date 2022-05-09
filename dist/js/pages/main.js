@@ -1,14 +1,18 @@
-var idusuarioActivo = -1;
-var serviciobuscado = "";
 var iddepartamento = -1;
+var idprovincia = -1;
+var iddistrito = -1;
+var operation = "";
+var serviciobuscado = "";
+var arrayMoney = [];
+var ordenado = 'N';
 var wsize = "box-sm"; // tamaño de los card
 
 /* ION SLIDER */
 $('#range-money').ionRangeSlider({
-  max: 5000,
+  max: 15000,
   min: 1,
   from: 50,
-  to: 1500,
+  to: 8000,
   type: 'double',
   step: 1,
   prefix: '$',
@@ -18,16 +22,22 @@ $('#range-money').ionRangeSlider({
 
 // Opción de ver más
 $("#content-carousels").on('click', '.btn-more-content', function () {
-  let idservicio = $(this).attr("data-more");
-
-  // vaidar si existe el atributo
-  if ($(this).is("[data-more]")) {
-    // Comvertir a lista GRID
-    $(this).html("Reducir");
-    $("div[data-more='" + idservicio + "']").removeClass("p-0").html("Cargando datos GRID");
-    getGridTarjetUser(idservicio, idservicio);
+  let containerCard = $(this).attr("data-more");
+  let textButon = $(this).html();
+  
+  if(textButon == "Reducir"){
+    serviceRecommendationCarousel();
+    $(this).html("Ver más");
   }
-
+  else{
+    // validar si existe el atributo
+    if ($(this).is("[data-more]")) {
+      // Convertir a lista GRID
+      $(this).html("Reducir");
+      $("div[data-more='" + containerCard + "']").removeClass("p-0").html(getLoader());
+      serviceRecommendationGrid(containerCard);
+    }
+  }
 });
 
 // RFECOMENDADOS ir al perfil del usuario (CLICK IMAGEN)
@@ -56,106 +66,189 @@ $("#content-data-filtered").on('click', '.name-user', function () {
 
 // Ecutar buscador
 $("#btn-search-services").click(function () {
-  let nombreservicio = $("#input-search-service").val();
-  iddepartamento = $("#departments").val();
+  serviciobuscado = $("#input-search-service").val();
+  iddepartamento = $("#departments-filter").val();
 
-  serviciobuscado = nombreservicio;
+  if(iddepartamento == "" || iddepartamento == null){
+    // Mostrar localidades para volver a filtrar
+    $("#content-locations").removeClass("d-none");
+    $("#content-locations #locations").collapse("show");
+  } else {
+    // Ocultar localidades
+    $("#content-locations").addClass("d-none");
+  }
+  
+  // Abrir collapse de tarifas
+  $(".content-filter-tarifa #fee").collapse('show');
+
+  // almacenar en variable del navegador
   localStorage.setItem('serviciobuscado', serviciobuscado);
-
-  // Listar provincias
-  listProvinces(iddepartamento);
-
-  if (nombreservicio == "" || iddepartamento == "" || iddepartamento == null) {
-    sweetAlertWarning("Invalido", "Complete los datos");
+  
+  if (serviciobuscado == "") {
+    sweetAlertWarning("Invalido", "Indique un servicio");
   }
   else {
     // ocultar carouseles
     $("#content-carousels").addClass("d-none");
     // Mostrar contenedor de filtrados
     $("#container-filtered-services").removeClass("d-none");
-
-    // Listar registros encontrados
-    getServicesFiltered({
-      op: 'specialtiesFilteredByServiceAndDepartment',
-      nombreservicio: nombreservicio,
-      iddepartamento: iddepartamento,
-      wsize: "box-sm"
+    // Mostrar animación   
+    generateLoader($("#container-filtered-services")); 
+    // Operación realizada
+    operation = "specialtiesFilteredByServiceAndDepartment";
+    
+    // Enviar consulta al servidor
+    totalSpecialtiesFound({
+      op: 'totalSpecialtiesFound',
+      nombreservicio: serviciobuscado,
+      iddepartamento: iddepartamento
     });
+
+    // Filtrar servicios
+    getServicesFiltered({
+      op            : 'specialtiesFilteredByServiceAndDepartment',
+      nombreservicio: serviciobuscado,
+      iddepartamento: iddepartamento,
+      order         : ordenado,
+      wsize         : wsize
+    });    
+  }
+});
+
+// Enter sobre la caja de servicios
+$("#input-search-service").keyup(function(e){
+  if(e.keyCode == 13){
+    $("#btn-search-services").click();
   }
 });
 
 // MOSTRA - LIST
 $("#btn-list").click(function () {
-  let nombreservicio = $("#input-search-service").val();
-  let iddepartamento = $("#departments").val();
+  wsize = "box-lg";
 
+  // Filtrar servicios con la operación indicada anteriormente
   getServicesFiltered({
-    op: 'specialtiesFilteredByServiceAndDepartment',
-    nombreservicio: nombreservicio,
+    op            : operation,
+    nombreservicio: serviciobuscado,
     iddepartamento: iddepartamento,
-    wsize: "box-lg"
+    idprovincia   : idprovincia,
+    iddistrito    : iddistrito,
+    tarifa1       : arrayMoney[0],
+    tarifa2       : arrayMoney[1],
+    order         : ordenado,
+    wsize         : wsize
   });
+  
 });
 
 // MOSTRA - GRID
 $("#btn-grid").click(function () {
-  let nombreservicio = $("#input-search-service").val();
-  let iddepartamento = $("#departments").val();
+  wsize = "box-sm";
+
+  // Filtrar servicios con la operación indicada anteriormente
+  getServicesFiltered({
+    op            : operation,
+    nombreservicio: serviciobuscado,
+    iddepartamento: iddepartamento,
+    idprovincia   : idprovincia,
+    iddistrito    : iddistrito,
+    tarifa1       : arrayMoney[0],
+    tarifa2       : arrayMoney[1],
+    order         : ordenado,
+    wsize         : wsize
+  });
+});
+
+// Filtrar por departamentos
+$("#departments").change(function () {
+  iddepartamento = $(this).val();
+  // Operación realizada
+  operation = "specialtiesFilteredByServiceAndDepartment";
+
+  // listar distritos
+  listProvinces(iddepartamento);
 
   getServicesFiltered({
-    op: 'specialtiesFilteredByServiceAndDepartment',
-    nombreservicio: nombreservicio,
+    op            : operation,
+    nombreservicio: serviciobuscado,
     iddepartamento: iddepartamento,
-    wsize: "box-sm"
+    order         : ordenado,
+    wsize         : wsize
   });
 });
 
 // Filtrar por provincias
 $("#provinces").change(function () {
-  let idprovincia = $(this).val();
+  idprovincia = $(this).val();
+  // Operación realizada
+  operation = "specialtiesFilteredByServiceAndProvince";
 
   // listar distritos
   listDistricts(idprovincia);
 
   getServicesFiltered({
-    op: 'specialtiesFilteredByServiceAndProvince',
+    op            : operation,
     nombreservicio: serviciobuscado,
-    idprovincia: idprovincia,
-    wsize: "box-lg"
+    idprovincia   : idprovincia,
+    order         : ordenado,
+    wsize         : wsize
   });
 });
 
 // filtrar por ditritos
 $("#districts").change(function () {
-  let iddistrito = $(this).val();
+  iddistrito = $(this).val();
+  // operación realizada 
+  operation = "specialtiesFilteredByServiceAndDistrict";
 
   getServicesFiltered({
-    op: 'specialtiesFilteredByServiceAndDistrict',
+    op            : operation,
     nombreservicio: serviciobuscado,
-    iddistrito: iddistrito,
-    wsize: "box-lg"
+    iddistrito    : iddistrito,
+    order         : ordenado,
+    wsize         : wsize
   });
 });
 
 // Filtrar por rango de monedas
 $("#range-money").change(function () {
   let money = $(this).val();
-  let arrMoney = money.split(';');
+  arrayMoney = money.split(';');
+  // Operación realizada
+  operation = "specialtiesFilteredByServiceAndFee";
 
   getServicesFiltered({
-    op: 'specialtiesFilteredByServiceAndFee',
+    op            : operation,
+    nombreservicio: serviciobuscado,
+    tarifa1       : arrayMoney[0],
+    tarifa2       : arrayMoney[1],
+    order         : ordenado,
+    wsize         : wsize
+  });
+});
+
+// Ordenar filtrado
+$("#order-filtered").change(function(){
+  ordenado = $(this).val();
+
+  // Filtrar servicios con el orden establecido
+  getServicesFiltered({
+    op            : operation,
     nombreservicio: serviciobuscado,
     iddepartamento: iddepartamento,
-    tarifa1: arrMoney[0],
-    tarifa2: arrMoney[1],
-    wsize: "box-lg"
+    idprovincia   : idprovincia,
+    iddistrito    : iddistrito,
+    tarifa1       : arrayMoney[0],
+    tarifa2       : arrayMoney[1],
+    order         : ordenado,
+    wsize         : wsize
   });
 });
 
 // Abrir en el mapa
 $("#btn-open-map").click(function () {
   //alert("Abrir mapa");
-  //redirect(serviciobuscado);
+  redirect(serviciobuscado);
 });
 
 // Redireccionar al perfil
@@ -171,6 +264,7 @@ function listDepartments() {
     type: 'GET',
     data: 'op=getDepartments',
     success: function (result) {
+      $("#departments-filter").html(result);
       $("#departments").html(result);
     }
   });
@@ -205,13 +299,17 @@ function listDistricts(idprovincia) {
 }
 
 // Listar recomendaciones de servicios
-function serviceRecommendation() {
+function serviceRecommendationCarousel() {
+  // animación de carga
+  $("#carousel-recommended").html(getLoader());
+
   $.ajax({
     url: 'controllers/specialty.controller.php',
     type: 'GET',
-    data: 'op=listCarousels',
+    data: 'op=listCarouselRecommendation',
     success: function (result) {
-      $("#content-carousels").html(result);
+
+      $("#carousel-recommended").html(result);
 
       // Configuración del owl-carousel
       $('.owl-carousel').owlCarousel({
@@ -226,16 +324,10 @@ function serviceRecommendation() {
           0: {
             items: 1
           },
-          350: {
-            items: 1,
-          },
-          600: {
-            items: 2
-          },
           980: {
             items: 2
           },
-          1100: {
+          1300: {
             items: 3
           },
           1800: {
@@ -247,16 +339,15 @@ function serviceRecommendation() {
   });
 }
 
-// Listar contenidos grid (tarjet)
-function getGridTarjetUser(idservicio, container) {
+// Listar contenidos en formato grid
+function serviceRecommendationGrid(container) {
   $.ajax({
     url: 'controllers/specialty.controller.php',
     type: 'GET',
-    data: 'op=generateContentGrid&idservicio=' + idservicio,
+    data: 'op=listGridRecommendation',
     success: function (result) {
       if (result != "") {
         $("div[data-more='" + container + "']").html(result);
-        //selector.html(result);
       }
     }
   });
@@ -269,8 +360,42 @@ function getServicesFiltered(dataSend) {
     type: 'GET',
     data: dataSend,
     success: function (result) {
-      if (result != "") {
+      if (result != "") {       
         $("#content-data-filtered").html(result);
+      }
+    }
+  });
+}
+
+// Total de servicios disponibles
+function totalSpecialtiesAvailable(){
+  $.ajax({
+    url: 'controllers/specialty.controller.php',
+    type: 'GET',
+    data: 'op=totalSpecialtiesAvailable',
+    success: function(result){
+      $("#total-services").html(result);
+    }
+  });
+}
+
+// Total de servicios encontrados al realizar una busqueda
+function totalSpecialtiesFound(dataSend){
+  $.ajax({
+    url: 'controllers/specialty.controller.php',
+    type: 'GET',
+    data: dataSend,
+    success: function(result){
+      $("div").remove(".container-loader"); // Remover animación
+
+      if(result > 0){
+        $("#total-services-found").html(result);
+        $("#span-text-found").html("Servicios ofrecidos");
+        $("#body-content-filtered").removeClass("d-none");
+      } else {
+        $("#span-text-found").html("No se ha encontrado servivicios ofrecidos con los filtros actuales");
+        $("#total-services-found").html('');
+        $("#body-content-filtered").addClass("d-none");
       }
     }
   });
@@ -278,4 +403,5 @@ function getServicesFiltered(dataSend) {
 
 // Listar departamentos y recomendados
 listDepartments();
-serviceRecommendation();
+serviceRecommendationCarousel();
+totalSpecialtiesAvailable();

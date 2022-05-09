@@ -1,5 +1,5 @@
 <!-- css perfil -->
-<link rel="stylesheet" href="./dist/css/pages/perfil.css">
+<link rel="stylesheet" href="./dist/css/pages/profile.css">
 <link rel="stylesheet" href="./dist/css/pages/styleGaleria.css">
 
 <!-- videojs -->
@@ -55,19 +55,15 @@
             <span id="conteosegui"></span>
           </div>
           <div>
-            <h5>Sigues</h5>
+            <h5>Seguidos</h5>
             <span id="conteoseguid"></span>
           </div>
         </div>
         <!-- Seccion de CALIFICACIONES -->
-        <div class="container2">
-          <div class="stars">
+        <div class="container2" >
+          <div id="content-starts">
+            <!-- asincrono -->
 
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas  fa-star"></i>
-            <i class="fas fa-star"></i>
           </div>
           <div class="nivel">
             <h5>Excelente</h5>
@@ -617,7 +613,7 @@
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Crear una nueva publicación de trabajo</h5>
+        <h5 class="modal-title text-bold" id="title-modal-publication">Crear publicación</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -667,7 +663,7 @@
           <!-- Contenido del video vista previa -->
           <div id="container-video">
             <!-- progressbar -->
-            <div class="row">
+            <div class="row d-none" id="container-progress-load-video">
               <div class="col-sm-8">
                 <div class="progress">
                   <div class="progress-bar progress-bar-striped bg-info progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100">0%</div>
@@ -679,10 +675,13 @@
               </div>
             </div>
 
-            <!-- Previsualizador de video -->
+            <!-- Previsualizador de video traido del servidor -->
+            <div id="preview-video-server"></div>
+
+            <!-- Previsualizador de video cargado -->
             <div class="row">
               <div class="col-md-12">
-                <video controls id="video-tag">
+                <video controls id="video-tag" class="d-none">
                   <source id="video-source" src="">
                 </video>
               </div>
@@ -700,6 +699,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-info" id="btn-modify-publication">Actualizar</button>
         <button type="button" class="btn btn-primary" id="btn-add-publication">Publicar</button>
       </div>
     </div>
@@ -712,7 +712,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Denunciar usuario</h5>
+        <h5 class="modal-title text-bold text-uppercase">Denunciar usuario</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -721,34 +721,30 @@
         <form id="form-report">
           <div class="form-group">
             <label for="motivo">Motivo:</label>
-            <select class="custom-select  rounded-0" id="motivo">
-              <option selected>Selecione</option>
-              <option value="">Agresión</option>
-              <option value="">Insulto</option>
-              <option value="">Otros</option>
+            <select class="custom-select  form-control-border" id="motivo">
+              <option selected value="">Selecione</option>
+              <option value="Contenido ofensivo">Contenido ofensivo</option>
+              <option value="Contenido obsceno">Contenido obsceno</option>
+              <option value="Contenido discriminatorio">Contenido discriminatorio</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="comentario" class="col-form-label">Comentario:</label>
-            <textarea class="form-control rounded-0" id="comentario"></textarea>
+            <label for="comentario" class="col-form-label">Cuentanos más sobre tu denuncia:</label>
+            <textarea class="form-control form-control-border" id="comentario" maxlength="250"></textarea>
           </div>
         </form>
-        <form id="formulario-image">
-          <div class="form-group">
-            <label for="imagenportada">Imagén o captura (Opcional)</label>
-            <input type="file" hidden class="custom-file-input form-control" accept=".jpg, .jpeg, .png" id="input-img-portada" lang="es">
-            <div class="container-image d-none">
-              <img src="dist/img/photo3.jpg" id="preview-image" class="image-responsive">
-            </div>
-            <button type="button" id="btn-subir-imagen" class="btn btn-flat btn-block btn-primary">
-              <i class="fa fas fa-camera-retro"></i> <span>Subir imagen</span>
-            </button>
-          </div>
+        <form id="form-image-report">
+          <div id="container-image-report" ></div>    
+
+          <input type="file" accept="jpg, png, jpeg" id="input-load-image-report" hidden >
+          <button type="button" id="btn-load-image-report" class="btn btn-block btn-primary">
+            <i class="fa fas fa-camera-retro"></i> <span>Subir imagen</span>
+          </button>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-flat btn-secondary" data-dismiss="modal">Cancelar proceso</button>
-        <button type="button" class="btn btn-flat btn-primary">Guardar</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar proceso</button>
+        <button type="button" class="btn btn-sm btn-danger" id="btn-send-report">Denunciar</button>
       </div>
     </div>
   </div>
@@ -764,5 +760,6 @@
 <script src="plugins/video-js/video.min.js"></script>
 
 <!-- scripts propios -->
+<script src="dist/js/utility.js"></script>
 <script src="dist/js/pages/publication-services.js"></script>
 <script src="dist/js/uploadFile.js"></script>

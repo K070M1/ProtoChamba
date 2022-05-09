@@ -47,4 +47,32 @@ if(isset($_GET['op'])){
   }
 }
 
+if(isset($_POST['op'])){
+
+  // registrar
+  if($_POST['op'] == 'registerReport'){
+    // Validar si existe imagen
+    if (isset($_FILES['fotografia'])){
+      $ext = explode('.', $_FILES['fotografia']['name']);     // Separar la extension de la imagen
+      $image = date('Ymdhis') . '.' . end($ext);              // Renombrar imagen
+    }
+    else{
+      $image = "";
+    }
+
+    // registrar reporte
+    $report->registerReport([
+      "idcomentario"  => $_POST['idcomentario'],
+      "motivo"        => $_POST['motivo'],
+      "descripcion"   => $_POST['descripcion'],
+      "fotografia"    => $image
+    ]);
+
+
+    // guardar si existe iamgen
+    if($image != ""){
+      move_uploaded_file($_FILES['fotografia']['tmp_name'], '../dist/img/user/' . $image);
+    }
+  }
+}
 ?>

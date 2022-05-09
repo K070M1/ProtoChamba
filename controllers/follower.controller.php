@@ -97,7 +97,7 @@ if (isset($_GET['op'])){
   if ($_GET['op'] == 'getCountFollowersByUser'){
     $data;
 
-    if(isset($_SESSION['idusuario'])){
+    if($_GET['idusuarioactivo'] == -1 && isset($_SESSION['idusuario'])){
       $data = $follower->getCountFollowersByUser(["idusuario" => $_SESSION['idusuario']]);
     } else {
       $data = $follower->getCountFollowersByUser(["idusuario" => $_GET['idusuarioactivo']]);
@@ -116,7 +116,8 @@ if (isset($_GET['op'])){
   if ($_GET['op'] == 'getCountFollowedByUser'){
     $dat;
 
-    if(isset($_SESSION['idusuario'])){
+    
+    if($_GET['idusuarioactivo'] == -1 && isset($_SESSION['idusuario'])){
       $data = $follower->getCountFollowedByUser(["idusuario" => $_SESSION['idusuario']]);
     } else {
       $data = $follower->getCountFollowedByUser(["idusuario" => $_GET['idusuarioactivo']]);
@@ -129,6 +130,33 @@ if (isset($_GET['op'])){
       echo json_encode($data);
     }
 
+  }
+
+  // Registrar seguidor
+  if ($_GET['op'] == 'registerFollower'){
+    if(isset($_SESSION['idusuario'])){
+      $follower->registerFollower(["idfollowing" => $_GET['idusuarioactivo'], "idfollower" => $_SESSION['idusuario']]);
+    } else {
+      echo "Iniciar sesión";
+    }
+  }
+
+  // validar si ya esta seguido por el usuario que inicio sesion
+  if($_GET['op'] == 'validateFollower'){
+    $data = $follower->getFollowersByUser(["idusuario" => $_GET['idusuarioactivo']]);
+    $value = "Seguir";
+    
+    if(isset($_SESSION['idusuario'])){
+      if(count($data) > 0){
+        foreach($data as $row){
+          if ($row['idfollower'] == $_SESSION['idusuario']){
+            $value = "Seguido";
+          }
+        }
+      }
+    }
+
+    echo $value;
   }
 
 }

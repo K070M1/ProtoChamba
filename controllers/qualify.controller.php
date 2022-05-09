@@ -6,6 +6,13 @@ $qualify = new Qualify();
 
 if(isset($_GET['op'])){
 
+  // Obtener la calificación del usuario (Estrellas)
+  function getScoreUser($idusuario){
+    $qualify = new Qualify();
+    $score = $qualify->getScoreUser(["idusuario" => $idusuario]);
+    return isset($score[0]) ? $score[0]['estrellas'] : 0;
+  }
+
   // Registrar
   if($_GET['op'] == 'registerQualify'){
     if(isset($_SESSION['idusuario'])){
@@ -29,6 +36,34 @@ if(isset($_GET['op'])){
     } else {
       echo "Iniciar sesión";
     }
+  }
+
+  if($_GET['op'] == 'getScoreUser'){
+    $idusuario;
+
+    if($_GET['idusuarioactivo'] == -1 && isset($_SESSION['idusuario'])){
+      $idusuario = $_SESSION['idusuario'];
+    } else {
+      $idusuario = $_GET['idusuarioactivo'];
+    }
+
+    $scoreUser = getScoreUser($idusuario);
+    $scoreUser = ceil($scoreUser);
+
+    echo "<div class='stars'>";
+
+    /* con estrellas */
+    for ($i = 0; $i < $scoreUser; $i++) {
+      echo " <i class='fas fa-star-half-alt active'></i>";
+    }
+
+    /* sin estrellas */
+    for ($j = 0; $j < 5 - $scoreUser; $j++) {
+      // <i class="fas fa-star-half-alt"></i>
+      echo "<i class='fas fa-star'></i>";
+    }
+
+    echo "</div>";
   }
 }
 

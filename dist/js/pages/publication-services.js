@@ -6,8 +6,10 @@ var isDeleteImage = false;
 var isLoadImages = true;
 var isNewPublication = true;
 var idtrabajo = -1;
-var uploadedImages = [];  // Almacenar todos los archivos subidos (Temporales)
-var deletedImages = [];  // Almacenar los archivosELIMINADOS  QUE SE ENVIARAN AL SERVIDOR
+var uploadedImages = [];  // Almacenar todos las imagenes subidos (Temporales)
+var imagesTemp  = [];      // Almacenar ímagenes traidos del servidor
+var videoTemp  = [];      // Almacenar video traido del servidor
+var deletedFiles = [];    // Almacena archivos eliminados (ID GALERIA)
 
 // validar usuario activo
 if(idusuarioActivo != -1){
@@ -30,6 +32,23 @@ function enabledButtons(){
 // Resetear formularios del modal
 $(".btn-publication").click(openFormPublicationAdd);
 
+// Abrir formulario para editar publicación
+function openFormPublicationEdit(){
+
+  clearFormPublication();
+  $("#title-modal-publication").html("Editar publicación");                 // Titulo del modal
+  $("#btn-add-publication").addClass("d-none");         // Ocultar botón agregar
+  $("#btn-modify-publication").removeClass("d-none");   // Mostrar botón modificar
+}
+
+// Abrir formulario para registrar
+function openFormPublicationAdd(){
+  clearFormPublication();
+  $("#title-modal-publication").html("Crear publicación");  // Titulo del modal
+  $("#btn-modify-publication").addClass("d-none");          // Ocultar botón modificar
+  $("#btn-add-publication").removeClass("d-none");          // Mostrar botón agregar
+}
+
 // Limpiar formulario de publicación
 function clearFormPublication(){
   $("#form-publication")[0].reset();
@@ -43,28 +62,15 @@ function clearFormPublication(){
   changeInterfaceToImages(true);
 }
 
-// Abrir formulario para editar publicación
-function openFormPublicationEdit(){
-  clearFormPublication();
-  $("#title-modal-publication").html();                 // Titulo del modal
-  $("#btn-add-publication").addClass("d-none");         // Ocultar botón agregar
-  $("#btn-modify-publication").removeClass("d-none");   // Mostrar botón modificar
-}
-
-// Abrir formulario para registrar
-function openFormPublicationAdd(){
-  clearFormPublication();
-  $("#title-modal-publication").html();                 // Titulo del modal
-  $("#btn-modify-publication").addClass("d-none");      // Ocultar botón modificar
-  $("#btn-add-publication").removeClass("d-none");      // Mostrar botón agregar
-}
 
 /**
  * ALTERNAR ENTRE LA INTERFAZ DE CARGA DE IMAGENES O VIDEO
  */
 // MOSTRAR CONTENIDO DE CARGAR IMAGENES
 $("#btn-image").click(function () {
-  if($("#input-new-video").val() == ''){
+  let totalVideo = $(".new-video").toArray().length;  // video traido del servidor
+
+  if($("#input-new-video").val() == '' && totalVideo == 0){
     changeInterfaceToImages(true);
   }
   else{
@@ -80,7 +86,7 @@ $("#btn-image").click(function () {
 // MOSTRAR CONTENIDO DE CARGAR VIDEO
 $("#btn-video").click(function () {
   // validar si existen datos subidos
-  if(uploadedImages.length == 0){
+  if(uploadedImages.length == 0 && imagesTemp.length == 0){
     changeInterfaceToImages(false);
   }
   else{
@@ -93,7 +99,7 @@ $("#btn-video").click(function () {
   }
 });
 
-// Cambiar de interfaz de carga de archivos (imagenes o video)
+// Cambiar de interfaz, carga de (imagenes o video)
 function changeInterfaceToImages(isImages){
   if(isImages){
     if ($("#container-video").is(':visible')) $("#container-video").hide();
@@ -111,6 +117,292 @@ function changeInterfaceToImages(isImages){
   }
 }
 
+
+/**
+ * ALTERNAR ENTRE IMAGENES O VIDEO (Cargar y eliminar)
+ */
+// Llamar al evento change
+$("#btn-add-file").click(function () {
+
+  if(isLoadImages){
+    $("#input-new-image").click();
+  }
+  else{
+    $("#input-new-video").click();
+  }
+});
+
+// Eliminar imagenes o video (todos)
+$("#btn-delete-files").click(function(){
+  if(isLoadImages){
+    sweetAlertConfirmQuestionDelete("¿Estas seguro de borrar todas las imagenes?").then(confirm => {
+      if(confirm.isConfirmed){
+        deleteAllImagespreview();      
+      }
+    });
+  }
+  else{
+    sweetAlertConfirmQuestionDelete("¿Estas seguro de borrar el video?").then(confirm => {
+      if(confirm.isConfirmed){    
+        deleteVideoPreview();
+      }
+    });
+  }
+
+});
+
+
+/**
+ * CARGAR IMAGENES PREVIAS EN EL MODAL PUBLICACIÓN
+ */
+
+// Ejecutar el evento change de imagenes
+$("#input-new-image").change(function (e) {
+  let totalImgPreview = $(".image-new").toArray().length;
+  let max = $(this).attr('max');  // Maximo de imagenes permnitidos
+  let files = this.files;         // Archivos cargados
+  let element;                    // Almacenar cada archivo
+  let supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+  // validar que no exceda el maximo permitido
+  if (files.length > max || totalImgPreview >= max) {
+    sweetAlertInformation("5 Imagenes como maximo", "Se excedio el maximo de archivo permitido");
+  } else {
+    // recorrer y mostrar los archivos subidos
+    for (var i = 0; i < files.length && uploadedImages.length < max; i++) {
+      element = files[i];   // Obtener cada imagen del array
+
+      // Validar la cantidad de imagenes cargadas
+      if(totalImgPreview < max){
+        // Validar si son imagenes permitidos
+        if (supportedImages.indexOf(element.type) == -1) {
+          let index = element.type.indexOf('/');
+          let ext = element.type.substr(index + 1);	
+          sweetAlertWarning("Archivo " + ext.toUpperCase() + " no permitido", "Permitidos: jpeg, jpg, png, gif");
+  
+        } else {                    
+          uploadedImages.push(element);                           // Almacenar en el nuevo array
+          createPreviewImages("#container-images", element);      // Crear previsualizacion de imagenes DENTRO de (container images)
+          totalImgPreview = $(".image-new").toArray().length;
+        }
+  
+        // si existe imagenes mostrar botón de eliminación
+        if(uploadedImages.length > 0 || totalImgPreview > 0){
+          $("#btn-delete-files").removeClass("d-none");
+        }
+      } else {
+        sweetAlertInformation("5 Imagenes como maximo", "Se excedio el maximo de archivo permitido");
+      }
+
+    } // fin del for    
+  }
+
+  // Condición para impedir subir imagenes
+  if(uploadedImages.length == max || totalImgPreview == max){
+    $("#btn-add-file").prop('disabled', true);
+  }
+});
+
+// Eliminar previsualizaciones de imagenes (uno a uno)
+$(document).on("click", ".image-new figure figcaption i", function () {
+  // Remover la imagen previa 
+  $(this).parent("figcaption").parent("figure").parent(".image-new").remove();
+  let image = $(this).parent("figcaption").parent("figure").parent(".image-new").attr("data-img");
+  let idimage = $(this).parent("figcaption").parent("figure").parent(".image-new").attr("data-code");
+  let totalImgPreview = $(".image-new").toArray().length;
+
+  // Comprobar si son datos por modificar
+  if(idimage != undefined){
+    deletedFiles.push(idimage);
+  }
+
+  // Eliminar la imagen del arreglo de tipo object
+  removeItemFromArrayObject(uploadedImages, image);
+
+  // Ocultar botón de eliminación
+  if (uploadedImages.length == 0 && totalImgPreview == 0) {
+    $("#btn-delete-files").addClass("d-none");   
+  } // Mostrar boton para subir imagen
+  else if(uploadedImages.length >= 0 && totalImgPreview >= 0) {
+    $("#btn-add-file").prop('disabled', false); 
+  }
+});
+
+// Eliminar todas las imagenes previsualizadas
+function deleteAllImagespreview(){
+  $(".image-new").remove();
+  uploadedImages = [];
+  deletedFiles = imagesTemp;     // Pasar datos al nuevo array
+  imagesTemp = [];               // Eliminar
+  changeInterfaceToOnLoad(true);
+}
+
+
+/**
+ * CARGAR VIDEO EN EL MODAL PUBLICACIONES
+ */
+// Evento change para subir video
+$("#input-new-video").change(function (event) {
+  let videoSrc = document.querySelector("#video-source");
+  let supportedVideo = ["video/mp4"];
+
+  // Ocultar video traido del servidor
+  $("#container-progress-load-video").removeClass("d-none");          // Mostrar progreso de carga del video
+  $("#video-tag").removeClass("d-none");                              // Mostrar previsualizador por defecto
+  clearContainer("#preview-video-server");                            // eliminar previsualizador de video (traido del servidor)
+
+  // Obtener el tamaño del archivo subido
+  let sizeByte = event.target.files[0].size;
+  let sizeKilobyte = parseInt(sizeByte / 1024);
+  let sizeMegabyte = parseInt(sizeKilobyte / 1024);
+
+  // Valor del atributo size (Maximo en MB permitido)
+  let valueSize = $(this).attr("size");
+
+  // Iniciar en 0 el progressbar
+  let percentLoad = 0;
+  $("#label-video-size").html('0 MB');
+  $(".progress .progress-bar").html('0 %');
+  $(".progress .progress-bar").addClass("progress-bar-animated").addClass("progress-bar-striped");
+
+  let fileVideo = this.files[0]; 
+  
+  // Validar archivo
+  if(supportedVideo.indexOf(fileVideo.type) == -1){
+    sweetAlertWarning("Archivo no permitido", "Permitido: mp4");
+  }
+  else{
+    // Validar tamaño del archivo
+    if (valueSize < sizeMegabyte) {
+      sweetAlertWarning("Supera el tamaño maximo permitido ", " (" + valueSize + " MB)");
+    } else {
+      // es aceptable
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();      // instancia Objeto reader
+        var file = event.target.files[0];   // leer el video subido
+  
+        // cargar contenido
+        reader.onload = function (e) {
+          videoSrc.src = e.target.result
+          videoSrc.parentElement.load()
+        }.bind(this)
+  
+        // Leer el contenido de file
+        reader.readAsDataURL(file);
+  
+        // progreso de carga
+        reader.onprogress = function (e) {
+          percentLoad = Number.parseInt(e.loaded * 100 / e.total); // calculando porcentaje
+          $(".progress .progress-bar").html('Cargando...' + percentLoad + ' %');
+          $(".progress .progress-bar").css('width', percentLoad + '%');
+        }
+  
+        // carga completa
+        reader.onloadend = function (e) {
+          $("#label-video-size").html(sizeMegabyte + ' MB');
+          $(".progress .progress-bar").html('Carga completa ' + percentLoad + ' %');
+          $(".progress .progress-bar").removeClass("progress-bar-animated").removeClass("progress-bar-striped");
+  
+          $("#btn-add-file").prop('disabled', true);
+          $("#btn-delete-files").removeClass("d-none");
+        }
+      }
+    }
+  }
+
+});
+
+// Eliminar video
+function deleteVideoPreview(){
+  deletedFiles = videoTemp;     // Pasar datos al nuevo array
+  videoTemp = [];               // resetear
+  
+  let videoSrc = document.querySelector("#video-source");
+  videoSrc.src = '';
+  videoSrc.parentElement.load();
+  
+  $("#container-progress-load-video").addClass("d-none");             // ocultar barra de progreso
+  $("#video-tag").addClass("d-none");                                 // ocultar previsualizador por defecto
+  clearContainer("#preview-video-server");                            // eliminar previsualizador (traido del servidor)
+
+  $("#form-upload-file")[0].reset();
+  $("#label-video-size").html('0 MB');
+  $(".progress .progress-bar").html('0 %');
+  $(".progress .progress-bar").css('width', 0 + '%');
+  changeInterfaceToOnLoad(true);
+}
+
+// cambiar los botones (Agregar o Eliminar)
+function changeInterfaceToOnLoad(isLoad){
+  if(isLoad){
+    $("#btn-delete-files").addClass("d-none");
+    $("#btn-add-file").prop('disabled', false);    
+  }
+  else{
+    $("#btn-delete-files").removeClass("d-none");
+    $("#btn-add-file").prop('disabled', true);    
+  }
+}
+
+
+/**
+ * REALIZAR PUBLICACIÓN
+ */
+$("#btn-add-publication").click(function(){
+
+  // Validar datos
+  if(dataFormPublicationIsEmpty()){
+    sweetAlertWarning("Datos incorrectos", "Por favor complete los campos");
+  }
+  else{
+
+    // Confirmar
+    sweetAlertConfirmQuestionSave("¿Estas seguro de hacer la publicación?").then((confirm) => {
+      if(confirm.isConfirmed){
+
+        var formData = new FormData();
+        formData.append("op", "registerWork");
+        formData.append("idespecialidad", $("#especialidad").val());
+        formData.append("titulo", $("#titulo").val());
+        formData.append("descripcion", $("#descripcion").val());
+      
+        // Comprobar si son imagenes o video
+        if(isLoadImages){
+          // pasar las imagenes al array images[]
+          for(let i = 0; i < uploadedImages.length; i++){
+            formData.append("images[]", uploadedImages[i]);
+          }
+        }
+        else{
+          formData.append("video", $("#input-new-video")[0].files[0]);
+        }
+      
+        $.ajax({
+          url: 'controllers/work.controller.php',
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          cache: false,
+          success: function(result){
+            console.log(result);
+            clearFormPublication();
+            $("#modal-publication").modal('hide');
+            loadPublicationWorks();
+          }
+      
+        }); // Fin ajax
+      }
+    }); // Fin Sweet alert
+  }
+});
+
+// Validar campo obligatorios
+function dataFormPublicationIsEmpty(){
+  return $("#especialidad").val() == "" || $("#titulo").val() == "" || $("#descripcion").val() == "";
+}
+
+
 /**
  * MENU DE OPCIONES POR CADA PUBLICACIÓN
  */
@@ -119,14 +411,20 @@ $("#data-publication-works").on("click", ".btn-show-config", function(){
   $(this).next("ul.list-public-config").toggle();
 });
 
-// Editar publicación (traer datos del servidor y mostrarlo en panatalla)
+// Editar publicación (traer datos del servidor y mostrarlo en pantalla)
 $("#data-publication-works").on("click", ".btn-edit-publication", function(){
   
   $(this).parent("li.item-public-config").parent("ul.list-public-config").toggle(); // Cerrar opciones
-  openFormPublicationEdit();
+  openFormPublicationEdit();  // abrir formulario para editar publicación
+  deletedFiles = [];       // Resetear el arreglo de imagenes eliminados
+  imagesTemp = [];
 
   idtrabajo = $(this).attr("data-code");
+  getAtPublication(idtrabajo);
+});
 
+// Obtener el registro de la publicación indicada
+function getAtPublication(idtrabajo){
   $.ajax({
     url: 'controllers/work.controller.php',
     type: 'GET',
@@ -139,42 +437,44 @@ $("#data-publication-works").on("click", ".btn-edit-publication", function(){
         $("#titulo").val(dataController.titulo);
         $("#descripcion").val(dataController.descripcion);
 
-        getImagesPublication(dataController.idtrabajo); // Listar imagenes
+        getFilesPublication(dataController.idtrabajo); // Listar imagenes o video
         
         $("#modal-publication").modal('show');
       }
     }
   });
-});
+}
 
-
-// Obtener imagenes por cada publicación
-function getImagesPublication(idtrabajo){
-
+// Obtener imagenes o video de la publicación
+function getFilesPublication(idtrabajo){
   $.ajax({ 
     url: 'controllers/gallery.controller.php',
     type: 'GET',
     data: 'op=getGalleriesByWork&idtrabajo=' + idtrabajo,
     success: function(result){
-
       if(result !== ""){
         let dataController = JSON.parse(result);
   
-        dataController.forEach(value => {
+        dataController.forEach(value => {          
           if(value.tipo == 'F'){
-            createPreviewImagesController($("#container-images"), value.archivo, value.idgaleria);
+            imagesTemp.push(value.idgaleria); // almacenar los IDs IMAGENES
+            createPreviewImagesController("#container-images", value.archivo, value.idgaleria);
           }
           else{
-            $("#video-tag").addClass("video-js fm-video");
-            $("#video-source").attr("src", "dist/video/" + value.archivo);
-          }
-  
+            videoTemp.push(value.idgaleria); // almacenar ID VIDEO
+            $("#btn-video").click();                                            // Mostrar contenido de video
+            $("#container-progress-load-video").addClass("d-none");             // ocultar barra de progreso
+            $("#video-tag").addClass("d-none");                                 // ocultar previsualizador por defecto
+            $("#btn-add-file").prop('disabled', true);                          // Desactivar carga de video
+            clearContainer("#preview-video-server");                            // eliminar los elementos hijos
+            createPreviewVideo("#preview-video-server", value.archivo);         // cargar el video indicado
+          }  
         });
   
         // Mostrar boton de eliminación
         $("#btn-delete-files").removeClass("d-none");   
   
-        // Desactivar boton para subir imagenes
+        // Desactivar boton para subir imagenes si son 5 imagenes
         if(dataController.length == 5){
           $("#btn-add-file").prop('disabled', true); 
         }
@@ -202,18 +502,18 @@ $("#btn-modify-publication").click(function(){
         formData.append("idespecialidad", $("#especialidad").val());
         formData.append("titulo", $("#titulo").val());
         formData.append("descripcion", $("#descripcion").val());
-        //formData.append("eliminados", deletedImages);
-      
+        formData.append("eliminados", deletedFiles);
+
         // Comprobar si son imagenes o video
-        /* if(isLoadImages){
-          // Imagenes
+        if(isLoadImages){
+          // Imagenes nuevas
           for(let i = 0; i < uploadedImages.length; i++){
             formData.append("images[]", uploadedImages[i]);
           }
         }
         else{
           formData.append("video", $("#input-new-video")[0].files[0]);
-        } */
+        }
       
         $.ajax({
           url: 'controllers/work.controller.php',
@@ -222,13 +522,12 @@ $("#btn-modify-publication").click(function(){
           contentType: false,
           processData: false,
           cache: false,
-          success: function(result){
-            
+          success: function(result){            
             if(result == ""){
               idtrabajo = -1;
               clearFormPublication();
-              $("#modal-publication").modal('hide');
               loadPublicationWorks();
+              $("#modal-publication").modal('hide');
             }
           }
       
@@ -265,8 +564,9 @@ function deletePublication(idtrabajo){
   });
 }
 
+
 /**
- * CALIFICACIÓN - TRABAJOS
+ * CALIFICACIÓN
  */
 
 // Abrir contenido de calificaciones
@@ -304,7 +604,7 @@ $("#data-publication-works").on("click", ".reactions span", function(){
   if(idreaccion > 0){
     dataSend['op'] = 'updateQualify';
     dataSend['idcalificacion'] = idreaccion;
-  }
+  } 
 
   qualifyService(dataSend);
 });
@@ -315,6 +615,7 @@ function qualifyService(dataSend){
     url: 'controllers/qualify.controller.php',
     data: dataSend,
     success: function(result){
+      console.log(result);
       if(result != ""){
         sweetAlertWarning(result, 'Debe iniciar sesión o registrarse');
       } else {
@@ -324,42 +625,20 @@ function qualifyService(dataSend){
   });
 }
 
+
 /**
  * BLOQUEAR CONTENTEDITABLE
  */
-// Bloquear el Maximo de caracteres
+// validar el Maximo de caracteres permitido
 $("#data-publication-works").on("keypress", ".contenteditable", function(e){
-  return disableLineBreaksInContEditable($(this), e); 
+  return disableLineBreaks($(this), e); 
 });
 
-// Inabilitar saltos de linea (CONTENTEDITABLE) y permitir el maximo de caracteres indicado en su atributo (MAXLENGTH)
-function disableLineBreaksInContEditable(element, event){
-  let maxlength = element.attr('maxlength');
- 
-  // Bloquear salto de linea
-  if(event.keyCode == 13){
-    event.preventDefault();
-  }
-
-  // Maximo de caracteres pemitido
-  if (element.html().length == maxlength || element.val().length == maxlength) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-// Bloquear el pegar contenido dentro del contenteditable
+// Bloquear el pegar contenido dentro del contenteditable, permitido solo texto plano
 $("#data-publication-works").on("paste", ".contenteditable", function(e){
   e.preventDefault();
   var text = (e.originalEvent || e).clipboardData.getData('text/plain');
   document.execCommand("insertHTML", false, text);
-});
-
-// Bloquear el copiar contenido dentro del contenteditable
-$("#data-publication-works").on("copy", ".contenteditable", function(e){
-  e.preventDefault();
-  sweetAlertWarning("No copiar contenido", "Acción prohibida");
 });
 
 
@@ -403,7 +682,7 @@ $("#data-publication-works").on("keydown", ".write-text-comment", function(e){
   }
 });
 
-// Botón enviar comentario al servidor (REGISTRAR)
+// Botón enviar comentario al servidor (REGISTRAR COMENTARIO)
 $("#data-publication-works").on("click", ".btn-send", function(){
   let comentario = $(this).prev(".text-auto-height").children(".write-text-comment").html().trim();
   let idtrabajo = $(this).prev(".text-auto-height").children(".write-text-comment").attr("data-code");
@@ -440,6 +719,7 @@ function registerComment(dataSend){
     }
   });
 }
+
 
 /**
  * EDITAR COMENTARIOS
@@ -496,7 +776,6 @@ $("#data-publication-works").on("click", ".update-comment", function(){
   });
 });
 
-// actualizar
 function updateCommentPublication(dataSend){
   $.ajax({
     url: 'controllers/comment.controller.php',
@@ -536,21 +815,17 @@ function deleteComment(idcomentario){
   });
 }
 
+
 /**
  * FORO DE CONSULTAS
  */
 
 // Bloquear saltos de linea
 $(".content-forum .contenteditable").keypress(function (e){
-  return disableLineBreaksInContEditable($(this), e); 
+  return disableLineBreaks($(this), e); 
 });
 
-// Evitar copiar en la caja de comentario
-$(".content-forum .contenteditable").on("copy", function (e){
-  e.preventDefault();
-});
-
-// Evitar pegar en la caja de comentario
+// Evitar pegar en la caja de comentario, solo texto plano
 $(".content-forum .contenteditable").on("paste", function (e){
   e.preventDefault();
   var text = (e.originalEvent || e).clipboardData.getData('text/plain');
@@ -606,7 +881,7 @@ $(".content-forum .contenteditable").keydown(function(e){
   }
 });
 
-// Boton publicar consulta
+// Registrar Consultas
 $(".content-forum .btn-send").click(function (){
   let consulta = $(this).prev(".text-auto-height").children(".write-text-comment").html().trim();
  
@@ -621,7 +896,6 @@ $(".content-forum .btn-send").click(function (){
   }
 });
 
-// Registrar onsultas
 function registerCommentForum(dataSend){
   $.ajax({
     url: 'controllers/forum.controller.php',
@@ -652,7 +926,6 @@ $("#content-data-forum").on("click", ".update-comment", function(){
 
 });
 
-// actualizar
 function updateQueryForum(dataSend){
   $.ajax({
     url: 'controllers/forum.controller.php',
@@ -710,326 +983,6 @@ function loadQueriesForumToUser(){
 // ejecutar la carga de consultas
 loadQueriesForumToUser();
 
-/**
- * VIDEO PLAYER iNICIAR 
- */
-/* var reproductor = videojs('video-tag', {
-  fluid: false,
-  autoplay: false,
-  muted: false,
-  aspectRatio: '16:9',
-  responsive: true,
-  playbackRates: [0.5, 1, 1.5, 2],
-  fullscreen: { options: { navigationUI: 'hide' } },
-  userActions: {
-    click: true
-  }
-}) */
-// video player
-
-/**
- * ALTERNAR ENTRE IMAGENES O VIDEO (Cargar y eliminar)
- */
-// Llamar al evento change
-$("#btn-add-file").click(function () {
-
-  if(isLoadImages){
-    $("#input-new-image").click();
-  }
-  else{
-    $("#input-new-video").click();
-  }
-});
-
-// Eliminar imagenes o video (todos)
-$("#btn-delete-files").click(function(){
-  if(isLoadImages){
-    sweetAlertConfirmQuestionDelete("¿Estas seguro de borrar todas las imagenes?").then(confirm => {
-      if(confirm.isConfirmed){
-        deleteAllImagespreview();      
-      }
-    });
-  }
-  else{
-    sweetAlertConfirmQuestionDelete("¿Estas seguro de borrar el video?").then(confirm => {
-      if(confirm.isConfirmed){    
-        deleteVideoPreview();
-      }
-    });
-  }
-
-});
-
-
-/**
- * CARGAR IMAGENES PREVIAS EN EL MODAL PUBLICACIÓN
- */
-
-// Ejecutar el evento change de images
-$("#input-new-image").change(function (e) {
-  let totalImgPreview = $(".image-new").toArray().length;
-  let max = $(this).attr('max');  // Maximo de imagenes permnitidos
-  let files = this.files;         // Archivos cargados
-  let element;                    // Almacenar cada archivo
-  let supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
-
-  // validar que no exceda el maximo permitido
-  if (files.length > max || totalImgPreview >= max) {
-    sweetAlertInformation("5 Imagenes como maximo", "Se excedio el maximo de archivo permitido");
-  } else {
-
-    // recorrer y mostrar los archivos subidos
-    for (var i = 0; i < files.length && uploadedImages.length < max; i++) {
-      element = files[i];   // Obtener cada imagen del array
-
-      // Validar si son imagenes permitidos
-      if (supportedImages.indexOf(element.type) == -1) {
-        let index = element.type.indexOf('/');
-        let ext = element.type.substr(index + 1);	
-        sweetAlertWarning("Archivo " + ext.toUpperCase() + " no permitido", "Permitidos: jpeg, jpg, png, gif");
-
-      } else {                    
-        uploadedImages.push(element);                               // Almacenar en el nuevo array
-        createPreviewImages($("#container-images"), element);      // Crear previsualizacion de imagenes DENTRO de (container images)
-      }
-
-      // si existe imagenes mostrar botón de eliminación
-      if(uploadedImages.length > 0 || totalImgPreview > 0){
-        $("#btn-delete-files").removeClass("d-none");
-      }
-
-    } // fin del for    
-
-  }
-  // Condición para impedir subir imagenes
-  if(uploadedImages.length == max || totalImgPreview == max){
-    $("#btn-add-file").prop('disabled', true);
-  }
-});
-
-// Eliminar previsualizaciones de imagenes uno por uno
-$(document).on("click", ".image-new figure figcaption i", function () {
-  // Renover la imagen previa 
-  $(this).parent("figcaption").parent("figure").parent(".image-new").remove();
-  let image = $(this).parent("figcaption").parent("figure").parent(".image-new").attr("data-img");
-  let idimage = $(this).parent("figcaption").parent("figure").parent(".image-new").attr("data-code");
-  let totalImgPreview = $(".image-new").toArray().length;
-
-  // Comprobar si son datos por modificar
-  if(idimage != undefined){
-    deletedImages.push({
-      "idgaleria": idimage,
-      "archivo": image
-    });
-  }
-
-  // Eliminar la imagen del arreglo 
-  removeItemFromArrayObject(uploadedImages, image);
-
-  // Ocultar botón de eliminación
-  if (uploadedImages.length == 0 && totalImgPreview == 0) {
-    $("#btn-delete-files").addClass("d-none");   
-  } // Mostrar boton para subir imagen
-  else if(uploadedImages.length >= 0 && totalImgPreview >= 0) {
-    $("#btn-add-file").prop('disabled', false); 
-  }
-});
-
-
-// Eliminar elemento del array object
-function removeItemFromArrayObject(arrayObject, item){
-  // Buscar dentro del arr
-  let indexResult = arrayObject.findIndex((element) => {
-    return element.name === item;
-  });
-
-  // Eliminar si existe el elemento buscado
-  indexResult !== -1 && arrayObject.splice( indexResult, 1 );     
-}
-
-// Encontrar coincidencia de objeto
-function getIndexArrayObject(arrayObject, item){
-  let index = arrayObject.findIndex((element) => {
-    return element.name === item;
-  });
-
-  // Devolver el indice obtenido (-1 si no se encuentra)
-  return index;
-}
-
-// función Find demo
-function findFunctionDemo(arrObject){
-  arrObject.find((element, index, array) => {
-    console.log(index)
-    console.log(element)
-    console.log(array)
-  });
-}
-
-// Eliminar un elemento del array
-function removeItemFromArray (arr, item ) {
-  var i = arr.indexOf( item );        // Indice    
-  i !== -1 && arr.splice( i, 1 );     // Eliminar si existe
-  console.log(i)
-}
-
-// Eliminar todas las imagenes
-function deleteAllImagespreview(){
-  $(".image-new").remove();
-  uploadedImages = [];
-  changeInterfaceToDelete(true);
-}
-
-// cambiar los botones (Agregar o Eliminar)
-function changeInterfaceToDelete(isDelete){
-  if(isDelete){
-    $("#btn-delete-files").addClass("d-none");
-    $("#btn-add-file").prop('disabled', false);    
-  }
-  else{
-    $("#btn-delete-files").removeClass("d-none");
-    $("#btn-add-file").prop('disabled', true);    
-  }
-}
-
-/**
- * CARGAR VIDEO EN EL MODAL PUBLICACIONES
- */
-// Evento change para subir video
-$("#input-new-video").change(function (event) {
-  let videoSrc = document.querySelector("#video-source");
-  let supportedVideo = ["video/mp4"];
-
-  // Obtener el tamaño del archivo subido
-  let sizeByte = event.target.files[0].size;
-  let sizeKilobyte = parseInt(sizeByte / 1024);
-  let sizeMegabyte = parseInt(sizeKilobyte / 1024);
-
-  // Valor del atributo size (Maximo en MB permitido)
-  let valueSize = $(this).attr("size");
-
-  // Iniciar en 0 el progressbar
-  let percentLoad = 0;
-  $("#label-video-size").html('0 MB');
-  $(".progress .progress-bar").html('0 %');
-  $(".progress .progress-bar").addClass("progress-bar-animated").addClass("progress-bar-striped");
-
-  let fileVideo = this.files[0]; 
-  
-  // Validar archivo
-  if(supportedVideo.indexOf(fileVideo.type) == -1){
-    sweetAlertWarning("Archivo no permitido", "Permitido: mp4");
-  }
-  else{
-    // Validar tamaño del archivo
-    if (valueSize < sizeMegabyte) {
-      sweetAlertWarning("Supera el tamaño maximo permitido ", " (" + valueSize + " MB)");
-    } else {
-      // es aceptable
-      if (event.target.files && event.target.files[0]) {
-        var reader = new FileReader();      // instancia Objeto reader
-        var file = event.target.files[0];   // leer el video subido
-  
-        // Leer contenido
-        reader.onload = function (e) {
-          videoSrc.src = e.target.result
-          videoSrc.parentElement.load()
-        }.bind(this)
-  
-        // Leer el contenido de file
-        reader.readAsDataURL(file);
-  
-        // progreso de carga
-        reader.onprogress = function (e) {
-          percentLoad = Number.parseInt(e.loaded * 100 / e.total); // calculando porcentaje
-          $(".progress .progress-bar").html('Cargando...' + percentLoad + ' %');
-          $(".progress .progress-bar").css('width', percentLoad + '%');
-        }
-  
-        // carga completa
-        reader.onloadend = function (e) {
-          $("#label-video-size").html(sizeMegabyte + ' MB');
-          $(".progress .progress-bar").html('Carga completa ' + percentLoad + ' %');
-          $(".progress .progress-bar").removeClass("progress-bar-animated").removeClass("progress-bar-striped");
-  
-          $("#btn-add-file").prop('disabled', true);
-          $("#btn-delete-files").removeClass("d-none");
-        }
-      }
-    }
-  }
-
-});
-
-// Eliminar video
-function deleteVideoPreview(){
-  let videoSrc = document.querySelector("#video-source");
-  videoSrc.src = '';
-  videoSrc.parentElement.load();
-  $("#form-upload-file")[0].reset();
-  $("#input-new-video").val('');
-  $("#label-video-size").html('0 MB');
-  $(".progress .progress-bar").html('0 %');
-  $(".progress .progress-bar").css('width', 0 + '%');
-  changeInterfaceToDelete(true);
-}
-
-/**
- * REALIZAR PUBLICACIÓN
- */
-$("#btn-add-publication").click(function(){
-
-  // Validar datos
-  if(dataFormPublicationIsEmpty()){
-    sweetAlertWarning("Datos incorrectos", "Por avor complete los campos");
-  }
-  else{
-
-    // Confirmar
-    sweetAlertConfirmQuestionSave("¿Estas seguro de hacer la publicación?").then((confirm) => {
-      if(confirm.isConfirmed){
-
-        var formData = new FormData();
-        formData.append("op", "registerWork");
-        formData.append("idespecialidad", $("#especialidad").val());
-        formData.append("titulo", $("#titulo").val());
-        formData.append("descripcion", $("#descripcion").val());
-      
-        // Comprobar si son imagenes o video
-        if(isLoadImages){
-          // pasar las imagenes al array images[]
-          for(let i = 0; i < uploadedImages.length; i++){
-            formData.append("images[]", uploadedImages[i]);
-          }
-        }
-        else{
-          formData.append("video", $("#input-new-video")[0].files[0]);
-        }
-      
-        $.ajax({
-          url: 'controllers/work.controller.php',
-          type: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false,
-          cache: false,
-          success: function(result){
-            console.log(result);
-            clearFormPublication();
-            $("#modal-publication").modal('hide');
-            loadPublicationWorks();
-          }
-      
-        }); // Fin ajax
-      }
-    }); // Fin Sweet alert
-  }
-});
-
-// Validar campo obligatorios
-function dataFormPublicationIsEmpty(){
-  return $("#especialidad").val() == "" || $("#titulo").val() == "" || $("#descripcion").val() == "";
-}
 
 /**
  * LISTAR ESPECIALIDADES EN EL MODAL DE PUBLICACIÓN
@@ -1067,9 +1020,13 @@ function loadPublicationWorks(){
 /**
  * MODAL REPORTE
  */
+var idcomentario = -1;
+
 // Abrir modal desde publicación de trabajos
 $("#data-publication-works").on("click", ".report-comment", function(){
   $("#modal-report").modal("show");
+  idcomentario = $(this).attr("data-code");
+  clearFormReport();
 });
 
 // Abrir modal desde el foro de consultas
@@ -1079,16 +1036,17 @@ $("#content-data-forum").on("click", ".report-comment", function(){
 
 // Restringir el maximo de caracteres del texto de comentario (atributo maxlength)
 $("#comentario").keydown(function(e){
-  disableLineBreaksInContEditable($(this), e);
+  return disableLineBreaks($(this), e);
 });
 
-// Cargar imagen en el formulario reporte
+// Ejecutar la carga de imagen
 $("#btn-load-image-report").click(function () {
-  $(".image-new").remove();
-  $("#input-load-image-report").val('');
+  $(".image-new").remove(); // Eliminar la previsualización actual
+  $("#form-image-report")[0].reset();
   $("#input-load-image-report").click();
 });
 
+// cargar iamgenes
 $("#input-load-image-report").change(function (e) {
   let file = this.files[0];   
   let supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
@@ -1099,10 +1057,66 @@ $("#input-load-image-report").change(function (e) {
     let ext = file.type.substr(index + 1);	
     sweetAlertWarning("Archivo " + ext.toUpperCase() + " no permitido", "Permitidos: jpeg, jpg, png, gif");
   } else {                    
-    createAPreviewImage($("#container-image-report"), file);      // Crear previsualizacion
+    createAPreviewImage("#container-image-report", file);      // Crear previsualizacion
   }
 });
 
+// Eliminar previsualización de la imagen
+$(document).on("click", "#container-image-report .image-new figure figcaption i", function () {
+  // limpiar todo el formulario de imagen
+  $("#form-image-report")[0].reset();
+});
+
+// Enviar reporte
+$("#btn-send-report").click(function(){
+  let motivo = $("#motivo").val();
+  let comentario = $("#comentario").val();
+  let imagen = $("#input-load-image-report")[0].files[0];
+  
+  if(motivo == "" || comentario == "" || idcomentario == -1){
+    sweetAlertWarning("Datos invalido", "Por favor complete el formulario");
+  } else {
+
+    sweetAlertConfirmQuestionDelete("¿Estas seguro de reportar al usuario?").then(confirm => {
+      if(confirm.isConfirmed){
+        var formData = new FormData();
+        formData.append("op", "registerReport");
+        formData.append("idcomentario", idcomentario);
+        formData.append("motivo", motivo);
+        formData.append("descripcion", comentario);
+        formData.append("fotografia", imagen);
+    
+        registerReport(formData);
+      }
+    });
+    
+  }
+});
+
+// enviarReporte
+function registerReport(dataSend){
+  $.ajax({
+    url: 'controllers/report.controller.php',
+    type: 'POST',
+    data: dataSend,
+    contentType: false,
+    processData: false,
+    cache: false,
+    success: function(result){
+      if(result == ""){
+        $("#modal-report").modal("hide");
+        sweetAlertWarning("Usuario reportado", "");
+      }
+    }
+  });
+}
+
+// limpiar formulario de reporte
+function clearFormReport(){
+  $("#form-report")[0].reset();
+  $("#form-image-report")[0].reset();
+  $(".image-new").remove();
+}
 
 // EJECUTANDO LA FUNCIÓN LISTAR
 loadSpecialtySelect();

@@ -16,10 +16,30 @@ class Specialty extends ModelMaster
   }
 
   // Listar por servicio
+  public function getRandomSpecials(array $data)
+  {
+    try {
+      return parent::execProcedure($data, "spu_especialidades_listar_aleatorio", true);
+    } catch (Exception $error) {
+      die($error->getMessage());
+    }
+  }
+
+  // Listar por servicio
   public function getSpecialtyByService(array $data)
   {
     try {
       return parent::execProcedure($data, "spu_especialidades_listar_servicio", true);
+    } catch (Exception $error) {
+      die($error->getMessage());
+    }
+  }
+
+  // Listar por servicio de forma aleatorio
+  public function getRandomSpecialtyForService(array $data)
+  {
+    try {
+      return parent::execProcedure($data, "spu_especialidades_listar_aleatorio_servicio", true);
     } catch (Exception $error) {
       die($error->getMessage());
     }
@@ -74,10 +94,28 @@ class Specialty extends ModelMaster
     }
   }
 
+  // total de especialidades disponibles
+  public function totalSpecialtiesAvailable(){
+    try {
+      return parent::getRows("spu_especialidades_total_disponible");
+    } catch (Exception $error) {
+      die($error->getMessage());
+    }
+  }
+
+  // Filtrar por servicio
+  public function specialtiesFilteredByService(array $data){
+    try {
+      return parent::execProcedure($data, "spu_especialidades_filtrar_servicio", true);
+    } catch (Exception $error) {
+      die($error->getMessage());
+    }
+  }
+
   // Filtrar por servicio y departamento
   public function specialtiesFilteredByServiceAndDepartment(array $data){
     try {
-      return parent::execProcedure($data, "spu_especialidades_filtrar", true);
+      return parent::execProcedure($data, "spu_especialidades_filtrar_servicio_dept", true);
     } catch (Exception $error) {
       die($error->getMessage());
     }
