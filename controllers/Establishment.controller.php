@@ -6,7 +6,7 @@ require_once '../model/Establishment.php';
 $establishment = new Establishment();
 
 if (isset($_GET['op'])) {
-  // switch ($_GET['op']) {
+   // switch ($_GET['op']) {
   //   case 'getEstablishments':
   //     $data = $establishment -> getEstablishments([]);
   //     echo json_encode($data);
@@ -64,7 +64,8 @@ if (isset($_GET['op'])) {
             <li><i class='far fa-building'></i> {$row['establecimiento']}</li>
             <li><i class='fas fa-business-time'></i> {$row['horarioatencion']}</li>
             <li><i class='fas fa-map-marker-alt'></i> {$row['ubicacion']}</li>
-          </ul>
+            <hr>
+        </ul>
           
         ";
       }
@@ -72,38 +73,78 @@ if (isset($_GET['op'])) {
     
   }
 
+  //Establecimiento para mapas
+  function listarEstablecimiento($data){
+
+    if(count($data) <= 0){
+      echo "";
+    }
+    else{
+      foreach($data as $row){
+        echo "
+          <tr>
+            <td align='center'>
+              <i class='fas fa-business-time'></i>
+            </td>
+            <td>{$row['establecimiento']}</td>
+            <td>
+              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-map-marked-alt'></i>
+            </td>
+            <td>{$row['tipocalle']} {$row['nombrecalle']} {$row['numerocalle']}</td>
+            <td>
+              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-asterisk'></i>
+            </td>
+            <td>{$row['referencia']}</td>
+            <td>
+              <a class='btn btn-sm' href=''><i class='fas fa-edit'></i></a>            
+            </td> 
+          </tr>
+          <hr>
+        ";
+      }
+    }
+  }
+
+
 
   if ($_GET['op'] == 'getEstablishmentsByUser'){
-    $idusuario;
 
-    if($_GET['idusuarioactivo'] != -1){
-      $idusuario = $_GET['idusuarioactivo'];
-    } else {
-      $idusuario = $_SESSION['idusuario'];
-    }
-
-    $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
+    $data = $establishment->getEstablishmentsByUser(["idusuario" => 1]);
     listEstablishment($data);
     
   }
 
   if ($_GET['op'] == 'getEstablishmentsInfo'){
 
-    $idusuario;
-
-    if($_GET['idusuarioactivo'] != -1){
-      $idusuario = $_GET['idusuarioactivo'];
-    } else {
-      $idusuario = $_SESSION['idusuario'];
-    }
-
-    $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
+    $data = $establishment->getEstablishmentsByUser(["idusuario" => 1]);
     listInfo($data);
+  }
+
+  if ($_GET['op'] == 'getAEstablishment'){
+
+    $data = $establishment->getAEstablishment(["idestablecimiento" => 1]);
+    listarEstablecimiento($data);
   }
 
   if ($_GET['op'] == 'getEstablishmentByService') {
 
-    $data = $establishment->getEstablishmentByService(["nombreservicio" => $_GET['nombreservicio']]);
+    $data = $establishment->getEstablishmentByService([
+      "nombreservicio" => $_GET['nombreservicio'],
+      "nombreciudad" => $_GET['nombreciudad']
+    ]);
     echo json_encode($data);
   }
+  
 }

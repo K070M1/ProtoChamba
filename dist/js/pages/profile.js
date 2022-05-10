@@ -237,50 +237,6 @@
     // let text =  $('div').attr('data-value');;
     console.log(text);
   });
-
-  // HABILITA SER EDITABLE
-  $("#personas").on("click",".edit-nombre", function(){
-
-    $("#no").attr('contenteditable', true);
-    $(this).next('.cancel-nombre').removeClass('d-none');
-  });
-
-  $("#personas").on("click",".edit-te", function(){
-    $("#te").attr('contenteditable', true);
-    $(this).next('.cancel-te').removeClass('d-none');
-  });
-
-  $("#personas").on("click",".edit-fe", function(){
-    $("#fe").attr('contenteditable', true);
-    $(this).next('.cancel-fe').removeClass('d-none');
-  });
-
-  $("#personas").on("click",".edit-ti", function(){
-    $("#ti").attr('contenteditable', true);
-    $(this).next('.cancel-ti').removeClass('d-none');
-  });
-
-  // DESABILITA SER EDITABLE
-  $("#personas").on("click",".cancel-nombre", function(){
-    $("#no").attr('contenteditable', false);
-    $(this).addClass('d-none');
-  });
-
-  $("#personas").on("click",".cancel-te", function(){
-    $("#te").attr('contenteditable', false);
-    $(this).addClass('d-none');
-  });
-
-  $("#personas").on("click",".cancel-fe", function(){
-    $("#fe").attr('contenteditable', false);
-    $(this).addClass('d-none');
-  });
-
-  $("#personas").on("click",".cancel-ti", function(){
-    $("#ti").attr('contenteditable', false);
-    $(this).addClass('d-none');
-  });
-
   
   function descripcion(){
     $.ajax({
@@ -470,6 +426,7 @@
 
   $("#especiality").on("click", ".modificarEsp", function(){
     idespecialidad = $(this).attr("data-idespecialidad");
+    $("#collapseEspecialidad").collapse();
 
     $.ajax({
       url: "controllers/specialty.controller.php",
@@ -684,7 +641,7 @@
         var datos = JSON.parse(e);
         $("#nombrered").val(datos[0].redsocial);
         $("#vinculo").val(datos[0].vinculo);
-        // $(".collapse").collapse("toggle");
+        $("#collapseRed").collapse("toggle");
 
         datosNuevos = false;
       }

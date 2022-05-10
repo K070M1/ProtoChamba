@@ -71,7 +71,7 @@ if (isset($_GET['op'])){
 
   if ($_GET['op'] == 'getDataPerson'){
 
-    $data = $person->getDataPerson(["idpersona" => 1]);
+    $data = $person->getDataPerson(["idpersona" => $_SESSION['idusuario']]);
     echo json_encode($data);
   }
 }

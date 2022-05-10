@@ -254,7 +254,7 @@ if (isset($_GET['op'])) {
               $/.{$row['tarifa']}
             </td>
             <td {$visible}>
-              <a class='btn btn-info btn-sm edit-nombre' href='#'><i class='fas fa-edit'></i></a>            
+              <a class='btn btn-info btn-sm modificarEsp' href='javascript:void(0)'><i class='fas fa-edit'></i></a>            
               <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-danger btn-sm eliminarEsp' href='#'><i class='fas fa-trash-alt'></i></a>            
             </td>
           </tr>

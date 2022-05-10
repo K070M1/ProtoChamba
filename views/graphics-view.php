@@ -120,6 +120,28 @@
   <div class="col-md-12">
     <div class="card card-primary">
       <div class="card-header">
+        <h3 class="card-title text-uppercase">Cantidad de usuarios por servicio</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="chart">
+          <canvas id="servicesPopular" class="chart-responsive"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card card-primary">
+      <div class="card-header">
         <h3 class="card-title text-uppercase">Reportes de usuarios por mes</h3>
 
         <div class="card-tools">
@@ -140,28 +162,7 @@
     </div>
     <!-- /.card -->
   </div>
-  <div class="col-md-6">
-    <div class="card card-primary">
-      <div class="card-header">
-        <h3 class="card-title text-uppercase">Servicios populares</h3>
-
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-tool" data-card-widget="remove">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="chart">
-          <canvas id="servicesPopular" class="chart-responsive"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   <div class="col-md-6">
     <div class="card card-primary">
       <div class="card-header">

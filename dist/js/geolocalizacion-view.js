@@ -1,5 +1,4 @@
-$('#search-servicio').submit(function (e) {
-    e.preventDefault();
+$('#search-servicio').click(function() {
     startMap();
 })
 
@@ -8,6 +7,8 @@ var establecimientosInfo = [];
 var directionsDisplay;
 var miubicacion = {};
 var mapa;
+var nombreciudad = '';
+const g_key = 'AIzaSyCyBhbKb3BeyxJ-BBV9bsv0nA61dVbpA6E';
 
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
@@ -33,7 +34,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 }
 
 function startMap() {
-    
+    initAutocomplete();
     var nombreservicio = $('#servicio-buscado').val();
     $.ajax({
         url: 'controllers/establishment.controller.php',
@@ -41,7 +42,8 @@ function startMap() {
         dataType: 'JSON',
         data: {
             'op': 'getEstablishmentByService',
-            'nombreservicio': nombreservicio
+            'nombreservicio': nombreservicio,
+            'nombreciudad': nombreciudad
         },
         success: establecimientos => {
             $('#lista-establecimientos').empty();
@@ -65,13 +67,50 @@ function startMap() {
                 $(`#${establecimiento.idestablecimiento}`).attr('data-establecimiento', JSON.stringify(establecimiento));
             });
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(miPosicion => {
+                navigator.geolocation.getCurrentPosition(
+                    miPosicion => {
                     miubicacion = {
                         lat: miPosicion.coords.latitude,
                         lng: miPosicion.coords.longitude
                     }
                     drawMap(miubicacion);
-                })
+                    },
+                    function (error) {
+                        console.log('navigator.geolocation ha fallado: ' + error.code);
+                        console.log('Se hara uso de google.geolocate');
+                        $.ajax({
+                            url: `https://www.googleapis.com/geolocation/v1/geolocate?key=${g_key}`,
+                            type: 'POST',
+                            dataType: 'JSON',
+                            data: {
+                                'considerIp': 'true',
+                                'fields': 'location',
+                                'location': 'true',
+                                'accuracy': 'true',
+                                'altitude': 'true',
+                                'altitudeAccuracy': 'true',
+                                'heading': 'true',
+                                'speed': 'true'
+                            },
+                            success: data => {
+                                miubicacion = {
+                                    lat: data.location.lat,
+                                    lng: data.location.lng
+                                }
+                                drawMap(miubicacion);
+                            },
+                            error: e => {
+                                console.log('google.geolocate ha fallado: ' + e);
+                                console.log('Se hara uso de la ubicacion por defecto');
+                                miubicacion = {
+                                    lat: -12.046374,
+                                    lng: -77.042793
+                                }
+                                drawMap(miubicacion);
+                            }
+                        })
+                    }
+                )
             }
         }
     })
@@ -83,25 +122,8 @@ function drawMap(obj) {
     let div = document.getElementById('primary-map');
     mapa = new google.maps.Map(div, {
         center: obj,
-        zoom: 14
+        zoom: 7
     });
-
-    // sombrear la ciudad de lima
-    var lima = {
-        lat: -12.043333,
-        lng: -77.028333
-    };
-    var limaCircle = new google.maps.Circle({
-        strokeColor: '#0A0CF3',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#0A0CF3',
-        fillOpacity: 0.35,
-        map: mapa,
-        center: lima,
-        radius: 1000
-    });
-    
 
     let marcadorUsuario = new google.maps.Marker({
         position: obj,
@@ -159,7 +181,7 @@ function drawMap(obj) {
                     window.alert('No se encontró ningún resultado');
                 }
             } else {
-                window.alert('Geocoder falló debido a: ' + status);
+                //window.alert('Geocoder falló debido a: ' + status);
             }
         })
     })
@@ -191,12 +213,12 @@ function drawRoute(ubicacionDestino) {
     });
 }
 
-$(document).on('click', '#trazar-ruta', function() {
+$(document).on('click', '#trazar-ruta', function () {
     var data = JSON.parse($(this).parents('.establecimiento-info').attr('data-establecimiento'));
     $('#modal-ruta').modal('show').attr('data-establecimiento', JSON.stringify(data));
 })
 
-$(document).on('click', '#btn-ruta', function() {
+$(document).on('click', '#btn-ruta', function () {
     var data = JSON.parse($('#modal-ruta').attr('data-establecimiento'));
     var ubicacionDestino = {
         lat: parseFloat(data.latitud),
@@ -205,3 +227,26 @@ $(document).on('click', '#btn-ruta', function() {
     drawRoute(ubicacionDestino);
     $('#modal-ruta').modal('hide');
 })
+
+$(document).on('click', '#btn-add-filter', function () {
+    $('#filter-container').toggle(125);
+    $('#ciudad-buscada').val('');
+    nombreciudad = '';
+})
+
+let autocomplete;
+function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById('ciudad-buscada'), {
+            types: ['(cities)'],
+            componentRestrictions: {
+                country: 'pe'
+            }
+        });
+    autocomplete.addListener('place_changed', fillInAddress);
+}
+function fillInAddress() {
+    var place = autocomplete.getPlace();
+    nombreciudad = place.name;
+    startMap();
+}

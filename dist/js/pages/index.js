@@ -535,35 +535,6 @@ function loadNameUserIndex(){
     });
 }
 
-//Contador de seguidores
-function countFollower(){
-    $.ajax({
-      url:'controllers/follower.controller.php',
-      type: 'GET',
-      data: 'op=getCountFollowersByUser&idusuarioactivo=' + idusuarioActivo,
-      success: function(e){
-          if(e != ''){
-              let datos = JSON.parse(e);
-              $("#countSeguidoresIndex").html("Seguidores:" + " " +  datos);
-          }
-      }
-    });
-}
-
-//Contador de seguidos
-function countFollowing(){
-$.ajax({
-    url:'controllers/follower.controller.php',
-    type: 'GET',
-    data: 'op=getCountFollowedByUser&idusuarioactivo=' + idusuarioActivo,
-    success: function(e){
-        if(e != ''){
-            let datos1 = JSON.parse(e);
-            $("#countSeguidosIndex").html("Seguidos:" + " "+  datos1);
-        }
-    }
-});
-}
 
 //Cargar checkbox de Question
 function loadQuestionCheck(){
@@ -698,8 +669,6 @@ $("#btn-regist-opn").click(registerUser);
 slclstDepartm();
 updtRes1();
 loadNameUserIndex();
-countFollower();
-countFollowing();
 loadSlcQuestions();
 loadQuestionCheck();
 loadRememberData();

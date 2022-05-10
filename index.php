@@ -115,14 +115,7 @@ if(isset($_SESSION["login"])){
                   <small>Nivel de usuario</small>
                 </p>
               </li>
-              <!-- Menu Body -->
-              <li class='user-body border-0'>
-                <div class='row'>
-                  <a class='nav-link' id='countSeguidoresIndex'>Seguidores:</a>
-                  <a class='nav-link' id='countSeguidosIndex'>Seguidos: </a>
-                </div>
-                <!-- /.row -->
-              </li>
+
               <!-- Menu Footer-->
               <li class='user-footer row-flex'>
                 <div class='pull-left'>
@@ -273,7 +266,7 @@ if(isset($_SESSION["login"])){
                   </a>
                 </li>
                 <li class='nav-item'>
-                  <a href='index.php?view=geolocalizacion-view' class='nav-link'>
+                  <a href='index.php?view=geolocalizacion-view' class='nav-link' id='btn-gps'>
                     <i class='nav-icon fas fa-map-marked-alt'></i>
                     <p>
                       Ubicaciones
@@ -640,19 +633,28 @@ if(isset($_SESSION["login"])){
       $(".btn-profile-index").click(function(){
         localStorage.removeItem("idusuarioActivo");
       });
+
+      $("#btn-gps").click(function(){
+        localStorage.removeItem('serviciobuscado'); // Eliminado
+      });
       
       // CHATBOT
-      window.watsonAssistantChatOptions = {
-      integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", 
-      region: "us-east", 
-      serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", 
-      onLoad: function(instance) { instance.render(); }
-      };
-      setTimeout(function(){
-      const t=document.createElement("script");
-      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || "latest") + "/WatsonAssistantChatEntry.js"
-      document.head.appendChild(t);
-      });
+      <?php if(!$login){
+        echo '
+        window.watsonAssistantChatOptions = {
+        integrationID: "d8400372-d71b-449f-b672-ae70ca3571c1", 
+        region: "us-east", 
+        serviceInstanceID: "7ae322c6-47a1-4784-b02b-ddc8d9b2ad72", 
+        onLoad: function(instance) { instance.render(); }
+        };
+        setTimeout(function(){
+        const t=document.createElement("script");
+        t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || "latest") + "/WatsonAssistantChatEntry.js"
+        document.head.appendChild(t);
+        });      
+        
+        ';
+      } ?>
     });
 
   </script>

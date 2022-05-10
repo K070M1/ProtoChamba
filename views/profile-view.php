@@ -268,14 +268,14 @@
                     <h5>Especialidades</h5>
                   </div>
                   <div class="col-md-2  text-right">
-                    <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseEspecialidad" aria-expanded="false" aria-controls="collapseExample">
                       <i class="fas fa-plus-circle"></i>
                     </button>
                   </div>
                 </div>
               </div>
               </p>
-              <div class="collapse" id="collapseExample">
+              <div class="collapse" id="collapseEspecialidad">
                 <div class="card card-body" id="agregarser">
                   <div class="form-group">
                     <label for="">Servicio:</label>
@@ -330,14 +330,14 @@
                     <h5>Redes Sociales</h5>
                   </div>
                   <div class="col-md-2  text-right">
-                    <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseRed">
                       <i class="fas fa-plus-circle"></i>
                     </button>
                   </div>
                 </div>
               </div>
               </p>
-              <div class="collapse" id="collapseExample">
+              <div class="collapse" id="collapseRed">
                 <div class="card card-body" id="agregarser">
                   <div class="form-group" id="formred">
                     <label>Nombre de red social:</label>
