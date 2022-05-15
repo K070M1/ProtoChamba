@@ -102,17 +102,17 @@ if (isset($_GET['op'])) {
     $data = $album->deleteAlbum(["idalbum" => $_GET['idalbum']]);
   }
 
-    // Traer datos del album para el modal
-    if($_GET['op'] == 'getAlbumDat'){
-        $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
-        echo json_encode($data);
-    }
+  // Traer datos del album para el modal
+  if($_GET['op'] == 'getAlbumDat'){
+      $data = $album->getAnAlbum(["idalbum" => $_GET['idalbum']]);
+      echo json_encode($data);
+  }
 
-    // Cargar el album dentro de un modal
-    if($_GET['op'] == 'loadAlbumSlcModal'){
-        $data = $album->getAlbumsByUser(["idusuario" => $_SESSION['idusuario']]);
-        loadAlbumSlcModal($data);
-    }
+  // Cargar el album dentro de un modal
+  if($_GET['op'] == 'loadAlbumSlcModal'){
+      $data = $album->getAlbumsByUser(["idusuario" => $_SESSION['idusuario']]);
+      loadAlbumSlcModal($data);
+  }
 
   // Cargar el album dentro de un modal
   if ($_GET['op'] == 'loadAlbumSlcModal') {

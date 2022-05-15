@@ -74,7 +74,6 @@
         }else{
           imgUpdtP = [];
           loadPicturePort();
-          console.log("Cancelado");
         }
       });
     }else{
@@ -105,7 +104,6 @@
             $("#idfotoPerf").css("transform", "translateY(0%)");
             imgUpdtP = [];
             loadPicturePerfil();
-            console.log('cancelado');
           }
         });
     }
