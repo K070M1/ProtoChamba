@@ -6,6 +6,9 @@ var serviciobuscado = "";
 var arrayMoney = [];
 var ordenado = 'N';
 var wsize = "box-sm"; // tamaño de los card
+var swall = false;
+var spage = 0;
+var slastpage = 7;
 
 /* ION SLIDER */
 $('#range-money').ionRangeSlider({
@@ -68,7 +71,8 @@ $("#content-data-filtered").on('click', '.name-user', function () {
 $("#btn-search-services").click(function () {
   serviciobuscado = $("#input-search-service").val();
   iddepartamento = $("#departments-filter").val();
-
+  spage = 0;
+  slastpage = 7;
   if(iddepartamento == "" || iddepartamento == null){
     // Mostrar localidades para volver a filtrar
     $("#content-locations").removeClass("d-none");

@@ -17,7 +17,7 @@ if (isset($_GET['op'])) {
           <div class='col-md-3 user-cd-img user-cd-albm' >
             <div class='image-container' >
               <figure >
-                <img src='./dist/img/albumdefa.png' >
+                <img src='./dist/img/albumdefa.png'>
                 <h4>{$row['nombrealbum']}</h4>
                 <figcaption >
                     <ul>";

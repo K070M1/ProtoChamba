@@ -27,9 +27,9 @@
             <span class="input-group-text bg-primary" id="btn-search"><i class="fas fa-search"></i></span>
           </div>
         </div>
-        <div style="max-height: calc(100vh - 285px); overflow-y: auto;">
+        <div style="max-height: calc(100vh - 285px); overflow-y: auto;" onscroll="scrollReportingData()" id="scrollReportingUser" >
           <table class="table projects" >
-            <tbody id="tbody-users" >
+            <tbody id="tbody-users">
               <!-- Cargado de forma asincrona -->
             </tbody>
           </table>
@@ -83,3 +83,6 @@
 </div>
 
 <script src="dist/js/pages/report-history.js"></script>
+
+<!--Carga con scroll-->
+<script src="dist/js/ChangeScroll.js"></script>

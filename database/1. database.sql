@@ -87,7 +87,7 @@ CREATE TABLE establecimientos
 	CONSTRAINT uk_est_ruc UNIQUE(ruc)
 )ENGINE = INNODB;
 
-select * from establecimientos;
+SELECT * FROM establecimientos;
 
 CREATE TABLE redessociales
 (

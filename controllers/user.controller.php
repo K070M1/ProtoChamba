@@ -34,7 +34,7 @@ if (isset($_GET['op'])) {
         echo "
           <tr>
             <td align='center'>
-              <img src='dist/img/{$imageProfile}' class='img-circle img-size-32 mr-2'>
+              <img src='dist/img/user/{$imageProfile}' class='img-circle img-size-32 mr-2'>
             </td> 
             <td>{$row['nombres']}</td>
             <td>{$row['fechaalta']}</td>
@@ -66,7 +66,7 @@ if (isset($_GET['op'])) {
     if (count($data) == 0) {
       echo "
         <tr>
-          <td colspan='3'>No se encontrarón registros</td>
+          <td colspan='3'>No se encontraron registros</td>
         </tr>
       ";
     } else {
@@ -82,7 +82,7 @@ if (isset($_GET['op'])) {
         echo "
           <tr>
             <td>
-              <img class='table-avatar' src='dist/img/{$imageProfile}'>
+              <img class='table-avatar' src='dist/img/user/{$imageProfile}'>
             </td>
             <td>
               {$row['nombres']}
@@ -168,27 +168,6 @@ if (isset($_GET['op'])) {
   // Cargar resto de modales
   function loadContentModalsRes($step)
   {
-
-    // Algoritmo de ocultar correo
-    /*function ocultEmail($email) {
-      $emailocult = '';
-      $base = '';
-      $nbase = '';
-      $fbase = '';
-      $arroba = strpos($email, '@');
-      for($i=0;$i<strlen($email);$i++){
-        if($i  < $arroba){
-          $base .= $email[$i];
-        }
-      }
-
-      $nbase = trim($base, $base[-1]);
-      $fbase = trim($nbase, $base[0]);
-
-      $emailocult = str_replace($fbase, "*****"  , $email);
-      return $emailocult;
-    } */
-
     if ($step == '3') {
       echo
       "
@@ -326,7 +305,11 @@ if (isset($_GET['op'])) {
 
   // Busqueda realizada por nombres o apellidos - (lista de usuario en reportes)
   if ($_GET['op'] == 'searchUsersByNamesViewHistory') {
-    $data = $user->searchUsersByNames(["search" => $_GET['search']]);
+    $data = $user->searchUsersByNamesScroll(
+      ["search" => $_GET['search'],
+        "start" => $_GET['start'],
+        "finish" => $_GET['finish']
+      ]);
     loadListUsersViewHistory($data);
   }
 

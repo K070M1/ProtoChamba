@@ -1,7 +1,12 @@
 // Array asociativo (enviar datos controller)
+var wall = false;
+var page = '0';
+var lastpage = '10';
 var dataSendController = {
   op: 'searchUsersByNamesViewHistory',
-  search: ''
+  search: '',
+  start:  page,
+  finish: lastpage 
 };
 
 // cargar usuarios

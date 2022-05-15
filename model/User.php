@@ -154,6 +154,16 @@ class User extends ModelMaster{
     }
   }
 
+  // Buscar usuario por nombre o apellidos scroll
+  public function searchUsersByNamesScroll(array $data){
+    try{
+      return parent::execProcedure($data, "spu_usuarios_buscar_nombres_scroll", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Buscar usuario por NOMBRE y ROL
   public function searchUsersByNamesAndRole(array $data){
     try{

@@ -362,10 +362,10 @@ if(isset($_SESSION["login"])){
 
     <!-- Main Footer -->
     <footer class="main-footer text-sm">
-      <strong>Copyright &copy; 2022-2023 <a href="https://adminlte.io">Q" Tal Chamba</a>.</strong>
+      <strong>Copyright &copy; 2022-2023 <a href="#">Q" Tal Chamba</a>.</strong>
       Todos los derechos reservados.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.0
+        <b>Version</b> 0.1
       </div>
     </footer>
   </div>
@@ -655,6 +655,7 @@ if(isset($_SESSION["login"])){
         
         ';
       } ?>
+    
     });
 
   </script>

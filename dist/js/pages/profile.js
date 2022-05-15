@@ -9,6 +9,7 @@
   var idpersona;
   var idredSocial;
   var idespecialidad;
+  var imgUpdtP = [];
 
   if(idusuarioActivo != -1){
     disabledButtons();
@@ -42,7 +43,7 @@
     $("#btnrs").show();
   }
 
-   var imgUpdtP = [];
+   
 
   function createPerfil(file, estado = true) {
     var imgCodified = URL.createObjectURL(file);
@@ -65,12 +66,14 @@
             processData: false,
             cache: false,
             success: function(e){
-              console.log(e);
               loadPicturePort();
+              imgUpdtP = [];
             }
           });
 
         }else{
+          imgUpdtP = [];
+          loadPicturePort();
           console.log("Cancelado");
         }
       });
@@ -92,11 +95,16 @@
               processData: false,
               cache: false,
               success: function(e){
-                console.log(e);
+                $("#idfotoPerf").css("transform", "translateY(0%)");
+                imgUpdtP = [];
                 loadPicturePerfil();
+                $("#refer-perf-img").click();
               }
             });
           }else{
+            $("#idfotoPerf").css("transform", "translateY(0%)");
+            imgUpdtP = [];
+            loadPicturePerfil();
             console.log('cancelado');
           }
         });
@@ -104,18 +112,19 @@
   }
       
   $("#filePerfil").on("change", function(){
-    console.log("Se cargo una vez");
     var element = this.files[0];
-    console.log(element);
-    imgUpdtP.push(element);
-    createPerfil(element, false);
+    if(element !== undefined){
+      imgUpdtP.push(element);
+      createPerfil(element, false);
+    }
   });
 
   $("#filePortada").on("change", function(){
-    console.log("Se cargo una vez");
     var element = this.files[0];
-    imgUpdtP.push(element);
-    createPerfil(element, true);
+    if(element !== undefined){
+      imgUpdtP.push(element);
+      createPerfil(element, true);
+    }
   });
 
   $("#idfotoPrt").click(function(){

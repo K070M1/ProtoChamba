@@ -514,7 +514,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <div class="content-comments" style="max-height: 450px;" id="content-data-forum">
+              <div class="content-comments" style="max-height: 450px;" id="content-data-forum" onscroll="scrollForoComments()">
                 <!-- dinamicos -->
               </div>
             </div>
@@ -762,3 +762,6 @@
 <script src="dist/js/utility.js"></script>
 <script src="dist/js/pages/publication-services.js"></script>
 <script src="dist/js/uploadFile.js"></script>
+
+<!--Carga con scroll-->
+<script src="dist/js/ChangeScroll.js"></script>

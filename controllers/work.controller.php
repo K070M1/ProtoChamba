@@ -290,7 +290,11 @@ if(isset($_GET['op'])){
       $idusuario = 0;
     }
 
-    $data = $work->getWorksByUser(['idusuario' => $idusuarioactivo]);
+    $data = $work->getWorksByUser(
+      ['idusuario' => $idusuarioactivo,
+       'start' => $_GET['start'],
+       'finish' => $_GET['finish']
+      ]);
     listWorksHtml($data, $idusuario, $visible);
   }
 
