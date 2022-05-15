@@ -49,6 +49,7 @@ if (isset($_GET['op'])){
             </td>
             <td id='ti'>{$row['tipocalle']} {$row['nombrecalle']} {$row['numerocalle']}</td>
           </tr>
+          
 
           
         ";
@@ -66,12 +67,12 @@ if (isset($_GET['op'])){
     }
 
     $data = $person->getPerson(["idpersona" => $idusuario]);
-    listDataPerson($data);
+    //listDataPerson($data);
   }
 
   if ($_GET['op'] == 'getDataPerson'){
 
-    $data = $person->getDataPerson(["idpersona" => $_SESSION['idusuario']]);
+    $data = $person->getPerson(["idpersona" => $_SESSION['idpersona']]);
     echo json_encode($data);
   }
 }

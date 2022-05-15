@@ -159,23 +159,17 @@ if (isset($_GET['op'])){
     echo $value;
   }
 
+  // Dejar de Seguir
+  if ($_GET['op'] == 'deleteFollower'){
+
+    $datosEnviar = [
+      "idfollower"       =>  $_SESSION['idusuario'],
+      "idfollowing"      =>  $_GET["idfollowing"]
+    ];
+
+    $follower->deleteFollower($datosEnviar);
 }
 
-
-// METODO POST
-
-if (isset($_POST['op'])){
-
-  // Dejar de Seguir
-  if ($_POST['op'] == 'deleteFoller'){
-
-      $datosEnviar = [
-        "idfollower"       =>  1,
-        "idfollowing"      =>  $_POST["idfollowing"]
-      ];
-
-      $follower->deleteFoller($datosEnviar);
-  }
 }
 
 ?>

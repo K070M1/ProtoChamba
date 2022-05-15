@@ -273,6 +273,56 @@ if (isset($_GET['op'])) {
     }
   }
 
+  //Personas
+  function listDataUser($data){
+    if(count($data) <= 0){
+      echo " ";
+    }
+    else{
+      foreach($data as $row){
+        echo "
+          <tr>
+            <td>
+              <div class='text-right d-none' >
+                <a data-idpersona='{$row['idpersona']}' class='btn btn-outline-info btn-sm modificarPerson' href='#'><i class='fas fa-edit'></i></a>  
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-smile'></i>
+            </td>
+            <td id='no'>{$row['nombres']} {$row['apellidos']}</td>
+          </tr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-phone'></i>
+            </td>
+            <td id='te'>{$row['telefono']}</td>
+          </tr>
+          <tr>
+            <td align='center'>
+              <i class='fas fa-calendar-check'>
+            </td>
+            <td id='fe'>{$row['fechanac']}</td>
+          </tr>          
+          <tr>
+            <td align='center'>
+              <i class='fas fa-map-marked-alt'></i>
+            </td>
+            <td id='ti'>{$row['direccion']}</td>
+          </tr>         
+          <tr>
+            <td align='center'>
+            <i class='fas fa-business-time'></i>
+            </td>
+            <td id='ti'>{$row['horarioatencion']}</td>
+          </tr>          
+        ";
+      }
+    }
+  }
+
   // Login
   if ($_GET['op'] == 'loginUser') {
       $data = $user->loginUser(["email" => $_GET['email']]);
@@ -289,6 +339,7 @@ if (isset($_GET['op'])) {
           $_SESSION['email'] = $data[0]['email'];
           $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
           $_SESSION['idusuario'] = $data[0]['idusuario'];
+          $_SESSION['idpersona'] = $data[0]['idpersona'];
           $_SESSION['rol'] = $data[0]['rol'];
 
           $image = getImageProfileUser($data[0]['idusuario']);
@@ -299,6 +350,7 @@ if (isset($_GET['op'])) {
           $_SESSION['email'] = '';
           $_SESSION['emailrespaldo'] = '';
           $_SESSION['idusuario'] = '';
+          $_SESSION['idpersona'] = '';
           $_SESSION['rol'] = '';
           $_SESSION['imagenusuario'] = '';
         }
@@ -469,6 +521,58 @@ if (isset($_GET['op'])) {
         echo '0';
       }
     }
+  }
+
+  // Listar Datos de un usuario
+  if($_GET['op'] == 'getAUserProfile'){
+    $idusuario;
+    
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
+    $data = $user->getAUser(["idusuario" => $idusuario]);
+    listDataUser($data);
+  }
+
+  // Traer datos
+  if($_GET['op'] == 'getDataUser'){
+    $data = $user->getAUser(["idusuario" => $_SESSION['idusuario']]);
+    if($data){
+      echo json_encode($data);
+    }
+  }
+
+  // Actualizar datos del usuario
+  if($_GET['op'] == 'updateUser'){
+    $person->updatePerson([
+      "idpersona"       =>  $_SESSION["idpersona"],
+      "apellidos"       =>  $_GET["apellidos"],
+      "nombres"         =>  $_GET["nombres"],
+      "fechanac"        =>  $_GET["fechanac"],
+      "telefono"        =>  $_GET["telefono"],
+      "tipocalle"       =>  $_GET["tipocalle"],
+      "nombrecalle"     =>  $_GET["nombrecalle"],
+      "numerocalle"     =>  $_GET["numerocalle"],
+      "pisodepa"        =>  $_GET["pisodepa"]
+    ]);
+
+    $user->updateOfficeHours([
+      "idusuario" => $_SESSION['idusuario'],
+      "horarioatencion" => $_GET['horarioatencion']
+    ]);
+  }
+
+  // Actualizar credenciales
+  if($_GET['op'] == 'updateUserCredentials'){
+
+    $user->updateUserCredentials([
+      "idusuario"     => $_SESSION['idusuario'],
+      "email"         => $_GET['email'],
+      "emailrespaldo" => $_GET['emailrespaldo'],
+      "clave"         =>  password_hash($_GET['clave'], PASSWORD_BCRYPT)
+    ]);
   }
 }
 

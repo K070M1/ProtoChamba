@@ -272,9 +272,13 @@
     top: 150px;
     right: 10px;
   }
+  .contenedor-perfil .profile-info{
+    flex-direction: column;
+  }
   .contenedor-perfil .profile-info .info-col,
   .contenedor-perfil .profile-info .post-col{
     width: 100%;
+    flex-basis: 100%;
     display: block;
   }
 
@@ -322,7 +326,8 @@
 
 .profile-info{
   display: flex;
-  align-self: flex-start;
+  align-self: flex-sart;
+  flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
 }
@@ -371,7 +376,6 @@
  
 
 
-
 /*CONTENIDO DERECHO*/
 
 .post-col{
@@ -410,6 +414,10 @@
   color: rgba(100, 100, 100, 0.697);
   font-size: 18px;
 }
+.dark-mode .contenedor-perfil td{
+  color: #fff;
+}
+
 /*icono boton*/
 .contenedor-perfil td button i{
   color: #d0d0d0;
@@ -434,14 +442,13 @@
   font-weight: 600;
   color: #7d7d7d;
 }
-
-
-
+.dark-mode #card h5{
+  color: #fff;
+}
 
 
 
 /*MODO OSCURO*/
-
 .dark-mode .perfil-usuario .sombra {
   background: linear-gradient(transparent, var(--dark));
 }
@@ -524,9 +531,6 @@ td[contenteditable=true]:focus{
 #text-descripcion[contenteditable=true]:focus{
   outline: none;
 }
-
-
-
 
 
 

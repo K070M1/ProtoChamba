@@ -6,9 +6,11 @@ session_start();
 if(isset($_SESSION["login"])){
   $rol = $_SESSION["rol"];
   $login = $_SESSION["login"];
+  $imagenusuario = $_SESSION['imagenusuario'];
 }else{
   $rol = "";
   $login = false;
+  $imagenusuario = 'default_profile_avatar.svg';
 }
 
 
@@ -101,14 +103,14 @@ if(isset($_SESSION["login"])){
         echo "
           <li class='nav-item dropdown user user-menu'>
             <a href='#' class='nav-link' data-toggle='dropdown'>
-              <img src='dist/img/user/{$_SESSION['imagenusuario']}' class='user-image user-image-top' alt='User Image' id='userImageIndexNav'>
+              <img src='dist/img/user/{$imagenusuario}' class='user-image user-image-top' alt='User Image' id='userImageIndexNav'>
               <span class='hidden-xs'id='nameUserIndex'></span>
             </a>
   
             <ul class='dropdown-menu dropdown-menu-lg dropdown-menu-right user-menu'>
               <!-- User image -->
               <li class='user-header'>
-                <img src='dist/img/user/{$_SESSION['imagenusuario']}' class='img-circle' alt='User Image' id='userImageIndexNav1'>
+                <img src='dist/img/user/{$imagenusuario}' class='img-circle' alt='User Image' id='userImageIndexNav1'>
   
                 <p>
                    <h7 id='nameUserIndex2'>NOMBRE Y APELLIDO COMPLETO</h7>
@@ -144,7 +146,7 @@ if(isset($_SESSION["login"])){
               <div class='login-tittle'>
                 <label>Inicio Sesión</label>
               </div>
-              <form>
+              <form >
 
                 <div class='form-group'>
                   <label>Correo electronico:</label>
@@ -225,37 +227,44 @@ if(isset($_SESSION["login"])){
                       Mi perfil
                     </p>
                   </a>                  
-                </li>
-                <li class='nav-item'>
-                  <a href='#' class='nav-link'>
-                    <i class='fas fa-user-cog nav-icon'></i>
-                    <p>
-                      Rol administrador
-                      <i class='right fas fa-angle-left'></i>
-                    </p>
-                  </a>
-                  <ul class='nav nav-treeview'>
-                    <li class='nav-item'>
-                      <a href='index.php?view=admin-permissions-view' class='nav-link'>
-                        <i class='far fa-circle nav-icon'></i>
-                        <p>Permisos de admin</p>
-                      </a>
-                    </li>
-                    <li class='nav-item'>
-                      <a href='index.php?view=report-history-view' class='nav-link'>
-                        <i class='far fa-circle nav-icon'></i>
-                        <p>Historial de reportes</p>
-                      </a>
-                    </li>
-                    <li class='nav-item'>
-                      <a href='index.php?view=graphics-view' class='nav-link'>
-                        <i class='far fa-circle nav-icon'></i>
-                        <p>Gráficos</p>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class='nav-header'>FUNCIONES</li>
+                </li>";
+
+                if($rol == "A"){
+                  echo "
+                  <li class='nav-item'>
+                    <a href='#' class='nav-link'>
+                      <i class='fas fa-user-cog nav-icon'></i>
+                      <p>
+                        Rol administrador
+                        <i class='right fas fa-angle-left'></i>
+                      </p>
+                    </a>
+                    <ul class='nav nav-treeview'>
+                      <li class='nav-item'>
+                        <a href='index.php?view=admin-permissions-view' class='nav-link'>
+                          <i class='far fa-circle nav-icon'></i>
+                          <p>Permisos de admin</p>
+                        </a>
+                      </li>
+                      <li class='nav-item'>
+                        <a href='index.php?view=report-history-view' class='nav-link'>
+                          <i class='far fa-circle nav-icon'></i>
+                          <p>Historial de reportes</p>
+                        </a>
+                      </li>
+                      <li class='nav-item'>
+                        <a href='index.php?view=graphics-view' class='nav-link'>
+                          <i class='far fa-circle nav-icon'></i>
+                          <p>Gráficos</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>                  
+                  ";
+                }
+
+
+                echo "<li class='nav-header'>FUNCIONES</li>
                 <li class='nav-item'>
                   <a href='index.php?view=calendar-view' class='nav-link'>
                     <i class='nav-icon fas fa-calendar-alt'></i>

@@ -54,7 +54,7 @@ if(isset($_GET['op'])){
 
     /* con estrellas */
     for ($i = 0; $i < $scoreUser; $i++) {
-      echo " <i class='fas fa-star-half-alt active'></i>";
+      echo " <i class='fas fa-star active'></i>";
     }
 
     /* sin estrellas */

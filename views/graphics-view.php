@@ -1,7 +1,9 @@
 <?php
+  require_once 'access-security.php';
   $months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   $current_date = date('Y-m-d', time());
 ?>
+
 
 <link rel="stylesheet" href="dist/css/chart-responsive.css">
 

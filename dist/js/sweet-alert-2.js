@@ -57,8 +57,8 @@ function confirmQuestionConfig($dataconfig){
     icon: 'question',
     showCancelButton: true,
     confirmButtonColor: $dataconfig.confirmColor,
-    confirmButtonText: '<i class="fa fa-thumbs-up"></i> Aceptar',
-    cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancelar',
+    confirmButtonText: '<i class="fas fa-check"></i> Aceptar',
+    cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
     buttonsStyling: true,
     reverseButtons: true
   });

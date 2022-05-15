@@ -1,3 +1,5 @@
+<?php require_once 'access-security.php'; ?>
+
 <div class="callout callout-info">
   <h5><i class="fas fa-user-alt-slash"></i> Banear usuarios de forma temporal</h5>
 </div>

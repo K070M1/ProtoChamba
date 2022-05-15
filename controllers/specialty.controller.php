@@ -234,13 +234,60 @@ if (isset($_GET['op'])) {
     listSpecialtyControlSelect($data);
   }
 
+  // Mostrar servicios del usuario
+  function listServicesUser($data, $visible){
+
+    if(count($data) == 0){
+      echo "";
+    } else {
+      echo "<div class='accordion' id='accordion-services'> ";
+        foreach($data as $row){
+          echo "
+            <div class='card'>
+              <div class='card-header' id='{$row['idservicio']}'>
+                <h5 class='mb-0'>
+                  <button type='button' class='btn btn-link btn-block text-left collapsed' data-toggle='collapse' data-target='#collapse-{$row['idservicio']}'>
+                  {$row['nombreservicio']} 
+                  <span style='position: absolute; right:1em;'><i class='fas fa-sliders-h'></i></span>
+                  </button>
+                </h5>
+              </div>
+
+              <div id='collapse-{$row['idservicio']}' class='collapse' aria-labelledby='{$row['idservicio']}' data-parent='#accordion-services'>
+                <div class='card-body'>";
+                listSpecialtyUser($row['idservicio'], $row['idusuario'], $visible);
+                echo "</div>
+              </div>
+            </div>
+          ";
+        }
+      echo "</div>";
+    }
+  }
+
   // Mostrar especialidades del usuario (TABLA)
-  function listSpecialtyUser($data, $visible)
+  function listSpecialtyUser($idservicio, $idusuario, $visible)
   {
+    $specialty = new Specialty();
+    $data = $specialty->getSpecialtyByServiceAndUser([
+      "idservicio" => $idservicio,
+      "idusuario" => $idusuario
+    ]);
+
     if (count($data) <= 0) {
       echo " ";
     } else {
-
+      echo "
+      <table class='table table-responsive-sm especialidades'>
+      <thead>
+        <tr>
+          <th></th>
+          <th>ESPECIALIDAD</th>
+          <th>TARIFA</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody >";
       foreach ($data as $row) {
         echo "
           <tr>
@@ -248,20 +295,24 @@ if (isset($_GET['op'])) {
               <i class='fas fa-gavel'></i>
             </td>
             <td>
-              {$row['descripcion']}
+              {$row['especialidad']}
             </td>
             <td>
               $/.{$row['tarifa']}
             </td>
             <td {$visible}>
-              <a class='btn btn-info btn-sm modificarEsp' href='javascript:void(0)'><i class='fas fa-edit'></i></a>            
+              <a class='btn btn-info btn-sm modificarEsp' href='javascript:void(0)' data-idespecialidad='{$row['idespecialidad']}'><i class='fas fa-edit'></i></a>            
               <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-danger btn-sm eliminarEsp' href='#'><i class='fas fa-trash-alt'></i></a>            
             </td>
-          </tr>
-          <hr>       
-
+          </tr>    
+  
         ";
-      }
+      }   
+
+    echo "</tbody>
+    </table>
+      ";
+
     }
   }
 
@@ -397,6 +448,37 @@ if (isset($_GET['op'])) {
     if(isset($data[0])){
       echo $data[0]->total;
     }
+  }
+
+  // Obtener un registro
+  if($_GET['op'] == 'getDataSpecialty'){
+    $data = $specialty->getAtSpecialty(["idespecialidad" => $_GET['idespecialidad']]);
+    if($data){
+      echo json_encode($data);
+    }
+  }
+
+  // Eliminar
+  if($_GET['op'] == 'deleteSpecialty'){
+    $specialty->deleteSpecialty(["idespecialidad" => $_GET['idespecialidad']]);
+  }
+
+  // Listar servicios del usuarios
+  if ($_GET['op'] == 'getServicesUser'){
+    $idusuario;
+    $visible;
+
+    if ($_GET['idusuarioactivo'] != -1) {
+      $idusuario = $_GET['idusuarioactivo'];
+      $visible = 'hidden';
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+      $visible = 'visible';
+    }
+
+    $data = $service->getServicesUser(["idusuario" => $idusuario]);
+    listServicesUser($data, $visible);
+
   }
 }
 

@@ -1,3 +1,4 @@
+<?php require_once 'access-security.php'; ?>
 <div class="callout callout-info">
   <h5><i class="fas fa-users-cog"></i> Asignar o quitar permisos de administrador</h5>
 </div>
