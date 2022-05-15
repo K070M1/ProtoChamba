@@ -130,7 +130,6 @@ function loadPicturePerfil(){
         type: 'GET',
         data: 'op=getAPicturePerfil&idusuarioactivo=-1',
         success: function(e){
-            console.log(e);
             if(e == '.' || e == '[]' || e == ' ' || e === null){
                 $("#imgQuestI").attr('src', 'dist/img/user/userdefault.jpg');
             }else{
@@ -284,7 +283,6 @@ $("#m-res-lod").on("click", "#btnRes2", function(){
         cache: false,
         success: function(e) {
             sweetAlertSuccess('Q tal Chamba', 'Código enviado');
-            console.log(e);
         }   
     });
 });
@@ -328,7 +326,6 @@ $("#m-res-lod").on("click", "#btnRes3", function(){
             processData: false,
             cache: false,
             success: function(e) {
-                console.log(e);
                 if(e == 'Expirado'){
                     sweetAlertError('Q tal Chamba', 'Código expirado, se enviará otro código');
                     dejarIr = false;
@@ -427,7 +424,6 @@ $("#m-res-lod").on("click", "#btnRes4", function(){
                         processData: false,
                         cache: false,
                         success: function(e) {
-                            console.log(e);
                             sweetAlertSuccess('Q tal Chamba', 'Contraseña cambiada correctamente');
                             $("#modal-res-contra1").modal("toggle");
                             localStorage.removeItem('email');
@@ -663,7 +659,6 @@ function loadRememberData(){
         $("#emailInpt").val();
         $("#passwordInpt").val();
     }
-    console.log(remember);
 }
 
 /************** LLAMADO DE LAS FUNCIONES ******************/

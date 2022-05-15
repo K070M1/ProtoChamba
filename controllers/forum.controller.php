@@ -71,8 +71,11 @@ if(isset($_GET['op'])){
       $idusuario = $_GET['idusuarioactivo'];
     }
 
-
-    $data = $forum->getQueriesToUser(['idusuario' => $idusuario]);
+    $data = $forum->getQueriesToUser([
+      'idusuario' => $idusuario,
+      'start'   => $_GET['start'],
+      'finish'  =>  $_GET['finish']
+    ]);
     listQueriesForumToUser($data);
 
   }

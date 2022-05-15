@@ -11,6 +11,13 @@ var uploadedImages = [];  // Almacenar todos las imagenes subidos (Temporales)
 var imagesTemp  = [];      // Almacenar ímagenes traidos del servidor
 var videoTemp  = [];      // Almacenar video traido del servidor
 var deletedFiles = [];    // Almacena archivos eliminados (ID GALERIA)
+var wpage = '0';
+var wlastpage = '3';
+var wwall = false;
+var wservicepublic = true;
+var fpage = '0';
+var flastpage = '4';
+var fwall = false;
 
 // validar usuario activo
 if(idusuarioActivo != -1){
@@ -957,10 +964,17 @@ function deleteQueryForum(idforo){
 
 // Listar consultas del foro
 function loadQueriesForumToUser(){
+  fdataenv = {
+    'op':'getQueriesToUser',
+    'idusuarioactivo': idusuarioActivo,
+    'start': fpage,
+    'finish': flastpage
+  };
+  
   $.ajax({
     url: 'controllers/forum.controller.php',
     type: 'GET',
-    data: 'op=getQueriesToUser&idusuarioactivo=' + idusuarioActivo,
+    data: fdataenv,
     success: function(result){
       if(result != ""){
         $("#content-data-forum").html(result);
@@ -995,10 +1009,16 @@ loadQueriesForumToUser();
  * LISTAR TRABAJOS REALIZADOS
  */
 function loadPublicationWorks(){
+  dataenv = {
+    'op':'getWorksByUser',
+    'idusuarioactivo': idusuarioActivo,
+    'start': wpage,
+    'finish': wlastpage
+  };
   $.ajax({
     url: 'controllers/work.controller.php',
     type: 'GET',
-    data: 'op=getWorksByUser&idusuarioactivo=' + idusuarioActivo,
+    data: dataenv,
     success: function(result){
       $("#data-publication-works").html(result);
       
@@ -1113,7 +1133,7 @@ function clearFormReport(){
   $("#form-image-report")[0].reset();
   $(".image-new").remove();
 }
-
+  
 // EJECUTANDO LA FUNCIÓN LISTAR
 loadSpecialtySelect();
 loadPublicationWorks(); // cargar trabajos

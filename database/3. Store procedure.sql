@@ -235,6 +235,16 @@ BEGIN
 		WHERE nombres LIKE CONCAT('%', _search, '%');
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_buscar_nombres_scroll(
+IN _search VARCHAR(40),
+IN _start INT,
+IN _finish INT 
+)
+BEGIN
+	SELECT* FROM vs_usuarios_listar_datos_basicos
+		WHERE nombres LIKE CONCAT('%', _search, '%') LIMIT _start, _finish;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
@@ -676,7 +686,19 @@ BEGIN
 		VALUES(_idtousuario, _idfromusuario, _consulta);
 END $$
 
+-- ========= LISTAR FOROS POR USUARIO ============
+DELIMITER $$
+CREATE PROCEDURE spu_foros_listar_usuario 
+(
+IN _idusuario INT,
+IN _start INT,
+IN _finish INT
+)
+BEGIN
+	SELECT * FROM vs_listar_foros WHERE idtousuario = _idusuario LIMIT _start, _finish;
+END $$
 
+CALL spu_foros_listar_usuario(1, 1, 10)
 -- ========= ELIMINAR (FORMA LOGICA) EN LA TABLA FOROS============
 DELIMITER $$
 CREATE PROCEDURE spu_foros_eliminar
@@ -818,11 +840,15 @@ END $$
 -- TABLA TRABABJOS
 -- -------------------------------------------------------------------------------------------------------------
 DELIMITER $$
-CREATE PROCEDURE spu_trabajos_listar_usuario(IN _idusuario INT)
+CREATE PROCEDURE spu_trabajos_listar_usuario(
+IN _idusuario INT,
+IN _start INT,
+IN _finish INT
+)
 BEGIN
 	SELECT * FROM vs_trabajos_listar
 		WHERE idusuario = _idusuario
-		ORDER BY idtrabajo DESC;
+		ORDER BY idtrabajo DESC LIMIT _start, _finish;
 END $$
 
 

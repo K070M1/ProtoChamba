@@ -481,3 +481,6 @@
 <!-- owl carousel -->
 <script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
 <script src="dist/js/pages/main.js"></script>
+
+<!--Carga con scroll-->
+<script src="dist/js/ChangeScroll.js"></script>

@@ -92,7 +92,7 @@
   font-size: 2rem;
 }
 .perfil-usuario .avatar-perfil:hover .cambiar-foto {
-  transform: translateY(0);
+  transform: translateY(0%);
   opacity: 1;
 }
 
