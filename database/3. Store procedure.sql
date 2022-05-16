@@ -224,7 +224,8 @@ DELIMITER $$
 CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
 	SELECT * FROM usuarios
-		WHERE email = _email;
+		WHERE email = _email
+		AND estado = '1';
 END $$
 
 DELIMITER $$
@@ -1540,5 +1541,8 @@ BEGIN
 			WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
 			GROUP BY SRV.nombreservicio;
 END $$
+
+SELECT * FROM usuarios
+
 
 
