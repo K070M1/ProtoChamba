@@ -12,11 +12,11 @@ var imagesTemp  = [];      // Almacenar ímagenes traidos del servidor
 var videoTemp  = [];      // Almacenar video traido del servidor
 var deletedFiles = [];    // Almacena archivos eliminados (ID GALERIA)
 var wpage = '0';
-var wlastpage = '3';
+var wlastpage = '7';
 var wwall = false;
 var wservicepublic = true;
 var fpage = '0';
-var flastpage = '4';
+var flastpage = '8';
 var fwall = false;
 
 // validar usuario activo
