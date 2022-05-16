@@ -407,10 +407,8 @@ DELIMITER $$
 CREATE PROCEDURE spu_albumes_listar_usuario(IN _idusuario INT)
 BEGIN
 	SELECT * FROM albumes 
-		WHERE idusuario = _idusuario AND estado = 1;
+		WHERE idusuario = _idusuario AND estado = 1 GROUP BY idalbum;
 END $$
-
-
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_getdata(IN _idalbum INT)

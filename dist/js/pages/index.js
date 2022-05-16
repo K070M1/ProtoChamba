@@ -90,7 +90,6 @@ function registerUser() {
                                 $("#modalRegister").modal('hide');
                                 $("#modal-perfil-img-new").modal('toggle');
                                 sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
-                                window.location.reload();
                             }
                         }
                     });

@@ -230,3 +230,5 @@ CREATE TABLE reportes
 	fechareporte	DATETIME 			NOT NULL DEFAULT NOW(),
 	CONSTRAINT fk_rep_idcomentario FOREIGN KEY(idcomentario) REFERENCES comentarios (idcomentario)
 )ENGINE = INNODB;
+
+select * from reportes;
