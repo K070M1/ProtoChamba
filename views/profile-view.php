@@ -121,9 +121,9 @@ if(isset($_SESSION["login"])){
                     <h3>Descripción: </h3>
                   </div>
                   <div class="col-md-3 text-right">
-                    <a href="javascript:void(0)" id="btn-cancel-edit-description" class="btn btn-outline-secondary cancel-edit-description d-none"><i class='fas fa-times'></i></a>
-                    <a href="javascript:void(0)" id="btn-edit-description" class="btn btn-outline-info edit-come"><i class='fas fa-edit'></i></a>
-                    <a href="javascript:void(0)" id="btn-update-description" class="btn btn-outline-info edit-come-save d-none"><i class="far fa-save"></i></a>
+                    <a href="javascript:void(0)" id="btn-cancel-edit-description" class="btn btn-outline-secondary  d-none"><i class='fas fa-times'></i></a>
+                    <a href="javascript:void(0)" id="btn-edit-description" class="btn btn-outline-info "><i class='fas fa-edit'></i></a>
+                    <a href="javascript:void(0)" id="btn-update-description" class="btn btn-outline-info d-none"><i class="far fa-save"></i></a>
                   </div>
                 </div>
                 <hr>

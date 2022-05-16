@@ -3,6 +3,7 @@ session_start();
 date_default_timezone_set("America/Lima");
 $_SESSION['imgdefault'] = "default_profile_avatar.svg";
 
+require_once '../model/Album.php';
 require_once '../model/Work.php';
 require_once '../model/Gallery.php';
 require_once '../model/Comment.php';
@@ -326,6 +327,9 @@ if(isset($_POST['op'])){
     ]);
 
     // Obtener id galeria publicacion
+    $album = new Album();
+    $idalbum = $album->getAnAlbumByNameAndUser(["idusuario" => $_SESSION['idusuario'], "nombrealbum" => "Publicaciones"]);
+    $idalbum = $idalbum[0]['idalbum'];
 
     $idtrabajo = $data[0]['idtrabajo'];
     $countImg = 0;
@@ -340,7 +344,7 @@ if(isset($_POST['op'])){
           $image = date('Ymdhis') . $countImg . '.' . end($ext);    // Renombrar cada imagen
   
           $gallery->registerGallery([   
-            'idalbum'       => '',
+            'idalbum'       => $idalbum,
             'idusuario'     => $_SESSION['idusuario'],
             'idtrabajo'     => $idtrabajo,
             'tipo'          => 'F',
@@ -364,7 +368,7 @@ if(isset($_POST['op'])){
       $video = date('Ymdhis') . '.' . end($ext);        // Renombrar
 
       $gallery->registerGallery([   
-        'idalbum'       => '',
+        'idalbum'       => $idalbum,
         'idusuario'     => $_SESSION['idusuario'],
         'idtrabajo'     => $idtrabajo,
         'tipo'          => 'V',

@@ -212,6 +212,38 @@ if (isset($_GET['op'])) {
     return $icon;
   }
 
+  // Obtener el icono del servicio
+  function getIconService($nombreservicio){
+    $attorney = '<i class="fab fa-autoprefixer"></i>';
+    $constructor = '<i class="fas fa-user-hard-hat"></i>';
+    $animator = '<i class="fas fa-theater-masks"></i>';
+    $consultant = '<i class="fab fa-black-tie"></i>';
+    $asistant = '<i class="fas fa-hands-helping"></i>';
+    $joiner = '<i class="fas fa-garage"></i>';
+    $chef = '<i class="fas fa-hat-chef"></i>';
+    $driver = '<i class="fas fa-car-bus"></i>';
+    $design = '<i class="fab fa-affiliatetheme"></i>';
+    $teacher = '<i class="fas fa-chalkboard-teacher"></i>';
+    $electrician = '<i class="fas fa-bolt"></i>';
+    $plumber = '<i class="fas fa-wrench"></i>';
+    $cleaning = '<i class="fas fa-hand-sparkles"></i>';
+    $mechanical = '<i class="fas fa-cogs"></i>';
+    $medicine = '<i class="fas fa-syringe"></i>';
+    $operator = '<i class="fab fa-jenkins"></i>';
+    $developer = '<i class="fas fa-code"></i>';
+    $promoter = '<i class="fas fa-ad"></i>';
+    $security = '<i class="fas fa-user-shield"></i>';
+    $welder = '<i class="fas fa-user-astronaut"></i>';
+    $translator = '<i class="fas fa-language"></i>';
+    $result = "";
+
+    if($nombreservicio == "Abogado"){
+      $result = $attorney;
+    } 
+    $result = $nombreservicio == "Abogado" && $attorney;
+  }
+
+
   // listar especialidades en un control select
   function listSpecialtyControlSelect($data)
   {

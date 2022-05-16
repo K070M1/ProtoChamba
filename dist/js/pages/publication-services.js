@@ -394,7 +394,6 @@ $("#btn-add-publication").click(function(){
           processData: false,
           cache: false,
           success: function(result){
-            console.log(result);
             clearFormPublication();
             $("#modal-publication").modal('hide');
             loadPublicationWorks();

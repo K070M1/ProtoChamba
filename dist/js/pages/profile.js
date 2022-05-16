@@ -468,6 +468,7 @@
           type: 'GET',
           data: data,
           success: function(e){
+            console.log(e)
             $("#content-establecimiento").collapse('hide');
             listEstablishment();
           }
@@ -574,6 +575,7 @@
             success: function(e) {
               if(e == ""){
                 listDataUser();
+                $("#containerDatePerson").collapse("hide");
                 //listDatosPerson();
                 $("#nombres").val('');
                 $("#apellidos").val('');
