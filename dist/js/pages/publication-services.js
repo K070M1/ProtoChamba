@@ -398,7 +398,7 @@ $("#btn-add-publication").click(function(){
             $("#modal-publication").modal('hide');
             loadPublicationWorks();
             wpage = '0';
-            wlastpage = '3';
+            wlastpage = '7';
           }
       
         }); // Fin ajax

@@ -43,7 +43,7 @@ $(window).on("scroll", function(){
     if(typeof wservicepublic !== "undefined"){
         var scrollHeightDocument = $(document).height();
         var scrollPos = $(window).height() + $(window).scrollTop();
-        
+        console.log(wpage + "-" + wlastpage);
         if(scrollHeightDocument <= scrollPos && !wwall && !wservicepublic){
             wpage = Number(wlastpage);
             wlastpage = Number(wpage) + 3;
