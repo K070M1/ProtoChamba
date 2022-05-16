@@ -530,7 +530,8 @@ $("#btn-modify-publication").click(function(){
           contentType: false,
           processData: false,
           cache: false,
-          success: function(result){            
+          success: function(result){  
+            console.log(result);          
             if(result == ""){
               idtrabajo = -1;
               clearFormPublication();
