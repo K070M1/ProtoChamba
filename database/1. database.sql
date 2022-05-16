@@ -1,4 +1,5 @@
-DROP DATABASE REACTIVACION;
+
+CREATE DATABASE REACTIVACION;
 
 USE REACTIVACION;
 
@@ -40,8 +41,7 @@ CREATE TABLE personas
 	nombrecalle VARCHAR(60)		NOT NULL,
 	numerocalle VARCHAR(5) 		NULL,
 	pisodepa  	VARCHAR(5)		NULL,
-	CONSTRAINT fk_per_iddistrito FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito)
-	
+	CONSTRAINT fk_per_iddistrito FOREIGN KEY (iddistrito) REFERENCES distritos (iddistrito)	
 )ENGINE = INNODB;
 
 CREATE TABLE usuarios
@@ -60,11 +60,9 @@ CREATE TABLE usuarios
 	estado					CHAR(1)				NOT NULL DEFAULT '1', -- 1 (Activo), 2 (Inactivo/bloqueado),0 (Eliminado)
 	CONSTRAINT fk_usu_idpersona FOREIGN KEY (idpersona) REFERENCES personas (idpersona),
 	CONSTRAINT uk_usu_email UNIQUE (email),
-	CONSTRAINT uk_usu_emailrespaldo UNIQUE(emailrespaldo),
 	CONSTRAINT uk_usu_idpersona UNIQUE(idpersona)
 )ENGINE = INNODB;
 
-SELECT * FROM usuarios;
 
 CREATE TABLE establecimientos
 (
@@ -118,8 +116,7 @@ CREATE TABLE foros
 	fechaeliminado 	DATETIME			NULL,
 	estado					BIT 					NOT NULL DEFAULT 1,
 	CONSTRAINT fk_for_idtousuario FOREIGN KEY(idtousuario) REFERENCES usuarios (idusuario),
-	CONSTRAINT fk_for_idfromusuario FOREIGN KEY(idfromusuario) REFERENCES usuarios (idusuario),
-	CONSTRAINT uk_for_idtousuario UNIQUE(idtousuario, idfromusuario)
+	CONSTRAINT fk_for_idfromusuario FOREIGN KEY(idfromusuario) REFERENCES usuarios (idusuario)
 )ENGINE = INNODB;
 
 CREATE TABLE servicios
@@ -136,10 +133,12 @@ CREATE TABLE especialidades
 	idservicio			INT 					NOT NULL,
 	idusuario				INT 					NOT NULL,	
 	descripcion			MEDIUMTEXT		NOT NULL,
-	tarifa					DECIMAL(7,2)	NOT NULL;
+	tarifa					DECIMAL(7,2)	NOT NULL,
+	estado 					BIT 					NOT NULL	DEFAULT 1;
 	CONSTRAINT fk_esp_idservicio FOREIGN KEY(idservicio) REFERENCES servicios(idservicio),
 	CONSTRAINT fk_esp_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios(idusuario)	
 )ENGINE = INNODB;
+
 
 CREATE TABLE actividades
 (
@@ -160,7 +159,7 @@ CREATE TABLE trabajos
 	idtrabajo					INT AUTO_INCREMENT PRIMARY KEY,
 	idespecialidad		INT 					NOT NULL,
 	idusuario					INT 					NOT NULL,
-	titulo						VARCHAR(40)		NOT NULL,
+	titulo						VARCHAR(200) 	NOT NULL,
 	descripcion				MEDIUMTEXT 		NOT NULL,
 	fechapublicado		DATETIME 			NOT NULL DEFAULT NOW(),
 	fechamodificado 	DATETIME  		NULL,
@@ -169,6 +168,7 @@ CREATE TABLE trabajos
 	CONSTRAINT fk_trab_idespecialidad FOREIGN KEY(idespecialidad) REFERENCES especialidades (idespecialidad),	
 	CONSTRAINT fk_trab_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios(idusuario)
 )ENGINE = INNODB;
+
 
 CREATE TABLE albumes
 (
@@ -179,6 +179,7 @@ CREATE TABLE albumes
 	CONSTRAINT fk_alb_idusuario FOREIGN KEY (idusuario) REFERENCES usuarios (idusuario),
 	CONSTRAINT uk_alb_nombrealbum UNIQUE(idusuario, nombrealbum)
 )ENGINE = INNODB;
+
 
 CREATE TABLE galerias 
 (
@@ -196,16 +197,17 @@ CREATE TABLE galerias
 	CONSTRAINT fk_galerias_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos (idtrabajo)
 )ENGINE = INNODB;
 
+
 CREATE TABLE calificaciones 
 (
 	idcalificacion 	INT AUTO_INCREMENT PRIMARY KEY,
 	idtrabajo				INT 			NOT NULL,
 	idusuario				INT 			NOT NULL,
 	puntuacion			TINYINT 	NOT NULL,
-	estado 					BIT 			NOT NULL DEFAULT 1,
 	CONSTRAINT fk_cal_idtrabajo FOREIGN KEY(idtrabajo) REFERENCES trabajos(idtrabajo),
 	CONSTRAINT fk_cal_idusuario FOREIGN KEY(idusuario) REFERENCES usuarios(idusuario)
 )ENGINE = INNODB;
+
 
 CREATE TABLE comentarios 
 (

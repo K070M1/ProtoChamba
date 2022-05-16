@@ -81,9 +81,11 @@ if (isset($_GET['op'])) {
     $imageProfile = $getImage != '' ? $getImage : $_SESSION['imgdefault'];
     $scoreUser = getScoreUser($row['idusuario']);
     $scoreUser = ceil($scoreUser); // Redondeado hacia el entero siguiente
+    $colorcar = getColorCardService($row['nombreservicio']);
+    $iconservice = getIconService($row['nombreservicio']);
 
     echo "
-    <div class='box {$wSize} outline-goldenrod'>
+    <div class='box {$wSize} {$colorcar}'>
       <div class='box-body'>
         <div class='row'>
           <div class='col-left'>
@@ -130,7 +132,7 @@ if (isset($_GET['op'])) {
 
             <!-- Contenido del servicio -->
             <div class='row margin-0 content-service'>
-              <span class='name-service'><i class='fab fa-accusoft'></i> {$row['especialidad']}</span>
+              <span class='name-service'>{$iconservice} {$row['especialidad']}</span>
               <span class='fee'> S/. {$row['tarifa']}</span>
               <p class='description'>
               {$row['biografia']}
@@ -212,35 +214,83 @@ if (isset($_GET['op'])) {
     return $icon;
   }
 
-  // Obtener el icono del servicio
-  function getIconService($nombreservicio){
-    $attorney = '<i class="fab fa-autoprefixer"></i>';
-    $constructor = '<i class="fas fa-user-hard-hat"></i>';
-    $animator = '<i class="fas fa-theater-masks"></i>';
-    $consultant = '<i class="fab fa-black-tie"></i>';
-    $asistant = '<i class="fas fa-hands-helping"></i>';
-    $joiner = '<i class="fas fa-garage"></i>';
-    $chef = '<i class="fas fa-hat-chef"></i>';
-    $driver = '<i class="fas fa-car-bus"></i>';
-    $design = '<i class="fab fa-affiliatetheme"></i>';
-    $teacher = '<i class="fas fa-chalkboard-teacher"></i>';
-    $electrician = '<i class="fas fa-bolt"></i>';
-    $plumber = '<i class="fas fa-wrench"></i>';
-    $cleaning = '<i class="fas fa-hand-sparkles"></i>';
-    $mechanical = '<i class="fas fa-cogs"></i>';
-    $medicine = '<i class="fas fa-syringe"></i>';
-    $operator = '<i class="fab fa-jenkins"></i>';
-    $developer = '<i class="fas fa-code"></i>';
-    $promoter = '<i class="fas fa-ad"></i>';
-    $security = '<i class="fas fa-user-shield"></i>';
-    $welder = '<i class="fas fa-user-astronaut"></i>';
-    $translator = '<i class="fas fa-language"></i>';
+  // Aplicar color de acuerdo al servicio
+  function getColorCardService($nombreservicio){
     $result = "";
 
-    if($nombreservicio == "Abogado"){
-      $result = $attorney;
-    } 
-    $result = $nombreservicio == "Abogado" && $attorney;
+    if ($nombreservicio == "Abogado") $result = "outline-aquamarine";
+    if ($nombreservicio == "Albañil") $result = "outline-goldenrod";
+    if ($nombreservicio == "Animador") $result = "outline-dark-green";
+    if ($nombreservicio == "Asesor") $result = "outline-dark-slateBlue ";
+    if ($nombreservicio == "Asistente") $result = "outline-indigo";
+    if ($nombreservicio == "Carpintero") $result = "outline-dark-red";
+    if ($nombreservicio == "Cocinero") $result = "outline-azure";
+    if ($nombreservicio == "Conductor") $result = "outline-chocolate";
+    if ($nombreservicio == "Diseñador") $result = "outline-cornflowerBlue";
+    if ($nombreservicio == "Docente") $result = "outline-dark-oliveGreen";
+    if ($nombreservicio == "Electricista") $result = "outline-dark-seaGreen";
+    if ($nombreservicio == "Gasfitero") $result = "outline-steelBlue";
+    if ($nombreservicio == "Limpieza") $result = "outline-fireBrick ";
+    if ($nombreservicio == "Mecanico") $result = "outline-dark-cyan ";
+    if ($nombreservicio == "Medicina") $result = "outline-cadetBlue";
+    if ($nombreservicio == "Operario") $result = "outline-teal ";
+    if ($nombreservicio == "Programador") $result = "outline-cornflowerBlue";
+    if ($nombreservicio == "Promotor") $result = "outline-dark-khaki";
+    if ($nombreservicio == "Seguridad") $result = "outline-aquamarine";
+    if ($nombreservicio == "Soldador") $result = "outline-dark-salmon";
+    if ($nombreservicio == "Traductor") $result = "outline-chartreuse";
+
+    return $result;
+  }
+
+  // Obtener el icono del servicio
+  function getIconService($nombreservicio){
+    $attorney = "<i class='icon-service fab fa-autoprefixer'></i>";
+    $constructor = "<i class='icon-service fas fa-user-hard-hat'></i>";
+    $animator = "<i class='icon-service fas fa-theater-masks'></i>";
+    $consultant = "<i class='icon-service fab fa-black-tie'></i>";
+    $asistant = "<i class='icon-service fas fa-hands-helping'></i>";
+    $joiner = "<i class='icon-service fas fa-garage'></i>";
+    $chef = "<i class='icon-service fas fa fa-hat-chef'></i>";
+    $driver = "<i class='icon-service fas fa-car-side'></i>";
+    $design = "<i class='icon-service fab fa-affiliatetheme'></i>";
+    $teacher = "<i class='icon-service fas fa-chalkboard-teacher'></i>";
+    $electrician = "<i class='icon-service fas fa-bolt'></i>";
+    $plumber = "<i class='icon-service fas fa-wrench'></i>";
+    $cleaning = "<i class='icon-service fas fa-hand-sparkles'></i>";
+    $mechanical = "<i class='icon-service fas fa-cogs'></i>";
+    $medicine = "<i class='icon-service fas fa-syringe'></i>";
+    $operator = "<i class='icon-service fab fa-jenkins'></i>";
+    $developer = "<i class='icon-service fas fa-code'></i>";
+    $promoter = "<i class='icon-service fas fa-ad'></i>";
+    $security = "<i class='icon-service fas fa-user-shield'></i>";
+    $welder = "<i class='icon-service fas fa-user-astronaut'></i>";
+    $translator = "<i class='icon-service fas fa-language'></i>";
+    $result = "";
+
+    if ($nombreservicio == "Abogado") $result = $attorney;
+    if ($nombreservicio == "Albañil") $result = $constructor;
+    if ($nombreservicio == "Animador") $result = $animator;
+    if ($nombreservicio == "Asesor") $result = $consultant;
+    if ($nombreservicio == "Asistente") $result = $asistant;
+    if ($nombreservicio == "Carpintero") $result = $joiner;
+    if ($nombreservicio == "Cocinero") $result = $chef;
+    if ($nombreservicio == "Conductor") $result = $driver;
+    if ($nombreservicio == "Diseñador") $result = $design;
+    if ($nombreservicio == "Docente") $result = $teacher;
+    if ($nombreservicio == "Electricista") $result = $electrician;
+    if ($nombreservicio == "Gasfitero") $result = $plumber;
+    if ($nombreservicio == "Limpieza") $result = $cleaning;
+    if ($nombreservicio == "Mecanico") $result = $mechanical;
+    if ($nombreservicio == "Medicina") $result = $medicine;
+    if ($nombreservicio == "Operario") $result = $operator;
+    if ($nombreservicio == "Programador") $result = $developer;
+    if ($nombreservicio == "Promotor") $result = $promoter;
+    if ($nombreservicio == "Seguridad") $result = $security;
+    if ($nombreservicio == "Soldador") $result = $welder;
+    if ($nombreservicio == "Traductor") $result = $translator;
+
+    return $result;
   }
 
 

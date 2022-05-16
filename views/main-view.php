@@ -58,7 +58,7 @@
   <!-- SERVICES RECOMENDADOS -->
   <div class="container-services mt-4 " id="content-carousels">
     <!-- carouseles 1 -->
-    <div class='card'>
+    <div class='card d-none'>
       <div class='card-header'>
         <div class='row'>
           <div class='col-6 col-xs-6'>

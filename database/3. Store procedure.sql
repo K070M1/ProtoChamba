@@ -48,7 +48,7 @@ BEGIN
 	INSERT INTO personas (iddistrito, apellidos, nombres, fechanac, telefono, tipocalle, nombrecalle, numerocalle, pisodepa)
 		VALUES (_iddistrito, _apellidos, _nombres, _fechanac, _telefono, _tipocalle, _nombrecalle, _numerocalle, _pisodepa);
 		
-	SELECT LAST_INSERT_ID() AS 'idpersona';
+	SELECT LAST_INSERT_ID();
 END $$
 
 
@@ -59,17 +59,10 @@ CREATE PROCEDURE spu_email_verifi
 	IN _email VARCHAR(70)
 )
 BEGIN
-	SELECT COUNT(*) FROM usuarios WHERE email = _email OR emailrespaldo = _email;
+	SELECT COUNT(*) FROM usuarios WHERE email = _email;
 END $$
 
-DELIMITER $$
-CREATE PROCEDURE spu_email_verifi_res
-(
-	IN _emailres VARCHAR(70)
-)
-BEGIN
-	SELECT COUNT(*) FROM usuarios WHERE emailrespaldo = _emailres OR email = _emailres;
-END $$
+
 
 -- MODIFICAR PERSONA -- 
 DELIMITER $$
@@ -112,14 +105,6 @@ BEGIN
 	SELECT * FROM personas WHERE idpersona = _idpersona;
 END $$
 
-DELIMITER $$
-CREATE PROCEDURE spu_personas_getname_user(IN _idusuario INT)
-BEGIN 
-	SELECT * FROM personas PER 
-	INNER JOIN usuarios USU ON USU.idpersona = PER.idpersona
-	WHERE USU.idusuario = _idusuario;
-END $$
-
 -- =============================================================================================================
 -- TABLA USUARIOS
 -- -------------------------------------------------------------------------------------------------------------
@@ -149,7 +134,7 @@ BEGIN
 	INSERT INTO usuarios (idpersona, descripcion, horarioatencion, email, emailrespaldo, clave) VALUES 
 		(_idpersona, _descripcion, _horarioatencion, _email, _emailrespaldo, _clave);
 	
-	SELECT LAST_INSERT_ID()AS 'idusuario';
+	SELECT LAST_INSERT_ID();
 END $$
 
 
@@ -169,16 +154,38 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_getdata(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_usuarios_listar_datos_basicos
+	SELECT * FROM vs_usuarios_listar
 		WHERE idusuario = _idusuario;
 END $$
 
--- Información para las preguntas
 DELIMITER $$
-CREATE PROCEDURE spu_usuarios_quest(IN _idusuario INT)
+CREATE PROCEDURE spu_usuarios_modificar_horarioatencion
+(
+	IN _idusuario 			INT,
+	IN _horarioatencion VARCHAR(80)
+)
 BEGIN
-	SELECT * FROM vs_usuarios_listar_quest
-		WHERE idusuario = _idusuario;
+	UPDATE usuarios SET 
+		horarioatencion = _horarioatencion
+	WHERE idusuario = _idusuario;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_modificar_credenciales
+(
+	IN _idusuario 			INT,
+	IN _email 					VARCHAR(70),
+	IN _emailrespaldo		VARCHAR(70),
+	IN _clave	 					VARCHAR(80)
+)
+BEGIN
+	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+
+	UPDATE usuarios SET 
+		email 					= _email,
+		emailrespaldo 	= _emailrespaldo,
+		clave 					= _clave
+	WHERE idusuario = _idusuario;
 END $$
 
 DELIMITER $$
@@ -280,32 +287,24 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_edit_pass
 (
-	IN _email VARCHAR(70),
+	IN _idusuario INT,
 	IN _clave VARCHAR(80)
 )
 BEGIN
-	UPDATE usuarios SET clave = _clave WHERE email = _email OR emailrespaldo = _email;
+	UPDATE usuarios SET clave = _clave WHERE idusuario = _idusuario;
 END
 
--- Buscar el album correspondiente
-DELIMITER $$
-CREATE PROCEDURE spu_search_idalbum_user(IN _idusuario INT, IN _tipoalbum CHAR(2))
-BEGIN
-	IF _tipoalbum = 'PE' THEN
-	SELECT idalbum FROM albumes WHERE nombrealbum = 'Perfil' AND idusuario = _idusuario;
-	ELSE
-	SELECT idalbum FROM albumes WHERE nombrealbum = 'Portada' AND idusuario = _idusuario;
-	END IF;
-END $$
 
-DELIMITER $$
-CREATE PROCEDURE spu_search_idalbum_user(IN _idusuario INT)
-BEGIN
-SELECT idalbum FROM albumes WHERE nombrealbum = 'Perfil' AND idusuario = _idusuario;
-END $$
 -- =============================================================================================================
 -- TABLA ESTABLECIMIENTOS
 -- -------------------------------------------------------------------------------------------------------------
+-- ESTABLECIMIENTOS LISTADO POR USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_establecimientos_listar_user(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_establecimientos WHERE idusuario = _idusuario;
+END $$
+
 -- AGREGAR ESTABLECIMIENTO --
 DELIMITER $$
 CREATE PROCEDURE spu_establecimientos_registrar
@@ -375,7 +374,13 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_establecimientos_getdata(IN _idestablecimiento INT)
 BEGIN
-	SELECT * FROM establecimientos WHERE idestablecimiento = _idestablecimiento;
+	SELECT	EST.idestablecimiento, EST.idusuario, EST.establecimiento,
+					EST.ruc, EST.tipocalle, EST.nombrecalle, EST.numerocalle, 
+					EST.referencia, EST.latitud, EST.longitud, DST.iddistrito,
+					DST.idprovincia, DST.iddepartamento
+		FROM establecimientos EST
+		INNER JOIN distritos DST ON DST.iddistrito = EST.iddistrito
+		WHERE EST.idestablecimiento = _idestablecimiento AND EST.estado = 1;
 END $$
 
 
@@ -383,21 +388,25 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_establecimientos_getdata_servicio
 (
-	IN _nombreservicio VARCHAR(50)
+    IN _nombreservicio VARCHAR(50),
+    IN _nombreciudad VARCHAR(50)
 ) BEGIN
-	SELECT
-		DISTINCT(e.idestablecimiento), e.establecimiento, e.ruc, e.latitud, e.longitud,
-		u.idusuario, u.horarioatencion,
-		p.idpersona, p.nombres, p.apellidos, p.telefono,
-		s.idservicio, s.nombreservicio,
-		es.idespecialidad, es.descripcion
-	FROM establecimientos e
-		INNER JOIN usuarios u ON e.idusuario = u.idusuario
-		JOIN especialidades es ON u.idusuario = es.idusuario
-		JOIN servicios s ON es.idservicio = s.idservicio
-		JOIN personas p ON u.idpersona = p.idpersona
-	WHERE s.nombreservicio LIKE CONCAT('%', _nombreservicio, '%')
-	GROUP BY establecimiento;
+    SELECT
+        DISTINCT(e.idestablecimiento), e.establecimiento, e.ruc, e.latitud, e.longitud,
+        u.idusuario, u.horarioatencion,
+        p.idpersona, p.nombres, p.apellidos, p.telefono,
+        s.idservicio, s.nombreservicio,
+        es.idespecialidad, es.descripcion
+    FROM establecimientos e
+        INNER JOIN usuarios u ON e.idusuario = u.idusuario
+        JOIN especialidades es ON u.idusuario = es.idusuario
+        JOIN servicios s ON es.idservicio = s.idservicio
+        JOIN personas p ON u.idpersona = p.idpersona
+        JOIN distritos d ON e.iddistrito = d.iddistrito
+    WHERE
+        s.nombreservicio LIKE CONCAT('%', _nombreservicio, '%') &&
+        d.distrito LIKE CONCAT('%', _nombreciudad, '%')
+    GROUP BY establecimiento;
 END $$
 
 -- =============================================================================================================
@@ -442,6 +451,12 @@ BEGIN
 		(_idusuario, 'Publicaciones');
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_albumes_getalbum(IN _idusuario INT, IN _nombrealbum VARCHAR(30))
+BEGIN
+	SELECT * FROM albumes 
+		WHERE nombrealbum = _nombrealbum AND idusuario = _idusuario;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_albumes_modificar
@@ -472,11 +487,10 @@ BEGIN
 	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
 END $$
 
-
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_album(IN _idalbum INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idalbum = _idalbum;
+	SELECT * FROM vs_galerias_listar WHERE idalbum = _idalbum AND tipo = 'F';
 END $$
 
 
@@ -510,19 +524,17 @@ BEGIN
 		(_idalbum, _idusuario, _idtrabajo, _tipo, _archivo, _estado);
 END $$
 
-
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_modificar
 (
 	IN _idgaleria INT,
-	IN _idalbum 	INT,
-	IN _estado		CHAR(1)
+	IN _idalbum 	INT
 )
 BEGIN
 	IF _idalbum = '' THEN SET _idalbum = NULL; END IF;
 	
 	UPDATE galerias SET
-		idalbum 	= _idalbum, estado = _estado
+		idalbum 	= _idalbum
 	WHERE idgaleria = _idgaleria;
 END $$
 
@@ -532,24 +544,19 @@ BEGIN
 		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
 						GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
 			FROM galerias GLR
-			 JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
+			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'perfil' AND GLR.`estado` = '2'
 					AND  USU.`idusuario` = _idusuario;
 END $$
 
-CALL spu_galerias_foto_perfil(2);
-CALL spu_galerias_foto_portada(2);
-SELECT * FROM albumes;
-SELECT * FROM usuarios;
-SELECT * FROM galerias;
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_foto_portada(IN _idusuario INT)
 BEGIN	
 		SELECT 	GLR.`idgaleria`, GLR.`archivo`, GLR.`estado`, 
 						GLR.`tipo`, ALB.`idalbum`, ALB.`nombrealbum`
 			FROM galerias GLR
-			 JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
+			INNER JOIN albumes ALB ON ALB.`idalbum` = GLR.`idalbum`
 			INNER JOIN usuarios USU ON USU.idusuario = ALB.`idusuario`
 			WHERE ALB.`nombrealbum` = 'portada' AND GLR.`estado` = '3'
 					AND  USU.`idusuario` = _idusuario;
@@ -561,6 +568,7 @@ BEGIN
 	UPDATE galerias SET estado = 0
 		WHERE idgaleria = _idgaleria;
 END $$
+
 
 -- =============================================================================================================
 -- TABLA REDES
@@ -608,7 +616,7 @@ END $$
 
 -- ==============FILTRAR POR USUARIO=================
 DELIMITER $$
-CREATE PROCEDURE spu_redessociales_filtrar_usuario()
+CREATE PROCEDURE spu_redessociales_filtrar_usuario(IN _idusuario INT)
 BEGIN
 	SELECT 	RDS.idredsocial, USU.idusuario,
 					PER.nombres, PER.apellidos,
@@ -616,7 +624,8 @@ BEGIN
 		FROM redessociales RDS
 		INNER JOIN usuarios USU ON USU.idusuario = RDS.idusuario
 		INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-		ORDER BY USU.idusuario;
+		WHERE USU.idusuario = _idusuario
+		ORDER BY RDS.redsocial;
 END $$
 
 
@@ -624,13 +633,28 @@ END $$
 -- TABLA DE SEGUIDORES
 -- -------------------------------------------------------------------------------------------------------------
 DELIMITER $$
+CREATE PROCEDURE spu_seguidor_registrar(IN _idfollowing INT, IN _idfollower INT)
+BEGIN
+	DECLARE _idseguidor INT;
+	SET _idseguidor = (SELECT idseguidor FROM seguidores WHERE idfollowing = _idfollowing AND idfollower = _idfollower);
+	
+	IF _idseguidor IS NULL THEN
+		INSERT INTO seguidores (idfollowing, idfollower) VALUES
+		(_idfollowing, _idfollower);
+	ELSE
+		UPDATE seguidores SET estado = 1 WHERE idseguidor = _idseguidor;
+	END IF;	
+END $$
+
+
+DELIMITER $$
 CREATE PROCEDURE spu_seguidores_listar(IN _idusuario INT)
 BEGIN
 	SELECT SEG.idfollower, PER.nombres, PER.apellidos, SEG.fechaseguido
 	FROM seguidores SEG
 	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollower
 	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollowing = _idusuario;
+	WHERE idfollowing = _idusuario AND SEG.estado = 1;
 END $$
 
 DELIMITER $$
@@ -640,7 +664,7 @@ BEGIN
 	FROM seguidores SEG
 	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollowing
 	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollower = _idusuario AND SEG.estado = '1';
+	WHERE idfollower = _idusuario AND SEG.estado = 1;
 END $$
 
 DELIMITER $$
@@ -648,7 +672,7 @@ CREATE PROCEDURE spu_seguidores_conteo(IN _idusuario INT)
 BEGIN
 	SELECT COUNT(idfollowing) AS 'totalseguidores'
 	FROM seguidores
-	WHERE idfollowing = _idusuario;
+	WHERE idfollowing = _idusuario AND estado = 1;
 END $$
 
 DELIMITER $$
@@ -656,11 +680,11 @@ CREATE PROCEDURE spu_seguidos_conteo(IN _idusuario INT)
 BEGIN
 	SELECT COUNT(idfollower) AS 'totalseguidos'
 	FROM seguidores
-	WHERE idfollower = _idusuario AND estado = '1';
+	WHERE idfollower = _idusuario AND estado = 1;
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_Seguidos_eliminar(IN _idusuario INT, IN _following INT)
+CREATE PROCEDURE spu_seguidos_eliminar(IN _idusuario INT, IN _following INT)
 BEGIN
 	UPDATE seguidores SET
 	estado = 0
@@ -671,42 +695,28 @@ END $$
 -- TABLA FOROS
 -- -------------------------------------------------------------------------------------------------------------
 
--- ========= REGISTRAR EN LA TABLA FOROS============
-DELIMITER $$
-CREATE PROCEDURE spu_foros_registrar
-(
-	IN _idtousuario		INT,
-	IN _idfromusuario	INT,
-	IN _consulta 			MEDIUMTEXT
-)
-BEGIN 
-	INSERT INTO foros (idtousuario, idfromusuario, consulta)
-		VALUES(_idtousuario, _idfromusuario, _consulta);
-END $$
-
--- ========= LISTAR FOROS POR USUARIO ============
 DELIMITER $$
 CREATE PROCEDURE spu_foros_listar_usuario 
 (
-IN _idusuario INT,
-IN _start INT,
-IN _finish INT
+	IN _idusuario INT,
+	IN _start INT,
+	IN _finish INT
 )
 BEGIN
 	SELECT * FROM vs_listar_foros WHERE idtousuario = _idusuario LIMIT _start, _finish;
 END $$
 
-CALL spu_foros_listar_usuario(1, 1, 10)
--- ========= ELIMINAR (FORMA LOGICA) EN LA TABLA FOROS============
+-- ========= REGISTRAR EN LA TABLA FOROS============
 DELIMITER $$
-CREATE PROCEDURE spu_foros_eliminar
+CREATE PROCEDURE spu_foros_registrar
 (
-	IN  _idforo	INT
+	IN _idfromusuario		INT,
+	IN _idtousuario			INT,
+	IN _consulta 				MEDIUMTEXT
 )
-BEGIN
-	UPDATE foros SET 
-		estado = 0
-		WHERE idforo = _idforo;
+BEGIN 
+	INSERT INTO foros (idtousuario, idfromusuario, consulta)
+		VALUES(_idtousuario, _idfromusuario, _consulta);
 END $$
 
 -- ========= MODIFICAR EN LA TABLA FOROS============
@@ -724,15 +734,40 @@ BEGIN
 END $$
 
 
+-- ========= ELIMINAR (FORMA LOGICA) EN LA TABLA FOROS============
+DELIMITER $$
+CREATE PROCEDURE spu_foros_eliminar
+(
+	IN  _idforo	INT
+)
+BEGIN
+	UPDATE foros SET 
+		estado = 0
+		WHERE idforo = _idforo;
+END $$
+
 -- =============================================================================================================
 -- TABLA SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE spu_servicios_listar_usuario(IN _idusuario INT)
+BEGIN
+   SELECT SRV.idservicio, SRV.nombreservicio, USU.idusuario 
+		FROM servicios SRV
+		INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
+		INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+		WHERE USU.idusuario = _idusuario AND ESP.estado = 1
+		GROUP BY SRV.idservicio
+		ORDER BY SRV.nombreservicio ASC;
+END $$
+
+
 DELIMITER $$
 CREATE PROCEDURE spu_servicios_listar()
 BEGIN
    SELECT idservicio, nombreservicio
       FROM servicios
-      ORDER BY idservicio DESC;
+      ORDER BY nombreservicio ASC;
 END $$
 
 
@@ -769,12 +804,56 @@ BEGIN
    SELECT * FROM vs_especialidades_listar;
 END $$
 
+-- LISTADO ALEATORIO DE ESPECIALIDADES
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_listar_aleatorio(IN _limit TINYINT, IN _offset INT)
+BEGIN
+   SELECT * FROM vs_especialidades_listar
+   ORDER BY RAND() LIMIT _limit OFFSET _offset
+   
+END $$
+
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)
 BEGIN
    SELECT * FROM especialidades
-      WHERE idusuario = _idusuario
+      WHERE idusuario = _idusuario AND estado = 1
       ORDER BY idespecialidad DESC;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_listar_servicio(IN _idservicio INT)
+BEGIN
+   SELECT * FROM vs_especialidades_listar
+      WHERE idservicio = _idservicio
+      ORDER BY idespecialidad DESC;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_listar_servicio_usuario(IN _idservicio INT, IN _idusuario INT)
+BEGIN
+   SELECT * FROM vs_especialidades_listar
+      WHERE idservicio = _idservicio AND idusuario = _idusuario
+      ORDER BY idespecialidad DESC;
+END $$
+
+
+SELECT * FROM especialidades WHERE idusuario = 2 AND idservicio = 6;
+CALL spu_especialidades_listar_servicio(6);
+CALL spu_especialidades_listar_servicio_usuario(6, 2);
+CALL spu_servicios_listar_usuario(2);
+
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_listar_aleatorio_servicio
+(
+	IN _idservicio 	INT,
+	IN _limit 			TINYINT,
+	IN _offset 			INT
+)
+BEGIN
+	SELECT * FROM vs_especialidades_listar
+		WHERE idservicio = _idservicio
+		ORDER BY RAND() LIMIT _limit OFFSET _offset;
 END $$
 
 DELIMITER $$
@@ -790,6 +869,19 @@ BEGIN
       VALUES (_idusuario, _idservicio, _descripcion, _tarifa);
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_getdata(IN _idespecialidad INT)
+BEGIN 
+	SELECT * FROM especialidades WHERE idespecialidad = _idespecialidad;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_eliminar(IN _idespecialidad INT)
+BEGIN
+	DELETE FROM actividades WHERE idespecialidad = _idespecialidad;
+	UPDATE trabajos SET estado = 0 WHERE idespecialidad = _idespecialidad;
+	UPDATE especialidades SET estado = 0 WHERE idespecialidad = _idespecialidad;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_modificar
@@ -809,28 +901,181 @@ BEGIN
     WHERE idespecialidad = _idespecialidad;
 END $$
 
+-- TOTAL DE SERVICOS OFRECIDOS
 DELIMITER $$
-CREATE PROCEDURE spu_filtrar_especialidadynombres(IN _iddepartamento VARCHAR(2), IN _search VARCHAR(50))
-BEGIN 
-	SELECT * FROM  vs_especialidades_listar 
-		WHERE nombreservicio LIKE CONCAT ('%', _search ,'%') 	
-		    AND	iddepartamento = _iddepartamento;
+CREATE PROCEDURE spu_especialidades_total_disponible()
+BEGIN
+   SELECT COUNT(idespecialidad) AS 'total' FROM vs_especialidades_listar;
+END $$
+
+
+-- FILTRAR POR SERVICIO
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_filtrar_servicio
+(
+	IN _nombreservicio 	VARCHAR(50), 
+	IN _order 					CHAR(1),
+	IN _limit 					TINYINT,
+	IN _offset					INT
+)
+BEGIN		
+	IF _order = 'N' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT(_nombreservicio, '%')
+		ORDER BY nombres ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'F' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT(_nombreservicio, '%')
+		ORDER BY idespecialidad ASC LIMIT _limit OFFSET _offset;		
+		
+	ELSEIF _order = 'S' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT(_nombreservicio, '%')
+		ORDER BY tarifa ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'E' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT(_nombreservicio, '%')
+		ORDER BY estrellas DESC LIMIT _limit OFFSET _offset;	
+	END IF;
+END $$ 
+
+
+-- FILTRAR POR SERVICIO Y DEPARTAMENTO
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_filtrar_servicio_dept
+(
+	IN _nombreservicio 	VARCHAR(50), 
+	IN _iddepartamento 	VARCHAR(2),
+	IN _order 					CHAR(1),
+	IN _limit 					TINYINT,
+	IN _offset					INT
+)
+BEGIN		
+	IF _order = 'N' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddepartamento = _iddepartamento
+		ORDER BY nombres ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'F' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddepartamento = _iddepartamento
+		ORDER BY idespecialidad ASC LIMIT _limit OFFSET _offset;		
+		
+	ELSEIF _order = 'S' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddepartamento = _iddepartamento
+		ORDER BY tarifa ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'E' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddepartamento = _iddepartamento
+		ORDER BY estrellas DESC LIMIT _limit OFFSET _offset;	
+	END IF;
+END $$ 
+
+
+-- FILTRAR POR SERVICIO Y PROVINCIA
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_filtro_provincia
+(
+	IN _nombreservicio 	VARCHAR(50), 
+	IN _idprovincia 		VARCHAR(4),
+	IN _order 					CHAR(1),
+	IN _limit 					TINYINT,
+	IN _offset					INT
+)
+BEGIN
 	
+	IF _order = 'N' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND idprovincia 	 = _idprovincia
+		ORDER BY nombres ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'F' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND idprovincia 	 = _idprovincia
+		ORDER BY idespecialidad ASC LIMIT _limit OFFSET _offset;		
+		
+	ELSEIF _order = 'S' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND idprovincia 	 = _idprovincia
+		ORDER BY tarifa ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'E' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND idprovincia 	 = _idprovincia
+		ORDER BY estrellas DESC LIMIT _limit OFFSET _offset;	
+	END IF;
 END $$
 
+-- FILTRAR POR SERVICIO Y DISTRITO
 DELIMITER $$
-CREATE PROCEDURE spu_filtrar_nombresservice(IN _search VARCHAR(50))
-BEGIN 
-	SELECT * FROM  vs_especialidades_listar 
-		WHERE nombreservicio LIKE CONCAT ('%', _search ,'%'); 		
+CREATE PROCEDURE spu_especialidades_filtro_distrito
+(
+	IN _nombreservicio 	VARCHAR(50), 
+	IN _iddistrito 			VARCHAR(6),
+	IN _order 					CHAR(1),
+	IN _limit 					TINYINT,
+	IN _offset					INT
+)
+BEGIN
+	IF _order = 'N' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddistrito = _iddistrito
+		ORDER BY nombres ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'F' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddistrito = _iddistrito
+		ORDER BY idespecialidad ASC LIMIT _limit OFFSET _offset;		
+		
+	ELSEIF _order = 'S' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddistrito = _iddistrito
+		ORDER BY tarifa ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'E' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND iddistrito = _iddistrito
+		ORDER BY estrellas DESC LIMIT _limit OFFSET _offset;	
+	END IF;
 END $$
 
+-- FILTRAR POR SERVICIO, DEPARTAMENTO Y TARIFAS
 DELIMITER $$
-CREATE PROCEDURE spu_filtrar_tarifas( IN _tarifa DECIMAL(7,2))
-BEGIN 
-	SELECT * FROM  vs_especialidades_listar 
-		WHERE tarifa = _tarifa;
-END $$
+CREATE PROCEDURE spu_especialidades_filtro_tarifas
+(	
+	IN _nombreservicio 	VARCHAR(50), 
+	IN _tarifa1					DECIMAL(7,2),
+	IN _tarifa2					DECIMAL(7,2),
+	IN _order 					CHAR(1),
+	IN _limit 					TINYINT,
+	IN _offset					INT
+)
+BEGIN	
+	IF _order = 'N' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND tarifa BETWEEN _tarifa1 AND _tarifa2
+		ORDER BY nombres ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'F' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND tarifa BETWEEN _tarifa1 AND _tarifa2
+		ORDER BY idespecialidad ASC LIMIT _limit OFFSET _offset;		
+		
+	ELSEIF _order = 'S' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND tarifa BETWEEN _tarifa1 AND _tarifa2
+		ORDER BY tarifa ASC LIMIT _limit OFFSET _offset;	
+		
+	ELSEIF _order = 'E' THEN
+		SELECT * FROM vs_especialidades_listar
+		WHERE nombreservicio LIKE CONCAT( _nombreservicio, '%') AND tarifa BETWEEN _tarifa1 AND _tarifa2
+		ORDER BY estrellas DESC LIMIT _limit OFFSET _offset;	
+	END IF;
+END $$ 
 
 
 /* PROCEDIMIENTOS : TRABAJOS , COMENTARIOS Y CALIFICACIONES */
@@ -838,15 +1083,24 @@ END $$
 -- TABLA TRABABJOS
 -- -------------------------------------------------------------------------------------------------------------
 DELIMITER $$
-CREATE PROCEDURE spu_trabajos_listar_usuario(
-IN _idusuario INT,
-IN _start INT,
-IN _finish INT
+CREATE PROCEDURE spu_trabajos_listar_usuario
+(
+	IN _idusuario INT,
+	IN _start INT,
+	IN _finish INT
 )
 BEGIN
 	SELECT * FROM vs_trabajos_listar
 		WHERE idusuario = _idusuario
 		ORDER BY idtrabajo DESC LIMIT _start, _finish;
+END $$
+
+
+-- OBTENER UN REGISTRO
+DELIMITER $$
+CREATE PROCEDURE spu_trabajos_getdata(IN _idtrabajo INT)
+BEGIN
+	SELECT * FROM trabajos WHERE idtrabajo = _idtrabajo;
 END $$
 
 
@@ -856,7 +1110,7 @@ CREATE PROCEDURE spu_trabajos_registrar
 (
 	IN _idespecialidad	INT ,
 	IN _idusuario				INT ,
-	IN _titulo					VARCHAR(40),
+	IN _titulo					VARCHAR(200),
 	IN _descripcion			MEDIUMTEXT
 )
 BEGIN 
@@ -873,7 +1127,7 @@ CREATE PROCEDURE spu_trabajos_modificar
 	IN _idtrabajo				INT ,
 	IN _idespecialidad	INT ,
 	IN _idusuario				INT ,
-	IN _titulo					VARCHAR(40),
+	IN _titulo					VARCHAR(200),
 	IN _descripcion			MEDIUMTEXT
 )
 BEGIN 
@@ -917,7 +1171,7 @@ CREATE PROCEDURE spu_comentarios_listar_trabajo(IN _idtrabajo INT)
 BEGIN
 	SELECT * FROM vs_comentarios_listar
 		WHERE idtrabajo = _idtrabajo
-		ORDER BY idcomentario DESC;
+		ORDER BY idcomentario ASC;
 END $$
 
 
@@ -953,7 +1207,7 @@ DELIMITER $$
 CREATE PROCEDURE spu_comentarios_eliminar(IN _idcomentario INT)
 BEGIN 
 	UPDATE comentarios SET estado = 0
-		WHERE idtrabajo = _idtrabajo;
+		WHERE idcomentario = _idcomentario;
 END $$
 
 
@@ -988,28 +1242,24 @@ BEGIN
 	WHERE idcalificacion = _idcalificacion;
 END $$
 
-/* ELIMINAR */
+-- MODIFICAR O ELIMINAR PUNTUACIÓN
 DELIMITER $$
-CREATE PROCEDURE spu_calificaciones_eliminar(IN _idcalificacion INT)
-BEGIN 
-	UPDATE calificaciones SET estado = 0
-		WHERE idcalificacion = _idcalificacion;
+CREATE PROCEDURE spu_calificaciones_modificar_eliminar
+(
+	IN _idcalificacion 	INT,
+	IN _puntuacion			TINYINT 
+)
+BEGIN
+	DECLARE _puntaje_anterior TINYINT;
+	SET _puntaje_anterior = (SELECT puntuacion FROM calificaciones WHERE idcalificacion = _idcalificacion);
+	
+	IF _puntaje_anterior = _puntuacion THEN
+		CALL spu_calificaciones_modificar(_idcalificacion, 0);
+	ELSE
+		CALL spu_calificaciones_modificar(_idcalificacion, _puntuacion);
+	END IF;
 END $$
 
-/* PROCEDIMIENTO PARA CONTAR LAS PUNTUACIONES*/
-DELIMITER $$
-CREATE PROCEDURE spu_total_calificaciones_trabajo
-(
-	IN _idtrabajo INT
-)
-BEGIN 
-	SELECT CALI.idcalificacion,CONCAT (PERS.nombres , ' ', PERS.apellidos) AS 'usuario', idtrabajo , 
-				 SUM(CALI.puntuacion) AS 'totalpuntuacion', COUNT(*) AS 'totalpersona'
-		FROM calificaciones CALI
-		INNER JOIN usuarios USU ON USU.idusuario = CALI.idusuario
-		INNER JOIN personas PERS ON PERS.idpersona = USU.idpersona
-		WHERE idtrabajo = _idtrabajo;
-END $$
 
 -- =============================================================================================================
 -- TABLA REPORTES
@@ -1034,6 +1284,7 @@ CREATE PROCEDURE spu_listar_reportes()
 BEGIN
 	SELECT * FROM vs_listar_reportes;
 END $$
+
 
 -- =============================================================================================================
 -- TABLA ACTIVIDADES
@@ -1125,17 +1376,35 @@ BEGIN
 END $$
 
 
+-- OBTENER EL PUNTAJE DADO POR EL USUARIO (Estrellas)
+DELIMITER $$
+CREATE PROCEDURE spu_reacciones_trabajo_por_usuario(IN _idtrabajo INT, IN _idusuario INT)
+BEGIN
+	SELECT idcalificacion, puntuacion FROM calificaciones 
+		WHERE idtrabajo = _idtrabajo AND idusuario = _idusuario;
+END $$
+
 
 -- TOTAL DE REACCIONES POR TRABAJO
 DELIMITER $$
 CREATE PROCEDURE spu_total_reaciones_trabajo(IN _idtrabajo INT)
 BEGIN
-	SELECT SUM(CLF.puntuacion) AS 'reaciones' 
+	SELECT SUM(CLF.puntuacion) AS 'reacciones' 
 			FROM calificaciones CLF
 			INNER JOIN trabajos TRB ON TRB.idtrabajo = CLF.idtrabajo
 			WHERE TRB.idtrabajo = _idtrabajo
 			GROUP BY TRB.idtrabajo;
 END $$
+
+-- TOTAL DE USUARIOS QUE REACCIONARÓN A UNA PUBLICACIÓN DE TRABAJO
+DELIMITER $$
+CREATE PROCEDURE  spu_total_usuarios_reaccion_trabajo(IN _idtrabajo INT)
+BEGIN
+	SELECT idtrabajo, COUNT(DISTINCT(idusuario)) AS 'usuarios'
+	FROM calificaciones
+	GROUP BY idtrabajo
+	HAVING idtrabajo = _idtrabajo;
+END $$;
 
 -- CALIFICACION POR TRABAJO
 DELIMITER $$
@@ -1260,7 +1529,7 @@ BEGIN
 			GROUP BY SRV.nombreservicio;
 END $$
 
-
+-- ???'
 DELIMITER $$
 CREATE PROCEDURE spu_total_usuarios_servicio_fechas(IN _fechainicio DATE, IN _fechafin DATE)
 BEGIN
