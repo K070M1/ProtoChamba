@@ -418,7 +418,7 @@ if(isset($_POST['op'])){
           $image = date('Ymdhis') . $countImg . '.' . $ext[1];    // Renombrar cada imagen
   
           $gallery->registerGallery([   
-            'idalbum'       => '',
+            'idalbum'       => $idalbum,
             'idusuario'     => $_SESSION['idusuario'],
             'idtrabajo'     => $idtrabajo,
             'tipo'          => 'F',
@@ -442,7 +442,7 @@ if(isset($_POST['op'])){
       $video = date('Ymdhis') . '.' . $ext[1];        // Renombrar
 
       $gallery->registerGallery([   
-        'idalbum'       => '',
+        'idalbum'       => $idalbum,
         'idusuario'     => $_SESSION['idusuario'],
         'idtrabajo'     => $idtrabajo,
         'tipo'          => 'V',
