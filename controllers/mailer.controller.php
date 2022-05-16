@@ -18,8 +18,8 @@ function generateCode(){
     $validaciones = [
         'code' => $code,
         'fechainicio' => date('G:i:s'),
-        'tiempovida' => strtotime( date('G:i:s')."+ 25 seconds"),
-        'fechamuerte' =>  date('G:i:s', strtotime( date('G:i:s')."+ 25 seconds"))
+        'tiempovida' => strtotime( date('G:i:s')."+ 45 seconds"),
+        'fechamuerte' =>  date('G:i:s', strtotime( date('G:i:s')."+ 45 seconds"))
     ];
     return $validaciones;
 }

@@ -169,7 +169,7 @@ body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back
   border-radius: 100% 0 0 100% / 50% 0 0 50%;
   z-index: 200;
   border-right:none;
-  animation: rota 25s linear infinite;
+  animation: rota 45s linear infinite;
 }
 
 body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back-icon > .wrapper > .spinner:after {
@@ -191,7 +191,7 @@ body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back
   left: 50%;
   opacity: 0;
   z-index: 100;
-  animation: fill 25s steps(1,end) infinite;
+  animation: fill 45s steps(1,end) infinite;
   border-left: none;
 }
 
@@ -202,7 +202,7 @@ body> div#modal-res-contra1 > .modal-dialog > .modal-content > .m-res > div#back
   background: inherit;
   opacity: 1;
   z-index: 300;
-  animation: mask 25s steps(1,end) infinite;
+  animation: mask 45s steps(1,end) infinite;
 }
 
 @keyframes rota {
