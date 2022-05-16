@@ -405,6 +405,11 @@ if(isset($_POST['op'])){
       }
     }
 
+     // Obtener id galeria publicacion
+     $album = new Album();
+     $idalbum = $album->getAnAlbumByNameAndUser(["idusuario" => $_SESSION['idusuario'], "nombrealbum" => "Publicaciones"]);
+     $idalbum = $idalbum[0]['idalbum'];
+ 
     $idtrabajo = $_POST['idtrabajo'];
     $countImg = 0;
     $result = '';

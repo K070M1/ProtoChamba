@@ -39,7 +39,7 @@ $("#nav-configuracion-tab").click(function(){
 });
 
 // Cargar de publicaciones de los servicios
-$(window).on("scroll", function(){
+/* $(window).on("scroll", function(){
     if(typeof wservicepublic !== "undefined"){
         var scrollHeightDocument = $(document).height();
         var scrollPos = $(window).height() + $(window).scrollTop();
@@ -73,7 +73,7 @@ $(window).on("scroll", function(){
             });
         }
     }
-});
+}); */
 
 // Carga de comentarios de foro
 function scrollForoComments(){

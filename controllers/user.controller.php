@@ -375,7 +375,7 @@ if (isset($_GET['op'])) {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->banUser(["idusuario" => $_GET['idusuario']]);
 
-    $mailer->sendMail($data[0]['email'], "Su cuenta a sido baneado temporalmente debido a...");
+    $mailer->sendMail($data[0]['email'], "Su cuenta a sido baneada temporalmente debido a contenido inapropiado para los demàs usuarios");
     //echo json_encode($data[0]['email']);
   }
 
@@ -383,7 +383,7 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'reactivateUser') {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->reactivateUser(["idusuario" => $_GET['idusuario']]);
-    $mailer->sendMail($data[0]['email'], "Su cuenta a sido restablecido");
+    $mailer->sendMail($data[0]['email'], "Su cuenta a sido restablecida");
     //echo json_encode($data[0]['email']);
   }
 
