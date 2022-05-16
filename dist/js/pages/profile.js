@@ -30,6 +30,7 @@
     $("#btnsd").hide();
     $("#btnEst").hide();
     $("#btnrs").hide();
+    $("#btn-edit-description").hide();
     $("#btnEditPrivilegedData").hide();
   }
   
@@ -45,6 +46,7 @@
     $("#btnsd").show();
     $("#btnsbtnEstd").show();
     $("#btnrs").show();
+    $("#btn-edit-description").show();
     $("#btnEditPrivilegedData").show();
   }
 
@@ -399,8 +401,6 @@
             processData: false,
             cache: false,
             success: function(e) {
-              console.log(e);
-
               $("#idservices").val('');
               $("#descripcionEsp").val('');
               $("#tarifa").val('');

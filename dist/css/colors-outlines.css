@@ -70,6 +70,9 @@
 .outline-chocolate {
   border-top: 3px solid #cc6a23e5 !important;
 }
+/* .outline-chocolate i.icon-service{
+  color: #cc6a23e5 !important;
+} */
 .outline-coral {
   border-top: 3px solid #e47046b4 !important;
 }
@@ -165,6 +168,9 @@
 .dark-mode .outline-chocolate {
   border-top:3px solid  #d2691e75 !important;
 }
+/* .dark-mode .outline-chocolate i.icon-service{
+  color: #d2691eb4 !important;
+} */
 .dark-mode .outline-coral {
   border-top: 3px solid #ff7f5069 !important;
 }

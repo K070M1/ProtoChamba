@@ -549,7 +549,7 @@ if(isset($_SESSION["login"])){
         </div>
 
         <!-- Publicaciones de servicios -->
-        <div class="content-service col-md-12">
+        <div class="content-service col-12">
 
           <!-- Contenido de las publicaciones -->
           <div class="content-data-publication" id="data-publication-works">
