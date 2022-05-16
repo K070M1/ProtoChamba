@@ -23,6 +23,16 @@ class Album extends ModelMaster{
     }
   }
 
+  // Listar un album por usuario y nombre de album
+  public function getAnAlbumByNameAndUser(array $data){
+    try{
+      return parent::execProcedure($data, "spu_albumes_getalbum", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Registrar album
   public function registerAlbum(array $data){
     try{

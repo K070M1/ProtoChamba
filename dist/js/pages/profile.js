@@ -2,13 +2,12 @@
   var idusuarioActivo = localStorage.getItem("idusuarioActivo");
   idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 
-  //localStorage.removeItem("idusuarioActivo");
-
   var datosNuevos = true; 
   var idusuario;
   var idpersona;
   var idredSocial;
   var idespecialidad;
+  var idestablecimiento;
   var imgUpdtP = [];
 
   if(idusuarioActivo != -1){
@@ -16,6 +15,8 @@
   } else {
     enabledButtons();
   }
+
+
 
   // Esta función desdabilita los botones de modificación o agregación
   function disabledButtons(){
@@ -27,7 +28,9 @@
     $(".edit-come").hide();
     $("#btnS").hide();
     $("#btnsd").hide();
+    $("#btnEst").hide();
     $("#btnrs").hide();
+    $("#btnEditPrivilegedData").hide();
   }
   
   // Esta función habilita los botones de modificación o agregación
@@ -40,7 +43,9 @@
     $(".edit-come").show();
     $("#btnS").show();
     $("#btnsd").show();
+    $("#btnsbtnEstd").show();
     $("#btnrs").show();
+    $("#btnEditPrivilegedData").show();
   }
 
    
@@ -181,35 +186,31 @@
   }
 
 
-  $(".profile-der").on("click",".edit-come", function(){
-
+  $("#btn-edit-description").click(function(){
     $("#text-descripcion").attr('contenteditable', true);
-    $(this).next('.edit-come-cancel').removeClass('d-none');
-    $(".edit-come").hide();
+
+    $('#btn-cancel-edit-description').removeClass('d-none');
+    $("#btn-update-description").removeClass('d-none');
+    $(this).addClass("d-none");
   });
 
-  $(".profile-der").on("click",".edit-come-cancel", function(){
+  $("#btn-cancel-edit-description").click(function(){
     $("#text-descripcion").attr('contenteditable', false);
-    // $(this).addClass('d-none');
-    $(".edit-come").hide();
+
+    $('#btn-edit-description').removeClass('d-none');
+    $("#btn-update-description").addClass('d-none');
+    $(this).addClass('d-none');
   });
-  
-  $(".edit-come").click(function(){
-    let text = $("#text-descripcion").text();
-    // let text =  $('div').attr('data-value');;
-    console.log(text);
-  });
+
 
   //DESCRIPCION
-  $(".edit-come-cancel").click(function (){
-
-    let descripcion;
+  $("#btn-update-description").click(function (){
 
     var formData = new FormData();
-    descripcion = $("#text-descripcion").text();
+    let descrip = $("#text-descripcion").text();
 
     formData.append("op", "updateDescrip");
-    formData.append("descripcion", descripcion);
+    formData.append("descripcion", descrip);
 
     sweetAlertConfirmQuestionSave("¿Estas seguro Guardar la descripcion?").then((confirm) => {
       if (confirm.isConfirmed){
@@ -221,29 +222,19 @@
           processData: false,
           cache: false,
           success: function(e) {
-            console.log(e);
             descripcion();
             $("#text-descripcion").attr('contenteditable', false);
-            $(this).addClass('d-none');
-            $(".edit-come").show();
-            $(".edit-come-cancel").hide();
+            $('#btn-cancel-edit-description').addClass('d-none');
+            $("#btn-update-description").addClass('d-none');
+            $("#btn-edit-description").removeClass('d-none');
+
             sweetAlertSuccess("Realizado", "Descripcion guardada");
           }
         });
-      }else{
-        $("#text-descripcion").attr('contenteditable', true);
-        $(this).next('.edit-come-cancel').removeClass('d-none');
-        $(".edit-come").hide();
-        $(".edit-come-cancel").show();
       }
     }); 
   });
 
-  $(".edit-come").click(function(){
-    let text = $("#text-descripcion").text();
-    // let text =  $('div').attr('data-value');;
-    console.log(text);
-  });
   
   function descripcion(){
     $.ajax({
@@ -260,7 +251,8 @@
     $.ajax({
       url: 'controllers/specialty.controller.php',
       type: 'GET',
-      data: 'op=listSpecialtyUser&idusuarioactivo=' + idusuarioActivo,
+      data: 'op=getServicesUser&idusuarioactivo=' + idusuarioActivo,
+      //data: 'op=listSpecialtyUser&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#especiality").html(e);
       }
@@ -322,7 +314,7 @@
     });
   }
 
-  function listDatosPerson(){
+  /* function listDatosPerson(){
     $.ajax({
       url: 'controllers/person.controller.php',
       type: 'GET',
@@ -331,7 +323,19 @@
         $("#personas").html(e);
       }
     });
+  } */
+  
+  function listDataUser(){
+    $.ajax({
+      url: 'controllers/user.controller.php',
+      type: 'GET',
+      data: 'op=getAUserProfile&idusuarioactivo=' + idusuarioActivo,
+      success: function(e){
+        $("#personas").html(e);
+      }
+    });
   }
+
 
   function listFollower(){
     $.ajax({
@@ -385,16 +389,8 @@
           timer: 1000
       });
     }else{
-
-      Swal.fire({
-        title: '¿Estas seguro agregar la especialidad?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#808B96',
-        confirmButtonText: 'Agregar'
-      }).then((result) => {
-        if (result.isConfirmed) {
+      sweetAlertConfirmQuestionSave("¿Estas seguro agregar la especialidad?").then(confirm => {
+        if(confirm.isConfirmed){
           $.ajax({
             url: 'controllers/specialty.controller.php',
             type: 'POST',
@@ -412,28 +408,80 @@
               datosNuevos = true;
             }
           });
-          Swal.fire(
-              'Proceso Realizado',
-              'Especialidad registrada',
-              'success'
-          )
-        }else{
-          Swal.fire({
-            position: 'center',
-            icon: 'info',
-            title: 'Operación Cancelada',
-            showConfirmButton: false,
-            timer: 2500
-          });
         }
-      })
+      });
     } 
   }
+
+  // Editar establecimiento
+  $("#empresas").on("click", ".btn-edit-est", function(){
+    idestablecimiento = $(this).attr("data-idest");
+    //alert(idestablecimiento)
+
+    $.ajax({
+      url: 'controllers/establishment.controller.php',
+      type: 'GET',
+      data: 'op=getAEstablishment&idestablecimiento=' + idestablecimiento,
+      success: function(e){
+        let data = JSON.parse(e);
+
+        $("#content-establecimiento").collapse('show');
+        
+        listProvinces(data.iddepartamento);
+        listDistricts(data.idprovincia);
+        
+        $("#establecimiento").val(data.establecimiento);
+        $("#estDepartamento").val(data.iddepartamento);
+        $("#estProvincia").val(data.idprovincia);
+        $("#estDistrito").val(data.iddistrito);
+        $("#ruc").val(data.ruc);
+        $("#estTipoC").val(data.tipocalle);
+        $("#estNomCalle").val(data.nombrecalle);
+        $("#estNC").val(data.numerocalle);
+        $("#estReferencia").val(data.referencia);
+        $("#estLatitud").val(data.latitud);
+        $("#estLongitud").val(data.longitud);
+      }
+    });
+  });
+
+  // Actualizar
+  $("#btn-update-est").click(function(){
+    let data = {
+      op: 'updateEstablishment', 
+      idestablecimiento: idestablecimiento,
+      iddistrito: $("#estDistrito").val(),
+      establecimiento: $("#establecimiento").val(),
+      ruc: $("#ruc").val(),
+      tipocalle: $("#estTipoC").val(),
+      nombrecalle: $("#estNomCalle").val(),
+      numerocalle: $("#estNC").val(),
+      referencia: $("#estReferencia").val(),
+      latitud: $("#estLatitud").val(),
+      longitud: $("#estLongitud").val()
+    };
+
+    sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar datos del establecimiento?").then(confirm => {
+      if(confirm.isConfirmed){
+        $.ajax({
+          url: 'controllers/establishment.controller.php',
+          type: 'GET',
+          data: data,
+          success: function(e){
+            console.log(e)
+            $("#content-establecimiento").collapse('hide');
+            listEstablishment();
+          }
+        });
+      }
+    });
+
+  });
 
 
   $("#especiality").on("click", ".modificarEsp", function(){
     idespecialidad = $(this).attr("data-idespecialidad");
-    $("#collapseEspecialidad").collapse();
+    $("#collapseEspecialidad").collapse("show");
 
     $.ajax({
       url: "controllers/specialty.controller.php",
@@ -458,14 +506,12 @@
   $("#personas").on("click", ".modificarPerson", function(){
     idpersona = $(this).attr("data-idpersona");
 
-
     $.ajax({
       url: 'controllers/person.controller.php',
       type: 'GET',
       data: 'op=getDataPerson&idpersona=' + idpersona,
       success: function(e) {
         var datos = JSON.parse(e);
-        console.log(datos);
 
         $("#nombres").val(datos[0].nombres);
         $("#apellidos").val(datos[0].apellidos);
@@ -480,8 +526,73 @@
       }
     });
 
+    $.ajax({
+      url: 'controllers/user.controller.php',
+      type: 'GET',
+      data: 'op=getDataUser',
+      success: function(result){
+        var datos = JSON.parse(result);
+        //console.log(datos[0])
+        $("#horarioatencion").val(datos[0].horarioatencion);
+      }
+    });
+
   });
 
+  function updateDataUser(){
+    let nombres = $("#nombres").val();
+    let apellidos = $("#apellidos").val();
+    let fechanac = $("#fechanaci").val();
+    let telefono = $("#telefono").val();
+    let tipocalle = $("#inTipoC").val();
+    let nombrecalle = $("#inNCalle").val();
+    let numerocalle = $("#inNC").val();
+    let pisodepa = $("#inPiso").val();
+    let horarioatencion = $("#horarioatencion").val();
+
+    var data = {
+      op: 'updateUser',
+      apellidos: apellidos,
+      nombres: nombres,
+      fechanac: fechanac,
+      telefono: telefono,
+      tipocalle: tipocalle,
+      nombrecalle: nombrecalle,
+      numerocalle: numerocalle,
+      pisodepa: pisodepa,
+      horarioatencion: horarioatencion
+    }
+
+    if(nombres == "" || apellidos == "" || fechanac == "" || telefono == "" || tipocalle == "" || nombrecalle == "" || numerocalle == "" || pisodepa == ""){
+      sweetAlertWarning("Invalido", "Complete los datos");
+    } else {
+      sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar los datos?").then(confirm => {
+        if(confirm.isConfirmed){
+          $.ajax({
+            url: 'controllers/user.controller.php',
+            type: 'GET',
+            data: data,
+            success: function(e) {
+              if(e == ""){
+                listDataUser();
+                $("#containerDatePerson").collapse("hide");
+                //listDatosPerson();
+                $("#nombres").val('');
+                $("#apellidos").val('');
+                $("#fechanaci").val('');
+                $("#telefono").val('');
+                $("#inTipoC").val('');
+                $("#inNCalle").val('');
+                $("#inNC").val('');
+                $("#inPiso").val('');
+                $("#horarioatencion").val('');
+              }
+            }
+          });
+        }
+      });
+    }
+  }
 
   function RegistrarPersonas(){  
     let nombres = $("#nombres").val();
@@ -534,7 +645,7 @@
             processData: false,
             cache: false,
             success: function(e) {
-              listDatosPerson();
+              //listDatosPerson();
               $("#nombres").val('');
               $("#apellidos").val('');
               $("#fechanaci").val('');
@@ -591,17 +702,8 @@
           timer: 1000
       });
     }else{
-
-      Swal.fire({
-        title: '¿Estas seguro agregar la red social?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#808B96',
-        confirmButtonText: 'Agregar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-
+      sweetAlertConfirmQuestionSave("¿Estas seguro agregar la red social?").then(confirm => {
+        if(confirm.isConfirmed){
           $.ajax({
             url: 'controllers/redsocial.controller.php',
             type: 'POST',
@@ -617,23 +719,9 @@
               datosNuevos = true;
             }
           });
-          Swal.fire(
-              'Proceso Realizado',
-              'Red social registrado',
-              'success'
-          )
-        }else{
-          Swal.fire({
-            position: 'center',
-            icon: 'info',
-            title: 'Operación Cancelada',
-            showConfirmButton: false,
-            timer: 2500
-          });
         }
-      })
+      });
     } 
-
   }
 
   //Modificar RedSocial
@@ -721,55 +809,34 @@
 
   $("#seguidos").on("click",".modificar", function(){
 
-    let idfollowing;
+    let idfollowing = $(this).attr("data-idfollowing");
 
-    var formData = new FormData();
-    idfollowing = $(this).attr("data-idfollowing");
-    
-    formData.append("op", "deleteFoller");
-    formData.append("idfollower", "idusuario");
-    formData.append("idfollowing", idfollowing);
-
-    Swal.fire({
-        title: '¿Estas seguro dejar de seguir a la persona?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#808B96',
-        confirmButtonText: 'Dejar de Seguir'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-          url: 'controllers/follower.controller.php',
-          type: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false,
-          cache: false,
-          success: function(e) {
-            console.log(e);
-            listFollowing();
-            countFollowing();
-          }
-        });
-        Swal.fire(
-            'Proceso Realizado',
-            'Dejaste de seguir a la persona',
-            'error'
-        )
-      }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'info',
-          title: 'Operación Cancelada',
-          showConfirmButton: false,
-          timer: 2500
-        });
+    sweetAlertConfirmQuestionDelete("¿Estas seguro dejar de seguir a la persona?")
+    .then((confirm) => {
+      if(confirm.isConfirmed){
+        deleteFollower(idfollowing);
       }
-    })
-
+    });
+  
   });
 
+  // Dejar de seguir
+  function deleteFollower(idfollowing){
+    $.ajax({
+      url: 'controllers/follower.controller.php',
+      type: 'GET',
+      data: {
+        op: 'deleteFollower',
+        idfollowing: idfollowing 
+      },
+      success: function(e) {
+        listFollower();
+        listFollowing();
+        countFollower();
+        countFollowing();
+      }
+    });
+  }
 
   function countFollower(){
     $.ajax({
@@ -830,9 +897,10 @@
           url: 'controllers/specialty.controller.php',
           type: "GET",
           data: 'op=deleteSpecialty&idespecialidad=' + idespecialidad,
-          success: function (){
-            listEspeciality();
+          success: function (e){
             sweetAlertSuccess("Realizado", "La especialidad ha sido eliminada");
+            listEspeciality();
+            loadPublicationWorks(); // Vista Publicaciones
           }
         });
       }
@@ -853,14 +921,21 @@
   // Seguir
   $("#btnseguir").click(function(){
 
-    sweetAlertConfirmQuestionSave("¿Está seguro de seguir a esta persona?").then((confirm) => {
-      if(confirm.isConfirmed){
-        registerFollower({
-          op             : 'registerFollower',
-          idusuarioactivo: idusuarioActivo
-        });
-      }
-    });
+    let textButton = $(this).html();
+    if(textButton == "Seguir"){
+      registerFollower({
+        op             : 'registerFollower',
+        idusuarioactivo: idusuarioActivo
+      });
+
+      $("#btnseguir").removeClass("btn-info").addClass("btn-success");
+      $("#btnseguir").html("Seguido");
+      
+    } else {
+      deleteFollower(idusuarioActivo);
+      $("#btnseguir").removeClass("btn-success").addClass("btn-info");
+      $("#btnseguir").html("Seguir");
+    }
   });
 
   // Registrar seguidor
@@ -874,8 +949,9 @@
           countFollower();
           countFollowing();
           listFollower();
-          listFollowing();
-          validateFollower();
+          listFollowing();          
+        } else {
+          sweetAlertWarning(result, "Iniciar sesión o crearse una cuenta");
         }
       }
     });
@@ -890,23 +966,129 @@
       success: function(result){
         if(result == "Seguido"){
           $("#btnseguir").removeClass("btn-info").addClass("btn-success");
+          $("#btnseguir").html("Seguido");
         } else {
           $("#btnseguir").removeClass("btn-success").addClass("btn-info");
+          $("#btnseguir").html("Seguir");
         }
-        $("#btnseguir").html(result);
       }
     });
   }
 
+  function listDepartments(){
+    $.ajax({
+      url: 'controllers/ubigeo.controller.php',
+      type: 'GET',
+      data: 'op=getDepartments',
+      success: function(e){
+        $("#estDepartamento").html(e);
+      }
+    });
+  }
+
+  $("#estDepartamento").change(function(){
+    let iddepartamento = $(this).val();
+
+    listProvinces(iddepartamento);
+  });
+
+  function listProvinces(iddepartamento){
+    $.ajax({
+      url: 'controllers/ubigeo.controller.php',
+      type: 'GET',
+      data: 'op=getProvinces&iddepartamento=' + iddepartamento,
+      success: function(e){
+        $("#estProvincia").html(e);
+      }
+    });
+  }
+
+  $("#estProvincia").change(function(){
+    let idprovincia = $(this).val();
+
+    $.ajax({
+      url: 'controllers/ubigeo.controller.php',
+      type: 'GET',
+      data: 'op=getDistricts&idprovincia=' + idprovincia,
+      success: function(e){
+        $("#estDistrito").html(e);
+      }
+    });
+  });
+
+  function listDistricts(idprovincia){
+    $.ajax({
+      url: 'controllers/ubigeo.controller.php',
+      type: 'GET',
+      data: 'op=getDistricts&idprovincia=' + idprovincia,
+      success: function(e){
+        $("#estDistrito").html(e);
+      }
+    });
+  }
+
+  $("#btnEditPrivilegedData").click(function(){
+    $.ajax({
+      url: 'controllers/user.controller.php',
+      type: 'GET',
+      data: 'op=getDataUser',
+      success: function(result){
+        var datos = JSON.parse(result);
+        //console.log(datos[0])
+        $("#email").val(datos[0].email);
+        $("#emailrespaldo").val(datos[0].emailrespaldo);
+      }
+    });
+  });
+
+  $("#btnUpdatePrivilegedData").click(function(){
+    let email = $("#email").val();
+    let emailrespaldo = $("#emailrespaldo").val();
+    let clave1 = $("#clave1").val();
+    let clave2 = $("#clave2").val();
+
+    if(email == "" || clave1 == "" || clave2 == ""){
+      sweetAlertWarning("Invalido", "Ingrese su Email y  Password");
+    } else {
+      if( clave1 !== clave2){
+        sweetAlertWarning("Contraseña incorrecta", "Las contraseñas no coinciden");
+      } else {
+        sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar sus credenciales?").then(confirm => {
+          if(confirm.isConfirmed){
+            var data = {
+              op: 'updateUserCredentials',
+              email: email,
+              emailrespaldo: emailrespaldo,
+              clave: clave1
+            }
+        
+            $.ajax({
+              url: 'controllers/user.controller.php',
+              type: 'GET',
+              data: data,
+              success: function(result){
+                sweetAlertInformation("Realizado", "Credenciales actualizados");
+                $("#form-credentials")[0].reset();
+                $("#contentainerCredentials").collapse("hide");
+              }
+            });
+          }
+        });
+      }
+    }
+  });
+
   $("#agregarEsp").click(RegisterSpecialtyUser);
   $("#agregarred").click(RegisterRedSocial);
   $("#btnServices").click(RegisterServices);
-  $("#actualizarPer").click(RegistrarPersonas);
+  $("#actualizarPer").click(updateDataUser);
 
+  listDepartments();
   validateFollower();
   listFollower();
   listFollowing();
-  listDatosPerson();
+  //listDatosPerson();
+  listDataUser();
   listEstablishment();
   listInfo();
   descripcion();

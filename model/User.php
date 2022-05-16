@@ -114,6 +114,26 @@ class User extends ModelMaster{
     }
   }
   
+  // Actualizar credenciales
+  public function updateUserCredentials(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_modificar_credenciales", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+  
+  // Actualizar horario de aención de un usuario
+  public function updateOfficeHours(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_modificar_horarioatencion", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+
   // Actualizar descripcion de un usuario
   public function updateDescrip(array $data){
     try{

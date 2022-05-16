@@ -17,29 +17,27 @@ if(isset($_GET['op'])){
     else{
       foreach ($data as $row){
 
-        $getImage = getImageProfileUser($row['idtousuario']);
+        $getImage = getImageProfileUser($row['idfromusuario']);
         $imageProfile = $getImage != ''? $getImage : 'default_profile_avatar.svg'; 
         $options = "";
 
         if(isset($_SESSION['idusuario'])){
-          if($_SESSION['idusuario'] == $row['idtousuario']){
+          if($_SESSION['idusuario'] == $row['idfromusuario']){
             $options = "
               <a href='javascript:void(0)' class='text-info edit-comment'>Editar</a>
               <a href='javascript:void(0)' class='text-danger delete-comment' data-code-forum='{$row['idforo']}'>Eliminar</a>
               <a href='javascript:void(0)' class='text-info update-comment d-none mr-2' data-code-forum='{$row['idforo']}'>Actualizar</a>
               <a href='javascript:void(0)' class='text-secondary cancel-edit-comment d-none'>Cancelar</a>
             ";
-          } else {
-            $options = "<a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>";
-          }
+          } 
         }
-         else{
+         /* else{
           $options = "<a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>";
-        }
+        } */
 
         echo "
           <div class='box-comment'>
-            <img src='dist/img/{$imageProfile}' alt='' />
+            <img src='dist/img/user/{$imageProfile}' />
 
             <div class='box-content-commented'>
               <div class='name-user'>
@@ -66,11 +64,11 @@ if(isset($_GET['op'])){
   // Listar
   if($_GET['op'] == 'getQueriesToUser'){
     $idusuario;
-    
-    if($_GET['idusuarioactivo'] != -1){
-      $idusuario = $_GET['idusuarioactivo'];
-    } else {
+
+    if(isset($_SESSION['idusuario']) && $_GET['idusuarioactivo'] == -1){
       $idusuario = $_SESSION['idusuario'];
+    } else {
+      $idusuario = $_GET['idusuarioactivo'];
     }
 
     $data = $forum->getQueriesToUser([
@@ -84,10 +82,18 @@ if(isset($_GET['op'])){
 
   // Registrar publicación de consulta
   if($_GET['op'] == 'commentForum'){
+    $idusuarioactivo;
+
     if(isset($_SESSION['idusuario'])){
+      if($_GET['idusuarioactivo'] == -1){
+        $idusuarioactivo = $_SESSION['idusuario'];
+      } else {
+        $idusuarioactivo = $_GET['idusuarioactivo'];
+      }
+
       $forum->commentForum([
         'idfromusuario' => $_SESSION['idusuario'],
-        'idtousuario'   => $_GET['idusuario'],
+        'idtousuario'   => $idusuarioactivo,
         'consulta'      => $_GET['consulta']
       ]);
     } else {

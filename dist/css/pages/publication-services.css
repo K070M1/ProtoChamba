@@ -4,6 +4,7 @@
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
 }
 
 .container-services .content-service {

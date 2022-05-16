@@ -6,7 +6,7 @@ class Establishment extends ModelMaster{
   // Listar establecimientos por usuario
   public function getEstablishmentsByUser(array $data){
     try{
-      return parent::execProcedure($data, "spu_establecimientos_listar_User", true);
+      return parent::execProcedure($data, "spu_establecimientos_listar_user", true);
     }
     catch(Exception $error){
       die($error->getMessage());

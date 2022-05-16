@@ -89,7 +89,9 @@ function registerUser() {
                             }else{
                                 $("#modalRegister").modal('hide');
                                 $("#modal-perfil-img-new").modal('toggle');
+                                loadPicturePerfil();
                                 sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
+                                //window.location.reload();
                             }
                         }
                     });
@@ -116,7 +118,7 @@ function newProfileUser(){
         cache: false,
         success: function(e) {
             $("#modal-perfil-img-new").modal('hide');
-            window.location.reload();
+            //window.location.reload();
         }
     });
 }
@@ -141,7 +143,8 @@ function loadPicturePerfil(){
 //Foto de perfil de nuevo usuario
 $("#btn-omt-prf").click(function(){
     $("#modal-perfil-img-new").modal('hide');
-    window.location.reload();
+    loadPicturePerfil();
+    //window.location.reload();
 });
 
 $("#newUserFile").change(function(){

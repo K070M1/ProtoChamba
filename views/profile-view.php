@@ -1,5 +1,13 @@
+<?php 
+session_start();
+
+if(isset($_SESSION["login"])){
+  $imagenusuario = $_SESSION['imagenusuario'];
+}else{
+  $imagenusuario = 'default_profile_avatar.svg';
+}
+?>
 <!-- css perfil -->
-<link rel="stylesheet" href="./dist/css/pages/profile.css">
 <link rel="stylesheet" href="./dist/css/pages/styleGaleria.css">
 
 <!-- videojs -->
@@ -9,6 +17,7 @@
 <link rel="stylesheet" href="dist/css/pages/publication-services.css" />
 <link rel="stylesheet" href="dist/css/pages/style-video.css">
 <link rel="stylesheet" href="dist/css/uploadFile.css">
+<link rel="stylesheet" href="dist/css/pages/profile.css">
 
 <!--Contenido-->
 <section class="perfil-usuario align-items-end">
@@ -66,7 +75,7 @@
 
           </div>
           <div class="nivel">
-            <h5>Excelente</h5>
+            <h5>Estandar</h5>
           </div>
         </div>
       </div>
@@ -94,7 +103,7 @@
 
       <div class="contenedor-perfil">
         <div class="profile-info">
-          <div class="info-col">
+          <div class="info-col" >
             <div class="profile-intro">
               <h3>Información:</h3>
               <hr>
@@ -111,9 +120,10 @@
                   <div class="col-md-9">
                     <h3>Descripción: </h3>
                   </div>
-                  <div class="col-md-3">
-                    <a href="javascript:void(0)" class="btn btn-outline-info edit-come"><i class='fas fa-edit'></i></a>
-                    <a href="javascript:void(0)" class="btn btn-outline-warning edit-come-cancel d-none"><i class="far fa-save"></i></a>
+                  <div class="col-md-3 text-right">
+                    <a href="javascript:void(0)" id="btn-cancel-edit-description" class="btn btn-outline-secondary  d-none"><i class='fas fa-times'></i></a>
+                    <a href="javascript:void(0)" id="btn-edit-description" class="btn btn-outline-info "><i class='fas fa-edit'></i></a>
+                    <a href="javascript:void(0)" id="btn-update-description" class="btn btn-outline-info d-none"><i class="far fa-save"></i></a>
                   </div>
                 </div>
                 <hr>
@@ -133,87 +143,142 @@
     <!--Información nav-->
     <div class="tab-pane fade " id="nav-informacion" role="tabpanel" aria-labelledby="nav-informacion-tab" style="margin-top: 2em;">
       <div class="row">
-        <div class="col-3">
+        <div class="col-md-3">
           <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <a class="nav-link active " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Información General</a>
-            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Servicios</a>
             <a class="nav-link" id="v-pills-esp-tab" data-toggle="pill" href="#v-pills-esp" role="tab" aria-controls="v-pills-esp" aria-selected="false">Especialidades</a>
             <a class="nav-link" id="v-pills-est-tab" data-toggle="pill" href="#v-pills-est" role="tab" aria-controls="v-pills-est" aria-selected="false">Establecimientos</a>
             <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">otros enlaces</a>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-md-9">
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
-              <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Datos Personales</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnP" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <i class='fas fa-edit'></i>
-                    </button>
+          
+              <div class="card" >
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-10 text-center">
+                      <h5 class="text-bold">Datos Personales</h5>
+                    </div>
+                    <div class="col-2  text-right">
+                      <button id="btnP" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#containerDatePerson" >
+                        <i class='fas fa-edit'></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              </p>
-              <div class="collapse" id="collapseExample">
-                <div class="card card-body" id="agregarser">
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label for="">Nombres:</label>
-                        <input type="text" class="form-control form-control-border" id="nombres">
+                <div class="collapse" id="containerDatePerson">
+                  <div class="card-body " >
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label for="">Nombres:</label>
+                          <input type="text" class="form-control form-control-border" id="nombres">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label for="">Apellidos:</label>
+                          <input type="text" class="form-control form-control-border" id="apellidos">
+                        </div>
                       </div>
-                      <div class="col-md-6">
-                        <label for="">Apellidos:</label>
-                        <input type="text" class="form-control form-control-border" id="apellidos">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label for="">Fecha Nacimiento:</label>
-                        <input type="date" class="form-control form-control-border" id="fechanaci">
-                      </div>
-                      <div class="col-md-6">
-                        <label for="">Teléfono:</label>
-                        <input type="tel" class="form-control form-control-border" id="telefono">
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-12">
-                        <label>Dirección:</label>
-                        <div class="form-group row">
-                          <div class="col-md-2">
-                            <Select class="custom-select form-control-border" id="inTipoC">
-                              <option value="AV">AV</option>
-                              <option value="CA">CA</option>
-                              <option value="JR">JR</option>
-                              <option value="PJ">PJ</option>
-                              <option value="UR">UR</option>
-                              <option value="LT">LT</option>
-                            </Select>
-                          </div>
-                          <div class="col-md-6">
-                            <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="inNCalle">
-                          </div>
-                          <div class="col-md-2">
-                            <input type="number" class="form-control form-control-border" placeholder="N°" id="inNC" maxlength="5">
-                          </div>
-                          <div class="col-md-2">
-                            <input type="number" class="form-control form-control-border" placeholder="Piso" id="inPiso" maxlength="5">
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label for="fechanaci">Fecha Nacimiento:</label>
+                          <input type="date" class="form-control form-control-border" id="fechanaci">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label for="">Teléfono:</label>
+                          <input type="tel" class="form-control form-control-border" id="telefono">
+                        </div>
+                      </div>  
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label>Dirección:</label>
+                          <div class="row">
+                            <div class="col-sm-2 form-group">
+                              <Select class="custom-select form-control-border" id="inTipoC">
+                                <option value="AV">AV</option>
+                                <option value="CA">CA</option>
+                                <option value="JR">JR</option>
+                                <option value="PJ">PJ</option>
+                                <option value="UR">UR</option>
+                                <option value="LT">LT</option>
+                              </Select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                              <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="inNCalle">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                              <input type="number" class="form-control form-control-border" placeholder="N°" id="inNC" maxlength="5">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                              <input type="number" class="form-control form-control-border" placeholder="Piso" id="inPiso" maxlength="5">
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-sm-12 form-group">
+                          <label for="horarioatencion">Horario de atención:</label>
+                          <input type="text" id="horarioatencion" class="form-control form-control-border">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 form-group text-right" >
+                          <button type="button" class="btn btn-outline-info"  id="actualizarPer">Actualizar</button>
+                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#containerDatePerson">Cancelar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>     
+              
+              <div class="card ">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-10 text-center">
+                      <h5 class="text-bold">Información privilegiada</h5>
                     </div>
-                    <div class="btn" style="margin-left: 28rem;">
-                      <button type="button" class="btn btn-outline-info" style="margin-top: 1em;" id="actualizarPer">Agregar</button>
-                      <button type="button" class="btn btn-outline-danger" style="margin-top: 1em;">Cancelar</button>
+                    <div class="col-2  text-right">
+                      <button id="btnEditPrivilegedData" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#contentainerCredentials" >
+                        <i class='fas fa-edit'></i>
+                      </button>
                     </div>
+                  </div>
+                </div>
+                <div class="collapse" id="contentainerCredentials">
+                  <div class="card-body " >
+                    <form autocomplete="off" id="form-credentials">
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                          <label for="email">Escribir su email</label>
+                          <input type="email" class="form-control form-control-border" id="email">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                          <label for="emailrespaldo">Escribir su email de respaldo (opcional)</label>
+                          <input type="email" class="form-control form-control-border" id="emailrespaldo">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label for="clave1">Password </label>
+                          <input type="password" class="form-control form-control-border" id="clave1">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label for="clave2">Reescriba su password </label>
+                          <input type="password" class="form-control form-control-border" id="clave2">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 form-group text-right" >
+                          <button type="button" class="btn btn-outline-info"  id="btnUpdatePrivilegedData">Actualizar</button>
+                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#contentainerCredentials">Cancelar</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -224,99 +289,146 @@
                 </tbody>
               </table>
             </div>
-            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-
-              <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Servicios</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnS" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              </p>
-              <div class="collapse" id="collapseExample">
-                <div class="card card-body" id="agregarser">
-                  <div class="form-group">
-                    <label for="">Nombre del Servicio:</label>
-                    <input type="text" class="form-control form-control-border" id="nombreservicio">
-                    <div class="btn" style="margin-left: 28rem;">
-                      <button type="button" class="btn btn-outline-info" style="margin-top: 1em;" id="btnServices">Agregar</button>
-                      <button type="button" class="btn btn-outline-danger" style="margin-top: 1em;">Cancelar</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <table class="table servicios">
-                <tbody id="serviciosUsuario">
-                  <!-- Cargado de forma dinamica -->
-
-                </tbody>
-              </table>
-            </div>
 
             <div class="tab-pane fade" id="v-pills-esp" role="tabpanel" aria-labelledby="v-pills-esp-tab">
               <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Especialidades</h5>
+              <div class="card "  id="">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-10 text-center">
+                      <h5 class="text-bold">Especialidades</h5>
+                    </div>
+                    <div class="col-2  text-right">
+                      <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseEspecialidad" >
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
+                    </div>
                   </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseEspecialidad" aria-expanded="false" aria-controls="collapseExample">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
+                </div>
+                <div class="collapse" id="collapseEspecialidad">
+                  <div class="card-body">
+                    <form >
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                          <label for="services">Servicio:</label>
+                          <!-- <input type="text" class="form-control form-control-border"> -->
+                          <select id="services" class="custom-select form-control-border"></select>
+                        </div>
+                      </div>                    
+                      <div class="row">
+                        <div class="col-md-9 form-group">
+                          <label for="descripcionEsp">Descripcion:</label>
+                          <input type="text" class="form-control form-control-border" id="descripcionEsp">
+                        </div>
+                        <div class="col-md-3 form-group">
+                          <label for="tarifa">Precio:</label>
+                          <input type="number" class="form-control form-control-border" id="tarifa">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 form-group text-right">
+                          <button type="button" class="btn btn-outline-info" id="agregarEsp">Agregar</button>
+                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#collapseEspecialidad">Cancelar</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
               </p>
-              <div class="collapse" id="collapseEspecialidad">
-                <div class="card card-body" id="agregarser">
-                  <div class="form-group">
-                    <label for="">Servicio:</label>
-                    <!-- <input type="text" class="form-control form-control-border"> -->
-                    <select id="services" class="custom-select form-control-border">
-
-                    </select>
-                    <div class="row">
-                      <div class="col-md-9">
-                        <label for="">Descripcion:</label>
-                        <input type="text" class="form-control form-control-border" id="descripcionEsp">
-                      </div>
-                      <div class="col-md-3">
-                        <label for="">Precio:</label>
-                        <input type="number" class="form-control form-control-border" id="tarifa">
-                      </div>
-                    </div>
-                    <div class="btn" style="margin-left: 28rem;">
-                      <button type="button" class="btn btn-outline-info" style="margin-top: 1em;" id="agregarEsp">Agregar</button>
-                      <button type="button" class="btn btn-outline-danger" style="margin-top: 1em;">Cancelar</button>
-                    </div>
-                  </div>
-                </div>
+              <div id="especiality">
+                
               </div>
-              <table class="table especialidades">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>ESPECIALIDAD</th>
-                    <th>TARIFA</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="especiality">
-                  <!-- Cargado de forma dinamica -->
-
-                </tbody>
-              </table>
             </div>
 
             <div class="tab-pane fade" id="v-pills-est" role="tabpanel" aria-labelledby="v-pills-est-tab">
+              <div class="card ">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-10 text-center">
+                      <h5 class="text-bold">Establecimientos</h5>
+                    </div>
+                    <div class="col-2  text-right">
+                      <button id="btnEst" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#content-establecimiento" >
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse " id="content-establecimiento">
+                  <div class="card-body">
+                    <form>
+                      <div class="row">
+                    
+                        <div class="col-md-9 form-group">
+                          <label for="establecimiento">Establecimiento</label>
+                          <input type="text" class="form-control form-control-border" id="establecimiento">
+                        </div>
+    
+                        <div class="col-md-3 form-group">
+                          <label for="ruc">ruc</label>
+                          <input type="text" class="form-control form-control-border" id="ruc" maxlength="11">
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label for="estDepartamento">Departamento</label>
+                          <select  class="custom-select form-control-border" id="estDepartamento">
+                          </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label for="estProvincia">Provincia</label>
+                          <select  class="custom-select form-control-border" id="estProvincia">
+  
+                          </select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                          <label for="estDistrito">Distrito</label>
+                          <select  class="custom-select form-control-border" id="estDistrito">
+    
+                          </select>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                          <label for="ubicacion">Ubicación:</label>
+                          <div class="row">
+                            <div class="col-sm-3 form-group">
+                              <Select class="custom-select form-control-border" id="estTipoC">
+                                <option value="AV">AV</option>
+                                <option value="CA">CA</option>
+                                <option value="JR">JR</option>
+                                <option value="PJ">PJ</option>
+                                <option value="UR">UR</option>
+                                <option value="LT">LT</option>
+                              </Select>
+                            </div>
+                            <div class="col-sm-7 form-group">
+                              <input type="text" placeholder="Nombre de calle" class="form-control form-control-border" id="estNomCalle">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                              <input type="number" class="form-control form-control-border" placeholder="N°" id="estNC" maxlength="5">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                          <label for="estReferencia">Referencia</label>
+                          <input type="text" class="form-control form-control-border" id="estReferencia">
+                        </div>
+              
+                        <div class="col-sm-6 form-group">
+                          <label for="estLatitud">Latitud</label>
+                          <input type="number" class="form-control form-control-border" id="estLatitud" maxlength="7">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                          <label for="estLongitud">Longitud</label>
+                          <input type="number" class="form-control form-control-border" id="estLongitud" maxlength="7">
+                        </div>
+                        <div class="col-sm-12 form-group text-right">
+                          <button type="button" class="btn btn-outline-info" id="btn-update-est">Guardar</button>
+                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#content-establecimiento" aria-expanded="false" >Cancelar</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
               <div id="empresas">
 
               </div>
@@ -324,42 +436,48 @@
 
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
               <p>
-              <div class="card" style="padding: 10px" id="card">
-                <div class="row">
-                  <div class="col-md-10 text-center">
-                    <h5>Redes Sociales</h5>
-                  </div>
-                  <div class="col-md-2  text-right">
-                    <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseRed">
-                      <i class="fas fa-plus-circle"></i>
-                    </button>
+              <div class="card " id="">
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-10 text-center">
+                      <h5 class="text-bold">Redes Sociales</h5>
+                    </div>
+                    <div class="col-2  text-right">
+                      <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseRed" aria-expanded="false" aria-controls="collapseRed">
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              </p>
-              <div class="collapse" id="collapseRed">
-                <div class="card card-body" id="agregarser">
-                  <div class="form-group" id="formred">
-                    <label>Nombre de red social:</label>
-                    <!-- <input type="text" class="form-control form-control-border" id="nombrered"> -->
-                    <Select class="custom-select form-control-border" id="nombrered">
-                      <option value='' disabled selected hidden>Seleccione:</option>
-                      <option value="I">Instagram</option>
-                      <option value="F">Facebook</option>
-                      <option value="W">WhatsApp</option>
-                      <option value="T">Twitter</option>
-                      <option value="K">Tik Tok</option>
-                      <option value="Y">You Tube</option>
-                    </Select>
-                    <label for="">Vinculo de red social:</label>
-                    <input type="text" class="form-control form-control-border" id="vinculo">
-                    <div class="btn" style="margin-left: 28rem;">
-                      <button type="button" class="btn btn-outline-info" id="agregarred" style="margin-top: 1em;">Agregar</button>
-                      <button type="button" class="btn btn-outline-danger" style="margin-top: 1em;">Cancelar</button>
+                <div class="collapse" id="collapseRed">
+                  <div class="card-body" >
+                    <div class="row" id="formred">
+                      <div class="col-md-12 form-group">
+                        <label>Nombre de red social:</label>
+                        <!-- <input type="text" class="form-control form-control-border" id="nombrered"> -->
+                        <Select class="custom-select form-control-border" id="nombrered">
+                          <option value='' disabled selected hidden>Seleccione:</option>
+                          <option value="I">Instagram</option>
+                          <option value="F">Facebook</option>
+                          <option value="W">WhatsApp</option>
+                          <option value="T">Twitter</option>
+                          <option value="K">Tik Tok</option>
+                          <option value="Y">You Tube</option>
+                        </Select>
+                      </div>
+                      <div class="col-md-12 form-group">
+                        <label for="">Vinculo de red social:</label>
+                        <input type="text" class="form-control form-control-border" id="vinculo">
+                      </div>
+                      <div class="col-md-12 form-group text-right" >
+                        <button type="button" class="btn btn-outline-info" id="agregarred" >Agregar</button>
+                        <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#collapseRed">Cancelar</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+              </p>
               <table class="table redsocial">
                 <tbody id="redsocial">
                   <!-- Cargado de forma dinamica -->
@@ -421,7 +539,7 @@
             </div>
             <div class="card-body">
               <div class="user-block-publication">
-                <img class="img-circle" src="dist/img/user1-128x128.jpg" alt="User Image">
+                <img class="img-circle" src="dist/img/user/<?php echo $imagenusuario ?>" >
                 <button type="button" class="btn btn-publication btn-primary" data-toggle="modal" data-target="#modal-publication">
                   Crear publicación
                 </button>
@@ -497,9 +615,9 @@
             <div class="card-body p-2 pt-3">
               <!-- Escribir comentario -->
               <div class="write-comment">
-                <img src="dist/img/avatar5.png" style="align-self:flex-start" />
+                <img src="dist/img/user/<?php echo $imagenusuario ?>" style="align-self:flex-start" />
                 <div class="text-auto-height">
-                  <div class="text-input-auto contenteditable write-text-comment" contenteditable="true" maxlength="250"> </div>
+                  <div class="text-input-auto contenteditable write-text-comment" id="forum-post-answers" contenteditable="true" maxlength="250"> </div>
                 </div>
                 <button type="button" class="btn btn-primary btn-send" style="align-self:flex-start">
                   <i class="fas fa-paper-plane"></i>

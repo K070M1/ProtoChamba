@@ -2,6 +2,7 @@
 var idusuarioActivo = localStorage.getItem("idusuarioActivo");
 idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 
+var commentIsVisible = false;
 var isDeleteImage = false;
 var isLoadImages = true;
 var isNewPublication = true;
@@ -41,8 +42,8 @@ $(".btn-publication").click(openFormPublicationAdd);
 
 // Abrir formulario para editar publicación
 function openFormPublicationEdit(){
-
   clearFormPublication();
+  loadSpecialtySelect();
   $("#title-modal-publication").html("Editar publicación");                 // Titulo del modal
   $("#btn-add-publication").addClass("d-none");         // Ocultar botón agregar
   $("#btn-modify-publication").removeClass("d-none");   // Mostrar botón modificar
@@ -51,6 +52,7 @@ function openFormPublicationEdit(){
 // Abrir formulario para registrar
 function openFormPublicationAdd(){
   clearFormPublication();
+  loadSpecialtySelect();
   $("#title-modal-publication").html("Crear publicación");  // Titulo del modal
   $("#btn-modify-publication").addClass("d-none");          // Ocultar botón modificar
   $("#btn-add-publication").removeClass("d-none");          // Mostrar botón agregar
@@ -392,7 +394,6 @@ $("#btn-add-publication").click(function(){
           processData: false,
           cache: false,
           success: function(result){
-            console.log(result);
             clearFormPublication();
             $("#modal-publication").modal('hide');
             loadPublicationWorks();
@@ -721,6 +722,7 @@ function registerComment(dataSend){
       } else {
         // Limpiar caja
         $(".write-text-comment").html('');
+        commentIsVisible = true;
         loadPublicationWorks(); // Actualizar datos en la vista
       }
     }
@@ -791,6 +793,7 @@ function updateCommentPublication(dataSend){
     success: function(result){
 
       if(result == ""){
+        commentIsVisible = true; // Mostrar contenidos
         loadPublicationWorks(); // Actualizar datos
       }
     }
@@ -867,38 +870,24 @@ $("#content-data-forum").on("click", ".cancel-edit-comment", function(){
 });
 
 // Detectar ENTER en la caja de consulta (Enviar datos al servidor)
-$(".content-forum .contenteditable").keydown(function(e){
+$("#forum-post-answers").keydown(function(e){
   if (e.keyCode == 13) {
     e.preventDefault();
-    let consulta = $(this).html().trim();
-
-    if(consulta == ""){
-      sweetAlertWarning("Texto invalido", "Por favor escriba algo...");
-    }
-    else{
-      registerCommentForum({
-        op        : 'commentForum',
-        idusuario : 2,
-        consulta  : consulta
-      });
-    }
-
-    // Enfoque
-    $(this).focus();
+    $(".content-forum .btn-send").click();    
   }
 });
 
 // Registrar Consultas
 $(".content-forum .btn-send").click(function (){
-  let consulta = $(this).prev(".text-auto-height").children(".write-text-comment").html().trim();
- 
+  let consulta = $("#forum-post-answers").html().trim();
+
   if(consulta == ""){
     sweetAlertWarning("Texto invalido", "Por favor escriba algo...");
   } else {
     registerCommentForum({
-      op        : 'commentForum',
-      idusuario : 2,
-      consulta: consulta
+      op              : 'commentForum',
+      idusuarioactivo : idusuarioActivo,
+      consulta        : consulta
     });
   }
 });
@@ -908,12 +897,12 @@ function registerCommentForum(dataSend){
     url: 'controllers/forum.controller.php',
     type: 'GET',
     data: dataSend,
-    success: function(result){
-      
+    success: function(result){      
       if(result != ""){
         sweetAlertWarning(result, "Debe iniciar sesión o registrarse");
       } else {
-        loadQueriesForumToUser(idusuarioForum);
+        $("#forum-post-answers").html('').focus();
+        loadQueriesForumToUser();
       }
     }
   });
@@ -939,9 +928,8 @@ function updateQueryForum(dataSend){
     type: 'GET',
     data: dataSend,
     success: function(result){
-      console.log(result)
       if(result == ""){
-        loadQueriesForumToUser(idusuarioForum);
+        loadQueriesForumToUser();
       }
     }
   });
@@ -967,7 +955,7 @@ function deleteQueryForum(idforo){
     data: 'op=deleteForum&idforo=' + idforo,
     success: function(result){
       if(result == ""){
-        loadQueriesForumToUser(idusuarioForum);
+        loadQueriesForumToUser();
       }
     }
   });
@@ -1032,6 +1020,13 @@ function loadPublicationWorks(){
     data: dataenv,
     success: function(result){
       $("#data-publication-works").html(result);
+      
+      // Mostrar contenido de comentarios
+      if(commentIsVisible){
+        $(".collapse").show('slow');
+      } else {
+        $(".collapse").hide('hide');
+      }
     }
   });
 }

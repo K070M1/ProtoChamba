@@ -33,23 +33,23 @@ class Person extends ModelMaster{
     }
   }
 
-    //listar datos de persona
-    public function getPerson(array $data){
-      try{
-        return parent::execProcedure($data, "spu_personas_getdata", true);
-      }
-      catch(Exception $error){
-        die($error->getMessage());
-      }
+  //listar datos de persona
+  public function getPerson(array $data){
+    try{
+      return parent::execProcedure($data, "spu_personas_getdata", true);
     }
-    //listar datos de persona
-    public function getDataPerson(array $data){
-      try{
-        return parent::execProcedure($data, "spu_personas_getdata", true);
-      }
-      catch(Exception $error){
-        die($error->getMessage());
-      }
+    catch(Exception $error){
+      die($error->getMessage());
     }
+  }
+  //listar datos de persona
+  /* public function getDataPerson(array $data){
+    try{
+      return parent::execProcedure($data, "spu_personas_getdata", true);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  } */
 }
 ?>
