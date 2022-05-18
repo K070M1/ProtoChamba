@@ -99,6 +99,7 @@
   flex-flow: row wrap;
   align-items: center;
   justify-content: flex-start;
+  width: 100%;
   /* gap: 1em 0.5em; */
 }
 .box{
@@ -266,6 +267,13 @@
   margin-top: -2px;
   width: 70%;
 }
+
+.owl-carousel .box .name-service{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .box .content-service .fee{
   position: relative;
   font-size: 17px;

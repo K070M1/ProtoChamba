@@ -52,14 +52,6 @@ if (isset($_GET['op'])) {
     }
   }
 
-  // obtener el total de especialidades por cada servicio
-  function countSpecialties($idservicio)
-  {
-    $specialty = new Specialty();
-    $specialties = $specialty->getSpecialtyByService(["idservicio" => $idservicio]);
-    return count($specialties);
-  }
-
   // Generar carousel
   function generateCarousel($data)
   {
@@ -246,12 +238,12 @@ if (isset($_GET['op'])) {
   // Obtener el icono del servicio
   function getIconService($nombreservicio){
     $attorney = "<i class='icon-service fab fa-autoprefixer'></i>";
-    $constructor = "<i class='icon-service fas fa-user-hard-hat'></i>";
+    $constructor = "<i class='icon-service fas fa-hard-hat'></i>";
     $animator = "<i class='icon-service fas fa-theater-masks'></i>";
     $consultant = "<i class='icon-service fab fa-black-tie'></i>";
     $asistant = "<i class='icon-service fas fa-hands-helping'></i>";
-    $joiner = "<i class='icon-service fas fa-garage'></i>";
-    $chef = "<i class='icon-service fas fa fa-hat-chef'></i>";
+    $joiner = "<i class='icon-service fas fa-screwdriver'></i>";
+    $chef = "<i class='icon-service fas fa fa-cheese'></i>";
     $driver = "<i class='icon-service fas fa-car-side'></i>";
     $design = "<i class='icon-service fab fa-affiliatetheme'></i>";
     $teacher = "<i class='icon-service fas fa-chalkboard-teacher'></i>";
@@ -260,7 +252,7 @@ if (isset($_GET['op'])) {
     $cleaning = "<i class='icon-service fas fa-hand-sparkles'></i>";
     $mechanical = "<i class='icon-service fas fa-cogs'></i>";
     $medicine = "<i class='icon-service fas fa-syringe'></i>";
-    $operator = "<i class='icon-service fab fa-jenkins'></i>";
+    $operator = "<i class='icon-service fas fa-user-tie'></i>";
     $developer = "<i class='icon-service fas fa-code'></i>";
     $promoter = "<i class='icon-service fas fa-ad'></i>";
     $security = "<i class='icon-service fas fa-user-shield'></i>";
@@ -310,17 +302,15 @@ if (isset($_GET['op'])) {
     }
   }
 
-  // Listar especialidades por servicio
-  if ($_GET['op'] == 'getSpecialtyByService') {
-    $data = $specialty->getSpecialtyByService(['idservicio' => $_GET['idservicio']]);
-    listSpecialtyControlSelect($data);
-  }
-
   // Mostrar servicios del usuario
   function listServicesUser($data, $visible){
 
     if(count($data) == 0){
-      echo "";
+      echo "
+        <div class='card card-body'>
+          <span>Sin especialidades</span>
+        </div>
+      ";
     } else {
       echo "<div class='accordion' id='accordion-services'> ";
         foreach($data as $row){
@@ -329,8 +319,8 @@ if (isset($_GET['op'])) {
               <div class='card-header' id='{$row['idservicio']}'>
                 <h5 class='mb-0'>
                   <button type='button' class='btn btn-link btn-block text-left collapsed' data-toggle='collapse' data-target='#collapse-{$row['idservicio']}'>
-                  {$row['nombreservicio']} 
-                  <span style='position: absolute; right:1em;'><i class='fas fa-sliders-h'></i></span>
+                    {$row['nombreservicio']} 
+                    <span style='position: absolute; right:1em;'><i class='fas fa-sliders-h'></i></span>
                   </button>
                 </h5>
               </div>
@@ -377,12 +367,12 @@ if (isset($_GET['op'])) {
               <i class='fas fa-gavel'></i>
             </td>
             <td>
-              {$row['especialidad']}
+              {$row['descripcion']}
             </td>
             <td>
               $/.{$row['tarifa']}
             </td>
-            <td {$visible}>
+            <td {$visible} class='text-right'>
               <a class='btn btn-info btn-sm modificarEsp' href='javascript:void(0)' data-idespecialidad='{$row['idespecialidad']}'><i class='fas fa-edit'></i></a>            
               <a data-idespecialidad='{$row['idespecialidad']}' class='btn btn-danger btn-sm eliminarEsp' href='#'><i class='fas fa-trash-alt'></i></a>            
             </td>
@@ -411,8 +401,8 @@ if (isset($_GET['op'])) {
       $visible = 'visible';
     }
 
-    $data = $specialty->listSpecialtyUser(["idusuario" => $idusuario]);
-    listSpecialtyUser($data, $visible);
+    $data = $specialty->getSpecialtyByUser(["idusuario" => $idusuario]);
+    listServicesUser($data, $visible);
   }
 
   // Listar en el control select

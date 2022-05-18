@@ -34,7 +34,7 @@ if (isset($_GET['op'])) {
         echo "
           <tr>
             <td align='center'>
-              <img src='dist/img/user/{$imageProfile}' class='img-circle img-size-32 mr-2'>
+              <img src='dist/img/user/{$imageProfile}' class='img-user-table'>
             </td> 
             <td>{$row['nombres']}</td>
             <td>{$row['fechaalta']}</td>
@@ -82,7 +82,7 @@ if (isset($_GET['op'])) {
         echo "
           <tr>
             <td>
-              <img class='table-avatar' src='dist/img/user/{$imageProfile}'>
+              <img class='img-user-table' src='dist/img/user/{$imageProfile}'>
             </td>
             <td>
               {$row['nombres']}
@@ -261,13 +261,6 @@ if (isset($_GET['op'])) {
       foreach($data as $row){
         echo "
           <tr>
-            <td>
-              <div class='text-right d-none' >
-                <a data-idpersona='{$row['idpersona']}' class='btn btn-outline-info btn-sm modificarPerson' href='#'><i class='fas fa-edit'></i></a>  
-              </div>
-            </td>
-          </tr>
-          <tr>
             <td align='center'>
               <i class='fas fa-smile'></i>
             </td>
@@ -365,7 +358,7 @@ if (isset($_GET['op'])) {
     loadListUsersViewHistory($data);
   }
 
-  // Camvbiar rol de usuario
+  // Cambiar rol de usuario
   if ($_GET['op'] == 'updateUserRole') {
     $user->updateUserRole(["idusuario" => $_GET['idusuario'],  "rol" => $_GET['rol']]);
   }
@@ -375,16 +368,14 @@ if (isset($_GET['op'])) {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->banUser(["idusuario" => $_GET['idusuario']]);
 
-    $mailer->sendMail($data[0]['email'], "Su cuenta a sido baneada temporalmente debido a contenido inapropiado para los demàs usuarios");
-    //echo json_encode($data[0]['email']);
+    $mailer->sendMail($data[0]['email'], "Su cuenta a sido baneada temporalmente debido a contenido inapropiado para los demás usuarios");
   }
 
-  // banear usuario
+  // Reactivar usuario
   if ($_GET['op'] == 'reactivateUser') {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->reactivateUser(["idusuario" => $_GET['idusuario']]);
     $mailer->sendMail($data[0]['email'], "Su cuenta a sido restablecida");
-    //echo json_encode($data[0]['email']);
   }
 
   // verificar correo
@@ -556,6 +547,22 @@ if (isset($_GET['op'])) {
       "emailrespaldo" => $_GET['emailrespaldo'],
       "clave"         =>  password_hash($_GET['clave'], PASSWORD_BCRYPT)
     ]);
+  }
+
+  // Level usuario
+  if($_GET['op'] == 'getLevelUser'){
+    $idusuario;
+    
+    if($_GET['idusuarioactivo'] != -1){
+      $idusuario = $_GET['idusuarioactivo'];
+    } else {
+      $idusuario = $_SESSION['idusuario'];
+    }
+
+    $data = $user->getAUser(["idusuario" => $idusuario]);
+    if($data){
+      echo $data[0]['nivelusuario'];
+    }
   }
 }
 

@@ -5,14 +5,14 @@ function scrollReportingData(){
     var scrollHeight = $("#scrollReportingUser").prop('scrollHeight'); //ALtura total del elemento scrolleable
     var offsetHeight = $("#scrollReportingUser").prop('offsetHeight'); // ALtura que se esta viendo
     var contentHeigh = scrollHeight - offsetHeight; // Altura del elemento
-    
     // 0 es el inicio // (valor maximo) es el punto final
     if((contentHeigh <= scrollTop) && !wall){
-        page = Number(lastpage);
-        lastpage = Number(page) + 11;
+        var countReport = '10';
+        page = Number(lastpage) + 1;
+        lastpage = Number(page) + Number(countReport);
         dataSendController['op'] = 'searchUsersByNamesViewHistory'
         dataSendController['start'] = page;
-        dataSendController['finish'] = lastpage;
+        dataSendController['finish'] = countReport;
         $.ajax({
             url: 'controllers/user.controller.php',
             type: 'GET',
@@ -39,20 +39,20 @@ $("#nav-configuracion-tab").click(function(){
 });
 
 // Cargar de publicaciones de los servicios
-/* $(window).on("scroll", function(){
+$(window).on("scroll", function(){
     if(typeof wservicepublic !== "undefined"){
         var scrollHeightDocument = $(document).height();
         var scrollPos = $(window).height() + $(window).scrollTop();
-        
         if(scrollHeightDocument <= scrollPos && !wwall && !wservicepublic){
-            wpage = Number(wlastpage);
-            wlastpage = Number(wpage) + 3;
+            var Workcount = '3';
+            wpage = Number(wlastpage) + 1 ;
+            wlastpage = Number(wpage) +  Number(Workcount);
     
             dataenv = {
                 'op':'getWorksByUser',
                 'idusuarioactivo': idusuarioActivo,
                 'start': wpage,
-                'finish': wlastpage
+                'finish': Workcount
             };
             $.ajax({
                 url: 'controllers/work.controller.php',
@@ -62,6 +62,8 @@ $("#nav-configuracion-tab").click(function(){
                     var errorval = 'No existen publicaciones';
                     var encon = e.includes(errorval);
                     if(encon){
+                        wpage = '0';
+                        wlastpage = Number(wlastpage) - 4;
                         wwall = true;
                     }else{
                         setTimeout(() => {
@@ -73,7 +75,7 @@ $("#nav-configuracion-tab").click(function(){
             });
         }
     }
-}); */
+});
 
 // Carga de comentarios de foro
 function scrollForoComments(){
@@ -81,17 +83,16 @@ function scrollForoComments(){
     var scrollHeight = $("#content-data-forum").prop('scrollHeight'); //ALtura total del elemento scrolleable
     var offsetHeight = $("#content-data-forum").prop('offsetHeight'); // ALtura que se esta viendo
     var contentHeigh = scrollHeight - offsetHeight; // Altura del elemento
-
     if((contentHeigh <= scrollTop) && !fwall){
-        
-        fpage = Number(flastpage);
-        flastpage = Number(fpage) + 5;
+        var count = '5';
+        flastpage = Number(fpage) + Number(count);
+        fpage = Number(flastpage) + 1;
         
         fdataenv = {
             'op':'getQueriesToUser',
             'idusuarioactivo': idusuarioActivo,
             'start': fpage,
-            'finish': flastpage
+            'finish': count
         };
 
         $.ajax({
@@ -102,6 +103,8 @@ function scrollForoComments(){
                 let errorval = 'Sin consultas';
                 let encon = e.includes(errorval);
                 if(encon){
+                    fpage = '0';
+                    flastpage = Number(flastpage) - 6;
                     fwall = true;
                 }else{
                     setTimeout(() => {

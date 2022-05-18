@@ -75,7 +75,7 @@ if(isset($_SESSION["login"])){
 
           </div>
           <div class="nivel">
-            <h5>Estandar</h5>
+            <h5 class="text-level estandar" id="text-level-user">Estandar</h5>
           </div>
         </div>
       </div>
@@ -104,34 +104,36 @@ if(isset($_SESSION["login"])){
       <div class="contenedor-perfil">
         <div class="profile-info">
           <div class="info-col" >
-            <div class="profile-intro">
-              <h3>Información:</h3>
-              <hr>
-              <div id="info-empresa">
-                <!-- Dinamico -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="text-bold">Información:</h5>
+              </div>
+              <div class="card-body">
+                <div id="info-empresa">
+                  <!-- Dinamico -->
+                </div>
               </div>
 
             </div>
           </div>
           <div class="post-col">
-            <div class="sdasd">
-              <div class="profile-der">
+            <div class="card">
+              <div class="card-header">
                 <div class="row">
                   <div class="col-md-9">
-                    <h3>Descripción: </h3>
+                    <h5 class="text-bold">Descripción: </h5>
                   </div>
                   <div class="col-md-3 text-right">
-                    <a href="javascript:void(0)" id="btn-cancel-edit-description" class="btn btn-outline-secondary  d-none"><i class='fas fa-times'></i></a>
-                    <a href="javascript:void(0)" id="btn-edit-description" class="btn btn-outline-info "><i class='fas fa-edit'></i></a>
-                    <a href="javascript:void(0)" id="btn-update-description" class="btn btn-outline-info d-none"><i class="far fa-save"></i></a>
+                    <a href="javascript:void(0)" id="btn-cancel-edit-description" class="btn btn-sm btn-outline-secondary  d-none"><i class='fas fa-times'></i></a>
+                    <a href="javascript:void(0)" id="btn-edit-description" class="btn btn-sm btn-outline-info "><i class='fas fa-edit'></i></a>
+                    <a href="javascript:void(0)" id="btn-update-description" class="btn btn-sm btn-outline-info d-none"><i class="far fa-save"></i></a>
                   </div>
                 </div>
-                <hr>
-
+              </div>
+              <div class="card-body">
                 <div id="text-descripcion">
                   <!-- DINAMICO -->
                 </div>
-
               </div>
             </div>
           </div>
@@ -148,13 +150,15 @@ if(isset($_SESSION["login"])){
             <a class="nav-link active " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Información General</a>
             <a class="nav-link" id="v-pills-esp-tab" data-toggle="pill" href="#v-pills-esp" role="tab" aria-controls="v-pills-esp" aria-selected="false">Especialidades</a>
             <a class="nav-link" id="v-pills-est-tab" data-toggle="pill" href="#v-pills-est" role="tab" aria-controls="v-pills-est" aria-selected="false">Establecimientos</a>
-            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">otros enlaces</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Enlaces</a>
           </div>
         </div>
         <div class="col-md-9">
           <div class="tab-content" id="v-pills-tabContent">
+            <!-- Información -->
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
           
+              <!-- Datos personales -->
               <div class="card" >
                 <div class="card-header">
                   <div class="row">
@@ -162,7 +166,7 @@ if(isset($_SESSION["login"])){
                       <h5 class="text-bold">Datos Personales</h5>
                     </div>
                     <div class="col-2  text-right">
-                      <button id="btnP" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#containerDatePerson" >
+                      <button id="btnP" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#containerDatePerson" >
                         <i class='fas fa-edit'></i>
                       </button>
                     </div>
@@ -225,8 +229,8 @@ if(isset($_SESSION["login"])){
                       </div>
                       <div class="row">
                         <div class="col-md-12 form-group text-right" >
-                          <button type="button" class="btn btn-outline-info"  id="actualizarPer">Actualizar</button>
-                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#containerDatePerson">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#containerDatePerson">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-info"  id="actualizarPer">Actualizar</button>
                         </div>
                       </div>
                     </form>
@@ -234,14 +238,15 @@ if(isset($_SESSION["login"])){
                 </div>
               </div>     
               
-              <div class="card ">
+              <!-- Datos privilegiados -->
+              <div class="card " id="card-data-privileged">
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
                       <h5 class="text-bold">Información privilegiada</h5>
                     </div>
                     <div class="col-2  text-right">
-                      <button id="btnEditPrivilegedData" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#contentainerCredentials" >
+                      <button id="btnEditPrivilegedData" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#contentainerCredentials" >
                         <i class='fas fa-edit'></i>
                       </button>
                     </div>
@@ -274,8 +279,8 @@ if(isset($_SESSION["login"])){
                       </div>
                       <div class="row">
                         <div class="col-md-12 form-group text-right" >
-                          <button type="button" class="btn btn-outline-info"  id="btnUpdatePrivilegedData">Actualizar</button>
-                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#contentainerCredentials">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#contentainerCredentials">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-info"  id="btnUpdatePrivilegedData">Actualizar</button>
                         </div>
                       </div>
                     </form>
@@ -283,23 +288,26 @@ if(isset($_SESSION["login"])){
                 </div>
               </div>
 
-              <table class="table personas">
-                <tbody id="personas">
-                  <!-- Cargado de forma dinamica -->
-                </tbody>
-              </table>
+              <!-- Datos dinamicos -->
+              <div class="card card-body">
+                <table class="table personas">
+                  <tbody id="personas">
+                    <!-- Cargado de forma dinamica -->
+                  </tbody>
+                </table>
+              </div>
             </div>
 
+            <!-- Especialidad -->
             <div class="tab-pane fade" id="v-pills-esp" role="tabpanel" aria-labelledby="v-pills-esp-tab">
-              <p>
-              <div class="card "  id="">
+              <div class="card " >
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
                       <h5 class="text-bold">Especialidades</h5>
                     </div>
                     <div class="col-2  text-right">
-                      <button id="btnsd" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseEspecialidad" >
+                      <button id="btnsd" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseEspecialidad" >
                         <i class="fas fa-plus-circle"></i>
                       </button>
                     </div>
@@ -307,12 +315,13 @@ if(isset($_SESSION["login"])){
                 </div>
                 <div class="collapse" id="collapseEspecialidad">
                   <div class="card-body">
-                    <form >
+                    <form autocomplete="off" id="form-add-esp">
                       <div class="row">
                         <div class="col-md-12 form-group">
                           <label for="services">Servicio:</label>
-                          <!-- <input type="text" class="form-control form-control-border"> -->
-                          <select id="services" class="custom-select form-control-border"></select>
+                          <select id="services" class="custom-select form-control-border">
+                            <!-- Dinamicos -->
+                          </select>
                         </div>
                       </div>                    
                       <div class="row">
@@ -327,20 +336,20 @@ if(isset($_SESSION["login"])){
                       </div>
                       <div class="row">
                         <div class="col-md-12 form-group text-right">
-                          <button type="button" class="btn btn-outline-info" id="agregarEsp">Agregar</button>
-                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#collapseEspecialidad">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary btn-cancel" data-toggle="collapse" data-target="#collapseEspecialidad">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-primary" id="agregarEsp">Agregar</button>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              </p>
-              <div id="especiality">
-                
-              </div>
+
+              <!-- datos dinamicos -->
+              <div id="especiality"></div>
             </div>
 
+            <!-- Establecimiento -->
             <div class="tab-pane fade" id="v-pills-est" role="tabpanel" aria-labelledby="v-pills-est-tab">
               <div class="card ">
                 <div class="card-header">
@@ -349,7 +358,7 @@ if(isset($_SESSION["login"])){
                       <h5 class="text-bold">Establecimientos</h5>
                     </div>
                     <div class="col-2  text-right">
-                      <button id="btnEst" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#content-establecimiento" >
+                      <button id="btnEst" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#content-establecimiento" >
                         <i class="fas fa-plus-circle"></i>
                       </button>
                     </div>
@@ -357,18 +366,18 @@ if(isset($_SESSION["login"])){
                 </div>
                 <div class="collapse " id="content-establecimiento">
                   <div class="card-body">
-                    <form>
+                    <form autocomplete="off" id="form-establecimiento">
                       <div class="row">
-                    
                         <div class="col-md-9 form-group">
                           <label for="establecimiento">Establecimiento</label>
                           <input type="text" class="form-control form-control-border" id="establecimiento">
-                        </div>
-    
+                        </div>    
                         <div class="col-md-3 form-group">
                           <label for="ruc">ruc</label>
                           <input type="text" class="form-control form-control-border" id="ruc" maxlength="11">
-                        </div>
+                        </div>                        
+                      </div>
+                      <div class="row">
                         <div class="col-md-4 form-group">
                           <label for="estDepartamento">Departamento</label>
                           <select  class="custom-select form-control-border" id="estDepartamento">
@@ -386,7 +395,9 @@ if(isset($_SESSION["login"])){
     
                           </select>
                         </div>
-                        <div class="col-sm-12 form-group">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 form-group">
                           <label for="ubicacion">Ubicación:</label>
                           <div class="row">
                             <div class="col-sm-3 form-group">
@@ -407,11 +418,14 @@ if(isset($_SESSION["login"])){
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-12 form-group">
                           <label for="estReferencia">Referencia</label>
                           <input type="text" class="form-control form-control-border" id="estReferencia">
-                        </div>
-              
+                        </div>  
+                      </div>
+                      <div class="row">
                         <div class="col-sm-6 form-group">
                           <label for="estLatitud">Latitud</label>
                           <input type="number" class="form-control form-control-border" id="estLatitud" maxlength="7">
@@ -420,10 +434,12 @@ if(isset($_SESSION["login"])){
                           <label for="estLongitud">Longitud</label>
                           <input type="number" class="form-control form-control-border" id="estLongitud" maxlength="7">
                         </div>
+                      </div>
+                      <div class="row">
                         <div class="col-sm-12 form-group text-right">
-                          <button type="button" class="btn btn-outline-info" id="btn-update-est">Guardar</button>
-                          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#content-establecimiento" aria-expanded="false" >Cancelar</button>
-                        </div>
+                          <button type="button" class="btn btn-sm btn-outline-secondary btn-cancel" data-toggle="collapse" data-target="#content-establecimiento" aria-expanded="false" >Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-primary" id="btn-add-est">Agregar</button>
+                        </div>                   
                       </div>
                     </form>
                   </div>
@@ -434,16 +450,16 @@ if(isset($_SESSION["login"])){
               </div>
             </div>
 
+            <!-- Redes sociales -->
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-              <p>
-              <div class="card " id="">
+              <div class="card">
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
                       <h5 class="text-bold">Redes Sociales</h5>
                     </div>
                     <div class="col-2  text-right">
-                      <button id="btnrs" class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseRed" aria-expanded="false" aria-controls="collapseRed">
+                      <button id="btnrs" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseRed" aria-expanded="false" aria-controls="collapseRed">
                         <i class="fas fa-plus-circle"></i>
                       </button>
                     </div>
@@ -451,39 +467,43 @@ if(isset($_SESSION["login"])){
                 </div>
                 <div class="collapse" id="collapseRed">
                   <div class="card-body" >
-                    <div class="row" id="formred">
-                      <div class="col-md-12 form-group">
-                        <label>Nombre de red social:</label>
-                        <!-- <input type="text" class="form-control form-control-border" id="nombrered"> -->
-                        <Select class="custom-select form-control-border" id="nombrered">
-                          <option value='' disabled selected hidden>Seleccione:</option>
-                          <option value="I">Instagram</option>
-                          <option value="F">Facebook</option>
-                          <option value="W">WhatsApp</option>
-                          <option value="T">Twitter</option>
-                          <option value="K">Tik Tok</option>
-                          <option value="Y">You Tube</option>
-                        </Select>
+                    <form autocomplete="off" id="formred">
+                      <div class="row" >
+                        <div class="col-md-12 form-group">
+                          <label>Nombre de red social:</label>
+                          <!-- <input type="text" class="form-control form-control-border" id="nombrered"> -->
+                          <Select class="custom-select form-control-border" id="nombrered">
+                            <option value='' disabled selected hidden>Seleccione:</option>
+                            <option value="I">Instagram</option>
+                            <option value="F">Facebook</option>
+                            <option value="W">WhatsApp</option>
+                            <option value="T">Twitter</option>
+                            <option value="K">Tik Tok</option>
+                            <option value="Y">You Tube</option>
+                          </Select>
+                        </div>
+                        <div class="col-md-12 form-group">
+                          <label for="">Vinculo de red social:</label>
+                          <input type="text" class="form-control form-control-border" id="vinculo">
+                        </div>
+                        <div class="col-md-12 form-group text-right" >
+                          <button type="button" class="btn btn-sm btn-outline-secondary btn-cancel" data-toggle="collapse" data-target="#collapseRed">Cancelar</button>
+                          <button type="button" class="btn btn-sm btn-outline-primary" id="agregarred" >Agregar</button>
+                        </div>
                       </div>
-                      <div class="col-md-12 form-group">
-                        <label for="">Vinculo de red social:</label>
-                        <input type="text" class="form-control form-control-border" id="vinculo">
-                      </div>
-                      <div class="col-md-12 form-group text-right" >
-                        <button type="button" class="btn btn-outline-info" id="agregarred" >Agregar</button>
-                        <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#collapseRed">Cancelar</button>
-                      </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
-              </p>
-              <table class="table redsocial">
-                <tbody id="redsocial">
-                  <!-- Cargado de forma dinamica -->
 
-                </tbody>
-              </table>
+              <!-- Datos dinamicos -->
+              <div class="card card-body">
+                <table class="table redsocial">
+                  <tbody id="redsocial">
+                    <!-- Cargado de forma dinamica -->  
+                  </tbody>
+                </table>                
+              </div>
             </div>
           </div>
         </div>
@@ -578,7 +598,6 @@ if(isset($_SESSION["login"])){
         <div class="tab-pane fade show active" id="pills-foto" role="tabpanel">
           <div class="row" id="load-Gallery">
 
-
           </div>
         </div>
         <!--./Fotos-->
@@ -615,7 +634,7 @@ if(isset($_SESSION["login"])){
             <div class="card-body p-2 pt-3">
               <!-- Escribir comentario -->
               <div class="write-comment">
-                <img src="dist/img/user/<?php echo $imagenusuario ?>" style="align-self:flex-start" />
+                <img src="dist/img/user/<?php echo $imagenusuario ?>" style="align-self:flex-start"/>
                 <div class="text-auto-height">
                   <div class="text-input-auto contenteditable write-text-comment" id="forum-post-answers" contenteditable="true" maxlength="250"> </div>
                 </div>
@@ -673,7 +692,7 @@ if(isset($_SESSION["login"])){
             </div>
           </div>
         </form>
-        <h7>Tus capturas o imágenes:</h7>
+        <h5>Tus capturas o imágenes:</h5>
         <div class="img-cnt-add">
           <div class="row img-container-upt">
 
@@ -870,16 +889,15 @@ if(isset($_SESSION["login"])){
 
 <!-- ZONA DE SCRIPTS -->
 <!-- Perfil -->
-<script src="dist/js/pages/profile.js"></script>
 <script src="dist/js/pages/galeria.js"></script>
+<script src="dist/js/pages/profile.js"></script>
 
 <!-- video js -->
 <script src="plugins/video-js/video.min.js"></script>
 
+<!--Carga con scroll-->
+<script src="dist/js/ChangeScroll.js"></script>
 <!-- scripts propios -->
 <script src="dist/js/utility.js"></script>
 <script src="dist/js/pages/publication-services.js"></script>
 <script src="dist/js/uploadFile.js"></script>
-
-<!--Carga con scroll-->
-<script src="dist/js/ChangeScroll.js"></script>

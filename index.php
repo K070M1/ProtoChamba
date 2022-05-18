@@ -270,7 +270,6 @@ if(isset($_SESSION["login"])){
                     <i class='nav-icon fas fa-calendar-alt'></i>
                     <p>
                       Calendario
-                      <span class='badge badge-info right'>2</span>
                     </p>
                   </a>
                 </li>

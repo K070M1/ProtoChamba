@@ -86,8 +86,8 @@
           <select id="tipo-recorrido" class="form-control">
             <option value="DRIVING">Ir en auto</option>
             <option value="WALKING">Ir caminando</option>
-            <option value="BICYCLING">Ir en bicicleta</option>
-            <option value="TRANSIT">Ir en transporte público</option>
+            <!-- <option value="BICYCLING">Ir en bicicleta</option>
+            <option value="TRANSIT">Ir en transporte público</option> -->
           </select>
         </div>
       </div>
@@ -103,7 +103,6 @@
 <script type="text/javascript" src="./dist/js/geolocalizacion-view.js"></script>
 <script>
   var serviciobuscado = localStorage.getItem('serviciobuscado');
-  console.log(serviciobuscado);
 
   if(serviciobuscado != undefined){
     $('#servicio-buscado').val(serviciobuscado);

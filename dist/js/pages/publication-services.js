@@ -12,11 +12,11 @@ var imagesTemp  = [];      // Almacenar ímagenes traidos del servidor
 var videoTemp  = [];      // Almacenar video traido del servidor
 var deletedFiles = [];    // Almacena archivos eliminados (ID GALERIA)
 var wpage = '0';
-var wlastpage = '7';
+var wlastpage = '4';
 var wwall = false;
 var wservicepublic = true;
 var fpage = '0';
-var flastpage = '8';
+var flastpage = '7';
 var fwall = false;
 
 // validar usuario activo
@@ -135,8 +135,7 @@ $("#btn-add-file").click(function () {
 
   if(isLoadImages){
     $("#input-new-image").click();
-  }
-  else{
+  } else {
     $("#input-new-video").click();
   }
 });
@@ -149,8 +148,7 @@ $("#btn-delete-files").click(function(){
         deleteAllImagespreview();      
       }
     });
-  }
-  else{
+  } else {
     sweetAlertConfirmQuestionDelete("¿Estas seguro de borrar el video?").then(confirm => {
       if(confirm.isConfirmed){    
         deleteVideoPreview();
@@ -396,9 +394,10 @@ $("#btn-add-publication").click(function(){
           success: function(result){
             clearFormPublication();
             $("#modal-publication").modal('hide');
+            if(wwall){
+              wlastpage = Number(wlastpage) + 1;
+            }
             loadPublicationWorks();
-            wpage = '0';
-            wlastpage = '3';
           }
       
         }); // Fin ajax
@@ -533,7 +532,6 @@ $("#btn-modify-publication").click(function(){
           processData: false,
           cache: false,
           success: function(result){  
-            console.log(result);          
             if(result == ""){
               idtrabajo = -1;
               clearFormPublication();
@@ -626,11 +624,11 @@ function qualifyService(dataSend){
     url: 'controllers/qualify.controller.php',
     data: dataSend,
     success: function(result){
-      console.log(result);
       if(result != ""){
         sweetAlertWarning(result, 'Debe iniciar sesión o registrarse');
       } else {
         loadPublicationWorks();
+        levelUser();
       }
     }
   });
@@ -905,7 +903,10 @@ function registerCommentForum(dataSend){
         sweetAlertWarning(result, "Debe iniciar sesión o registrarse");
       } else {
         $("#forum-post-answers").html('').focus();
-        loadQueriesForumToUser();
+        if(fwall){
+          flastpage = Number(flastpage) + 1;
+          loadQueriesForumToUser();
+        }
       }
     }
   });

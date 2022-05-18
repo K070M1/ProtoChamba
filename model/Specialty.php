@@ -25,16 +25,6 @@ class Specialty extends ModelMaster
     }
   }
 
-  // Listar por servicio
-  public function getSpecialtyByService(array $data)
-  {
-    try {
-      return parent::execProcedure($data, "spu_especialidades_listar_servicio", true);
-    } catch (Exception $error) {
-      die($error->getMessage());
-    }
-  }
-
   // Listar por servicio y  usuario
   public function getSpecialtyByServiceAndUser(array $data)
   {
@@ -57,16 +47,6 @@ class Specialty extends ModelMaster
 
   // Listar por id de usuario
   public function getSpecialtyByUser(array $data)
-  {
-    try {
-      return parent::execProcedure($data, "spu_especialidades_listar_usuario", true);
-    } catch (Exception $error) {
-      die($error->getMessage());
-    }
-  }
-
-  // Listar especialidad por usuario
-  public function listSpecialtyUser(array $data)
   {
     try {
       return parent::execProcedure($data, "spu_especialidades_listar_usuario", true);

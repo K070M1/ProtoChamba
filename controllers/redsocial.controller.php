@@ -7,11 +7,11 @@ $redsocial = new RedSocial();
 if (isset($_GET['op'])){
 
 
-  //sERVICIOS
+  //Redes sociales
   function listRedSocial($data, $visible){
 
     if(count($data) <= 0){
-      echo " ";
+      echo "<span>Sin redes sociales</span> ";
     }
     else{
       foreach($data as $row){
@@ -39,8 +39,7 @@ if (isset($_GET['op'])){
         elseif($red == 'K'){
           $red = "Tik Tok";
           $icono ='<i class="fab fa-tiktok"></i>';
-        }
-      
+        }      
 
         echo "
           <tr>
@@ -50,14 +49,11 @@ if (isset($_GET['op'])){
             <td>
               <a  href='{$row['vinculo']}'>$red</a>
             </td>
-            <td {$visible}>
-              <a data-idredSocial='{$row['idredsocial']}' class='btn btn-outline-info btn-sm modificarRed' href='#'><i class='fas fa-edit'></i></a>  
-              <a data-idredSocial='{$row['idredsocial']}' class='btn btn-outline-danger btn-sm eliminarRed' href='#'><i class='fas fa-trash-alt'></i></a>             
+            <td align='right' {$visible}>
+              <a data-idredSocial='{$row['idredsocial']}' class='btn btn-sm btn-outline-info btn-sm modificarRed' href='javascript:void(0)'><i class='fas fa-edit'></i></a>  
+              <a data-idredSocial='{$row['idredsocial']}' class='btn btn-sm btn-outline-danger btn-sm eliminarRed' href='javascript:void(0)'><i class='fas fa-trash-alt'></i></a>             
             </td> 
-          </tr>
-          <hr>
-
-          
+          </tr>       
         ";
       }
     }
