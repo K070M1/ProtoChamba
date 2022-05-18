@@ -92,7 +92,7 @@ BEGIN
 	
 	SET _salida =	(SELECT COUNT(*)  
 		FROM trabajos 
-		WHERE idusuario = _idusuario);
+		WHERE idusuario = _idusuario AND estado = 1);
 	
 	RETURN _salida;
 END $$
@@ -124,8 +124,7 @@ BEGIN
 	DECLARE _total_reacion INT;
 	
 	SET _total_usuario = (SELECT COUNT(*) FROM usuarios);
-	SET _total_reacion = TOTALREACCIONES(_idtrabajo);
-	
+	SET _total_reacion = TOTALREACCIONES(_idtrabajo);	
 	SET _calificacion = DIVIDENUM(_total_reacion, _total_usuario);
 	
 	RETURN _calificacion;
@@ -136,11 +135,16 @@ DELIMITER $$
 CREATE FUNCTION TCALIFICACIONTRABAJO(_idusuario INT)
 RETURNS DECIMAL(4,2)
 BEGIN
-	DECLARE _total DECIMAL(4,2);
-	
-	SET _total =	(SELECT SUM(CALIFICACIONTRABAJO(idtrabajo)) FROM trabajos
-				WHERE idusuario = _idusuario);
+	DECLARE _total DECIMAL(4,2);	
+	SET _total =	(SELECT SUM(CALIFICACIONTRABAJO(idtrabajo)) FROM trabajos WHERE idusuario = _idusuario);
 				
 	RETURN _total;
 END $$
 
+-- ESTRELLAS DEL USUARIO
+DELIMITER $$
+CREATE FUNCTION TCALIFICACIONUSUARIO(_idusuario INT)
+RETURNS DECIMAL(4,2)
+BEGIN
+	RETURN DIVIDENUM(TCALIFICACIONTRABAJO(_idusuario), TOTALTRABAJOS(_idusuario));
+END $$

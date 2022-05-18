@@ -224,8 +224,7 @@ DELIMITER $$
 CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
 	SELECT * FROM usuarios
-		WHERE email = _email
-		AND estado = '1';
+		WHERE email = _email AND estado = '1';
 END $$
 
 DELIMITER $$
@@ -485,7 +484,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_usuario(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
+	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F" AND idalbum IS NULL;
 END $$
 
 DELIMITER $$
@@ -819,30 +818,18 @@ CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)
 BEGIN
    SELECT * FROM especialidades
       WHERE idusuario = _idusuario AND estado = 1
-      ORDER BY idespecialidad DESC;
+      ORDER BY descripcion ASC;
 END $$
 
-DELIMITER $$
-CREATE PROCEDURE spu_especialidades_listar_servicio(IN _idservicio INT)
-BEGIN
-   SELECT * FROM vs_especialidades_listar
-      WHERE idservicio = _idservicio
-      ORDER BY idespecialidad DESC;
-END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_servicio_usuario(IN _idservicio INT, IN _idusuario INT)
 BEGIN
-   SELECT * FROM vs_especialidades_listar
-      WHERE idservicio = _idservicio AND idusuario = _idusuario
-      ORDER BY idespecialidad DESC;
+	SELECT * FROM especialidades 
+		WHERE idservicio = _idservicio AND 
+				idusuario = _idusuario AND 
+				estado = 1;
 END $$
-
-
-SELECT * FROM especialidades WHERE idusuario = 2 AND idservicio = 6;
-CALL spu_especialidades_listar_servicio(6);
-CALL spu_especialidades_listar_servicio_usuario(6, 2);
-CALL spu_servicios_listar_usuario(2);
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_aleatorio_servicio
@@ -879,7 +866,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_eliminar(IN _idespecialidad INT)
 BEGIN
-	DELETE FROM actividades WHERE idespecialidad = _idespecialidad;
+	DELETE FROM actividades WHERE idespecialidad = _idespecialidad;	
 	UPDATE trabajos SET estado = 0 WHERE idespecialidad = _idespecialidad;
 	UPDATE especialidades SET estado = 0 WHERE idespecialidad = _idespecialidad;
 END $$
@@ -1428,9 +1415,13 @@ CREATE PROCEDURE spu_total_calificacion_trabajos(IN _idusuario INT)
 BEGIN
 	SELECT SUM(CALIFICACIONTRABAJO(idtrabajo)) AS 'total' 
 		FROM trabajos
-		WHERE idusuario = _idusuario;
+		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
+SELECT TOTALTRABAJOS(23);
+SELECT CALIFICACIONTRABAJO(21);
+CALL spu_total_calificacion_trabajos(23);
+CALL spu_estrellas_usuario(23);
 
 -- ESTRELLAS POR USUARIOS
 DELIMITER $$
@@ -1438,7 +1429,6 @@ CREATE PROCEDURE spu_estrellas_usuario(IN _idusuario INT)
 BEGIN
 	SELECT DIVIDENUM(TCALIFICACIONTRABAJO(_idusuario), TOTALTRABAJOS(_idusuario)) AS 'estrellas';
 END $$
-
 
 -- =============================================================================================================
 -- GRAFICOS ESTADISTICOS 
@@ -1529,20 +1519,5 @@ BEGIN
 			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
 			GROUP BY SRV.nombreservicio;
 END $$
-
--- ???'
-DELIMITER $$
-CREATE PROCEDURE spu_total_usuarios_servicio_fechas(IN _fechainicio DATE, IN _fechafin DATE)
-BEGIN
-		SELECT SRV.nombreservicio, COUNT(USU.idusuario) AS 'total' 
-			FROM servicios SRV
-			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
-			INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
-			WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
-			GROUP BY SRV.nombreservicio;
-END $$
-
-SELECT * FROM usuarios
-
 
 

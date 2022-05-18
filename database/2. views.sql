@@ -22,26 +22,16 @@ CREATE VIEW vs_personas_listar AS
 		INNER JOIN departamentos DPT ON DPT.iddepartamento = PRV.iddepartamento;
 
 -- =============================================================================================================
--- VISTA DE USUARIOS Y ESTABLECIMIENTOS
+-- VISTA DE USUARIOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_usuarios_listar AS
 	SELECT 	USU.idusuario, VPL.idpersona, VPL.apellidos, VPL.nombres, VPL.fechanac,
 					VPL.iddepartamento, VPL.departamento, VPL.idprovincia, VPL.provincia,
 					VPL.iddistrito, VPL.distrito, VPL.direccion, USU.descripcion, 
 					USU.horarioatencion, VPL.telefono, USU.rol, USU.email, USU.emailrespaldo,
-					USU.clave, EST.idestablecimiento, EST.establecimiento, EST.ruc, 
-					CONCAT(
-						CASE 
-							WHEN EST.tipocalle LIKE 'CA' THEN 'Calle'
-							WHEN EST.tipocalle LIKE 'AV' THEN 'Avenida'
-							WHEN EST.tipocalle LIKE 'UR' THEN 'Urbanización'
-							WHEN EST.tipocalle LIKE 'PJ' THEN 'Pasaje'
-							WHEN EST.tipocalle LIKE 'JR' THEN 'Jirón'
-						END, ' ', EST.nombrecalle, ' #', EST.numerocalle) AS 'ubicacion', 
-					EST.referencia, EST.latitud, EST.longitud, USU.fechaalta, USU.estado
+					USU.clave, USU.nivelusuario, USU.estado
 		FROM usuarios USU
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
-		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 		WHERE USU.estado = 1;
 
 
@@ -53,7 +43,6 @@ CREATE VIEW vs_usuarios_listar_datos_basicos AS
 					USU.email, USU.rol, VPL.fechanac, USU.fechaalta, USU.estado
 		FROM usuarios USU
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
-		LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
 		WHERE USU.estado = 1 OR USU.estado = 2
 		ORDER BY USU.rol ASC;		
 		
@@ -85,25 +74,16 @@ CREATE VIEW vs_establecimientos AS
 -- VISTA DE ESPECIALIDAD Y SERVICIOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_especialidades_listar AS
-	SELECT 	ESP.`idespecialidad`, ESP.descripcion AS 'especialidad', USU.idusuario, CONCAT(USU.`nombres` , ' ' , USU.apellidos) AS 'nombres' , 
-					USU.email, USU.telefono, SRV.idservicio,	SRV.`nombreservicio`, USU.horarioatencion, EST.establecimiento, ESP.tarifa,
+	SELECT DISTINCT	ESP.`idespecialidad`, ESP.descripcion AS 'especialidad', USU.idusuario, CONCAT(USU.`nombres` , ' ' , USU.apellidos) AS 'nombres' , 
+					USU.email, USU.telefono, SRV.idservicio,	SRV.`nombreservicio`, USU.horarioatencion, ESP.tarifa,
 					 USU.descripcion AS 'biografia', USU.iddepartamento, USU.departamento, USU.idprovincia, USU.provincia, USU.iddistrito, USU.distrito,
-					 DIVIDENUM(TCALIFICACIONTRABAJO(USU.idusuario), TOTALTRABAJOS(USU.idusuario)) AS 'estrellas',
-					CONCAT(
-						CASE
-							WHEN EST.tipocalle LIKE 'CA' THEN 'Calle'
-							WHEN EST.tipocalle LIKE 'AV' THEN 'Avenida'
-							WHEN EST.tipocalle LIKE 'UR' THEN 'Urbanización'
-							WHEN EST.tipocalle LIKE 'PJ' THEN 'Pasaje'
-							WHEN EST.tipocalle LIKE 'JR' THEN 'Jirón'
-						END, ' ', EST.nombrecalle, ' #', EST.numerocalle
-					) AS 'ubicacion', EST.referencia
+					 DIVIDENUM(TCALIFICACIONTRABAJO(USU.idusuario), TOTALTRABAJOS(USU.idusuario)) AS 'estrellas'
 	FROM especialidades ESP
 	INNER JOIN servicios SRV ON SRV.idservicio = ESP.idservicio
 	INNER JOIN vs_usuarios_listar USU ON USU.idusuario = ESP.idusuario
-	LEFT JOIN establecimientos EST ON EST.idusuario = USU.idusuario
-	WHERE ESP.estado = 1;
-	-- GROUP BY SRV.idservicio, USU.idusuario;
+	WHERE ESP.estado = 1
+	GROUP BY USU.idusuario, SRV.idservicio
+	ORDER BY ESP.descripcion;
 	
 -- =============================================================================================================
 -- VISTA DE GALERIAS Y ALBUNES
@@ -119,7 +99,6 @@ CREATE VIEW vs_galerias_listar AS
 		LEFT JOIN trabajos TBJ ON TBJ.idtrabajo = GLR.idtrabajo
 		WHERE GLR.estado <> 0;
 
-SELECT * FROM galerias;
 
 -- =============================================================================================================
 -- VISTA DE TRABAJOS Y USUARIO
@@ -177,6 +156,7 @@ CREATE VIEW vs_listar_foros AS
 					FRS.consulta, FRS.fechaconsulta, FRS.fechaeliminado
 		FROM foros FRS
 		INNER JOIN vs_usuarios_listar_datos_basicos VUS ON VUS.idusuario = FRS.idfromusuario
-		WHERE FRS.estado = 1;
+		WHERE FRS.estado = 1
+		ORDER BY FRS.idforo ASC;
 		
 
