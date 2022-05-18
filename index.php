@@ -146,7 +146,7 @@ if(isset($_SESSION["login"])){
               <div class='login-tittle'>
                 <label>Inicio Sesión</label>
               </div>
-              <form >
+              <form autocomplete='off'>
 
                 <div class='form-group'>
                   <label>Correo electronico:</label>

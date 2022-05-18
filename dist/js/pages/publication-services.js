@@ -12,11 +12,11 @@ var imagesTemp  = [];      // Almacenar ímagenes traidos del servidor
 var videoTemp  = [];      // Almacenar video traido del servidor
 var deletedFiles = [];    // Almacena archivos eliminados (ID GALERIA)
 var wpage = '0';
-var wlastpage = '7';
+var wlastpage = '4';
 var wwall = false;
 var wservicepublic = true;
 var fpage = '0';
-var flastpage = '8';
+var flastpage = '7';
 var fwall = false;
 
 // validar usuario activo
@@ -396,11 +396,11 @@ $("#btn-add-publication").click(function(){
           success: function(result){
             clearFormPublication();
             $("#modal-publication").modal('hide');
+            if(wwall){
+              wlastpage = Number(wlastpage) + 1;
+            }
             loadPublicationWorks();
-            wpage = '0';
-            wlastpage = '7';
           }
-      
         }); // Fin ajax
       }
     }); // Fin Sweet alert
@@ -905,7 +905,10 @@ function registerCommentForum(dataSend){
         sweetAlertWarning(result, "Debe iniciar sesión o registrarse");
       } else {
         $("#forum-post-answers").html('').focus();
-        loadQueriesForumToUser();
+        if(fwall){
+          flastpage = Number(flastpage) + 1;
+          loadQueriesForumToUser();
+        }
       }
     }
   });

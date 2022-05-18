@@ -224,8 +224,7 @@ DELIMITER $$
 CREATE PROCEDURE spu_usuarios_login(IN _email VARCHAR(70))
 BEGIN
 	SELECT * FROM usuarios
-		WHERE email = _email
-		AND estado = '1';
+		WHERE email = _email;
 END $$
 
 DELIMITER $$
@@ -482,10 +481,11 @@ END $$
 -- =============================================================================================================
 -- TABLA GALERIA
 -- -------------------------------------------------------------------------------------------------------------
+
 DELIMITER $$
 CREATE PROCEDURE spu_galerias_listar_usuario(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
+	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F" AND idalbum IS NULL;
 END $$
 
 DELIMITER $$
@@ -1541,8 +1541,5 @@ BEGIN
 			WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
 			GROUP BY SRV.nombreservicio;
 END $$
-
-SELECT * FROM usuarios
-
 
 
