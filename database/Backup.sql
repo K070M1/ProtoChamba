@@ -49,7 +49,7 @@ CREATE TABLE `albumes` (
   PRIMARY KEY (`idalbum`),
   UNIQUE KEY `uk_alb_nombrealbum` (`idusuario`,`nombrealbum`),
   CONSTRAINT `fk_alb_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `albumes` */
 
@@ -2103,7 +2103,7 @@ CREATE TABLE `especialidades` (
   KEY `fk_esp_idusuario` (`idusuario`),
   CONSTRAINT `fk_esp_idservicio` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idservicio`),
   CONSTRAINT `fk_esp_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialidades` */
 
@@ -2239,71 +2239,71 @@ CREATE TABLE `foros` (
 /*Data for the table `foros` */
 
 insert  into `foros`(`idforo`,`idtousuario`,`idfromusuario`,`consulta`,`fechaconsulta`,`fechaeliminado`,`estado`) values 
-(1,1,2,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(2,1,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(3,1,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(4,1,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(5,1,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(6,1,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(7,1,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(8,1,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-15 22:21:23',NULL,''),
-(9,1,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(10,2,1,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(11,2,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(12,2,4,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(13,2,5,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-15 22:21:23',NULL,''),
-(14,3,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(15,3,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(16,4,2,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(17,4,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(18,4,5,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(19,5,2,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(20,5,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(21,5,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(22,5,11,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(23,5,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(24,5,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(25,5,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(26,5,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-15 22:21:23',NULL,''),
-(27,5,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(28,6,16,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(29,7,20,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(30,8,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(31,9,11,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(32,9,19,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-15 22:21:23',NULL,''),
-(33,9,14,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(34,10,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(35,10,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(36,11,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(37,11,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(38,11,1,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(39,12,2,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(40,12,13,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(41,12,14,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(42,12,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(43,12,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(44,12,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(45,12,18,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(46,13,20,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(47,14,20,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(48,15,1,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(49,15,2,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(50,15,3,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(51,15,4,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(52,15,5,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(53,15,6,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(54,15,7,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(55,15,8,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-15 22:21:23',NULL,''),
-(56,15,9,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,''),
-(57,15,10,'¿Aceptarias tarjeta?','2022-05-15 22:21:23',NULL,''),
-(58,15,11,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-15 22:21:23',NULL,''),
-(59,15,12,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-15 22:21:23',NULL,''),
-(60,15,13,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-15 22:21:23',NULL,''),
-(61,15,14,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-15 22:21:23',NULL,''),
-(62,15,16,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-15 22:21:23',NULL,''),
-(63,15,17,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-15 22:21:23',NULL,''),
-(64,15,18,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-15 22:21:23',NULL,''),
-(65,15,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-15 22:21:23',NULL,'');
+(1,1,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(2,1,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(3,1,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(4,1,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(5,1,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(6,1,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(7,1,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(8,1,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
+(9,1,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(10,2,1,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(11,2,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(12,2,4,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(13,2,5,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
+(14,3,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(15,3,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(16,4,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(17,4,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(18,4,5,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(19,5,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(20,5,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(21,5,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(22,5,11,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(23,5,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(24,5,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(25,5,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(26,5,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
+(27,5,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(28,6,16,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(29,7,20,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(30,8,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(31,9,11,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(32,9,19,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
+(33,9,14,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(34,10,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(35,10,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(36,11,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(37,11,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(38,11,1,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(39,12,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(40,12,13,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(41,12,14,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(42,12,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(43,12,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(44,12,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(45,12,18,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(46,13,20,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(47,14,20,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(48,15,1,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(49,15,2,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(50,15,3,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(51,15,4,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(52,15,5,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(53,15,6,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(54,15,7,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(55,15,8,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
+(56,15,9,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
+(57,15,10,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
+(58,15,11,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
+(59,15,12,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
+(60,15,13,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
+(61,15,14,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
+(62,15,16,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
+(63,15,17,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
+(64,15,18,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
+(65,15,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,'');
 
 /*Table structure for table `galerias` */
 
@@ -2326,7 +2326,7 @@ CREATE TABLE `galerias` (
   CONSTRAINT `fk_galerias_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albumes` (`idalbum`),
   CONSTRAINT `fk_galerias_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_galerias_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `galerias` */
 
@@ -2348,7 +2348,7 @@ CREATE TABLE `personas` (
   PRIMARY KEY (`idpersona`),
   KEY `fk_per_iddistrito` (`iddistrito`),
   CONSTRAINT `fk_per_iddistrito` FOREIGN KEY (`iddistrito`) REFERENCES `distritos` (`iddistrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `personas` */
 
@@ -2669,50 +2669,49 @@ CREATE TABLE `seguidores` (
   KEY `fk_seg_idfollower` (`idfollower`),
   CONSTRAINT `fk_seg_idfollower` FOREIGN KEY (`idfollower`) REFERENCES `usuarios` (`idusuario`),
   CONSTRAINT `fk_seg_idfollowing` FOREIGN KEY (`idfollowing`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `seguidores` */
 
 insert  into `seguidores`(`idseguidor`,`idfollowing`,`idfollower`,`fechaseguido`,`fechaeliminado`,`estado`) values 
-(1,1,2,'2022-05-15 22:21:15',NULL,''),
-(2,1,3,'2022-05-15 22:21:15',NULL,''),
-(3,1,4,'2022-05-15 22:21:15',NULL,''),
-(4,1,5,'2022-05-15 22:21:15',NULL,''),
-(5,2,11,'2022-05-15 22:21:15',NULL,''),
-(6,2,12,'2022-05-15 22:21:15',NULL,''),
-(7,2,13,'2022-05-15 22:21:15',NULL,''),
-(8,3,1,'2022-05-15 22:21:15',NULL,''),
-(9,3,2,'2022-05-15 22:21:15',NULL,''),
-(10,4,1,'2022-05-15 22:21:15',NULL,''),
-(11,5,2,'2022-05-15 22:21:15',NULL,''),
-(12,5,3,'2022-05-15 22:21:15',NULL,''),
-(13,5,4,'2022-05-15 22:21:15',NULL,''),
-(14,5,6,'2022-05-15 22:21:15',NULL,''),
-(15,5,7,'2022-05-15 22:21:15',NULL,''),
-(16,6,1,'2022-05-15 22:21:15',NULL,''),
-(17,6,9,'2022-05-15 22:21:15',NULL,''),
-(18,6,10,'2022-05-15 22:21:15',NULL,''),
-(19,7,5,'2022-05-15 22:21:15',NULL,''),
-(20,7,6,'2022-05-15 22:21:15',NULL,''),
-(21,7,9,'2022-05-15 22:21:15',NULL,''),
-(22,8,2,'2022-05-15 22:21:15',NULL,''),
-(23,8,1,'2022-05-15 22:21:15',NULL,''),
-(24,9,19,'2022-05-15 22:21:15',NULL,''),
-(25,9,20,'2022-05-15 22:21:15',NULL,''),
-(26,10,1,'2022-05-15 22:21:15',NULL,''),
-(27,10,5,'2022-05-15 22:21:15',NULL,''),
-(28,10,18,'2022-05-15 22:21:15',NULL,''),
-(29,11,18,'2022-05-15 22:21:15',NULL,''),
-(30,11,19,'2022-05-15 22:21:15',NULL,''),
-(31,11,20,'2022-05-15 22:21:15',NULL,''),
-(32,12,11,'2022-05-15 22:21:15',NULL,''),
-(33,12,16,'2022-05-15 22:21:15',NULL,''),
-(34,12,18,'2022-05-15 22:21:15',NULL,''),
-(35,13,17,'2022-05-15 22:21:15',NULL,''),
-(36,14,3,'2022-05-15 22:21:15',NULL,''),
-(37,14,4,'2022-05-15 22:21:15',NULL,''),
-(38,15,20,'2022-05-15 22:21:15',NULL,''),
-(39,12,2,'2022-05-15 22:23:38',NULL,'');
+(1,1,2,'2022-05-17 22:03:44',NULL,''),
+(2,1,3,'2022-05-17 22:03:44',NULL,''),
+(3,1,4,'2022-05-17 22:03:44',NULL,''),
+(4,1,5,'2022-05-17 22:03:44',NULL,''),
+(5,2,11,'2022-05-17 22:03:44',NULL,''),
+(6,2,12,'2022-05-17 22:03:44',NULL,''),
+(7,2,13,'2022-05-17 22:03:44',NULL,''),
+(8,3,1,'2022-05-17 22:03:44',NULL,''),
+(9,3,2,'2022-05-17 22:03:44',NULL,''),
+(10,4,1,'2022-05-17 22:03:44',NULL,''),
+(11,5,2,'2022-05-17 22:03:44',NULL,''),
+(12,5,3,'2022-05-17 22:03:44',NULL,''),
+(13,5,4,'2022-05-17 22:03:44',NULL,''),
+(14,5,6,'2022-05-17 22:03:44',NULL,''),
+(15,5,7,'2022-05-17 22:03:44',NULL,''),
+(16,6,1,'2022-05-17 22:03:44',NULL,''),
+(17,6,9,'2022-05-17 22:03:44',NULL,''),
+(18,6,10,'2022-05-17 22:03:44',NULL,''),
+(19,7,5,'2022-05-17 22:03:44',NULL,''),
+(20,7,6,'2022-05-17 22:03:44',NULL,''),
+(21,7,9,'2022-05-17 22:03:44',NULL,''),
+(22,8,2,'2022-05-17 22:03:44',NULL,''),
+(23,8,1,'2022-05-17 22:03:44',NULL,''),
+(24,9,19,'2022-05-17 22:03:44',NULL,''),
+(25,9,20,'2022-05-17 22:03:44',NULL,''),
+(26,10,1,'2022-05-17 22:03:44',NULL,''),
+(27,10,5,'2022-05-17 22:03:44',NULL,''),
+(28,10,18,'2022-05-17 22:03:44',NULL,''),
+(29,11,18,'2022-05-17 22:03:44',NULL,''),
+(30,11,19,'2022-05-17 22:03:44',NULL,''),
+(31,11,20,'2022-05-17 22:03:44',NULL,''),
+(32,12,11,'2022-05-17 22:03:44',NULL,''),
+(33,12,16,'2022-05-17 22:03:44',NULL,''),
+(34,12,18,'2022-05-17 22:03:44',NULL,''),
+(35,13,17,'2022-05-17 22:03:44',NULL,''),
+(36,14,3,'2022-05-17 22:03:44',NULL,''),
+(37,14,4,'2022-05-17 22:03:44',NULL,''),
+(38,15,20,'2022-05-17 22:03:44',NULL,'');
 
 /*Table structure for table `servicios` */
 
@@ -2769,7 +2768,7 @@ CREATE TABLE `trabajos` (
   KEY `fk_trab_idusuario` (`idusuario`),
   CONSTRAINT `fk_trab_idespecialidad` FOREIGN KEY (`idespecialidad`) REFERENCES `especialidades` (`idespecialidad`),
   CONSTRAINT `fk_trab_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `trabajos` */
 
@@ -2795,31 +2794,97 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `uk_usu_idpersoba` (`idpersona`,`idusuario`),
   UNIQUE KEY `uk_usu_idpersona` (`idpersona`),
   CONSTRAINT `fk_usu_idpersona` FOREIGN KEY (`idpersona`) REFERENCES `personas` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1000@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(2,2,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','I','U','hola1001@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(3,3,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las tardes','I','U','hola1002@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(4,4,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las noches','I','U','hola1003@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(5,5,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 8 am','E','U','hola1004@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(6,6,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 12 pm','A','U','hola1005@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(7,7,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 7 am a 1 pm','E','U','hola1006@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(8,8,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 9 pm a 12 pm','E','U','hola1007@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(9,9,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','A','U','hola1008@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(10,10,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','I','U','hola1009@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:46',NULL,'1'),
-(11,11,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','I','A','hola1010@gmail.com','hola1020@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(12,12,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','A','A','hola1011@gmail.com','hola1021@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(13,13,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','Desde 9 pm a 12 pm','A','A','hola1012@gmail.com','hola1022@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(14,14,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','Desde 7 am a 1 pm','A','A','hola1013@gmail.com','hola1023@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(15,15,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 12 pm','I','A','hola1014@gmail.com','hola1024@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(16,16,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 8 am','I','A','hola1015@gmail.com','hola1025@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(17,17,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las noches','I','A','hola1016@gmail.com','hola1026@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(18,18,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las tardes','I','A','hola1017@gmail.com','hola1027@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(19,19,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1018@gmail.com','hola1028@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1'),
-(20,20,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1019@gmail.com','hola1029@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-15 22:20:49',NULL,'1');
+(1,1,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1000@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(2,2,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','I','U','hola1001@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(3,3,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las tardes','I','U','hola1002@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(4,4,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las noches','I','U','hola1003@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(5,5,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 8 am','E','U','hola1004@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(6,6,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 12 pm','A','U','hola1005@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(7,7,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 7 am a 1 pm','E','U','hola1006@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(8,8,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 9 pm a 12 pm','E','U','hola1007@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(9,9,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','A','U','hola1008@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(10,10,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','I','U','hola1009@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
+(11,11,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','I','A','hola1010@gmail.com','hola1020@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(12,12,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','A','A','hola1011@gmail.com','hola1021@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(13,13,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','Desde 9 pm a 12 pm','A','A','hola1012@gmail.com','hola1022@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(14,14,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','Desde 7 am a 1 pm','A','A','hola1013@gmail.com','hola1023@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(15,15,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 12 pm','I','A','hola1014@gmail.com','hola1024@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(16,16,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 8 am','I','A','hola1015@gmail.com','hola1025@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(17,17,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las noches','I','A','hola1016@gmail.com','hola1026@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(18,18,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las tardes','I','A','hola1017@gmail.com','hola1027@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(19,19,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1018@gmail.com','hola1028@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
+(20,20,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1019@gmail.com','hola1029@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1');
+
+/* Trigger structure for table `calificaciones` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_level_user_inserted` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_level_user_inserted` AFTER INSERT ON `calificaciones` FOR EACH ROW 
+begin
+	declare _idusuario int;
+	DECLARE _puntos DECIMAL(5,2);
+	
+	set _idusuario =	(select idusuario from trabajos where idtrabajo = new.idtrabajo);
+	set _puntos = TCALIFICACIONUSUARIO(_idusuario);
+	
+	if _puntos <= 2 then
+		update usuarios set nivelusuario = 'E' where idusuario = _idusuario;
+	elseif _puntos > 2 and _puntos <= 4 then
+		UPDATE usuarios SET nivelusuario = 'I' WHERE idusuario = _idusuario;
+	elseif _puntos = 5 then
+		UPDATE usuarios SET nivelusuario = 'A' WHERE idusuario = _idusuario;
+	end if;
+end */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `calificaciones` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_level_user_update` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_level_user_update` AFTER UPDATE ON `calificaciones` FOR EACH ROW 
+BEGIN
+	DECLARE _idusuario INT;
+	DECLARE _puntos DECIMAL(5,2);
+	
+	SET _idusuario =	(SELECT idusuario FROM trabajos WHERE idtrabajo = new.idtrabajo);
+	SET _puntos = TCALIFICACIONUSUARIO(_idusuario);
+	
+	IF _puntos <= 2 THEN
+		UPDATE usuarios SET nivelusuario = 'E' WHERE idusuario = _idusuario;
+	ELSEIF _puntos > 2 AND _puntos <= 4 THEN
+		UPDATE usuarios SET nivelusuario = 'I' WHERE idusuario = _idusuario;
+	ELSEIF _puntos = 5 THEN
+		UPDATE usuarios SET nivelusuario = 'A' WHERE idusuario = _idusuario;
+	END IF;
+END */$$
+
+
+DELIMITER ;
+
+/* Trigger structure for table `trabajos` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_delete_imgs_trabajo` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_delete_imgs_trabajo` AFTER UPDATE ON `trabajos` FOR EACH ROW 
+begin
+	update galerias set estado = '0' where idtrabajo = new.idtrabajo and new.estado = 0;
+end */$$
+
+
+DELIMITER ;
 
 /* Function  structure for function  `CALIFICACIONTRABAJO` */
 
@@ -2947,6 +3012,17 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Function  structure for function  `TCALIFICACIONUSUARIO` */
+
+/*!50003 DROP FUNCTION IF EXISTS `TCALIFICACIONUSUARIO` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `TCALIFICACIONUSUARIO`(_idusuario int) RETURNS decimal(4,2)
+begin
+	return DIVIDENUM(TCALIFICACIONTRABAJO(_idusuario), TOTALTRABAJOS(_idusuario));
+end */$$
+DELIMITER ;
+
 /* Function  structure for function  `TOTALREACCIONES` */
 
 /*!50003 DROP FUNCTION IF EXISTS `TOTALREACCIONES` */;
@@ -2976,7 +3052,7 @@ BEGIN
 	
 	SET _salida =	(SELECT COUNT(*)  
 		FROM trabajos 
-		WHERE idusuario = _idusuario);
+		WHERE idusuario = _idusuario and estado = 1);
 	
 	RETURN _salida;
 END */$$
@@ -3317,7 +3393,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_eliminar`(IN _idespecialidad INT)
 BEGIN
-	DELETE FROM actividades WHERE idespecialidad = _idespecialidad;
+	DELETE FROM actividades WHERE idespecialidad = _idespecialidad;	
 	UPDATE trabajos SET estado = 0 WHERE idespecialidad = _idespecialidad;
 	UPDATE especialidades SET estado = 0 WHERE idespecialidad = _idespecialidad;
 END */$$
@@ -3569,31 +3645,18 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_especialidades_listar_servicio` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_listar_servicio` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar_servicio`(IN _idservicio INT)
-BEGIN
-   SELECT * FROM vs_especialidades_listar
-      WHERE idservicio = _idservicio
-      ORDER BY idespecialidad DESC;
-END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `spu_especialidades_listar_servicio_usuario` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_listar_servicio_usuario` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar_servicio_usuario`(IN _idservicio INT, in _idusuario int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar_servicio_usuario`(IN _idservicio INT, IN _idusuario INT)
 BEGIN
-   SELECT * FROM vs_especialidades_listar
-      WHERE idservicio = _idservicio and idusuario = _idusuario
-      ORDER BY idespecialidad DESC;
+	SELECT * FROM especialidades 
+		WHERE idservicio = _idservicio AND 
+				idusuario = _idusuario and 
+				estado = 1;
 END */$$
 DELIMITER ;
 
@@ -3606,8 +3669,8 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar_usuario`(IN _idusuario INT)
 BEGIN
    SELECT * FROM especialidades
-      WHERE idusuario = _idusuario and estado = 1
-      ORDER BY idespecialidad DESC;
+      WHERE idusuario = _idusuario AND estado = 1
+      ORDER BY descripcion asc;
 END */$$
 DELIMITER ;
 
@@ -4073,7 +4136,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_galerias_listar_usuario`(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F";
+	SELECT * FROM vs_galerias_listar WHERE idusuario = _idusuario AND tipo = "F" and idalbum is null;
 END */$$
 DELIMITER ;
 
@@ -4757,7 +4820,7 @@ DELIMITER $$
 BEGIN
 	SELECT SUM(CALIFICACIONTRABAJO(idtrabajo)) AS 'total' 
 		FROM trabajos
-		WHERE idusuario = _idusuario;
+		WHERE idusuario = _idusuario and estado = 1;
 END */$$
 DELIMITER ;
 
@@ -4815,23 +4878,6 @@ BEGIN
 		SELECT SRV.nombreservicio, COUNT(ESP.idusuario) AS 'total' 
 			FROM servicios SRV
 			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
-			GROUP BY SRV.nombreservicio;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_total_usuarios_servicio_fechas` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_total_usuarios_servicio_fechas` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_total_usuarios_servicio_fechas`(IN _fechainicio DATE, IN _fechafin DATE)
-BEGIN
-		SELECT SRV.nombreservicio, COUNT(USU.idusuario) AS 'total' 
-			FROM servicios SRV
-			INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
-			INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
-			WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
 			GROUP BY SRV.nombreservicio;
 END */$$
 DELIMITER ;
@@ -5086,8 +5132,8 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_login`(IN _email VARCHAR(70))
 BEGIN
-	select * from usuarios
-		WHERE email = _email;
+	SELECT * FROM usuarios
+		WHERE email = _email and estado = '1';
 END */$$
 DELIMITER ;
 
@@ -5135,7 +5181,6 @@ DELIMITER $$
 )
 BEGIN
 	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
-
 	UPDATE usuarios SET 
 		email 					= _email,
 		emailrespaldo 	= _emailrespaldo,
@@ -5250,7 +5295,6 @@ DROP TABLE IF EXISTS `vs_especialidades_listar`;
  `idservicio` int(11) ,
  `nombreservicio` varchar(50) ,
  `horarioatencion` varchar(80) ,
- `establecimiento` varchar(30) ,
  `tarifa` decimal(7,2) ,
  `biografia` mediumtext ,
  `iddepartamento` varchar(2) ,
@@ -5259,9 +5303,7 @@ DROP TABLE IF EXISTS `vs_especialidades_listar`;
  `provincia` varchar(45) ,
  `iddistrito` varchar(6) ,
  `distrito` varchar(45) ,
- `estrellas` decimal(7,2) ,
- `ubicacion` varchar(80) ,
- `referencia` varchar(80) 
+ `estrellas` decimal(7,2) 
 )*/;
 
 /*Table structure for table `vs_establecimientos` */
@@ -5437,14 +5479,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
  `email` varchar(70) ,
  `emailrespaldo` varchar(70) ,
  `clave` varchar(80) ,
- `idestablecimiento` int(11) ,
- `establecimiento` varchar(30) ,
- `ruc` char(11) ,
- `ubicacion` varchar(80) ,
- `referencia` varchar(80) ,
- `latitud` float(10,8) ,
- `longitud` float(10,8) ,
- `fechaalta` datetime ,
+ `nivelusuario` char(1) ,
  `estado` char(1) 
 )*/;
 
@@ -5460,7 +5495,6 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos`;
  `idpersona` int(11) ,
  `nombres` varchar(81) ,
  `email` varchar(70) ,
- `emailrespaldo` varchar(70) ,
  `rol` char(1) ,
  `fechanac` date ,
  `fechaalta` datetime ,
@@ -5501,7 +5535,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
 /*!50001 DROP TABLE IF EXISTS `vs_especialidades_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_especialidades_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_especialidades_listar` AS select `esp`.`idespecialidad` AS `idespecialidad`,`esp`.`descripcion` AS `especialidad`,`usu`.`idusuario` AS `idusuario`,concat(`usu`.`nombres`,' ',`usu`.`apellidos`) AS `nombres`,`usu`.`email` AS `email`,`usu`.`telefono` AS `telefono`,`srv`.`idservicio` AS `idservicio`,`srv`.`nombreservicio` AS `nombreservicio`,`usu`.`horarioatencion` AS `horarioatencion`,`est`.`establecimiento` AS `establecimiento`,`esp`.`tarifa` AS `tarifa`,`usu`.`descripcion` AS `biografia`,`usu`.`iddepartamento` AS `iddepartamento`,`usu`.`departamento` AS `departamento`,`usu`.`idprovincia` AS `idprovincia`,`usu`.`provincia` AS `provincia`,`usu`.`iddistrito` AS `iddistrito`,`usu`.`distrito` AS `distrito`,`DIVIDENUM`(`TCALIFICACIONTRABAJO`(`usu`.`idusuario`),`TOTALTRABAJOS`(`usu`.`idusuario`)) AS `estrellas`,concat(case when `est`.`tipocalle` like 'CA' then 'Calle' when `est`.`tipocalle` like 'AV' then 'Avenida' when `est`.`tipocalle` like 'UR' then 'Urbanización' when `est`.`tipocalle` like 'PJ' then 'Pasaje' when `est`.`tipocalle` like 'JR' then 'Jirón' end,' ',`est`.`nombrecalle`,' #',`est`.`numerocalle`) AS `ubicacion`,`est`.`referencia` AS `referencia` from (((`especialidades` `esp` join `servicios` `srv` on(`srv`.`idservicio` = `esp`.`idservicio`)) join `vs_usuarios_listar` `usu` on(`usu`.`idusuario` = `esp`.`idusuario`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `esp`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_especialidades_listar` AS select distinct `esp`.`idespecialidad` AS `idespecialidad`,`esp`.`descripcion` AS `especialidad`,`usu`.`idusuario` AS `idusuario`,concat(`usu`.`nombres`,' ',`usu`.`apellidos`) AS `nombres`,`usu`.`email` AS `email`,`usu`.`telefono` AS `telefono`,`srv`.`idservicio` AS `idservicio`,`srv`.`nombreservicio` AS `nombreservicio`,`usu`.`horarioatencion` AS `horarioatencion`,`esp`.`tarifa` AS `tarifa`,`usu`.`descripcion` AS `biografia`,`usu`.`iddepartamento` AS `iddepartamento`,`usu`.`departamento` AS `departamento`,`usu`.`idprovincia` AS `idprovincia`,`usu`.`provincia` AS `provincia`,`usu`.`iddistrito` AS `iddistrito`,`usu`.`distrito` AS `distrito`,`DIVIDENUM`(`TCALIFICACIONTRABAJO`(`usu`.`idusuario`),`TOTALTRABAJOS`(`usu`.`idusuario`)) AS `estrellas` from ((`especialidades` `esp` join `servicios` `srv` on(`srv`.`idservicio` = `esp`.`idservicio`)) join `vs_usuarios_listar` `usu` on(`usu`.`idusuario` = `esp`.`idusuario`)) where `esp`.`estado` = 1 group by `usu`.`idusuario`,`srv`.`idservicio` order by `esp`.`descripcion` */;
 
 /*View structure for view vs_establecimientos */
 
@@ -5529,7 +5563,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
 /*!50001 DROP TABLE IF EXISTS `vs_listar_foros` */;
 /*!50001 DROP VIEW IF EXISTS `vs_listar_foros` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_listar_foros` AS select `frs`.`idforo` AS `idforo`,`frs`.`idtousuario` AS `idtousuario`,`frs`.`idfromusuario` AS `idfromusuario`,`vus`.`nombres` AS `nombres`,`frs`.`consulta` AS `consulta`,`frs`.`fechaconsulta` AS `fechaconsulta`,`frs`.`fechaeliminado` AS `fechaeliminado` from (`foros` `frs` join `vs_usuarios_listar_datos_basicos` `vus` on(`vus`.`idusuario` = `frs`.`idfromusuario`)) where `frs`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_listar_foros` AS select `frs`.`idforo` AS `idforo`,`frs`.`idtousuario` AS `idtousuario`,`frs`.`idfromusuario` AS `idfromusuario`,`vus`.`nombres` AS `nombres`,`frs`.`consulta` AS `consulta`,`frs`.`fechaconsulta` AS `fechaconsulta`,`frs`.`fechaeliminado` AS `fechaeliminado` from (`foros` `frs` join `vs_usuarios_listar_datos_basicos` `vus` on(`vus`.`idusuario` = `frs`.`idfromusuario`)) where `frs`.`estado` = 1 order by `frs`.`idforo` */;
 
 /*View structure for view vs_listar_reportes */
 
@@ -5557,14 +5591,14 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
 /*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`fechanac` AS `fechanac`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`vpl`.`telefono` AS `telefono`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`est`.`idestablecimiento` AS `idestablecimiento`,`est`.`establecimiento` AS `establecimiento`,`est`.`ruc` AS `ruc`,concat(case when `est`.`tipocalle` like 'CA' then 'Calle' when `est`.`tipocalle` like 'AV' then 'Avenida' when `est`.`tipocalle` like 'UR' then 'Urbanización' when `est`.`tipocalle` like 'PJ' then 'Pasaje' when `est`.`tipocalle` like 'JR' then 'Jirón' end,' ',`est`.`nombrecalle`,' #',`est`.`numerocalle`) AS `ubicacion`,`est`.`referencia` AS `referencia`,`est`.`latitud` AS `latitud`,`est`.`longitud` AS `longitud`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`fechanac` AS `fechanac`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`vpl`.`telefono` AS `telefono`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`usu`.`nivelusuario` AS `nivelusuario`,`usu`.`estado` AS `estado` from (`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) where `usu`.`estado` = 1 */;
 
 /*View structure for view vs_usuarios_listar_datos_basicos */
 
 /*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos` */;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar_datos_basicos` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar_datos_basicos` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,concat(`vpl`.`nombres`,' ',`vpl`.`apellidos`) AS `nombres`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`rol` AS `rol`,`vpl`.`fechanac` AS `fechanac`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 or `usu`.`estado` = 2 order by `usu`.`rol` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar_datos_basicos` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,concat(`vpl`.`nombres`,' ',`vpl`.`apellidos`) AS `nombres`,`usu`.`email` AS `email`,`usu`.`rol` AS `rol`,`vpl`.`fechanac` AS `fechanac`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from (`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) where `usu`.`estado` = 1 or `usu`.`estado` = 2 order by `usu`.`rol` */;
 
 /*View structure for view vs_usuarios_listar_quest */
 

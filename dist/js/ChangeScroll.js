@@ -85,8 +85,8 @@ function scrollForoComments(){
     var contentHeigh = scrollHeight - offsetHeight; // Altura del elemento
     if((contentHeigh <= scrollTop) && !fwall){
         var count = '5';
-        fpage = Number(flastpage) + 1;
         flastpage = Number(fpage) + Number(count);
+        fpage = Number(flastpage) + 1;
         
         fdataenv = {
             'op':'getQueriesToUser',

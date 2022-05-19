@@ -135,8 +135,7 @@ $("#btn-add-file").click(function () {
 
   if(isLoadImages){
     $("#input-new-image").click();
-  }
-  else{
+  } else {
     $("#input-new-video").click();
   }
 });
@@ -149,8 +148,7 @@ $("#btn-delete-files").click(function(){
         deleteAllImagespreview();      
       }
     });
-  }
-  else{
+  } else {
     sweetAlertConfirmQuestionDelete("¿Estas seguro de borrar el video?").then(confirm => {
       if(confirm.isConfirmed){    
         deleteVideoPreview();
@@ -533,7 +531,6 @@ $("#btn-modify-publication").click(function(){
           processData: false,
           cache: false,
           success: function(result){  
-            console.log(result);          
             if(result == ""){
               idtrabajo = -1;
               clearFormPublication();
@@ -626,11 +623,11 @@ function qualifyService(dataSend){
     url: 'controllers/qualify.controller.php',
     data: dataSend,
     success: function(result){
-      console.log(result);
       if(result != ""){
         sweetAlertWarning(result, 'Debe iniciar sesión o registrarse');
       } else {
         loadPublicationWorks();
+        levelUser();
       }
     }
   });

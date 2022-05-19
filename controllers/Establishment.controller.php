@@ -2,31 +2,24 @@
 session_start();
 require_once '../model/Establishment.php';
 require_once '../model/Service.php';
+require_once '../model/User.php';
 
 // Objeto establishment
 $establishment = new Establishment();
 
 if (isset($_GET['op'])) {
-   // switch ($_GET['op']) {
-  //   case 'getEstablishments':
-  //     $data = $establishment -> getEstablishments([]);
-  //     echo json_encode($data);
-  //     break;
-    
-  //   default:
-  //     # code...
-  //     break;
-  // }
-
   //Establecimiento
-  function listEstablishment($data){
+  function listEstablishment($data, $visible){
 
     if(count($data) <= 0){
-      echo "";
+      echo "
+        <div class='card card-body'>
+          <span>Sin establecimiento</span>
+        </div>
+      ";
     }
     else{
       foreach($data as $row){
-        $services = listServicesByUser($row['idusuario']);
         echo "
           <div class='card' >
             <div class='card-body'>
@@ -36,7 +29,12 @@ if (isset($_GET['op'])) {
                   <tr><td><i class='fas fa-map'></i> {$row['departamento']} - {$row['provincia']} - {$row['distrito']}</td></tr>
                   <tr><td><i class='fas fa-map-marker-alt'></i> {$row['ubicacion']}</td></tr>
                   <tr><td><i class='fas fa-thumbtack'></i> {$row['referencia']}</td></tr>
-                  <tr><td class='text-right'><button type='button' class='btn btn-info btn-edit-est' data-idest='{$row['idestablecimiento']}'>Editar</button></td></tr>
+                  <tr>
+                    <td class='text-right' {$visible}>
+                      <button type='button' class='btn btn-sm btn-outline-danger btn-delete-est' data-idest='{$row['idestablecimiento']}'>Eliminar</button>
+                      <button type='button' class='btn btn-sm btn-outline-info btn-edit-est' data-idest='{$row['idestablecimiento']}'>Editar</button>
+                   </td>
+                  </tr>
                 </tbody>
               </table>
 
@@ -47,28 +45,22 @@ if (isset($_GET['op'])) {
     }
   }
 
+  // Listar en información - sección general del perfil
   function listInfo($data){
 
     if(count($data) <= 0){
-      echo " 
-        <tr>
-          <td>No hay informacion</td>
-        </tr>
-      ";
-
-    }
-    else{
+      echo "<span>No hay información</span>";
+    } else {
       foreach($data as $row){
         $services = listServicesByUser($row['idusuario']);
+        $establishments = listEstablishmentByuser($row['idusuario']);
         echo "          
           <ul>
-            <li><i class='fas fa-medal'></i>{$services}</li>
-            <li><i class='far fa-building'></i> {$row['establecimiento']}</li>
-            <li><i class='fas fa-business-time'></i> {$row['horarioatencion']}</li>
-            <li><i class='fas fa-map-marker-alt'></i> {$row['ubicacion']}</li>
-            <hr>
-        </ul>
-          
+            <li><i class='fas fa-medal'></i> <span>{$services}</span></li>
+            <li><i class='far fa-building'></i> <span>{$establishments}</span></li>
+            <li><i class='fas fa-business-time'></i> <span>{$row['horarioatencion']}</span></li>
+            <li><i class='fas fa-map-marker-alt'></i> <span>{$row['direccion']}</span></li>
+          </ul>          
         ";
       }
     }
@@ -119,7 +111,6 @@ if (isset($_GET['op'])) {
     }
   }
 
-
   // Listar servicios del usuario
   function listServicesByUser($idusuario){
     $service = new Service();
@@ -127,41 +118,64 @@ if (isset($_GET['op'])) {
 
     $services = "";
     if(count($data) > 0){
-      //$services = implode(",", $data[0]['nombreservicio'])."."; //concateno el punto al final
       foreach($data as $row){
         $services .= $row['nombreservicio'] . ", ";
       }
-
-      // Quitando la coma del ultimo elemento
-      $services = substr(rtrim($services), 0, -1);
-      $services .= ".";
-      return $services;
     }
+
+    // Cambiando la coma del ultimo elemento por un punto
+    $services = substr(rtrim($services), 0, -1);
+    $services .= ".";
+    return $services;
+  }
+
+  // Listar establecimientos del usuario - sección general del perfil
+  function listEstablishmentByuser($idusuario){
+    $establishment = new Establishment();
+    $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
+
+    $establishments = "";
+    if(count($data) > 0){
+      foreach($data as $row){
+        $establishments .= $row['establecimiento'] . ", ";
+      }
+    }    
+
+    // Cambiando la coma del ultimo elemento por un punto
+    $establishments = substr(rtrim($establishments), 0, -1);
+    $establishments .= ".";
+    return $establishments;
   }
 
   if ($_GET['op'] == 'getEstablishmentsByUser'){
     $idusuario;
-
+    $visible;
+    
     if(isset($_SESSION['idusuario']) && $_GET['idusuarioactivo'] == -1){
       $idusuario = $_SESSION['idusuario'];
+      $visible = "visible";
     } else {
       $idusuario = $_GET['idusuarioactivo'];
+      $visible = "hidden";
     }
 
     $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
-    listEstablishment($data);
+    listEstablishment($data, $visible);
     
   }
 
   if ($_GET['op'] == 'getEstablishmentsInfo'){
+    $user = new User();
+
     $idusuario;
+
     if(isset($_SESSION['idusuario']) && $_GET['idusuarioactivo'] == -1){
       $idusuario = $_SESSION['idusuario'];
     } else {
       $idusuario = $_GET['idusuarioactivo'];
     }
 
-    $data = $establishment->getEstablishmentsByUser(["idusuario" => $idusuario]);
+    $data = $user->getAUser(["idusuario" => $idusuario]);
     listInfo($data);
   }
 
@@ -183,6 +197,21 @@ if (isset($_GET['op'])) {
     echo json_encode($data);
   }
 
+  if($_GET['op'] == 'registerEstablishment'){
+    $establishment->registerEstablishment([
+      "idusuario"         => $_SESSION['idusuario'],
+      "iddistrito"        => $_GET['iddistrito'],
+      "establecimiento"   => $_GET['establecimiento'],
+      "ruc"               => $_GET['ruc'],
+      "tipocalle"         => $_GET['tipocalle'],
+      "nombrecalle"       => $_GET['nombrecalle'],
+      "numerocalle"       => $_GET['numerocalle'],
+      "referencia"        => $_GET['referencia'],
+      "latitud"           => $_GET['latitud'],
+      "longitud"          => $_GET['longitud']
+    ]);
+  }  
+
   if($_GET['op'] == 'updateEstablishment'){
     $establishment->updateEstablishment([
       "idestablecimiento" => $_GET['idestablecimiento'],
@@ -197,6 +226,10 @@ if (isset($_GET['op'])) {
       "latitud"           => $_GET['latitud'],
       "longitud"          => $_GET['longitud']
     ]);
+  }
+
+  if($_GET['op'] == 'deleteEstablishment'){
+    $establishment->deleteEstablishment(["idestablecimiento" => $_GET['idestablecimiento']]);
   }
   
 }
