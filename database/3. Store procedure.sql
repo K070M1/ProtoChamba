@@ -70,9 +70,6 @@ BEGIN
 	SELECT COUNT(*) AS 'email' FROM usuarios WHERE emailrespaldo = _emailres OR email = _emailres;
 END $$
 
-CALL spu_email_verifi('1321063@senati.pe');
-CALL spu_email_verifi_res('1321063@senati.pe');
-
 -- MODIFICAR PERSONA -- 
 DELIMITER $$
 CREATE PROCEDURE spu_personas_modificar
@@ -262,8 +259,6 @@ BEGIN
 		WHERE nombres LIKE CONCAT('%', _search, '%') LIMIT _limit OFFSET _offset;
 END $$
 
-CALL spu_usuarios_buscar_nombres_scroll('ricard', 0, 16);
-
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
 (
@@ -274,6 +269,15 @@ BEGIN
 	SELECT *	FROM vs_usuarios_listar_datos_basicos 
 			WHERE rol = _rol AND nombres LIKE CONCAT('%', _search, '%');	
 END $$
+
+-- Información para las preguntas
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_quest(IN _idusuario INT)
+BEGIN
+	SELECT * FROM vs_usuarios_listar
+		WHERE idusuario = _idusuario;
+END $$
+
 
 -- BANEAR USUARIO
 DELIMITER $$
@@ -836,9 +840,6 @@ BEGIN
    GROUP BY idusuario
    ORDER BY RAND() LIMIT _limit OFFSET _offset;
 END $$
-
-CALL spu_especialidades_listar_populares(6, 0);
-
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)

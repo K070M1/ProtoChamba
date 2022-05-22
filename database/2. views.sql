@@ -34,13 +34,13 @@ CREATE VIEW vs_personas_listar AS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_usuarios_listar AS
 	SELECT 	USU.idusuario, VPL.idpersona, VPL.apellidos, VPL.nombres, VPL.fechanac,
-					VPL.iddepartamento, VPL.departamento, VPL.idprovincia, VPL.provincia,
-					VPL.iddistrito, VPL.distrito, VPL.direccion, USU.descripcion, 
+					USU.fechaalta, VPL.iddepartamento, VPL.departamento, VPL.idprovincia, 
+					VPL.provincia, VPL.iddistrito, VPL.distrito, VPL.direccion, USU.descripcion, 
 					USU.horarioatencion, VPL.telefono, USU.rol, USU.email, USU.emailrespaldo,
 					USU.clave, USU.nivelusuario, USU.estado
 		FROM usuarios USU
 		INNER JOIN vs_personas_listar VPL ON VPL.idpersona = USU.idpersona
-		WHERE USU.estado = 1;
+		WHERE USU.estado = '1' OR USU.estado = '2';
 
 
 -- =============================================================================================================
@@ -166,27 +166,4 @@ CREATE VIEW vs_listar_foros AS
 		INNER JOIN vs_usuarios_listar_datos_basicos VUS ON VUS.idusuario = FRS.idfromusuario
 		WHERE FRS.estado = 1
 		ORDER BY FRS.idforo ASC;
-		
-
-CREATE VIEW `vs_usuarios_listar_quest` AS 
-SELECT
-  `usu`.`idusuario`     AS `idusuario`,
-  `vpl`.`nombres`       AS `nombres`,
-  `vpl`.`apellidos`     AS `apellidos`,
-  `usu`.`email`         AS `email`,
-  `usu`.`emailrespaldo` AS `emailrespaldo`,
-  `usu`.`rol`           AS `rol`,
-  `vpl`.`fechanac`      AS `fechanac`,
-  `usu`.`fechaalta`     AS `fechaalta`,
-  `usu`.`estado`        AS `estado`,
-  `vpl`.`distrito`      AS `distrito`,
-  `vpl`.`provincia`     AS `provincia`,
-  `vpl`.`departamento`  AS `departamento`
-FROM ((`usuarios` `usu`
-    JOIN `vs_personas_listar` `vpl`
-      ON (`vpl`.`idpersona` = `usu`.`idpersona`))
-   LEFT JOIN `establecimientos` `est`
-     ON (`est`.`idusuario` = `usu`.`idusuario`))
-WHERE `usu`.`estado` = 1
-     OR `usu`.`estado` = 2
-ORDER BY `usu`.`rol`
+	
