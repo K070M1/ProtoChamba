@@ -7,21 +7,13 @@ if(isset($_SESSION["login"])){
   $rol = $_SESSION["rol"];
   $login = $_SESSION["login"];
   $imagenusuario = $_SESSION['imagenusuario'];
+  $btnTop = "";
 }else{
   $rol = "";
   $login = false;
   $imagenusuario = 'default_profile_avatar.svg';
+  $btnTop = "bottom: 110px;";
 }
-
-
-// Ver las cookies
-/* if(isset($_COOKIE['email'])){
-  echo 'Si existe';
-  $emailck = true;
-}else{
-  $emailck = false;
-  echo 'No existe';
-} */
 
 ?>
 <!DOCTYPE html>
@@ -113,8 +105,7 @@ if(isset($_SESSION["login"])){
                 <img src='dist/img/user/{$imagenusuario}' class='img-circle' alt='User Image' id='userImageIndexNav1'>
   
                 <p>
-                   <h7 id='nameUserIndex2'>NOMBRE Y APELLIDO COMPLETO</h7>
-                  <small>Nivel de usuario</small>
+                   <h6 id='nameUserIndex2'>NOMBRE Y APELLIDO COMPLETO</h6>
                 </p>
               </li>
 
@@ -311,7 +302,7 @@ if(isset($_SESSION["login"])){
       <!-- /.content -->
 
       <!-- Subir al inicio -->
-      <a id="back-to-top" href="#content-body" style="bottom: 110px;" class="btn btn-dark back-to-top d-none" role="button" aria-label="Scroll to top">
+      <a id="back-to-top" href="#content-body" style="<?php echo $btnTop ?>" class="btn btn-dark back-to-top d-none" role="button" aria-label="Scroll to top">
         <i class="fas fa-chevron-up"></i>
       </a>
     </div>
@@ -624,6 +615,12 @@ if(isset($_SESSION["login"])){
   <!--Cargar datos de la galeria-->
   <script src="dist/js/pages/index.js"></script>
 
+  <!-- utilities -->
+  <script src="dist/js/utility.js"></script>
+
+  <!-- websocket - rachet -->
+  <script src="dist/js/cliente.js"></script>
+
   <script>
     $(document).ready(function() {
 
@@ -636,6 +633,8 @@ if(isset($_SESSION["login"])){
         $("#content-data").load(`views/main-view.php`);
       }  
 
+      // Almacenando el id del usuario en una variable del navegador
+      localStorage.setItem("idusuarioSession", <?php echo isset($_SESSION['idusuario']) ? $_SESSION['idusuario']: -2; ?>);
 
       // Click en perfil de usuario
       $(".btn-profile-index").click(function(){
@@ -645,7 +644,7 @@ if(isset($_SESSION["login"])){
       $("#btn-gps").click(function(){
         localStorage.removeItem('serviciobuscado'); // Eliminado
       });
-      
+
       // CHATBOT
       <?php if(!$login){
         echo '

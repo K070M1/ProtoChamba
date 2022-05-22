@@ -102,33 +102,6 @@ class ModelMaster extends Conexion{
     }
   }
 
-
-
-  /**
-   * Ejecuta un procedimiento almacenado para la entidad Persona
-   * devolviendo una sola columna de registro
-   */
-  public function execProcedurePerso(array $array, $storeProcedure){
-    try{
-      
-      $parameters = self::getParameters($array);
-      
-      $commandSQL = $this->pdo->prepare("call $storeProcedure($parameters)");
-
-      foreach($array as $key => $value){
-        $commandSQL->bindValue(":" . $key, $value);
-      }
-    
-      $commandSQL->execute();
-
-      return $commandSQL->fetch(PDO::FETCH_COLUMN);
-
-    }catch (Exception $e){
-      die($e->getMessage());
-    }
-  }
-
-
 }
 
 ?>

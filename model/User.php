@@ -103,7 +103,6 @@ class User extends ModelMaster{
     }
   }
 
-
   //lista la descripcion de un usuario
   public function getNameUser(array $data){
     try{
@@ -217,7 +216,7 @@ class User extends ModelMaster{
   //Verificacion de existencia de correo
   public function getEmailV(array $data){
     try{
-      return parent::execProcedurePerso($data,"spu_email_verifi");
+      return parent::execProcedure($data,"spu_email_verifi", true);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -225,14 +224,14 @@ class User extends ModelMaster{
   }
 
   //Verificacion de existencia de correo de respaldo
-    public function getEmailVRes(array $data){
-      try{
-        return parent::execProcedurePerso($data,"spu_email_verifi_res");
-      }
-      catch(Exception $error){
-        die($error->getMessage());
-      }
+  public function getEmailVRes(array $data){
+    try{
+      return parent::execProcedure($data,"spu_email_verifi_res", true);
     }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
 
   //Cambiar contraseña
   public function updatePasswordRest(array $data){

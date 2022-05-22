@@ -4,46 +4,64 @@ var iddistrito = -1;
 var operation = "";
 var serviciobuscado = "";
 var arrayMoney = [];
-var ordenado = 'N';
+var order = 'N';  // N = Nombre, F = Fecha, S = Suelto, E = Estrellas
 var wsize = "box-sm"; // tamaño de los card
-var swall = false;
-var spage = 0;
-var slastpage = 7;
+var offsetTmp = 0;
+var offset = 0;
+var limit = 6;
 
-/* ION SLIDER */
+
+// utilizado en el filtrado de servicios / especialidades
+var dataSend = {
+  nombreservicio: serviciobuscado,
+  order         : order,
+  wsize         : wsize,
+  offset        : offset,
+  limit         : limit
+};
+
+/* ION SLIDER - TANGO DE MONEDAS */
 $('#range-money').ionRangeSlider({
   max: 15000,
   min: 1,
   from: 50,
   to: 8000,
   type: 'double',
+  skin: 'round',
   step: 1,
-  prefix: '$',
+  prefix: 'S/.',
   prettify: false,
   hasGrid: true
 })
 
+// Instancia del ionRangeSlider
+var rangeMoney = $("#range-money").data("ionRangeSlider");
+
 // Opción de ver más
 $("#content-carousels").on('click', '.btn-more-content', function () {
-  let containerCard = $(this).attr("data-more");
+  let typeservice = $(this).attr("data-more");
   let textButon = $(this).html();
   
-  if(textButon == "Reducir"){
-    serviceRecommendationCarousel();
+  if(textButon == "Contraer"){
     $(this).html("Ver más");
+    if(typeservice == "popular"){
+      servicePopularCarousel();
+    } else {
+      serviceRecommendationCarousel();
+    }
   }
   else{
     // validar si existe el atributo
     if ($(this).is("[data-more]")) {
       // Convertir a lista GRID
-      $(this).html("Reducir");
-      $("div[data-more='" + containerCard + "']").removeClass("p-0").html(getLoader());
-      serviceRecommendationGrid(containerCard);
+      $(this).html("Contraer");
+      $("div[data-more='" + typeservice + "']").removeClass("p-0").html(getLoader());
+      serviceRecommendationGrid(typeservice);
     }
   }
 });
 
-// RFECOMENDADOS ir al perfil del usuario (CLICK IMAGEN)
+// RECOMENDADOS ir al perfil del usuario (CLICK IMAGEN)
 $("#content-carousels").on('click', '.link-user', function () {
   let idusuario = $(this).attr('data-user');
   redirectProfile(idusuario);
@@ -61,29 +79,29 @@ $("#content-data-filtered").on('click', '.link-user', function () {
   redirectProfile(idusuario);
 });
 
-// FILTRADOS ir al perfil del usuario (CLICK NOIMBRE)
+// FILTRADOS ir al perfil del usuario (CLICK NOMBRE)
 $("#content-data-filtered").on('click', '.name-user', function () {
   let idusuario = $(this).attr('data-user');
   redirectProfile(idusuario);
 });
 
-// Ecutar buscador
+// Ejecutar buscador
 $("#btn-search-services").click(function () {
-  serviciobuscado = $("#input-search-service").val();
+  serviciobuscado = $("#input-search-service").val().trim();
   iddepartamento = $("#departments-filter").val();
-  spage = 0;
-  slastpage = 7;
+
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
+  // Mostrar o ocultar opciones de filtrados
   if(iddepartamento == "" || iddepartamento == null){
     // Mostrar localidades para volver a filtrar
     $("#content-locations").removeClass("d-none");
-    $("#content-locations #locations").collapse("show");
   } else {
     // Ocultar localidades
     $("#content-locations").addClass("d-none");
   }
   
-  // Abrir collapse de tarifas
-  $(".content-filter-tarifa #fee").collapse('show');
 
   // almacenar en variable del navegador
   localStorage.setItem('serviciobuscado', serviciobuscado);
@@ -97,7 +115,7 @@ $("#btn-search-services").click(function () {
     // Mostrar contenedor de filtrados
     $("#container-filtered-services").removeClass("d-none");
     // Mostrar animación   
-    generateLoader($("#container-filtered-services")); 
+    generateLoader("#container-filtered-services"); 
     // Operación realizada
     operation = "specialtiesFilteredByServiceAndDepartment";
     
@@ -108,14 +126,12 @@ $("#btn-search-services").click(function () {
       iddepartamento: iddepartamento
     });
 
-    // Filtrar servicios
-    getServicesFiltered({
-      op            : 'specialtiesFilteredByServiceAndDepartment',
-      nombreservicio: serviciobuscado,
-      iddepartamento: iddepartamento,
-      order         : ordenado,
-      wsize         : wsize
-    });    
+    // Actualizar array asociativo
+    dataSend['op']             = operation;
+    dataSend['nombreservicio'] = serviciobuscado;
+    dataSend['iddepartamento'] = iddepartamento;
+    dataSend['offset']         = offset;
+    getServicesFiltered();
   }
 });
 
@@ -130,18 +146,13 @@ $("#input-search-service").keyup(function(e){
 $("#btn-list").click(function () {
   wsize = "box-lg";
 
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
   // Filtrar servicios con la operación indicada anteriormente
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    iddepartamento: iddepartamento,
-    idprovincia   : idprovincia,
-    iddistrito    : iddistrito,
-    tarifa1       : arrayMoney[0],
-    tarifa2       : arrayMoney[1],
-    order         : ordenado,
-    wsize         : wsize
-  });
+  dataSend['wsize'] = wsize; 
+  dataSend['offset'] = offset; 
+  getServicesFiltered();
   
 });
 
@@ -149,124 +160,129 @@ $("#btn-list").click(function () {
 $("#btn-grid").click(function () {
   wsize = "box-sm";
 
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
   // Filtrar servicios con la operación indicada anteriormente
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    iddepartamento: iddepartamento,
-    idprovincia   : idprovincia,
-    iddistrito    : iddistrito,
-    tarifa1       : arrayMoney[0],
-    tarifa2       : arrayMoney[1],
-    order         : ordenado,
-    wsize         : wsize
-  });
+  dataSend['wsize'] = wsize;
+  dataSend['offset'] = offset;
+  getServicesFiltered();
 });
 
 // Filtrar por departamentos
 $("#departments").change(function () {
   iddepartamento = $(this).val();
+
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
   // Operación realizada
   operation = "specialtiesFilteredByServiceAndDepartment";
 
-  // listar distritos
+  // listar provincias
   listProvinces(iddepartamento);
 
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    iddepartamento: iddepartamento,
-    order         : ordenado,
-    wsize         : wsize
-  });
+  // Actualizar array asociativo
+  dataSend['op']             = operation;
+  dataSend['iddepartamento'] = iddepartamento;
+  dataSend['nombreservicio'] = serviciobuscado;
+  dataSend['offset']         = offset;
+  getServicesFiltered();
 });
 
 // Filtrar por provincias
 $("#provinces").change(function () {
   idprovincia = $(this).val();
+
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
   // Operación realizada
   operation = "specialtiesFilteredByServiceAndProvince";
 
   // listar distritos
   listDistricts(idprovincia);
 
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    idprovincia   : idprovincia,
-    order         : ordenado,
-    wsize         : wsize
-  });
+  // Actualizar array asociativo
+  dataSend['op']          = operation;
+  dataSend['idprovincia'] = idprovincia;
+  dataSend['offset']      = offset;
+
+  getServicesFiltered();
 });
 
 // filtrar por ditritos
 $("#districts").change(function () {
   iddistrito = $(this).val();
+
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
   // operación realizada 
   operation = "specialtiesFilteredByServiceAndDistrict";
 
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    iddistrito    : iddistrito,
-    order         : ordenado,
-    wsize         : wsize
-  });
+  // Actualizar array asociativo
+  dataSend['op']         = operation;
+  dataSend['iddistrito'] = iddistrito;
+  dataSend['offset']     = offset;
+
+  getServicesFiltered();
 });
 
 // Filtrar por rango de monedas
 $("#range-money").change(function () {
   let money = $(this).val();
   arrayMoney = money.split(';');
+
+  $("#money1").val(arrayMoney[0]);
+  $("#money2").val(arrayMoney[1]);  
+});
+
+// Money start
+$("#money1").keyup(function(){
+  rangeMoney.update({from: $(this).val() });
+});
+
+// Money end
+$("#money2").keyup(function(){
+  rangeMoney.update({to: $(this).val()});
+});
+
+// Boton que ejecuta el filtrado de monedas
+$("#btn-filter-money").click(function(){
+  // Limpiar contenidos
+  cleanContainerFiltered();
+
   // Operación realizada
   operation = "specialtiesFilteredByServiceAndFee";
 
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    tarifa1       : arrayMoney[0],
-    tarifa2       : arrayMoney[1],
-    order         : ordenado,
-    wsize         : wsize
-  });
+  dataSend['op']      = operation;
+  dataSend['tarifa1'] = $("#money1").val();
+  dataSend['tarifa2'] = $("#money2").val();
+  dataSend['offset']  = offset;
+  
+  getServicesFiltered();
 });
 
 // Ordenar filtrado
 $("#order-filtered").change(function(){
-  ordenado = $(this).val();
+  order = $(this).val();
+
+  // Limpiar contenidos
+  cleanContainerFiltered();
 
   // Filtrar servicios con el orden establecido
-  getServicesFiltered({
-    op            : operation,
-    nombreservicio: serviciobuscado,
-    iddepartamento: iddepartamento,
-    idprovincia   : idprovincia,
-    iddistrito    : iddistrito,
-    tarifa1       : arrayMoney[0],
-    tarifa2       : arrayMoney[1],
-    order         : ordenado,
-    wsize         : wsize
-  });
+  dataSend['order']  = order;
+  dataSend['offset'] = offset;
+  getServicesFiltered();
 });
-
-// Abrir en el mapa
-$("#btn-open-map").click(function () {
-  //alert("Abrir mapa");
-  redirect(serviciobuscado);
-});
-
-// Redireccionar al perfil
-function redirectProfile(idusuario) {
-  localStorage.setItem("idusuarioActivo", idusuario);
-  window.location.href = "index.php?view=profile-view";
-}
 
 // Llenar de datos el control select de departamentos
-function listDepartments() {
+function listDepartmentsMain() {
   $.ajax({
     url: 'controllers/ubigeo.controller.php',
     type: 'GET',
-    data: 'op=getDepartments',
+    data: 'op=getDepartmentsMain',
     success: function (result) {
       $("#departments-filter").html(result);
       $("#departments").html(result);
@@ -312,8 +328,51 @@ function serviceRecommendationCarousel() {
     type: 'GET',
     data: 'op=listCarouselRecommendation',
     success: function (result) {
-
+      // texto del botón
+      $("button[data-more='recomendation']").html("Ver más");
       $("#carousel-recommended").html(result);
+
+      // Configuración del owl-carousel
+      $('.owl-carousel').owlCarousel({
+        loop: true,
+        dots: false, // Leyenda de pagina
+        margin: 10,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        nav: true,  // Navegación
+        responsive: {
+          0: {
+            items: 1
+          },
+          980: {
+            items: 2
+          },
+          1300: {
+            items: 3
+          },
+          1800: {
+            items: 3
+          }
+        }
+      })
+    }
+  });
+}
+
+// Listar servicios populares
+function servicePopularCarousel() {
+  // animación de carga
+  $("#carousel-popular").html(getLoader());
+
+  $.ajax({
+    url: 'controllers/specialty.controller.php',
+    type: 'GET',
+    data: 'op=listCarouselPopular',
+    success: function (result) {
+      // texto del botón
+      $("button[data-more='popular']").html("Ver más");
+      $("#carousel-popular").html(result);
 
       // Configuración del owl-carousel
       $('.owl-carousel').owlCarousel({
@@ -323,7 +382,7 @@ function serviceRecommendationCarousel() {
         autoplay: true,
         autoplayTimeout: 3000,
         autoplayHoverPause: true,
-        nav: true,
+        nav: true,  // Navegación
         responsive: {
           0: {
             items: 1
@@ -344,29 +403,46 @@ function serviceRecommendationCarousel() {
 }
 
 // Listar contenidos en formato grid
-function serviceRecommendationGrid(container) {
+function serviceRecommendationGrid(typeservice) {
   $.ajax({
     url: 'controllers/specialty.controller.php',
     type: 'GET',
-    data: 'op=listGridRecommendation',
+    data: 'op=listGridRecommendation&typeservice=' + typeservice,
     success: function (result) {
       if (result != "") {
-        $("div[data-more='" + container + "']").html(result);
+        $("div[data-more='" + typeservice + "']").html(result);
+                
       }
     }
   });
 }
 
+// Limpiar contenidos filtrados
+function cleanContentFiltered(){
+  offset = 0;
+  offsetTmp = 0;
+
+  // Limpiar contenidos
+  $("#content-data-filtered div").remove();
+}
+
 // Listar servicios filtrados
-function getServicesFiltered(dataSend) {
+function getServicesFiltered() {
+  // Mostrar animación de carga
+  $("#content-data-filtered").append(getLoader());
+  
   $.ajax({
     url: 'controllers/specialty.controller.php',
     type: 'GET',
     data: dataSend,
     success: function (result) {
-      if (result != "") {       
-        $("#content-data-filtered").html(result);
-      }
+      // Quitar animación de carga
+      $("#content-data-filtered div").remove(".container-loader");
+
+      // Mostrar contenidos
+      if (result != "" && result != "sin registros") { 
+        $("#content-data-filtered").append(result);
+      } 
     }
   });
 }
@@ -397,7 +473,7 @@ function totalSpecialtiesFound(dataSend){
         $("#span-text-found").html("Servicios ofrecidos");
         $("#body-content-filtered").removeClass("d-none");
       } else {
-        $("#span-text-found").html("No se ha encontrado servivicios ofrecidos con los filtros actuales");
+        $("#span-text-found").html("No se ha encontrado servicios ofrecidos con los filtros actuales");
         $("#total-services-found").html('');
         $("#body-content-filtered").addClass("d-none");
       }
@@ -405,7 +481,30 @@ function totalSpecialtiesFound(dataSend){
   });
 }
 
+// Resetear contenido filtrados - agregados con append
+function cleanContainerFiltered(){
+  offset = 0;
+  offsetTmp = 0;
+
+  // Limpiar contenidos
+  $("#content-data-filtered div").remove();
+}
+
+// Detectar scroll - al final del contenido
+$(".container-box").scroll(function(){
+  let result = isFinalContainer(".container-box");
+  if(result){
+    offsetTmp++;
+    offset = offsetTmp * limit;
+    dataSend['offset'] = offset;
+    getServicesFiltered();
+  }
+});
+
 // Listar departamentos y recomendados
-listDepartments();
+listDepartmentsMain();
 serviceRecommendationCarousel();
+servicePopularCarousel();
 totalSpecialtiesAvailable();
+setInterval(servicePopularCarousel, 60000); // Ejecutar cada 1 Minuto
+setInterval(serviceRecommendationCarousel, 120000); // Ejecutar cada 2 Minuto

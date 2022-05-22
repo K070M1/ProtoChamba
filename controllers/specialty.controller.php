@@ -16,7 +16,6 @@ $ubigeo = new Ubigeo();
 
 if (isset($_GET['op'])) {
 
-
   // generar tarjetas de presentación en formato grid
   function generateContentGrid($data)
   {
@@ -34,11 +33,11 @@ if (isset($_GET['op'])) {
     }
   }
 
-  // Filtrados por el nombre del servicio y el iddepartamento
+  // Filtrados de especialidades
   function generateSpecialtiesFiltered($data, $wSize)
   {
     if (count($data) == 0) {
-      echo "<h5>Sin registros encontrados</h5> ";
+      echo "<h5>Sin registros encontrados</h5>";
     } else {
       echo "<div class='flex-box'>";
       
@@ -231,34 +230,45 @@ if (isset($_GET['op'])) {
     if ($nombreservicio == "Seguridad") $result = "outline-aquamarine";
     if ($nombreservicio == "Soldador") $result = "outline-dark-salmon";
     if ($nombreservicio == "Traductor") $result = "outline-chartreuse";
+    if ($nombreservicio == "Pintor") $result = "outline-paleVioletRed";
+    if ($nombreservicio == "Jardinero") $result = "outline-mediumSeaGreen";
+    if ($nombreservicio == "Cerrajero") $result = "outline-slateGray ";
+    if ($nombreservicio == "Herrero") $result = "outline-lightSeaGreen";
+    if ($nombreservicio == "Artista") $result = "outline-darkMagenta";
 
     return $result;
   }
 
   // Obtener el icono del servicio
   function getIconService($nombreservicio){
-    $attorney = "<i class='icon-service fab fa-autoprefixer'></i>";
-    $constructor = "<i class='icon-service fas fa-hard-hat'></i>";
-    $animator = "<i class='icon-service fas fa-theater-masks'></i>";
-    $consultant = "<i class='icon-service fab fa-black-tie'></i>";
-    $asistant = "<i class='icon-service fas fa-hands-helping'></i>";
-    $joiner = "<i class='icon-service fas fa-screwdriver'></i>";
-    $chef = "<i class='icon-service fas fa fa-cheese'></i>";
-    $driver = "<i class='icon-service fas fa-car-side'></i>";
-    $design = "<i class='icon-service fab fa-affiliatetheme'></i>";
-    $teacher = "<i class='icon-service fas fa-chalkboard-teacher'></i>";
-    $electrician = "<i class='icon-service fas fa-bolt'></i>";
-    $plumber = "<i class='icon-service fas fa-wrench'></i>";
-    $cleaning = "<i class='icon-service fas fa-hand-sparkles'></i>";
-    $mechanical = "<i class='icon-service fas fa-cogs'></i>";
-    $medicine = "<i class='icon-service fas fa-syringe'></i>";
-    $operator = "<i class='icon-service fas fa-user-tie'></i>";
-    $developer = "<i class='icon-service fas fa-code'></i>";
-    $promoter = "<i class='icon-service fas fa-ad'></i>";
-    $security = "<i class='icon-service fas fa-user-shield'></i>";
-    $welder = "<i class='icon-service fas fa-user-astronaut'></i>";
-    $translator = "<i class='icon-service fas fa-language'></i>";
-    $result = "";
+    $attorney = "fab fa-autoprefixer";
+    $constructor = "fas fa-hard-hat";
+    $animator = "fas fa-theater-masks";
+    $consultant = "fab fa-black-tie";
+    $asistant = "fas fa-hands-helping";
+    $joiner = "fas fa-screwdriver";
+    $chef = "fas fa fa-cheese";
+    $driver = "fas fa-car-side";
+    $design = "fab fa-affiliatetheme";
+    $teacher = "fas fa-chalkboard-teacher";
+    $electrician = "fas fa-bolt";
+    $plumber = "fas fa-wrench";
+    $cleaning = "fas fa-hand-sparkles";
+    $mechanical = "fas fa-cogs";
+    $medicine = "fas fa-syringe";
+    $operator = "fas fa-user-tie";
+    $developer = "fas fa-code";
+    $promoter = "fas fa-ad";
+    $security = "fas fa-user-shield";
+    $welder = "fas fa-user-astronaut";
+    $translator = "fas fa-language";
+    $painter = "fas fa-paint-brush";
+    $gardener = "fas fa-hat-cowboy";
+    $locksmith = "fas fa-key";
+    $blacksmith = "fab fa-sith";
+    $artist = "fab fa-artstation";
+
+    $result = "fas fa-shapes";
 
     if ($nombreservicio == "Abogado") $result = $attorney;
     if ($nombreservicio == "Albañil") $result = $constructor;
@@ -281,10 +291,14 @@ if (isset($_GET['op'])) {
     if ($nombreservicio == "Seguridad") $result = $security;
     if ($nombreservicio == "Soldador") $result = $welder;
     if ($nombreservicio == "Traductor") $result = $translator;
+    if ($nombreservicio == "Pintor") $result = $painter;
+    if ($nombreservicio == "Jardinero") $result = $gardener;
+    if ($nombreservicio == "Cerrajero") $result = $locksmith;
+    if ($nombreservicio == "Herrero") $result = $blacksmith;
+    if ($nombreservicio == "Artista") $result = $artist;
 
-    return $result;
+    return "<i class='icon-service {$result}'></i>";
   }
-
 
   // listar especialidades en un control select
   function listSpecialtyControlSelect($data)
@@ -417,35 +431,49 @@ if (isset($_GET['op'])) {
     generateCarousel($data);
   }
 
+  // mostrar especialidades populares en carousel
+  if ($_GET['op'] == 'listCarouselPopular') {
+    $data = $specialty->getPopularRandomSpecials(["limit" => 20, "offset" => 0]);
+    generateCarousel($data);
+  }
+
   // Mostrar especialidades recomendados en formato (GRID)
   if ($_GET['op'] == 'listGridRecommendation') {
-    $data = $specialty->getRandomSpecials(["limit" => 20, "offset" => 0]);
+    $data = [];
+    if($_GET['typeservice'] == "popular"){
+      $data = $specialty->getPopularRandomSpecials(["limit" => 20, "offset" => 0]);
+    } else {
+      $data = $specialty->getRandomSpecials(["limit" => 20, "offset" => 0]);
+    }
     generateContentGrid($data);
   }
 
   // Filtrados por servicio y departamento
   if ($_GET['op'] == 'specialtiesFilteredByServiceAndDepartment') {
-
     $data;
 
     if($_GET['iddepartamento'] == ''){
       $data = $specialty->specialtiesFilteredByService([
         "nombreservicio"  => $_GET['nombreservicio'],
         "order"           => $_GET['order'],
-        "limit"           => 10,
-        "offset"          => 0
+        "limit"           => $_GET['limit'],
+        "offset"          => $_GET['offset']
       ]);
     } else {
       $data = $specialty->specialtiesFilteredByServiceAndDepartment([
         "nombreservicio"  => $_GET['nombreservicio'],
         "iddepartamento"  => $_GET['iddepartamento'],
         "order"           => $_GET['order'],
-        "limit"           => 10,
-        "offset"          => 0
+        "limit"           => $_GET['limit'],
+        "offset"          => $_GET['offset']
       ]);
     }
 
-    generateSpecialtiesFiltered($data, $_GET['wsize']);
+    if($data){
+      generateSpecialtiesFiltered($data, $_GET['wsize']);
+    } else {
+      echo "sin registros";
+    }
   }
 
   // Filtrados por servicio y provincia
@@ -454,10 +482,15 @@ if (isset($_GET['op'])) {
       "nombreservicio"  => $_GET['nombreservicio'],
       "idprovincia"     => $_GET['idprovincia'],
       "order"           => $_GET['order'],
-      "limit"           => 10,
-      "offset"          => 0
+      "limit"           => $_GET['limit'],
+      "offset"          => $_GET['offset']
     ]);
-    generateSpecialtiesFiltered($data, $_GET['wsize']);
+
+    if($data){
+      generateSpecialtiesFiltered($data, $_GET['wsize']);
+    } else {
+      echo "sin registros";
+    }
   }
 
   // Filtrados por servicio y distrito
@@ -466,11 +499,15 @@ if (isset($_GET['op'])) {
       "nombreservicio"  => $_GET['nombreservicio'],
       "iddistrito"      => $_GET['iddistrito'],
       "order"           => $_GET['order'],
-      "limit"           => 10,
-      "offset"          => 0
+      "limit"           => $_GET['limit'],
+      "offset"          => $_GET['offset']
     ]);
 
-    generateSpecialtiesFiltered($data, $_GET['wsize']);
+    if($data){
+      generateSpecialtiesFiltered($data, $_GET['wsize']);
+    } else {
+      echo "sin registros";
+    }
   }
 
   // Filtrados por servicio y tarifas
@@ -480,11 +517,15 @@ if (isset($_GET['op'])) {
       "tarifa1"         => $_GET['tarifa1'],
       "tarifa2"         => $_GET['tarifa2'],
       "order"           => $_GET['order'],
-      "limit"           => 10,
-      "offset"          => 0
+      "limit"           => $_GET['limit'],
+      "offset"          => $_GET['offset']
     ]);
 
-    generateSpecialtiesFiltered($data, $_GET['wsize']);
+    if($data){
+      generateSpecialtiesFiltered($data, $_GET['wsize']);
+    } else {
+      echo "sin registros";
+    }
   }
 
   // Total de servicios encontrado al realizar la busqueda

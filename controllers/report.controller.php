@@ -28,8 +28,8 @@ if(isset($_GET['op'])){
                 <span class='sr-only'>Toggle Dropdown</span>
               </button>
               <div class='dropdown-menu' role='menu'>
-                <a class='dropdown-item btn-open-modal-report' href='#' data-img='{$row->fotografia}'>Ver archivo adjunto</a>
-                <a class='dropdown-item btn-ban-user' href='#' data-code='{$row->idusuario}'>Banear usuario</a>
+                <a class='dropdown-item btn-open-modal-report' href='javascript:void(0)' data-img='{$row->fotografia}'>Ver archivo adjunto</a>
+                <a class='dropdown-item btn-ban-user' href='javascript:void(0)' data-code='{$row->idusuario}'>Banear usuario</a>
               </div>
             </div>
           </td>
@@ -69,7 +69,7 @@ if(isset($_POST['op'])){
     ]);
 
 
-    // guardar si existe iamgen
+    // guardar si existe imagen
     if($image != ""){
       move_uploaded_file($_FILES['fotografia']['tmp_name'], '../dist/img/user/' . $image);
     }

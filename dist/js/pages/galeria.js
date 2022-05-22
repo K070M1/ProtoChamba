@@ -4,8 +4,8 @@ idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 // Variables generales
 var disabledSelector = true;
 var modificarAlbum = false;
-var añdAlbm = true;
-var ElementSubidos = [];
+var addAlbm = true;
+var elementSubidos = [];
 
 var idalbum;
 var idgaleria;
@@ -14,7 +14,6 @@ var idgaleria;
 function createPreview(file, dataname) {
     var imgCod = URL.createObjectURL(file);
     var img = $('<div class="col-md-4" id="capImgindex"><div class="image-sub-despz" dataimg="'+ dataname +'"> <figure> <img src="' + imgCod+ '" alt="Foto del usuario" width="100%"> <figcaption><i class="fas fa-trash-alt"></i></figcaption> </figure> </div></div>');
-    //$(img).insertBefore(".img-upd-container");
     $(".img-container-upt").append(img);
 }   
 
@@ -69,7 +68,7 @@ function loadAlbumSlcModalGallery(idalbm){
         data: 'op=loadAlbumSlcModal',
         success: function(e) {
           $("#slc-album-md").html(e);
-          if(añdAlbm == false){
+          if(addAlbm == false){
               $("#slc-album-md").val(idalbm);
           }else{
               $("#alb-add-gal").html(e);
@@ -98,7 +97,7 @@ $("#add-new-photo").on("change", function(){
     var namelement;
 
     for (var i = 0; i < archivoCargados.length; i++) {
-        ElementSubidos.push(archivoCargados[i]);
+        elementSubidos.push(archivoCargados[i]);
         elementos = archivoCargados[i];
         namelement = archivoCargados[i]['name'];
         createPreview(elementos, namelement);
@@ -109,15 +108,15 @@ $("#add-new-photo").on("change", function(){
 // Registrar Album
 $("#load-album").on("click", "#agr-albm", function(){
     $("#md-album-cd-img").modal("toggle");
-    $("#añadir-albm").html("Añadir");
+    $("#add-albm").html("Añadir");
     $("#t-md-albm").html("Crear nuevo álbum");
     $("#nmb-album-add").val("");
     modificarAlbum = false;
 });
 
 // Agregar album 
-$("#añadir-albm").click(function(){
-    let nalbum = $("#nmb-album-add").val();
+$("#add-albm").click(function(){
+    let nalbum = $("#nmb-album-add").val().trim();
     
     var formData = new FormData();
 
@@ -130,7 +129,7 @@ $("#añadir-albm").click(function(){
     
     formData.append("nombrealbum", nalbum);
 
-    if(nalbum == '' || nalbum == ' '){
+    if(nalbum == ''){
         sweetAlertWarning("Q tal chamba", "Debes escribir el nombre del álbum");
     }else{
         if(nalbum == 'Perfil' || nalbum == 'Portada' || nalbum == 'Publicaciones'){
@@ -145,11 +144,11 @@ $("#añadir-albm").click(function(){
                         contentType: false,
                         processData: false,
                         cache: false,
-                        success: function(e) {
-                            console.log(e);
+                        success: function(e) {                            
+                            socket.send("gallery"); // Operación enviada al servidor
                             loadAlbum();
                             $("#md-album-cd-img").modal("hide");
-                            $("#añadir-albm").html("Añadir");
+                            $("#add-albm").html("Añadir");
                             $("#t-md-albm").html("Crear nuevo álbum");
                             modificarAlbum = false;
                             sweetAlertSuccess("Q tal chamba", "Operación realizada correctamente");
@@ -172,6 +171,7 @@ $("#load-album").on("click", ".btn-elim",function(){
                 type: 'GET',
                 data: 'op=deleteAlbum&idalbum=' + $idalbum,
                 success: function(e) {
+                    socket.send("gallery"); // Operación enviada al servidor
                     loadAlbum();
                     sweetAlertSuccess("Q tal chamba", "Eliminado correctamente");
                 }
@@ -209,7 +209,7 @@ $("#load-album").on("click", ".btn-modif",function(){
             var datos = JSON.parse(e);
             modificarAlbum = true;
             $("#nmb-album-add").val(datos[0].nombrealbum);
-            $("#añadir-albm").html("Actualizar");
+            $("#add-albm").html("Actualizar");
             $("#t-md-albm").html("Modificar álbum");
             $("#md-album-cd-img").modal("toggle");
         }
@@ -220,17 +220,16 @@ $("#load-album").on("click", ".btn-modif",function(){
 // Abrir modal de subir imagen
 $("#load-Gallery").on("click", "#agr-gal", function(){
     $("#md-add-img").modal("toggle");
-    ElementSubidos = [];
+    elementSubidos = [];
     $(".img-container-upt").empty();
     loadAlbumSlcModalAddGallery();
-    console.log(ElementSubidos);
 });
 
 // Eliminar previsualizacion
 $(".img-container-upt").on("click", ".image-sub-despz", function(){
     $(this).parent().remove();
     var data =  $(this).attr('dataimg');
-    removeItemFromArrayObject(ElementSubidos, data);
+    removeItemFromArrayObject(elementSubidos, data);
 });
 
 // Subir imagen temporales
@@ -245,7 +244,7 @@ $("#load-Gallery").on("click", ".btn-vw", function(){
 
     $("#modal-view-img").modal("toggle");
     $("#slc-album-md").addClass("view-only-img");
-    añdAlbm = false;
+    addAlbm = false;
     loadGalleryModal(idgal, idalbm, false);
     
 });
@@ -260,6 +259,7 @@ $("#load-Gallery").on("click", ".btn-elim", function(){
                 type: 'GET',
                 data: 'op=deleteGallery&idgaleria=' + $idgaleria,
                 success: function() {
+                    socket.send("gallery"); // Operación enciada al servidor
                     loadGallery();
                     sweetAlertSuccess("Q tal chamba", "Eliminado correctamente");
                 }
@@ -279,7 +279,7 @@ $("#load-Gallery").on("click", ".btn-modif", function(){
     $("#modal-view-img").modal("toggle");
     $("#slc-album-md").addClass("view-only-img");
     
-    añdAlbm = false;
+    addAlbm = false;
     loadGalleryModal(idgaleGl, idalbm, true);
     $("#btn-cmb-alb").html("Cambiar"); 
 });
@@ -315,6 +315,7 @@ $("#loadGalleryModal").on("click", "#btn-cmb-alb" , function(){
                     processData: false,
                     cache: false,
                     success: function() {
+                        socket.send("gallery"); // Operación enviada al servidor
                         loadGallery();
                         sweetAlertSuccess("Q tal chamba", "Archivo modificado correctamente");
                     }
@@ -331,15 +332,15 @@ $("#btn-add-gal-md").click(function(){
     let idalbum = $("#alb-add-gal").val();
     var formData = new FormData();
 
-    if(ElementSubidos.length == ''){
+    if(elementSubidos.length == ''){
         sweetAlertWarning("Q tal Chamba", "No hay archivos para subir");
     }else{
         sweetAlertConfirmQuestionSave("¿Estas seguro de registrar estos  archivos ?").then((confirm) => {
             if(confirm.isConfirmed){
                 formData.append("op", "registerGalleryPhotos");
                 formData.append("idalbum", idalbum);
-                for(let i = 0; i < ElementSubidos.length; i++){
-                    formData.append("archivo[]", ElementSubidos[i]);
+                for(let i = 0; i < elementSubidos.length; i++){
+                    formData.append("archivo[]", elementSubidos[i]);
                 }
     
                 $.ajax({
@@ -350,11 +351,11 @@ $("#btn-add-gal-md").click(function(){
                     processData: false,
                     cache: false,
                     success: function() {
-                        ElementSubidos = [];
+                        elementSubidos = [];
                         $("#md-add-img").modal("hide");
                         sweetAlertSuccess("Q tal Chamba", "Archivos subidos correctamente");
+                        socket.send("gallery"); // Operación enciada al servidor
                         loadGallery();
-                        console.log(ElementSubidos);
                     }
                 });
             }

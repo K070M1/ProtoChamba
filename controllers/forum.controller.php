@@ -16,7 +16,6 @@ if(isset($_GET['op'])){
     }
     else{
       foreach ($data as $row){
-
         $getImage = getImageProfileUser($row['idfromusuario']);
         $imageProfile = $getImage != ''? $getImage : 'default_profile_avatar.svg'; 
         $options = "";
@@ -31,20 +30,16 @@ if(isset($_GET['op'])){
             ";
           } 
         }
-         /* else{
-          $options = "<a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>";
-        } */
 
         echo "
           <div class='box-comment'>
             <img src='dist/img/user/{$imageProfile}' />
-
             <div class='box-content-commented'>
               <div class='name-user'>
                 <span>{$row['nombres']}</span>
                 <small class='fecha text-muted'>{$row['fechaconsulta']} </small>
               </div>
-              <p class='comment-text'> {$row['consulta']} </p>
+              <p class='comment-text contenteditable'> {$row['consulta']} </p>
               {$options}
             </div>
           </div>
@@ -61,7 +56,7 @@ if(isset($_GET['op'])){
     return isset($images[0]) ? $images[0]['archivo']: '';
   }
 
-  // Listar
+  // Listar consultas
   if($_GET['op'] == 'getQueriesToUser'){
     $idusuario;
 
@@ -73,10 +68,15 @@ if(isset($_GET['op'])){
 
     $data = $forum->getQueriesToUser([
       'idusuario' => $idusuario,
-      'start'   => $_GET['start'],
-      'finish'  =>  $_GET['finish']
+      'offset'    => $_GET['offset'], 
+      'limit'     => $_GET['limit']
     ]);
-    listQueriesForumToUser($data);
+    
+    if($data){
+      listQueriesForumToUser($data);
+    } else {
+      echo "sin consultas";
+    }
 
   }
 

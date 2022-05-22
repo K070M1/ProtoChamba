@@ -2,11 +2,12 @@ var question = localStorage.getItem('QuestionLogin');
 if(question == null){
     question = false;
 }
+
 var idusuarioActivo = localStorage.getItem("idusuarioActivo");
 idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 
 var dejarIr = false;
-var NewUserImg = [];
+var newUserImg = [];
 
 var remember = localStorage.getItem('remember');
 if(remember == null){
@@ -23,6 +24,35 @@ function updtRes1(){
         }   
     });
 }
+
+// Cargar contenido de restablecimiento paso 2
+$("#m-res-lod").on("click", "#btnRes2", function(){
+    $.ajax({
+        url: 'controllers/user.controller.php',
+        type: 'GET',
+        data: 'op=modalsRest&paso=3',
+        success: function(e) {
+            $("#m-res-lod").html(e);
+        }   
+    });
+});
+
+
+// Cargar contenido de restablecimiento paso 3
+$("#m-res-lod").on("click", "#btnRes3", function(){
+    if(dejarIr == true){
+        $.ajax({
+            url: 'controllers/user.controller.php',
+            type: 'GET',
+            data: 'op=modalsRest&paso=4',
+            success: function(e) {
+                $("#m-res-lod").html(e);
+                dejarIr = false;
+            }   
+        });
+    }
+});
+
 
 // Cargar datos de departamentos
 function slclstDepartm() {
@@ -90,6 +120,7 @@ function registerUser() {
                                 $("#modalRegister").modal('hide');
                                 $("#modal-perfil-img-new").modal('toggle');
                                 loadPicturePerfil();
+                                socket.send("users"); // Operación enviada al servidor
                                 sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
                                 //window.location.reload();
                             }
@@ -108,7 +139,7 @@ function registerUser() {
 function newProfileUser(){
     var formData = new FormData();
     formData.append("op", "newUserProfile");
-    formData.append("archivo", NewUserImg[0]);
+    formData.append("archivo", newUserImg[0]);
     $.ajax({
         url: 'controllers/user.controller.php',
         type: 'POST',
@@ -153,7 +184,7 @@ $("#newUserFile").change(function(){
         sweetAlertWarning('Q tal Chamba', 'Ningun archivo seleccionado');    
     }else{
         var element = datos[0];
-        NewUserImg.push(element);
+        newUserImg.push(element);
         var img = URL.createObjectURL(element);
         $("#File-imgUserNew").attr('src', img);
         sweetAlertConfirmQuestionSave("¿Estas seguro de asignar esta foto de perfil?").then((confirm) => {
@@ -166,7 +197,6 @@ $("#newUserFile").change(function(){
 });
 
 // Cargar contenido de un select 
-
 function loadSlcQuestions(){
 
     $.ajax({
@@ -255,17 +285,6 @@ $("#m-res-lod").on("click", "#btnRes1", function(){
 
 });
 
-// Cargar contenido de restablecimiento paso 2
-$("#m-res-lod").on("click", "#btnRes2", function(){
-    $.ajax({
-        url: 'controllers/user.controller.php',
-        type: 'GET',
-        data: 'op=modalsRest&paso=3',
-        success: function(e) {
-            $("#m-res-lod").html(e);
-        }   
-    });
-});
 
 
 //Envio de codigo al correo
@@ -288,21 +307,6 @@ $("#m-res-lod").on("click", "#btnRes2", function(){
 });
 
 
-// Cargar contenido de restablecimiento paso 3
-
-$("#m-res-lod").on("click", "#btnRes3", function(){
-    if(dejarIr == true){
-        $.ajax({
-            url: 'controllers/user.controller.php',
-            type: 'GET',
-            data: 'op=modalsRest&paso=4',
-            success: function(e) {
-                $("#m-res-lod").html(e);
-                dejarIr = false;
-            }   
-        });
-    }
-});
 
 //Verificacion de codigo al correo
 $("#m-res-lod").on("click", "#btnRes3", function(){
@@ -439,17 +443,16 @@ $("#m-res-lod").on("click", "#btnRes4", function(){
 
 // Cargar datos de provincias
 $("#slcDepartReg").change(function() {
-let iddepart = $(this).val();
+    let iddepart = $(this).val();
 
-$.ajax({
-    url: 'controllers/ubigeo.controller.php',
-    type: 'GET',
-    data: 'op=getProvinces&iddepartamento=' + iddepart,
-    success: function(e) {
-    $("#slcProvinReg").html(e);
-    }
-});
-
+    $.ajax({
+        url: 'controllers/ubigeo.controller.php',
+        type: 'GET',
+        data: 'op=getProvinces&iddepartamento=' + iddepart,
+        success: function(e) {
+        $("#slcProvinReg").html(e);
+        }
+    });
 });
 
 // Cargar datos de distritos
@@ -636,13 +639,13 @@ $("#questionLoginHab").change(function(){
 
 //Cargar datos de remember
 $("#rememberUser").change(function(){
-        if($("#rememberUser").prop('checked')){
-            localStorage.setItem('remember', true);
-            remember = true;
-        }else{
-            localStorage.setItem('remember', false);
-            remember = false;
-        }
+    if($("#rememberUser").prop('checked')){
+        localStorage.setItem('remember', true);
+        remember = true;
+    }else{
+        localStorage.setItem('remember', false);
+        remember = false;
+    }
 });
 
 //Cargar datos de remember

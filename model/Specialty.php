@@ -15,11 +15,21 @@ class Specialty extends ModelMaster
     }
   }
 
-  // Listar por servicio
+  // Listar especialidades aleatorios
   public function getRandomSpecials(array $data)
   {
     try {
       return parent::execProcedure($data, "spu_especialidades_listar_aleatorio", true);
+    } catch (Exception $error) {
+      die($error->getMessage());
+    }
+  }
+
+  // Listar especialidades aleatorios de los más populares
+  public function getPopularRandomSpecials(array $data)
+  {
+    try {
+      return parent::execProcedure($data, "spu_especialidades_listar_populares", true);
     } catch (Exception $error) {
       die($error->getMessage());
     }
@@ -65,7 +75,7 @@ class Specialty extends ModelMaster
     }
   }
 
-  // Actualizar especialidad de un usuario
+  // Obtener un registro
   public function getAtSpecialty(array $data)
   {
     try {

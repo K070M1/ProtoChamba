@@ -58,14 +58,14 @@
   <!-- SERVICES RECOMENDADOS -->
   <div class="container-services mt-4 " id="content-carousels">
     <!-- carouseles 1 -->
-    <div class='card d-none'>
+    <div class='card'>
       <div class='card-header'>
         <div class='row'>
           <div class='col-6 col-xs-6'>
-            <h5 class='text-bold'>Más populares <span class='badge badge-primary'>0</span></h5>
+            <h5 class='text-bold text-uppercase'>Más populares</h5>
           </div>
           <div class='col-6 col-xs-6 text-right'>
-            <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='pupular' disabled> Ver más</button>
+            <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='popular' > Ver más</button>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@
       <div class='card-header'>
         <div class='row'>
           <div class='col-6 col-xs-6'>
-            <h5 class='text-bold'>Recomendados </h5>
+            <h5 class='text-bold text-uppercase'>Recomendados </h5>
           </div>
           <div class='col-6 col-xs-6 text-right'>
             <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='recomendation' > Ver más</button>
@@ -117,9 +117,6 @@
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
               </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-              </button>
             </div>
           </div>
           <div class="card-body container-filter">
@@ -133,6 +130,19 @@
               <div class="collapse" id="fee">
                 <div class="card card-body">
                   <input id="range-money" type="text">
+                  <div class="row mt-1">
+                    <div class="col-6 form-group">
+                      <input type="number" id="money1" class="form-control" value="50" placeholder="Min">
+                    </div>
+                    <div class="col-6 form-group">
+                      <input type="number" id="money2" class="form-control" value="8000" placeholder="Max">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <button class="btn btn-sm btn-block btn-primary" id="btn-filter-money">Filtrar</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -174,7 +184,7 @@
             <div class="container-img-map">
               <img src="dist/img/map.png" >
               <div>
-                <a href="index.php?view=geolocalizacion-view" id="btn-open-map" class="btn btn-sm btn-primary">Ver en el mapa</a>
+                <a href="index.php?view=geolocalizacion-view" class="btn btn-sm btn-primary">Ver en el mapa</a>
               </div>
             </div>
             
@@ -190,7 +200,7 @@
             <div class="row">
               <div class="col-6">
                 <div class="row">
-                  <label for="inputPassword" class="col-4 col-form-label">Ordenar por:</label>
+                  <label for="inputPassword" class="col-4 col-form-label">Ordenar:</label>
                   <div class="col-8">
                     <select class="custom-select" id="order-filtered">
                       <option value="N">Nombre</option>
@@ -212,261 +222,7 @@
           <!-- contenido de los servicios -->
           <div class="card-body container-box">
             <div class="flex-box" id="content-data-filtered">
-
-              <!-- Cajas lg -->
-              <div class="box box-body outline-crimson">
-                <div class="row">
-                  <div class="col-left">
-                    <!-- Imagen -->
-                    <div class="content-img">
-                      <a href="javascript:void(0)" class="link-user">
-                        <img class="img-user" src="dist/img/user/202204220110301.jpg">
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="col-right">
-                    <!-- nombre -->
-                    <div class="row margin-0 content-name-user">
-                      <div class='box-left'>
-                        <a href="#" class="name-user">
-                          <span class="single-line">Javier Eduardo Carrillos Gonzales</span>
-                        </a>
-                        <div class='contacts'>
-                          <a href='#' class="btn btn-sm btn-success"><i class="fas fa-phone-alt"></i> <span>Llamar</span> </a>
-                          <a href='#' class="btn btn-sm btn-info"><i class='fas fa-solid fa-envelope'></i> <span>Enviar email</span></a>
-                        </div>
-                      </div>
-                      <div class='box-right'>
-                        <div class='icons-score'>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-
-                    <!-- Descripción -->
-                    <div class="row margin-0 content-service">
-                      <span class="name-service"><i class="fab fa-accusoft"></i> Servicio</span>
-                      <span class="fee"> S/. 452</span>
-                      <p class="description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum deleniti porro nisi rerum doloremque? Atque exercitationem beatae ratione voluptate.
-                      </p>
-                    </div>
-
-                    <!-- Redes soaciles y ubicación -->
-                    <div class="row margin-0 content-social-location ">
-                      <!-- ubicación -->
-                      <div class="box-left">
-                        <a href='#' class="location"><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
-                      </div>
-
-                      <!-- redes sociales -->
-                      <div class='social-media box-right'>
-                        <a href='#'><i class='icon-facebook fab fa-facebook-f'></i></a>
-                        <a href='#'><i class='icon-instagram fab fa-instagram'></i></a>
-                        <a href='#'><i class='icon-whatsapp fab fa-whatsapp'></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- ./ col-md-8 -->
-                </div>
-              </div>
-              <!-- Cajas lg -->
-              <div class="box box-body outline-crimson">
-                <div class="row">
-                  <div class="col-left">
-                    <!-- Imagen -->
-                    <div class="content-img">
-                      <a href="javascript:void(0)" class="link-user">
-                        <img class="img-user" src="dist/img/user/202204220110301.jpg">
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="col-right">
-                    <!-- nombre -->
-                    <div class="row margin-0 content-name-user">
-                      <div class='box-left'>
-                        <a href="#" class="name-user">
-                          <span class="single-line">Javier Eduardo Carrillos Gonzales</span>
-                        </a>
-                        <div class='contacts'>
-                          <a href='#' class="btn btn-sm btn-success"><i class="fas fa-phone-alt"></i> <span>Llamar</span> </a>
-                          <a href='#' class="btn btn-sm btn-info"><i class='fas fa-solid fa-envelope'></i> <span>Enviar email</span></a>
-                        </div>
-                      </div>
-                      <div class='box-right'>
-                        <div class='icons-score'>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-
-                    <!-- Descripción -->
-                    <div class="row margin-0 content-service">
-                      <span class="name-service"><i class="fab fa-accusoft"></i> Servicio</span>
-                      <span class="fee"> S/. 452</span>
-                      <p class="description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum deleniti porro nisi rerum doloremque? Atque exercitationem beatae ratione voluptate.
-                      </p>
-                    </div>
-
-                    <!-- Redes soaciles y ubicación -->
-                    <div class="row margin-0 content-social-location ">
-                      <!-- ubicación -->
-                      <div class="box-left">
-                        <a href='#' class="location"><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
-                      </div>
-
-                      <!-- redes sociales -->
-                      <div class='social-media box-right'>
-                        <a href='#'><i class='icon-facebook fab fa-facebook-f'></i></a>
-                        <a href='#'><i class='icon-instagram fab fa-instagram'></i></a>
-                        <a href='#'><i class='icon-whatsapp fab fa-whatsapp'></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- ./ col-md-8 -->
-                </div>
-              </div>              
-              <!-- /. box-body -->              
-              
-              <!-- Corta sm -->
-              <div class="box box-sm box-body outline-crimson">
-                <div class="row">
-                  <div class="col-left">
-                    <!-- Imagen -->
-                    <div class="content-img">
-                      <a href="javascript:void(0)" class="link-user">
-                        <img class="img-user" src="dist/img/user/202204220110301.jpg">
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="col-right">
-                    <!-- nombre -->
-                    <div class="row margin-0 content-name-user">
-                      <div class='box-left'>
-                        <a href="#" class="name-user">
-                          <span class="single-line">Javier Eduardo Carrillos Gonzales</span>
-                        </a>
-                        <div class='contacts'>
-                          <a href='#' class="btn btn-sm btn-success"><i class="fas fa-phone-alt"></i> <span>Llamar</span> </a>
-                          <a href='#' class="btn btn-sm btn-info"><i class='fas fa-solid fa-envelope'></i> <span>Enviar email</span></a>
-                        </div>
-                      </div>
-                      <div class='box-right'>
-                        <div class='icons-score'>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-
-                    <!-- Descripción -->
-                    <div class="row margin-0 content-service">
-                      <span class="name-service"><i class="fab fa-accusoft"></i> Servicio</span>
-                      <span class="fee"> S/. 452</span>
-                      <p class="description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum deleniti porro nisi rerum doloremque? Atque exercitationem beatae ratione voluptate.
-                      </p>
-                    </div>
-
-                    <!-- Redes soaciles y ubicación -->
-                    <div class="row margin-0 content-social-location ">
-                      <!-- ubicación -->
-                      <div class="box-left">
-                        <a href='#' class="location"><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
-                      </div>
-
-                      <!-- redes sociales -->
-                      <div class='social-media box-right'>
-                        <a href='#'><i class='icon-facebook fab fa-facebook-f'></i></a>
-                        <a href='#'><i class='icon-instagram fab fa-instagram'></i></a>
-                        <a href='#'><i class='icon-whatsapp fab fa-whatsapp'></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- ./ col-md-8 -->
-                </div>
-              </div>
-              <div class="box box-sm box-body outline-crimson">
-                <div class="row">
-                  <div class="col-left">
-                    <!-- Imagen -->
-                    <div class="content-img">
-                      <a href="javascript:void(0)" class="link-user">
-                        <img class="img-user" src="dist/img/user/202204220110301.jpg">
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="col-right">
-                    <!-- nombre -->
-                    <div class="row margin-0 content-name-user">
-                      <div class='box-left'>
-                        <a href="#" class="name-user">
-                          <span class="single-line">Javier Eduardo Carrillos Gonzales</span>
-                        </a>
-                        <div class='contacts'>
-                          <a href='#' class="btn btn-sm btn-success"><i class="fas fa-phone-alt"></i> <span>Llamar</span> </a>
-                          <a href='#' class="btn btn-sm btn-info"><i class='fas fa-solid fa-envelope'></i> <span>Enviar email</span></a>
-                        </div>
-                      </div>
-                      <div class='box-right'>
-                        <div class='icons-score'>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star active'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                          <i class='fas fa-star'></i>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-
-                    <!-- Descripción -->
-                    <div class="row margin-0 content-service">
-                      <span class="name-service"><i class="fab fa-accusoft"></i> Servicio</span>
-                      <span class="fee"> S/. 452</span>
-                      <p class="description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis harum deleniti porro nisi rerum doloremque? Atque exercitationem beatae ratione voluptate.
-                      </p>
-                    </div>
-
-                    <!-- Redes soaciles y ubicación -->
-                    <div class="row margin-0 content-social-location ">
-                      <!-- ubicación -->
-                      <div class="box-left">
-                        <a href='#' class="location"><i class='fas fa-map-marker-alt'></i> <span>Ubicación del establecimiento</span></a>
-                      </div>
-
-                      <!-- redes sociales -->
-                      <div class='social-media box-right'>
-                        <a href='#'><i class='icon-facebook fab fa-facebook-f'></i></a>
-                        <a href='#'><i class='icon-instagram fab fa-instagram'></i></a>
-                        <a href='#'><i class='icon-whatsapp fab fa-whatsapp'></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- ./ col-md-8 -->
-                </div>
-              </div>
-        
+              <!-- Sin registro encontrado por default -->
             </div>     
             <!-- /.Corta sm -->
           </div>
@@ -481,6 +237,3 @@
 <!-- owl carousel -->
 <script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
 <script src="dist/js/pages/main.js"></script>
-
-<!--Carga con scroll-->
-<script src="dist/js/ChangeScroll.js"></script>

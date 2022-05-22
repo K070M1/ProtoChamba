@@ -31,7 +31,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
   height: 650,
   contentHeight: 650,
   initialView: 'dayGridMonth', 	// Vista inicial
-  firstDay: 1,									// Primer dia	
+  firstDay: 0,									// Primer dia	
   nowIndicator: true, 					// Hora actual
   editable: true,								// permitir arrastrar elemento
   dayMaxEvents: true,						// Limitar eventos por dia
@@ -121,7 +121,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
           // Asignando datos al card
           $("#title-card").html(info.event.title);
           $("#descripction-card").html(dataController.descripcion);
-          $("#direction-card").html(" Ubicación: (" + dataController.direccion + ")");
+          $("#direction-card").html(" Ubicación: " + dataController.direccion);
           $("#date-card").html(dateStart + " - " + dateEnd);
 
           // asignando datos al modal
@@ -192,14 +192,12 @@ function loadSpecialty() {
 
 // Divide fecha y hora
 function splitDateAndTime(dateTimeString) {
-  const regularPhrase = /\s*T\s*/;
-  return dateTimeString.split(regularPhrase);
+  return dateTimeString.split('T');
 }
 
 // Divide hora y minuto
 function spliHourAndMinute(dateTimeString) {
-  const regularPhrase = /\s*:\s*/;
-  return dateTimeString.split(regularPhrase);
+  return dateTimeString.split(':');
 }
 
 // Limpiar formulario
@@ -362,7 +360,6 @@ function deleteEventCalendar() {
 
 // Eliminar actividad
 function deleteActivity(idactividad) {
-
   $.ajax({
     url: 'controllers/activity.controller.php',
     type: 'GET',
@@ -415,7 +412,7 @@ function addDaysToDate(date, days) {
   month = month < 10 ? '0' + month : '' + month;		// formateo a mes para que sea de 2 dígitos.
   day = day < 10 ? "0" + day : '' + day; 						// formateo a dia para que sea de 2 dígitos "01", "05", "10", etc.
 
-  return year + "-" + month + "-" + day;
+  return year + "-" + month + "-" + day; // 2020-05-15
 }
 
 // Sumar horas
@@ -442,7 +439,7 @@ function addHourTime(time, hours) {
   let hourStr = hour < 10 ? '0' + hour.toString() : '' + hour.toString();		// formateo a hora para que sea de 2 dígitos y de tipo string.
   let minuteStr = minute.toString();																				// formateo a string
 
-  return hourStr + ":" + minuteStr;
+  return hourStr + ":" + minuteStr; // 05:20
 }
 
 // Obtener la fecha inicial y final

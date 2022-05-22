@@ -11,12 +11,23 @@ var uploadedImages = [];  // Almacenar todos las imagenes subidos (Temporales)
 var imagesTemp  = [];      // Almacenar ímagenes traidos del servidor
 var videoTemp  = [];      // Almacenar video traido del servidor
 var deletedFiles = [];    // Almacena archivos eliminados (ID GALERIA)
-var wpage = '0';
-var wlastpage = '4';
+
+// Publicaciones
+var offsetTmpPublic = 0;
+var offsetPublic = 0;
+var limitPublic = 6;
+
+// Foro
+var offsetTmp = 0;
+var offset = 0;
+var limit = 6;
+
+var wpage = 0;
+var wlastpage = 4;
 var wwall = false;
 var wservicepublic = true;
-var fpage = '0';
-var flastpage = '7';
+var fpage = 0;
+var flastpage = 7;
 var fwall = false;
 
 // validar usuario activo
@@ -43,7 +54,6 @@ $(".btn-publication").click(openFormPublicationAdd);
 // Abrir formulario para editar publicación
 function openFormPublicationEdit(){
   clearFormPublication();
-  loadSpecialtySelect();
   $("#title-modal-publication").html("Editar publicación");                 // Titulo del modal
   $("#btn-add-publication").addClass("d-none");         // Ocultar botón agregar
   $("#btn-modify-publication").removeClass("d-none");   // Mostrar botón modificar
@@ -52,7 +62,6 @@ function openFormPublicationEdit(){
 // Abrir formulario para registrar
 function openFormPublicationAdd(){
   clearFormPublication();
-  loadSpecialtySelect();
   $("#title-modal-publication").html("Crear publicación");  // Titulo del modal
   $("#btn-modify-publication").addClass("d-none");          // Ocultar botón modificar
   $("#btn-add-publication").removeClass("d-none");          // Mostrar botón agregar
@@ -392,11 +401,11 @@ $("#btn-add-publication").click(function(){
           processData: false,
           cache: false,
           success: function(result){
-            clearFormPublication();
             $("#modal-publication").modal('hide');
-            if(wwall){
-              wlastpage = Number(wlastpage) + 1;
-            }
+            socket.send("publicationwork"); // Operación enviada al servidor
+            
+            clearFormPublication();
+            cleanContainerPublication();
             loadPublicationWorks();
           }
       
@@ -441,7 +450,6 @@ function getAtPublication(idtrabajo){
     success: function(result){
       if(result != ""){
         let dataController = JSON.parse(result);
-
         $("#especialidad").val(dataController.idespecialidad);
         $("#titulo").val(dataController.titulo);
         $("#descripcion").val(dataController.descripcion);
@@ -504,7 +512,6 @@ $("#btn-modify-publication").click(function(){
     // Confirmar
     sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar la publicación?").then((confirm) => {
       if(confirm.isConfirmed){
-
         var formData = new FormData();
         formData.append("op", "updateWork");
         formData.append("idtrabajo",  idtrabajo);
@@ -533,9 +540,12 @@ $("#btn-modify-publication").click(function(){
           cache: false,
           success: function(result){  
             if(result == ""){
+              socket.send("publicationwork"); // Operación enviada al servidor
               idtrabajo = -1;
+              cleanContainerPublication();
               clearFormPublication();
               loadPublicationWorks();
+              
               $("#modal-publication").modal('hide');
             }
           }
@@ -567,6 +577,8 @@ function deletePublication(idtrabajo){
     data: 'op=deleteWork&idtrabajo=' + idtrabajo,
     success: function(result){
       if(result == ""){
+        socket.send("publicationwork"); // Operación enviada al servidor
+        cleanContainerPublication();
         loadPublicationWorks(); // actualiza los datos
       }
     }
@@ -627,6 +639,8 @@ function qualifyService(dataSend){
       if(result != ""){
         sweetAlertWarning(result, 'Debe iniciar sesión o registrarse');
       } else {
+        socket.send("publicationwork"); // Operación enviada al servidor
+        cleanContainerPublication();
         loadPublicationWorks();
         levelUser();
       }
@@ -678,7 +692,8 @@ $("#data-publication-works").on("keydown", ".write-text-comment", function(e){
     if(comentario == ""){
       sweetAlertWarning("Texto invalido", "Por favor escriba algo...");
     }
-    else{
+    else{     
+
       registerComment({
         op          : 'registerComment',
         idtrabajo   : idtrabajo,
@@ -697,7 +712,7 @@ $("#data-publication-works").on("click", ".btn-send", function(){
   let idtrabajo = $(this).prev(".text-auto-height").children(".write-text-comment").attr("data-code");
   
   if(comentario == ""){
-    sweetAlertWarning("Texto invalido", "Por favor escriba algo...");
+    sweetAlertWarning("Texto invalido", "Por favor escriba un comentario");
   }
   else{
     registerComment({
@@ -724,6 +739,8 @@ function registerComment(dataSend){
         // Limpiar caja
         $(".write-text-comment").html('');
         commentIsVisible = true;
+        socket.send("publicationwork"); // Operación enviada al servidor
+        cleanContainerPublication();
         loadPublicationWorks(); // Actualizar datos en la vista
       }
     }
@@ -792,9 +809,10 @@ function updateCommentPublication(dataSend){
     type: 'GET',
     data: dataSend,
     success: function(result){
-
       if(result == ""){
+        socket.send("publicationwork"); // Operación enviada al servidor
         commentIsVisible = true; // Mostrar contenidos
+        cleanContainerPublication(); 
         loadPublicationWorks(); // Actualizar datos
       }
     }
@@ -820,6 +838,8 @@ function deleteComment(idcomentario){
     data: 'op=deleteComment&idcomentario='+ idcomentario,
     success: function(result){
       if(result == ""){
+        socket.send("publicationwork"); // Operación enviada al servidor
+        cleanContainerPublication();  // Resetea contenidos
         loadPublicationWorks();
       }
     }
@@ -832,7 +852,7 @@ function deleteComment(idcomentario){
  */
 
 // Bloquear saltos de linea
-$(".content-forum .contenteditable").keypress(function (e){
+$("#content-data-forum").on("keypress", ".contenteditable", function(e){
   return disableLineBreaks($(this), e); 
 });
 
@@ -868,6 +888,11 @@ $("#content-data-forum").on("click", ".cancel-edit-comment", function(){
   $(this).prev('.update-comment').addClass('d-none');
   $(this).prev('.update-comment').prev('.delete-comment').removeClass('d-none');
   $(this).prev('.update-comment').prev('.delete-comment').prev('.edit-comment').removeClass('d-none');
+
+  offsetTmp = 0;
+  offset = 0;
+  $("#content-data-forum div").remove();  // Limpiar contenidos 
+  loadQueriesForumToUser();               // Recargar contenidos
 });
 
 // Detectar ENTER en la caja de consulta (Enviar datos al servidor)
@@ -902,11 +927,10 @@ function registerCommentForum(dataSend){
       if(result != ""){
         sweetAlertWarning(result, "Debe iniciar sesión o registrarse");
       } else {
+        socket.send("forum"); // Operación enviada al servidor
         $("#forum-post-answers").html('').focus();
-        if(fwall){
-          flastpage = Number(flastpage) + 1;
-          loadQueriesForumToUser();
-        }
+        cleanContentForum();
+        loadQueriesForumToUser();               // Recargar contenidos
       }
     }
   });
@@ -933,7 +957,9 @@ function updateQueryForum(dataSend){
     data: dataSend,
     success: function(result){
       if(result == ""){
-        loadQueriesForumToUser();
+        socket.send("forum"); // Operación enviada al servidor
+        cleanContentForum();
+        loadQueriesForumToUser();               // Recargar contenidos         
       }
     }
   });
@@ -959,36 +985,58 @@ function deleteQueryForum(idforo){
     data: 'op=deleteForum&idforo=' + idforo,
     success: function(result){
       if(result == ""){
-        loadQueriesForumToUser();
+        socket.send("forum"); // Operación enviada al servidor
+
+        cleanContentForum();
+        loadQueriesForumToUser();               // Recargar contenidos
       }
     }
   });
 }
 
 // Listar consultas del foro
-function loadQueriesForumToUser(){
-  fdataenv = {
-    'op':'getQueriesToUser',
-    'idusuarioactivo': idusuarioActivo,
-    'start': fpage,
-    'finish': flastpage
-  };
-  
+function loadQueriesForumToUser(){  
+  // Generar animación de carga
+  $("#content-data-forum").append(getLoader());
+
   $.ajax({
     url: 'controllers/forum.controller.php',
     type: 'GET',
-    data: fdataenv,
+    data: {
+      op             : 'getQueriesToUser',
+      idusuarioactivo: idusuarioActivo,
+      offset         : offset,
+      limit          : limit
+    },
     success: function(result){
-      if(result != ""){
-        $("#content-data-forum").html(result);
-      }
+      // Quitar animación de carga  
+      $("#content-data-forum div").remove(".container-loader");
+      //console.log(result)
+      if(result != "" && result != "sin consultas"){
+        $("#content-data-forum").append(result);
+      } 
     }
   });
 }
 
 // ejecutar la carga de consultas
-loadQueriesForumToUser();
+//loadQueriesForumToUser(); // Se ejecuta al hacer clic en el botón foro (profile.js)
 
+// Detectar scroll al final del contenedor
+$("#content-data-forum").scroll(function(){
+  let result = isFinalContainer("#content-data-forum");
+  if(result){
+    offsetTmp++;
+    offset = offsetTmp * limit;
+    loadQueriesForumToUser();
+  }
+});
+
+function cleanContentForum(){
+  offsetTmp = 0;
+  offset = 0;
+  $("#content-data-forum div").remove();  // Limpiar contenidos 
+}
 
 /**
  * LISTAR ESPECIALIDADES EN EL MODAL DE PUBLICACIÓN
@@ -999,7 +1047,6 @@ loadQueriesForumToUser();
     type: 'GET',
     data: 'op=getSpecialtyByUser',
     success: function(result){
-
       if(result != ""){
         $("#especialidad").html(result);
       }
@@ -1012,40 +1059,69 @@ loadQueriesForumToUser();
  * LISTAR TRABAJOS REALIZADOS
  */
 function loadPublicationWorks(){
-  dataenv = {
-    'op':'getWorksByUser',
-    'idusuarioactivo': idusuarioActivo,
-    'start': wpage,
-    'finish': wlastpage
-  };
+  // Mostrar animación de carga
+  $("#data-publication-works").append(getLoader());
+
   $.ajax({
     url: 'controllers/work.controller.php',
     type: 'GET',
-    data: dataenv,
+    data: {
+      op              : 'getWorksByUser',
+      idusuarioactivo : idusuarioActivo,
+      offset          : offsetPublic,
+      limit           : limitPublic
+    },
     success: function(result){
-      $("#data-publication-works").html(result);
-      
-      // Mostrar contenido de comentarios
-      if(commentIsVisible){
-        $(".collapse").show('slow');
-      } else {
-        $(".collapse").hide('hide');
-      }
+      // Quitar animación de carga
+      $("#data-publication-works div").remove(".container-loader");
+
+      if(result != "" && result != "sin publicaciones"){
+        $("#data-publication-works div").remove(".none-register");
+        $("#data-publication-works").append(result);
+        
+        // Mostrar contenido de comentarios
+        if(commentIsVisible){
+          $(".collapse").show('slow');
+        } else {
+          $(".collapse").hide('hide');
+        }
+      } 
     }
   });
 }
 
+// Detectar posición del scroll en la ventana
+$("#data-publication-works").scroll(function(){
+  if(isFinalContainer($(this))){
+    offsetTmpPublic++;
+    offsetPublic = offsetTmpPublic * limitPublic;
+    loadPublicationWorks();
+  }
+});
 
-/**
+// Limpiar contenido agregado al contenedor de publicaciones
+function cleanContainerPublication(){
+  offsetTmpPublic = 0;
+  offsetPublic = 0;
+  // Remover los contenidos
+  $("#data-publication-works div").remove();
+}
+
+/** 
+ * 
  * MODAL REPORTE
  */
 var idcomentario = -1;
 
 // Abrir modal desde publicación de trabajos
 $("#data-publication-works").on("click", ".report-comment", function(){
-  $("#modal-report").modal("show");
-  idcomentario = $(this).attr("data-code");
-  clearFormReport();
+  if(idusuarioSession == -2){
+    sweetAlertWarning("Iniciar sesión", "Debe iniciar sesión o registrese");
+  } else {
+    $("#modal-report").modal("show");
+    idcomentario = $(this).attr("data-code");
+    clearFormReport();
+  }
 });
 
 // Abrir modal desde el foro de consultas
@@ -1123,6 +1199,7 @@ function registerReport(dataSend){
     cache: false,
     success: function(result){
       if(result == ""){
+        socket.send("historyreport");
         $("#modal-report").modal("hide");
         sweetAlertWarning("Usuario reportado", "");
       }
@@ -1139,4 +1216,4 @@ function clearFormReport(){
   
 // EJECUTANDO LA FUNCIÓN LISTAR
 loadSpecialtySelect();
-loadPublicationWorks(); // cargar trabajos
+//loadPublicationWorks(); // cargado desde profile.js

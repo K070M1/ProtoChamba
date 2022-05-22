@@ -2239,71 +2239,71 @@ CREATE TABLE `foros` (
 /*Data for the table `foros` */
 
 insert  into `foros`(`idforo`,`idtousuario`,`idfromusuario`,`consulta`,`fechaconsulta`,`fechaeliminado`,`estado`) values 
-(1,1,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(2,1,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(3,1,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(4,1,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(5,1,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(6,1,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(7,1,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(8,1,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
-(9,1,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(10,2,1,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(11,2,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(12,2,4,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(13,2,5,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
-(14,3,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(15,3,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(16,4,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(17,4,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(18,4,5,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(19,5,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(20,5,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(21,5,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(22,5,11,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(23,5,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(24,5,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(25,5,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(26,5,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
-(27,5,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(28,6,16,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(29,7,20,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(30,8,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(31,9,11,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(32,9,19,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
-(33,9,14,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(34,10,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(35,10,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(36,11,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(37,11,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(38,11,1,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(39,12,2,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(40,12,13,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(41,12,14,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(42,12,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(43,12,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(44,12,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(45,12,18,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(46,13,20,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(47,14,20,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(48,15,1,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(49,15,2,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(50,15,3,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(51,15,4,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(52,15,5,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(53,15,6,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(54,15,7,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(55,15,8,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
-(56,15,9,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,''),
-(57,15,10,'¿Aceptarias tarjeta?','2022-05-17 22:03:52',NULL,''),
-(58,15,11,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-17 22:03:52',NULL,''),
-(59,15,12,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-17 22:03:52',NULL,''),
-(60,15,13,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-17 22:03:52',NULL,''),
-(61,15,14,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-17 22:03:52',NULL,''),
-(62,15,16,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-17 22:03:52',NULL,''),
-(63,15,17,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-17 22:03:52',NULL,''),
-(64,15,18,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-17 22:03:52',NULL,''),
-(65,15,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-17 22:03:52',NULL,'');
+(1,1,2,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(2,1,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(3,1,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(4,1,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(5,1,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(6,1,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(7,1,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(8,1,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-22 13:05:40',NULL,''),
+(9,1,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(10,2,1,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(11,2,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(12,2,4,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(13,2,5,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-22 13:05:40',NULL,''),
+(14,3,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(15,3,5,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(16,4,2,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(17,4,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(18,4,5,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(19,5,2,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(20,5,3,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(21,5,4,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(22,5,11,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(23,5,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(24,5,7,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(25,5,8,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(26,5,9,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-22 13:05:40',NULL,''),
+(27,5,10,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(28,6,16,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(29,7,20,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(30,8,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(31,9,11,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(32,9,19,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-22 13:05:40',NULL,''),
+(33,9,14,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(34,10,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(35,10,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(36,11,6,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(37,11,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(38,11,1,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(39,12,2,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(40,12,13,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(41,12,14,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(42,12,15,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(43,12,16,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(44,12,17,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(45,12,18,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(46,13,20,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(47,14,20,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(48,15,1,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(49,15,2,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(50,15,3,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(51,15,4,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(52,15,5,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(53,15,6,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(54,15,7,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(55,15,8,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-22 13:05:40',NULL,''),
+(56,15,9,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,''),
+(57,15,10,'¿Aceptarias tarjeta?','2022-05-22 13:05:40',NULL,''),
+(58,15,11,'Tuve un problema en tu servicio, funcionó hasta cierto momento pero ahora ya no, por favor llamame','2022-05-22 13:05:40',NULL,''),
+(59,15,12,'Necesito contactarme con usted pero no responde, ¿A qué hora puedo contactarlo?','2022-05-22 13:05:40',NULL,''),
+(60,15,13,'Vivo lejos de donde trabajas, te pago tu pasaje hasta aqui, estarias dispuesto, incluso pago tu hospedaje es necesario tu trabajo aqui','2022-05-22 13:05:40',NULL,''),
+(61,15,14,'No entiendo tu trabajo, ¿realmente cobras tanto?','2022-05-22 13:05:40',NULL,''),
+(62,15,16,'AYUDAAAAA tengo un problema y solicito urgentemente tus servicios, de vida o muerte, !Pero no contestas!','2022-05-22 13:05:40',NULL,''),
+(63,15,17,'Muchas gracias por tu servicio brindado anterior pero, ¿Es necesario su revision nuevamente?','2022-05-22 13:05:40',NULL,''),
+(64,15,18,'Yo tambien manejo estos tipos de trabajo,¿Aceptarias una colaboración?','2022-05-22 13:05:40',NULL,''),
+(65,15,19,'Tu establecimiento no lo encuentro, ¿Podria consultarte la ubicacion de tu casa?','2022-05-22 13:05:40',NULL,'');
 
 /*Table structure for table `galerias` */
 
@@ -2674,44 +2674,44 @@ CREATE TABLE `seguidores` (
 /*Data for the table `seguidores` */
 
 insert  into `seguidores`(`idseguidor`,`idfollowing`,`idfollower`,`fechaseguido`,`fechaeliminado`,`estado`) values 
-(1,1,2,'2022-05-17 22:03:44',NULL,''),
-(2,1,3,'2022-05-17 22:03:44',NULL,''),
-(3,1,4,'2022-05-17 22:03:44',NULL,''),
-(4,1,5,'2022-05-17 22:03:44',NULL,''),
-(5,2,11,'2022-05-17 22:03:44',NULL,''),
-(6,2,12,'2022-05-17 22:03:44',NULL,''),
-(7,2,13,'2022-05-17 22:03:44',NULL,''),
-(8,3,1,'2022-05-17 22:03:44',NULL,''),
-(9,3,2,'2022-05-17 22:03:44',NULL,''),
-(10,4,1,'2022-05-17 22:03:44',NULL,''),
-(11,5,2,'2022-05-17 22:03:44',NULL,''),
-(12,5,3,'2022-05-17 22:03:44',NULL,''),
-(13,5,4,'2022-05-17 22:03:44',NULL,''),
-(14,5,6,'2022-05-17 22:03:44',NULL,''),
-(15,5,7,'2022-05-17 22:03:44',NULL,''),
-(16,6,1,'2022-05-17 22:03:44',NULL,''),
-(17,6,9,'2022-05-17 22:03:44',NULL,''),
-(18,6,10,'2022-05-17 22:03:44',NULL,''),
-(19,7,5,'2022-05-17 22:03:44',NULL,''),
-(20,7,6,'2022-05-17 22:03:44',NULL,''),
-(21,7,9,'2022-05-17 22:03:44',NULL,''),
-(22,8,2,'2022-05-17 22:03:44',NULL,''),
-(23,8,1,'2022-05-17 22:03:44',NULL,''),
-(24,9,19,'2022-05-17 22:03:44',NULL,''),
-(25,9,20,'2022-05-17 22:03:44',NULL,''),
-(26,10,1,'2022-05-17 22:03:44',NULL,''),
-(27,10,5,'2022-05-17 22:03:44',NULL,''),
-(28,10,18,'2022-05-17 22:03:44',NULL,''),
-(29,11,18,'2022-05-17 22:03:44',NULL,''),
-(30,11,19,'2022-05-17 22:03:44',NULL,''),
-(31,11,20,'2022-05-17 22:03:44',NULL,''),
-(32,12,11,'2022-05-17 22:03:44',NULL,''),
-(33,12,16,'2022-05-17 22:03:44',NULL,''),
-(34,12,18,'2022-05-17 22:03:44',NULL,''),
-(35,13,17,'2022-05-17 22:03:44',NULL,''),
-(36,14,3,'2022-05-17 22:03:44',NULL,''),
-(37,14,4,'2022-05-17 22:03:44',NULL,''),
-(38,15,20,'2022-05-17 22:03:44',NULL,'');
+(1,1,2,'2022-05-22 13:05:33',NULL,''),
+(2,1,3,'2022-05-22 13:05:33',NULL,''),
+(3,1,4,'2022-05-22 13:05:33',NULL,''),
+(4,1,5,'2022-05-22 13:05:33',NULL,''),
+(5,2,11,'2022-05-22 13:05:33',NULL,''),
+(6,2,12,'2022-05-22 13:05:33',NULL,''),
+(7,2,13,'2022-05-22 13:05:33',NULL,''),
+(8,3,1,'2022-05-22 13:05:33',NULL,''),
+(9,3,2,'2022-05-22 13:05:33',NULL,''),
+(10,4,1,'2022-05-22 13:05:33',NULL,''),
+(11,5,2,'2022-05-22 13:05:33',NULL,''),
+(12,5,3,'2022-05-22 13:05:33',NULL,''),
+(13,5,4,'2022-05-22 13:05:33',NULL,''),
+(14,5,6,'2022-05-22 13:05:33',NULL,''),
+(15,5,7,'2022-05-22 13:05:33',NULL,''),
+(16,6,1,'2022-05-22 13:05:33',NULL,''),
+(17,6,9,'2022-05-22 13:05:33',NULL,''),
+(18,6,10,'2022-05-22 13:05:33',NULL,''),
+(19,7,5,'2022-05-22 13:05:33',NULL,''),
+(20,7,6,'2022-05-22 13:05:33',NULL,''),
+(21,7,9,'2022-05-22 13:05:33',NULL,''),
+(22,8,2,'2022-05-22 13:05:33',NULL,''),
+(23,8,1,'2022-05-22 13:05:33',NULL,''),
+(24,9,19,'2022-05-22 13:05:33',NULL,''),
+(25,9,20,'2022-05-22 13:05:33',NULL,''),
+(26,10,1,'2022-05-22 13:05:33',NULL,''),
+(27,10,5,'2022-05-22 13:05:33',NULL,''),
+(28,10,18,'2022-05-22 13:05:33',NULL,''),
+(29,11,18,'2022-05-22 13:05:33',NULL,''),
+(30,11,19,'2022-05-22 13:05:33',NULL,''),
+(31,11,20,'2022-05-22 13:05:33',NULL,''),
+(32,12,11,'2022-05-22 13:05:33',NULL,''),
+(33,12,16,'2022-05-22 13:05:33',NULL,''),
+(34,12,18,'2022-05-22 13:05:33',NULL,''),
+(35,13,17,'2022-05-22 13:05:33',NULL,''),
+(36,14,3,'2022-05-22 13:05:33',NULL,''),
+(37,14,4,'2022-05-22 13:05:33',NULL,''),
+(38,15,20,'2022-05-22 13:05:33',NULL,'');
 
 /*Table structure for table `servicios` */
 
@@ -2722,7 +2722,7 @@ CREATE TABLE `servicios` (
   `nombreservicio` varchar(50) NOT NULL,
   PRIMARY KEY (`idservicio`),
   UNIQUE KEY `uk_ser_nombreservicio` (`nombreservicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `servicios` */
 
@@ -2730,19 +2730,24 @@ insert  into `servicios`(`idservicio`,`nombreservicio`) values
 (1,'Abogado'),
 (11,'Albañil'),
 (8,'Animador'),
+(26,'Artista'),
 (20,'Asesor'),
 (15,'Asistente'),
 (3,'Carpintero'),
+(24,'Cerrajero'),
 (14,'Cocinero'),
 (10,'Conductor'),
 (2,'Diseñador'),
 (17,'Docente'),
 (5,'Electricista'),
 (7,'Gasfitero'),
+(25,'Herrero'),
+(23,'Jardinero'),
 (21,'Limpieza'),
 (9,'Mecanico'),
 (13,'Medicina'),
 (16,'Operario'),
+(22,'Pintor'),
 (6,'Programador'),
 (19,'Promotor'),
 (18,'Seguridad'),
@@ -2799,26 +2804,26 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
-(1,1,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1000@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(2,2,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','I','U','hola1001@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(3,3,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las tardes','I','U','hola1002@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(4,4,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las noches','I','U','hola1003@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(5,5,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 8 am','E','U','hola1004@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(6,6,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 12 pm','A','U','hola1005@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(7,7,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 7 am a 1 pm','E','U','hola1006@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(8,8,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 9 pm a 12 pm','E','U','hola1007@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(9,9,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','A','U','hola1008@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(10,10,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','I','U','hola1009@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:06',NULL,'1'),
-(11,11,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','I','A','hola1010@gmail.com','hola1020@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(12,12,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','A','A','hola1011@gmail.com','hola1021@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(13,13,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','Desde 9 pm a 12 pm','A','A','hola1012@gmail.com','hola1022@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(14,14,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','Desde 7 am a 1 pm','A','A','hola1013@gmail.com','hola1023@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(15,15,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 12 pm','I','A','hola1014@gmail.com','hola1024@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(16,16,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 8 am','I','A','hola1015@gmail.com','hola1025@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(17,17,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las noches','I','A','hola1016@gmail.com','hola1026@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(18,18,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las tardes','I','A','hola1017@gmail.com','hola1027@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(19,19,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1018@gmail.com','hola1028@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1'),
-(20,20,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1019@gmail.com','hola1029@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-17 22:03:10',NULL,'1');
+(1,1,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1000@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(2,2,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1001@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(3,3,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las tardes','E','U','hola1002@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(4,4,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las noches','E','U','hola1003@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(5,5,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 8 am','E','U','hola1004@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(6,6,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 12 pm','E','U','hola1005@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(7,7,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 7 am a 1 pm','E','U','hola1006@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(8,8,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 9 pm a 12 pm','E','U','hola1007@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(9,9,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','E','U','hola1008@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(10,10,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','E','U','hola1009@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:02',NULL,'1'),
+(11,11,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','E','A','hola1010@gmail.com','hola1020@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(12,12,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','E','A','hola1011@gmail.com','hola1021@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(13,13,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','Desde 9 pm a 12 pm','E','A','hola1012@gmail.com','hola1022@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(14,14,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','Desde 7 am a 1 pm','E','A','hola1013@gmail.com','hola1023@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(15,15,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 12 pm','E','A','hola1014@gmail.com','hola1024@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(16,16,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 8 am','E','A','hola1015@gmail.com','hola1025@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(17,17,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las noches','E','A','hola1016@gmail.com','hola1026@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(18,18,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las tardes','E','A','hola1017@gmail.com','hola1027@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(19,19,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1018@gmail.com','hola1028@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1'),
+(20,20,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1019@gmail.com','hola1029@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-22 13:05:07',NULL,'1');
 
 /* Trigger structure for table `calificaciones` */
 
@@ -3119,7 +3124,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_albumes_listar_usuario`(IN _idusuario INT)
 BEGIN
 	SELECT * FROM albumes 
-		WHERE idusuario = _idusuario AND estado = 1;
+		WHERE idusuario = _idusuario AND estado = 1 order BY idalbum;
 END */$$
 DELIMITER ;
 
@@ -3367,7 +3372,7 @@ DELIMITER $$
 	IN _email VARCHAR(70)
 )
 BEGIN
-	SELECT COUNT(*) FROM usuarios WHERE email = _email or emailrespaldo = _email;
+	SELECT COUNT(*) as 'email' FROM usuarios WHERE email = _email;
 END */$$
 DELIMITER ;
 
@@ -3381,7 +3386,7 @@ DELIMITER $$
 	IN _emailres VARCHAR(70)
 )
 BEGIN
-	SELECT COUNT(*) FROM usuarios WHERE emailrespaldo = _emailres or email = _emailres;
+	SELECT COUNT(*) AS 'email' FROM usuarios WHERE emailrespaldo = _emailres OR email = _emailres;
 END */$$
 DELIMITER ;
 
@@ -3642,6 +3647,21 @@ BEGIN
 	SELECT * FROM vs_especialidades_listar
 		WHERE idservicio = _idservicio
 		ORDER BY RAND() LIMIT _limit offset _offset;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_especialidades_listar_populares` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_especialidades_listar_populares` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_especialidades_listar_populares`(IN _limit TINYINT, IN _offset INT)
+BEGIN
+   SELECT * FROM vs_especialidades_listar
+   where estrellas > 1
+   group by idusuario
+   ORDER BY RAND() LIMIT _limit OFFSET _offset;
 END */$$
 DELIMITER ;
 
@@ -3982,11 +4002,11 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_foros_listar_usuario`(
 	IN _idusuario INT,
-	IN _start INT,
-	IN _finish INT
+	IN _offset 		INT,
+	IN _limit 		tinyint
 )
 BEGIN
-	SELECT * FROM vs_listar_foros WHERE idtousuario = _idusuario LIMIT _start, _finish;
+	SELECT * FROM vs_listar_foros WHERE idtousuario = _idusuario LIMIT _limit offset _offset;
 END */$$
 DELIMITER ;
 
@@ -4652,7 +4672,8 @@ BEGIN
 	FROM seguidores SEG
 	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollower
 	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollowing = _idusuario AND SEG.estado = 1;
+	WHERE idfollowing = _idusuario AND SEG.estado = 1
+	order by PER.nombres, PER.apellidos;
 END */$$
 DELIMITER ;
 
@@ -4730,7 +4751,8 @@ BEGIN
 	FROM seguidores SEG
 	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollowing
 	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollower = _idusuario AND SEG.estado = 1;
+	WHERE idfollower = _idusuario AND SEG.estado = 1
+	ORDER BY PER.nombres, PER.apellidos;
 END */$$
 DELIMITER ;
 
@@ -4882,6 +4904,23 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_total_usuarios_servicio_fechas` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_total_usuarios_servicio_fechas` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_total_usuarios_servicio_fechas`(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+	SELECT SRV.nombreservicio, COUNT(USU.idusuario) AS 'total'
+	FROM servicios SRV
+	INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
+	INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+	WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+	GROUP BY SRV.nombreservicio;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_trabajos_eliminar` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_trabajos_eliminar` */;
@@ -4915,13 +4954,13 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_trabajos_listar_usuario`(
 	IN _idusuario INT,
-	IN _start INT,
-	IN _finish INT
+	IN _offset 		INT,
+	IN _limit 		INT
 )
 BEGIN
 	SELECT * FROM vs_trabajos_listar
 		WHERE idusuario = _idusuario
-		ORDER BY idtrabajo DESC LIMIT _start, _finish;
+		ORDER BY idtrabajo DESC LIMIT _limit offset _offset;
 END */$$
 DELIMITER ;
 
@@ -5002,13 +5041,13 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_buscar_nombres_scroll`(
-IN _search VARCHAR(40),
-IN _start INT,
-IN _finish INT 
+	IN _search VARCHAR(40),
+	IN _offset INT,
+	IN _limit  tinyint 
 )
 BEGIN
 	SELECT* FROM vs_usuarios_listar_datos_basicos
-		WHERE nombres LIKE CONCAT('%', _search, '%') LIMIT _start, _finish;
+		WHERE nombres LIKE CONCAT('%', _search, '%') LIMIT _limit OFFSET _offset;
 END */$$
 DELIMITER ;
 
@@ -5423,13 +5462,13 @@ DROP TABLE IF EXISTS `vs_personas_listar`;
  `nombres` varchar(40) ,
  `fechanac` date ,
  `telefono` char(11) ,
- `direccion` varchar(86) ,
  `iddistrito` varchar(6) ,
  `distrito` varchar(45) ,
  `idprovincia` varchar(4) ,
  `provincia` varchar(45) ,
  `iddepartamento` varchar(2) ,
- `departamento` varchar(45) 
+ `departamento` varchar(45) ,
+ `direccion` varchar(86) 
 )*/;
 
 /*Table structure for table `vs_trabajos_listar` */
@@ -5577,7 +5616,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
 /*!50001 DROP TABLE IF EXISTS `vs_personas_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_personas_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_personas_listar` AS select `prs`.`idpersona` AS `idpersona`,`prs`.`apellidos` AS `apellidos`,`prs`.`nombres` AS `nombres`,`prs`.`fechanac` AS `fechanac`,`prs`.`telefono` AS `telefono`,concat(case when `prs`.`tipocalle` like 'CA' then 'Calle' when `prs`.`tipocalle` like 'AV' then 'Avenida' when `prs`.`tipocalle` like 'UR' then 'Urbanización' when `prs`.`tipocalle` like 'PJ' then 'Pasaje' when `prs`.`tipocalle` like 'JR' then 'Jirón' end,' ',`prs`.`nombrecalle`,' #',`prs`.`numerocalle`,' ',`prs`.`pisodepa`) AS `direccion`,`dst`.`iddistrito` AS `iddistrito`,`dst`.`distrito` AS `distrito`,`prv`.`idprovincia` AS `idprovincia`,`prv`.`provincia` AS `provincia`,`dpt`.`iddepartamento` AS `iddepartamento`,`dpt`.`departamento` AS `departamento` from (((`personas` `prs` join `distritos` `dst` on(`dst`.`iddistrito` = `prs`.`iddistrito`)) join `provincias` `prv` on(`prv`.`idprovincia` = `dst`.`idprovincia`)) join `departamentos` `dpt` on(`dpt`.`iddepartamento` = `prv`.`iddepartamento`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_personas_listar` AS select `prs`.`idpersona` AS `idpersona`,`prs`.`apellidos` AS `apellidos`,`prs`.`nombres` AS `nombres`,`prs`.`fechanac` AS `fechanac`,`prs`.`telefono` AS `telefono`,`dst`.`iddistrito` AS `iddistrito`,`dst`.`distrito` AS `distrito`,`prv`.`idprovincia` AS `idprovincia`,`prv`.`provincia` AS `provincia`,`dpt`.`iddepartamento` AS `iddepartamento`,`dpt`.`departamento` AS `departamento`,concat(case when `prs`.`tipocalle` like 'CA' then 'Calle' when `prs`.`tipocalle` like 'AV' then 'Avenida' when `prs`.`tipocalle` like 'UR' then 'Urbanización' when `prs`.`tipocalle` like 'PJ' then 'Pasaje' when `prs`.`tipocalle` like 'JR' then 'Jirón' when `prs`.`tipocalle` like 'LT' then 'Lote' end,' ',`prs`.`nombrecalle`,' #',case when `prs`.`numerocalle` is null then 'S/N' when `prs`.`numerocalle` is not null then `prs`.`numerocalle` end,' ',case when `prs`.`pisodepa` is null then 'S/N' when `prs`.`pisodepa` is not null then `prs`.`pisodepa` end) AS `direccion` from (((`personas` `prs` join `distritos` `dst` on(`dst`.`iddistrito` = `prs`.`iddistrito`)) join `provincias` `prv` on(`prv`.`idprovincia` = `dst`.`idprovincia`)) join `departamentos` `dpt` on(`dpt`.`iddepartamento` = `prv`.`iddepartamento`)) */;
 
 /*View structure for view vs_trabajos_listar */
 

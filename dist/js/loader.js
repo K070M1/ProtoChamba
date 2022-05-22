@@ -3,7 +3,7 @@ function generateLoader(container){
   loader += '<div class="loader"></div> ';
   loader += '<span class="text-loader">Cargando...</span> ';
   loader += '</div>';
-  container.append(loader);
+  $(container).append(loader);
 }
 
 function getLoader(){

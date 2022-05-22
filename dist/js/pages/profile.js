@@ -1,5 +1,6 @@
 
   var idusuarioActivo = localStorage.getItem("idusuarioActivo");
+  var idusuarioSession = localStorage.getItem("idusuarioSession");
   idusuarioActivo = idusuarioActivo != null? idusuarioActivo: -1;
 
   var especialidadNuevo = true;
@@ -11,13 +12,16 @@
   var idespecialidad;
   var idestablecimiento;
   var imgUpdtP = [];
-
-  if(idusuarioActivo != -1){
+  
+  if(idusuarioActivo != -1 && idusuarioActivo != idusuarioSession){
     disabledButtons();
   } else {
     enabledButtons();
+    localStorage.removeItem("idusuarioActivo");
+    idusuarioActivo = -1;
   }
-
+ 
+  
   // Esta función desdabilita los botones de modificación o agregación
   function disabledButtons(){
     $("#btnseguir").show();
@@ -83,6 +87,7 @@
   
   // Navegación - SERVICIOS
   $("#nav-configuracion-tab").click(function(){
+    loadSpecialtySelect();
     loadPublicationWorks();
   });
   
@@ -94,7 +99,7 @@
 
   function createPerfil(file, estado = true) {
     var imgCodified = URL.createObjectURL(file);
-    if(estado == true){
+    if(estado){
       $("#refer-port-img").attr('src', imgCodified);
       sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar tu foto de portada?").then((confirm) => {
         if(confirm.isConfirmed){
@@ -112,6 +117,7 @@
             processData: false,
             cache: false,
             success: function(e){
+              socket.send("imageport"); // Operación enviada al servidor
               loadPicturePort();
               imgUpdtP = [];
             }
@@ -142,8 +148,8 @@
               success: function(e){
                 $("#idfotoPerf").css("transform", "translateY(0%)");
                 imgUpdtP = [];
+                socket.send("imageprofile"); // Operación enviada al servidor
                 loadPicturePerfil();
-                $("#refer-perf-img").click();
               }
             });
           }else{
@@ -263,13 +269,15 @@
           processData: false,
           cache: false,
           success: function(e) {
-            descripcion();
             $("#text-descripcion").attr('contenteditable', false);
             $('#btn-cancel-edit-description').addClass('d-none');
             $("#btn-update-description").addClass('d-none');
             $("#btn-edit-description").removeClass('d-none');
-
+            
             sweetAlertSuccess("Realizado", "Descripcion guardada");
+
+            socket.send("description"); // operación enviada al servidor
+            descripcion();
           }
         });
       }
@@ -309,17 +317,6 @@
     });
   }
 
-  function listEspeciality(){
-    $.ajax({
-      url: 'controllers/specialty.controller.php',
-      type: 'GET',
-      data: 'op=getServicesUser&idusuarioactivo=' + idusuarioActivo,
-      success: function(e){
-        $("#especiality").html(e);
-      }
-    });
-  }
-
   function listRedSocial(){
     $.ajax({
       url: 'controllers/redsocial.controller.php',
@@ -350,17 +347,6 @@
       data: 'op=getEstablishmentsInfo&idusuarioactivo=' + idusuarioActivo,
       success: function(e){
         $("#info-empresa").html(e);
-      }
-    });
-  }
-  
-  function listServices(){
-    $.ajax({
-      url:'controllers/service.controller.php',
-      type: 'GET',
-      data: 'op=getServices',
-      success: function(e){
-        $("#services").html(e);
       }
     });
   }
@@ -407,53 +393,6 @@
     .html("Agregar");    
   });
 
-  function registerSpecialtyUser(){
-
-    var formData = new FormData();
-
-    let idservicio = $("#services").val();
-    let descripcion = $("#descripcionEsp").val();
-    let tarifa = $("#tarifa").val();
-
-    if(especialidadNuevo == true){
-      formData.append("op", "registerSpecialtyUser");
-    }else{
-      formData.append("op", "updateSpecialty");
-      formData.append("idespecialidad", idespecialidad);
-    }
-
-    formData.append("idservicio", idservicio);
-    formData.append("descripcion", descripcion);
-    formData.append("tarifa", tarifa);
-
-
-    if(idservicio == "" || descripcion == "" || tarifa == ""){
-      sweetAlertWarning("Falta completar algunas casillas", "");
-    }else{
-      sweetAlertConfirmQuestionSave("¿Estas seguro agregar la especialidad?").then(confirm => {
-        if(confirm.isConfirmed){
-          $.ajax({
-            url: 'controllers/specialty.controller.php',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            cache: false,
-            success: function(e) {
-              listEspeciality();
-              especialidadNuevo = true;
-              $("#idservices").val('');
-              $("#descripcionEsp").val('');
-              $("#tarifa").val('');
-              $("#agregarEsp").removeClass("btn-outline-info").addClass("btn-outline-primary")
-              .html("Agregar");
-            }
-          });
-        }
-      });
-    } 
-  }
-
   // Editar establecimiento
   $("#empresas").on("click", ".btn-edit-est", function(){
     $("#btn-add-est").removeClass("btn-outline-primary").addClass("btn-outline-info").html("Actualizar");
@@ -498,6 +437,7 @@
           data: 'op=deleteEstablishment&idestablecimiento=' + idestablecimiento,
           success: function(result){
             if(result == ""){
+              socket.send("establishment"); // Operación enviada al servidor
               listEstablishment();
             }
           }
@@ -513,7 +453,7 @@
     establecimientoNuevo = true;
   });
 
-  // Agregar o Actualizar
+  // Agregar o Actualizar establecimiento
   $("#btn-add-est").click(function(){
     let establecimiento = $("#establecimiento").val();
     let ruc = $("#ruc").val();
@@ -559,7 +499,9 @@
               if(result == ""){
                 $("#btn-add-est").removeClass("btn-outline-info").addClass("btn-outline-primary").html("Agregar");
                 $("#content-establecimiento").collapse('hide');
+
                 establecimientoNuevo = true;
+                socket.send("establishment"); // Operación enviada al servidor
                 listEstablishment();
               } else {
                 sweetAlertError("Error", "Evite duplicar el numero de RUC");
@@ -572,6 +514,79 @@
 
   });
 
+  function listServices(){
+    $.ajax({
+      url:'controllers/service.controller.php',
+      type: 'GET',
+      data: 'op=getServices',
+      success: function(e){
+        $("#services").html(e);
+      }
+    });
+  }
+
+
+  function listEspeciality(){
+    $.ajax({
+      url: 'controllers/specialty.controller.php',
+      type: 'GET',
+      data: 'op=getServicesUser&idusuarioactivo=' + idusuarioActivo,
+      success: function(e){
+        $("#especiality").html(e);
+      }
+    });
+  }
+
+  
+  function registerSpecialtyUser(){
+
+    var formData = new FormData();
+
+    let idservicio = $("#services").val();
+    let descripcion = $("#descripcionEsp").val();
+    let tarifa = $("#tarifa").val();
+
+    if(especialidadNuevo == true){
+      formData.append("op", "registerSpecialtyUser");
+    }else{
+      formData.append("op", "updateSpecialty");
+      formData.append("idespecialidad", idespecialidad);
+    }
+
+    formData.append("idservicio", idservicio);
+    formData.append("descripcion", descripcion);
+    formData.append("tarifa", tarifa);
+
+
+    if(idservicio == "" || descripcion == "" || tarifa == ""){
+      sweetAlertWarning("Falta completar algunas casillas", "");
+    }else{
+      sweetAlertConfirmQuestionSave("¿Estas seguro agregar la especialidad?").then(confirm => {
+        if(confirm.isConfirmed){
+          $.ajax({
+            url: 'controllers/specialty.controller.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(e) {
+              especialidadNuevo = true;
+              $("#idservices").val('');
+              $("#descripcionEsp").val('');
+              $("#tarifa").val('');
+              $("#agregarEsp").removeClass("btn-outline-info").addClass("btn-outline-primary")
+              .html("Agregar");
+              
+              // Enviando operación al socket
+              socket.send("especialties");
+              listEspeciality();
+            }
+          });
+        }
+      });
+    } 
+  }
 
   $("#especiality").on("click", ".modificarEsp", function(){
     idespecialidad = $(this).attr("data-idespecialidad");
@@ -593,6 +608,32 @@
     });
   });
 
+  //Eliminar Especialidad
+  $("#especiality").on("click", ".eliminarEsp", function(){
+
+    idespecialidad = $(this).attr("data-idespecialidad");
+
+    sweetAlertConfirmQuestionDelete("¿Estas seguro eliminar la especialidad?").then((confirm) => {
+      if (confirm.isConfirmed){
+        $.ajax({
+          url: 'controllers/specialty.controller.php',
+          type: "GET",
+          data: 'op=deleteSpecialty&idespecialidad=' + idespecialidad,
+          success: function (e){
+            if(e != ""){
+              sweetAlertError("Error al eliminar", "");
+            } else {
+              // Enviando operación al socket
+              socket.send("especialties");
+              sweetAlertSuccess("Realizado", "La especialidad ha sido eliminada");
+              listEspeciality();
+              loadPublicationWorks(); // Vista Publicaciones
+            }
+          }
+        });
+      }
+    }); 
+  });
 
   $("#btnP").click(function(){
     $.ajax({
@@ -649,7 +690,7 @@
       horarioatencion: horarioatencion
     }
 
-    if(nombres == "" || apellidos == "" || fechanac == "" || telefono == "" || tipocalle == "" || nombrecalle == "" || numerocalle == "" || pisodepa == ""){
+    if(nombres == "" || apellidos == "" || fechanac == "" || telefono == "" || tipocalle == "" || nombrecalle == ""){
       sweetAlertWarning("Invalido", "Complete los datos");
     } else {
       sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar los datos?").then(confirm => {
@@ -660,7 +701,6 @@
             data: data,
             success: function(e) {
               if(e == ""){
-                listDataUser();
                 $("#containerDatePerson").collapse("hide");
                 $("#nombres").val('');
                 $("#apellidos").val('');
@@ -671,6 +711,11 @@
                 $("#inNC").val('');
                 $("#inPiso").val('');
                 $("#horarioatencion").val('');
+                
+                // Operación enviada al servidor
+                socket.send("loadDataPerson");
+                listDataUser();
+                loadNameUser();
               }
             }
           });
@@ -715,8 +760,10 @@
             success: function(e) {
               $("#nombrered").val('');
               $("#vinculo").val('');
-              listRedSocial();
               redsocialNuevo = true;
+
+              socket.send("redsocial");
+              listRedSocial();
             }
           });
         }
@@ -757,8 +804,9 @@
           type: "GET",
           data: 'op=deleteRedSocial&idredsocial=' + idredSocial,
           success: function (){
-            listRedSocial();
             sweetAlertSuccess("Realizado", "La red a sido eliminada");
+            socket.send("redsocial"); // Enviando operación al servidor
+            listRedSocial();
           }
         });
       }
@@ -780,29 +828,24 @@
     sweetAlertConfirmQuestionDelete("¿Estas seguro dejar de seguir a la persona?")
     .then((confirm) => {
       if(confirm.isConfirmed){
+        socket.send("follower");
         deleteFollower(idfollowing);
       }
     });
   
   });
 
-  // Dejar de seguir
-  function deleteFollower(idfollowing){
-    $.ajax({
-      url: 'controllers/follower.controller.php',
-      type: 'GET',
-      data: {
-        op: 'deleteFollower',
-        idfollowing: idfollowing 
-      },
-      success: function(e) {
-        listFollower();
-        listFollowing();
-        countFollower();
-        countFollowing();
-      }
-    });
-  }
+  // Redireccionar perfil - desde seguidores
+  $("#seguidores").on("click",".link-user", function(){ 
+    let idusuario = $(this).attr("data-idfollower");
+    redirectProfile(idusuario);  
+  });
+
+  // Redireccionar perfil - desde la lista de seguidos
+  $("#seguidos").on("click",".link-user", function(){ 
+    let idusuario = $(this).attr("data-idfollowing"); 
+    redirectProfile(idusuario);  
+  });
 
   function countFollower(){
     $.ajax({
@@ -833,32 +876,6 @@
   }
 
 
-
-  //Eliminar Especialidad
-  $("#especiality").on("click", ".eliminarEsp", function(){
-
-    idespecialidad = $(this).attr("data-idespecialidad");
-
-    sweetAlertConfirmQuestionDelete("¿Estas seguro eliminar la especialidad?").then((confirm) => {
-      if (confirm.isConfirmed){
-        $.ajax({
-          url: 'controllers/specialty.controller.php',
-          type: "GET",
-          data: 'op=deleteSpecialty&idespecialidad=' + idespecialidad,
-          success: function (e){
-            if(e != ""){
-              sweetAlertError("Error al eliminar", "");
-            } else {
-              sweetAlertSuccess("Realizado", "La especialidad ha sido eliminada");
-              listEspeciality();
-              loadPublicationWorks(); // Vista Publicaciones
-            }
-          }
-        });
-      }
-    }); 
-  });
-
   function scoreUser(){
     $.ajax({
       url: 'controllers/qualify.controller.php',
@@ -878,15 +895,9 @@
       registerFollower({
         op             : 'registerFollower',
         idusuarioactivo: idusuarioActivo
-      });
-
-      $("#btnseguir").removeClass("btn-info").addClass("btn-success");
-      $("#btnseguir").html("Seguido");
-      
+      });      
     } else {
       deleteFollower(idusuarioActivo);
-      $("#btnseguir").removeClass("btn-success").addClass("btn-info");
-      $("#btnseguir").html("Seguir");
     }
   });
 
@@ -898,13 +909,35 @@
       data: dataSend,
       success: function(result){
         if(result == ""){
+          socket.send("follower"); // Operación enviada al servidor
           countFollower();
           countFollowing();
+          validateFollower();
           listFollower();
-          listFollowing();          
+          listFollowing();     
         } else {
           sweetAlertWarning(result, "Iniciar sesión o crearse una cuenta");
         }
+      }
+    });
+  }
+  
+  // Dejar de seguir
+  function deleteFollower(idfollowing){
+    $.ajax({
+      url: 'controllers/follower.controller.php',
+      type: 'GET',
+      data: {
+        op: 'deleteFollower',
+        idfollowing: idfollowing 
+      },
+      success: function(e) {
+        socket.send("follower"); // Operación enviada al servidor
+        validateFollower();
+        listFollower();
+        listFollowing();
+        countFollower();
+        countFollowing();
       }
     });
   }
@@ -1044,8 +1077,8 @@
   descripcion();
   countFollower();
   countFollowing();
-  listServices();
   listRedSocial();
+  listServices();
   listEspeciality();
   loadPicturePort();
   loadPicturePerfil();
