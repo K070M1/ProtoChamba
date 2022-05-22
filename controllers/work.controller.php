@@ -278,11 +278,11 @@ if(isset($_GET['op'])){
     $visible;
     
     if($_GET['idusuarioactivo'] != -1){
-      $visible = 'hidden';
       $idusuarioactivo = $_GET['idusuarioactivo'];
+      $visible = 'hidden';
     } else {
-      $visible = 'visible';
       $idusuarioactivo = $_SESSION['idusuario'];
+      $visible = 'visible';
     }
     
     if(isset($_SESSION['idusuario'])){
@@ -291,12 +291,17 @@ if(isset($_GET['op'])){
       $idusuario = 0;
     }
 
-    $data = $work->getWorksByUser(
-      ['idusuario' => $idusuarioactivo,
-       'start' => $_GET['start'],
-       'finish' => $_GET['finish']
-      ]);
-    listWorksHtml($data, $idusuario, $visible);
+    $data = $work->getWorksByUser([
+      'idusuario' => $idusuarioactivo,
+      'offset'    => $_GET['offset'],
+      'limit'     => $_GET['limit']
+    ]);
+
+    if($data){
+      listWorksHtml($data, $idusuario, $visible);
+    } else {
+      echo "sin publicaciones";
+    }
   }
 
   // Obtener un registro de trabajo
@@ -403,14 +408,13 @@ if(isset($_POST['op'])){
       }
     }
 
-     // Obtener id galeria publicacion
-     $album = new Album();
-     $idalbum = $album->getAnAlbumByNameAndUser(["idusuario" => $_SESSION['idusuario'], "nombrealbum" => "Publicaciones"]);
-     $idalbum = $idalbum[0]['idalbum'];
- 
+    // Obtener id galeria publicacion
+    $album = new Album();
+    $idalbum = $album->getAnAlbumByNameAndUser(["idusuario" => $_SESSION['idusuario'], "nombrealbum" => "Publicaciones"]);
+    $idalbum = $idalbum[0]['idalbum'];
+
     $idtrabajo = $_POST['idtrabajo'];
     $countImg = 0;
-    $result = '';
 
     // Si existe imagenes
     if (isset($_FILES['images'])){
@@ -436,7 +440,6 @@ if(isset($_POST['op'])){
         }
       }
 
-      $result = 'Se agregaron ' . $countImg . ' imagenes';
     }
 
     // Si existe video
@@ -455,7 +458,7 @@ if(isset($_POST['op'])){
       
       // Mover a la carpeta video indicada
       if(move_uploaded_file($_FILES['video']['tmp_name'], '../dist/video/' . $video)){
-        $result = 'Se agrego un video ' . $_FILES['video']['name'] . " (" . $video . ")";
+
       };
     }
   }

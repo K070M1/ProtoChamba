@@ -1,22 +1,30 @@
 // Array asociativo (enviar datos controller)
-var wall = false;
-var page = '0';
-var lastpage = '16';
+var offset = 0;
+var offsetTmp = 0;
+var limit = 16;
+
 var dataSendController = {
   op: 'searchUsersByNamesViewHistory',
   search: '',
-  start:  page,
-  finish: lastpage 
+  offset: offset,
+  limit : limit 
 };
 
 // cargar usuarios
 function loadUsersTable() {
+  $("#tbody-users").append(getLoader());
+
   $.ajax({
     url: 'controllers/user.controller.php',
     type: 'GET',
     data: dataSendController,
-    success: function (e) {
-      $("#tbody-users").html(e);
+    success: function (result) {
+      // Quitar animación de carga
+      $("#tbody-users div").remove(".container-loader");
+
+      if(result != "" && result != "sin registros"){
+        $("#tbody-users").append(result);
+      }
     }
   });
 }
@@ -59,6 +67,7 @@ function banUser(idusuario) {
         data: 'op=banUser&idusuario=' + idusuario,
         success: function (result) {
           // Actualizar datos
+          cleanContentUsersTable();
           loadUsersTable();
           sweetAlertSuccess("Realizado", "La cuenta a sido baneado");
         }
@@ -78,6 +87,7 @@ function reactivateUser(idusuario) {
         data: 'op=reactivateUser&idusuario=' + idusuario,
         success: function (result) {
           // Actualizar datos
+          cleanContentUsersTable();
           loadUsersTable();
           sweetAlertSuccess("Realizado", "La cuenta a sido restablecido");
         }
@@ -99,7 +109,9 @@ $("#input-search-user").keyup(function () {
     dataSendController['search'] = valueSearch;
   }
 
-  // caragr datos
+  // Limpiar contenido
+  cleanContentUsersTable();
+  dataSendController['offset'] = offset;
   loadUsersTable();
 });
 
@@ -109,7 +121,9 @@ $("#btn-search").click(function () {
   $("#btn-search i").removeClass('fa-times').addClass("fa-search");
 
   // Actualizando datos
+  cleanContentUsersTable();
   dataSendController['search'] = '';
+  dataSendController['offset'] = offset;
   loadUsersTable();
 });
 
@@ -132,7 +146,6 @@ $("#tbody-users").on("click", ".btn-ban-user", function () {
 
   if (estado == 1)
     banUser(idusuario);
-
   else
     reactivateUser(idusuario);
 });
@@ -143,6 +156,22 @@ $("#tbody-reports").on("click", ".btn-ban-user", function () {
   banUser(idusuario);
 });
 
+// Detectar scroll al final de la ventana
+$("#scrollReportingUser").scroll(function(){
+  if(isFinalContainer($(this))){
+    offsetTmp++;
+    offset = offsetTmp * limit;
+    dataSendController['offset'] = offset;
+    loadUsersTable();
+  }
+});
+
+function cleanContentUsersTable(){
+  offset = 0;
+  offsetTmp = 0;
+  // Limpiar contenido
+  $("#tbody-users tr").remove();
+}
 
 // ejecutar funciones al cargar 
 loadUsersTable();

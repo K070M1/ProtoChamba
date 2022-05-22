@@ -2,14 +2,13 @@
 session_start();
 
 require_once '../model/Follower.php';
+require_once '../model/Gallery.php';
 $follower = new Follower();
 
 if (isset($_GET['op'])){
 
-
   //Listado de Seguidores
   function listFollower($data){
-
     if(count($data) <= 0){
       echo "
         <tr>
@@ -19,12 +18,13 @@ if (isset($_GET['op'])){
     }
     else{
       foreach($data as $row){
+        $imageProfile = getImageProfileUser($row['idfollower']);
         echo "
           <tr>
             <td align='center'>
-              <img src='dist/img/default_profile_avatar.svg' class='img-circle img-size-32 mr-2'>
+              <img src='dist/img/user/{$imageProfile}' class='img-circle img-user-table'>
             </td>
-            <td>{$row['nombres']} {$row['apellidos']}</td>
+            <td><a href='javascript:void(0)' class='link-normal link-user' data-idfollower='{$row['idfollower']}'>{$row['nombres']} {$row['apellidos']}</a></td>
           </tr>
         ";
       }
@@ -34,23 +34,23 @@ if (isset($_GET['op'])){
       
   //Listado de Seguidos
   function listFollowing($data, $visible){
-
     if(count($data) <= 0){
       echo " 
         <tr>
           <td>No sigues a nadie</td>
         </tr>
       ";
-
-    }
-    else{
+    } else{
       foreach($data as $row){
+        $imageProfile = getImageProfileUser($row['idfollowing']);
         echo "
           <tr>
             <td align='center'>
-              <img src='dist/img/default_profile_avatar.svg' class='img-circle img-size-32 mr-2'>
+              <img src='dist/img/user/{$imageProfile}'  class='img-circle img-user-table'>
             </td>
-            <td>{$row['nombres']} {$row['apellidos']}</td>
+            <td>
+              <a href='javascript:void(0)' class='link-normal link-user' data-idfollowing='{$row['idfollowing']}'>{$row['nombres']} {$row['apellidos']}</a>
+            </td>
             <td {$visible}>
               <a href='#' data-idfollowing='{$row['idfollowing']}' class='btn btn-danger btn-sm modificar' title='Dejar de seguir' ><i class='fas fa-user-minus'></i></a> 
             </td>
@@ -59,6 +59,14 @@ if (isset($_GET['op'])){
       }
     }
     
+  }
+    
+  // Obtener imagen de perfil
+  function getImageProfileUser($idusuario){
+    $gallery = new Gallery();
+    $images = $gallery->getProfilePicture(["idusuario" => $idusuario]);
+
+    return isset($images[0]) ? $images[0]['archivo'] : 'default_profile_avatar.svg';
   }
   
   // Operacion Seguidores
@@ -107,7 +115,7 @@ if (isset($_GET['op'])){
       echo "0";
     }
     else{
-      echo json_encode($data);
+      echo json_encode($data[0]['totalseguidores']);
     }
     
   }
@@ -115,7 +123,6 @@ if (isset($_GET['op'])){
   //Conteo de seguidos
   if ($_GET['op'] == 'getCountFollowedByUser'){
     $dat;
-
     
     if($_GET['idusuarioactivo'] == -1 && isset($_SESSION['idusuario'])){
       $data = $follower->getCountFollowedByUser(["idusuario" => $_SESSION['idusuario']]);
@@ -127,7 +134,7 @@ if (isset($_GET['op'])){
       echo "0";
     }
     else{
-      echo json_encode($data);
+      echo json_encode($data[0]['totalseguidos']);
     }
 
   }

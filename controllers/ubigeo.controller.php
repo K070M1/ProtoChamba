@@ -18,6 +18,18 @@ if(isset($_GET['op'])){
         }   
     }
 
+    //Cargar select de Departamentos - pagina principal
+    if($_GET['op'] == 'getDepartmentsMain'){
+
+        $table = $ubigeo->getDepartments();
+        if(count($table) > 0){
+            echo "<option value=''>Todas las ubicaciones</option>";
+            foreach ($table as $list){
+                echo "<option value='{$list->iddepartamento}' >{$list->departamento}</option>";
+            }
+        }   
+    }
+
     //Cargar select de Provincias
     if($_GET['op'] == 'getProvinces'){
 

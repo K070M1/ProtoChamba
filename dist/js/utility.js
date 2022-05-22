@@ -16,7 +16,7 @@ function disableLineBreaks(element, event){
 }
 
 // Encontrar coincidencia de objeto
-function getIndexArrayObject(arrayObject, item){
+function getIndexArrayObject(arrayObject, item){ 
   let index = arrayObject.findIndex((element) => {
     return element.name === item;
   });
@@ -50,11 +50,50 @@ function clearContainer(element) {
   }
 }
 
-// función Find demo 
-function findFunctionDemo(arrObject){
-  arrObject.find((element, index, array) => {
-    console.log(index)
-    console.log(element)
-    console.log(array)
-  });
+
+// Redireccionar al perfil del usuario
+function redirectProfile(idusuario) {
+  localStorage.setItem("idusuarioActivo", idusuario);
+  window.location.href = "index.php?view=profile-view";
+}
+
+// Detectar scroll al final de un div
+function isFinalContainer(selector) {
+  let scrollHeight = $(selector).prop('scrollHeight');          // ALtura total de la ventana
+  let scrollTop = $(selector).scrollTop();                      // Posicion en el que se encuentra el elemento
+  let offsetHeight = $(selector).prop('offsetHeight');          // ALtura del div
+  let contentHeight = scrollHeight - offsetHeight;              // Altura calculada   
+  let start = contentHeight - 30;
+
+  // Comprobar la posición del scroll
+  if (scrollTop == contentHeight) {
+    $(selector).animate( { scrollTop : start}, 200 );           // Mover scroll
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Detectar scroll al final de una ventana
+function isFinalWindow() {
+  var heightWindow = $(window).height(); 
+  var heightDocument = $(document).height();
+  var scrollTop = $(window).scrollTop();
+
+  if((heightWindow + scrollTop) == heightDocument){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Encontrar coincidencia de elemento en dos array
+function findMatchesArray(words, phrases){
+  for (let i = 0; i < words.length; i++){
+    if(phrases.includes(words[i])){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

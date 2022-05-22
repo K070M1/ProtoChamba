@@ -143,7 +143,7 @@ if (isset($_GET['op'])) {
     $user = new User();
     $searchRes = $user->getEmailVRes(["email" => $email]);
 
-    if ($searchRes == 0) {
+    if ($searchRes[0]['email'] == 0) {
       echo "No permitido";
     } else {
       echo
@@ -335,6 +335,7 @@ if (isset($_GET['op'])) {
     session_unset(); // Eliminar todas las variables de session
     header('Location:../index.php');
   }
+  
   // Busqueda realizada por nombres o apellidos - (Asignar permisos admin)
   if ($_GET['op'] == 'searchUsersByNamesAndRole') {
 
@@ -350,12 +351,17 @@ if (isset($_GET['op'])) {
 
   // Busqueda realizada por nombres o apellidos - (lista de usuario en reportes)
   if ($_GET['op'] == 'searchUsersByNamesViewHistory') {
-    $data = $user->searchUsersByNamesScroll(
-      ["search" => $_GET['search'],
-        "start" => $_GET['start'],
-        "finish" => $_GET['finish']
-      ]);
-    loadListUsersViewHistory($data);
+    $data = $user->searchUsersByNamesScroll([
+      "search" => $_GET['search'],
+      "offset" => $_GET['offset'],
+      "limit"  => $_GET['limit']
+    ]);
+
+    if($data){
+      loadListUsersViewHistory($data);
+    } else {
+      echo "sin registros";
+    }
   }
 
   // Cambiar rol de usuario
@@ -375,13 +381,13 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'reactivateUser') {
     $data = $user->getAUser(["idusuario" => $_GET['idusuario']]);
     $user->reactivateUser(["idusuario" => $_GET['idusuario']]);
-    $mailer->sendMail($data[0]['email'], "Su cuenta a sido restablecida");
+    echo $mailer->sendMail($data[0]['email'], "Su cuenta a sido restablecida");
   }
 
   // verificar correo
   if ($_GET['op'] == 'EmailVerifi') {
     $data = $user->getEmailV(["email" => $_GET['email']]);
-    if ($data == 0) {
+    if ($data[0]['email'] == 0) {
       echo "permitido";
     } else {
       echo "No permitido";
@@ -575,7 +581,7 @@ if (isset($_POST['op'])) {
 
     $emailverifi = $user->getEmailV(["email" => $_POST['email']]);
 
-    if ($emailverifi == 0) {
+    if ($emailverifi[0]['email'] == 0) {
       $datosIngresados = [
         "iddistrito" => $_POST['iddistrito'],
         "apellidos"  => $_POST['apellidos'],
@@ -600,7 +606,6 @@ if (isset($_POST['op'])) {
       ];
 
       $iduser = $user->registerUser($datosRegistrar);
-
       $album->registerAlbumDefault(["idusuario" => $iduser[0]['idusuario']]);
 
     } else {
@@ -667,7 +672,7 @@ if (isset($_POST['op'])) {
       ];
 
       $gallery->registerGallery($datregister);
-      move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+      move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/user/" . $image);
     } else {
       echo 'ERROR';
     }

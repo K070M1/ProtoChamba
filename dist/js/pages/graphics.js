@@ -3,28 +3,18 @@ const contextReports = $("#lineChartReports").get(0).getContext("2d");
 const chartReports = new Chart(contextReports, {
   type: 'line',
   data: {
-    labels: ["Dem1", "Dem2", "Dem3"],
+    labels: [],
     datasets: [{
-      label: 'title 1',
-      data: [5, 35, 58],
+      label: '',
+      data: [],
       backgroundColor: 'rgba(41, 128, 185, 0.4)',
       borderColor: 'rgb(41, 128, 185)',
       borderWidth: 2,
       lineTension: 0.3,
-      fill: false,
+      fill: true,
       pointRadius: 3,
       pointHoverRadius: 6
-    }/* ,{
-      label: 'title 2',
-      data: [45, 6, 28],
-      backgroundColor: 'rgba(220, 118, 51, 0.4)',
-      borderColor: 'rgb(220, 118, 51)',
-      borderWidth: 2,
-      lineTension: 0.3,
-      fill: false,
-      pointRadius: 3,
-      pointHoverRadius: 6
-    } */],
+    }],
   },
   options: optionsChart
 });
@@ -34,10 +24,10 @@ const contextServices = $("#servicesPopular").get(0).getContext("2d");
 const chartServices = new Chart(contextServices, {
   type: 'bar',
   data: {
-    labels: ["Dem1", "Dem2", "Dem3"],
+    labels: [],
     datasets: [{
-      label: 'title 1',
-      data: [5, 60, 58],
+      label: '',
+      data: [],
       backgroundColor: listBgColor,
       borderColor: listBrColor,
       borderWidth: 1
@@ -171,28 +161,32 @@ $("#filtered").click(function () {
   if (datesIsEmpty()) {
     sweetAlertWarning("Fechas no validas", "Complete todas las fechas");
   } else {
-    let dates = getDatesFilter();
-
-    // Grafico 1
-    loadMonthlyReports({
-      op: 'monthlyReports',
-      fechainicio: dates.dateStart,
-      fechafin: dates.dateEnd
-    });
-
-    // Grafico 2
-    totalUsersByService({
-      op: 'countUsersByService',
-      fechainicio: dates.dateStart,
-      fechafin: dates.dateEnd
-    });
-
-    // Grafico 3
-    totalUsersByLevels({
-      op: 'userLevels',
-      fechainicio: dates.dateStart,
-      fechafin: dates.dateEnd
-    });
+    if(!dateIsValid()){
+      sweetAlertError("Fechas no validas", "Fecha de inicio no puede ser mayor o igual");
+    } else {
+      let dates = getDatesFilter();
+  
+      // Grafico 1
+      loadMonthlyReports({
+        op: 'monthlyReports',
+        fechainicio: dates.dateStart,
+        fechafin: dates.dateEnd
+      });
+  
+      // Grafico 2
+      totalUsersByService({
+        op: 'countUsersByService',
+        fechainicio: dates.dateStart,
+        fechafin: dates.dateEnd
+      });
+  
+      // Grafico 3
+      totalUsersByLevels({
+        op: 'userLevels',
+        fechainicio: dates.dateStart,
+        fechafin: dates.dateEnd
+      });
+    }
   }
 });
 
@@ -224,6 +218,16 @@ function getDatesFilter() {
 // validar fechas obtenidas
 function datesIsEmpty() {
   return $("#year-start").val() == "" || $("#month-start").val() == "" || $("#year-end").val() == "" || $("#month-end").val() == "";
+}
+
+// Comprueba fechas validas
+function dateIsValid(){
+  let yearStart = $("#year-start").val();
+  let yearEnd = $("#year-end").val();
+  let monthStart = $("#month-start").val();
+  let monthEnd = $("#month-end").val();
+
+  return yearStart < yearEnd || yearStart == yearEnd && monthStart < monthEnd;
 }
 
 // Funciones que cargan de datos a los graficos

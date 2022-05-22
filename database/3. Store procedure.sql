@@ -59,10 +59,19 @@ CREATE PROCEDURE spu_email_verifi
 	IN _email VARCHAR(70)
 )
 BEGIN
-	SELECT COUNT(*) FROM usuarios WHERE email = _email;
+	SELECT COUNT(*) AS 'email' FROM usuarios WHERE email = _email;
 END $$
 
+DELIMITER $$
+CREATE PROCEDURE spu_email_verifi_res(
+	IN _emailres VARCHAR(70)
+)
+BEGIN
+	SELECT COUNT(*) AS 'email' FROM usuarios WHERE emailrespaldo = _emailres OR email = _emailres;
+END $$
 
+CALL spu_email_verifi('1321063@senati.pe');
+CALL spu_email_verifi_res('1321063@senati.pe');
 
 -- MODIFICAR PERSONA -- 
 DELIMITER $$
@@ -244,14 +253,16 @@ END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_buscar_nombres_scroll(
-IN _search VARCHAR(40),
-IN _start INT,
-IN _finish INT 
+	IN _search VARCHAR(40),
+	IN _offset INT,
+	IN _limit  TINYINT 
 )
 BEGIN
 	SELECT* FROM vs_usuarios_listar_datos_basicos
-		WHERE nombres LIKE CONCAT('%', _search, '%') LIMIT _start, _finish;
+		WHERE nombres LIKE CONCAT('%', _search, '%') LIMIT _limit OFFSET _offset;
 END $$
+
+CALL spu_usuarios_buscar_nombres_scroll('ricard', 0, 16);
 
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_buscar_rol_nombres
@@ -416,7 +427,7 @@ DELIMITER $$
 CREATE PROCEDURE spu_albumes_listar_usuario(IN _idusuario INT)
 BEGIN
 	SELECT * FROM albumes 
-		WHERE idusuario = _idusuario AND estado = 1 GROUP BY idalbum;
+		WHERE idusuario = _idusuario AND estado = 1 ORDER BY idalbum;
 END $$
 
 DELIMITER $$
@@ -655,7 +666,8 @@ BEGIN
 	FROM seguidores SEG
 	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollower
 	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollowing = _idusuario AND SEG.estado = 1;
+	WHERE idfollowing = _idusuario AND SEG.estado = 1
+	ORDER BY PER.nombres, PER.apellidos;
 END $$
 
 DELIMITER $$
@@ -665,7 +677,8 @@ BEGIN
 	FROM seguidores SEG
 	INNER JOIN usuarios USU ON USU.idusuario = SEG.idfollowing
 	INNER JOIN personas PER ON PER.idpersona = USU.idpersona
-	WHERE idfollower = _idusuario AND SEG.estado = 1;
+	WHERE idfollower = _idusuario AND SEG.estado = 1
+	ORDER BY PER.nombres, PER.apellidos;
 END $$
 
 DELIMITER $$
@@ -700,11 +713,11 @@ DELIMITER $$
 CREATE PROCEDURE spu_foros_listar_usuario 
 (
 	IN _idusuario INT,
-	IN _start INT,
-	IN _finish INT
+	IN _offset 		INT,
+	IN _limit 		TINYINT
 )
 BEGIN
-	SELECT * FROM vs_listar_foros WHERE idtousuario = _idusuario LIMIT _start, _finish;
+	SELECT * FROM vs_listar_foros WHERE idtousuario = _idusuario LIMIT _limit OFFSET _offset;
 END $$
 
 -- ========= REGISTRAR EN LA TABLA FOROS============
@@ -813,6 +826,20 @@ BEGIN
    ORDER BY RAND() LIMIT _limit OFFSET _offset
    
 END $$
+
+
+-- LISTADO ALEATORIO DE LOS MÁS POPULARES
+DELIMITER $$
+CREATE PROCEDURE spu_especialidades_listar_populares(IN _limit TINYINT, IN _offset INT)
+BEGIN
+   SELECT * FROM vs_especialidades_listar
+   WHERE estrellas > 1
+   GROUP BY idusuario
+   ORDER BY RAND() LIMIT _limit OFFSET _offset;
+END $$
+
+CALL spu_especialidades_listar_populares(6, 0);
+
 
 DELIMITER $$
 CREATE PROCEDURE spu_especialidades_listar_usuario(IN _idusuario INT)
@@ -1075,13 +1102,13 @@ DELIMITER $$
 CREATE PROCEDURE spu_trabajos_listar_usuario
 (
 	IN _idusuario INT,
-	IN _start INT,
-	IN _finish INT
+	IN _offset 		INT,
+	IN _limit 		INT
 )
 BEGIN
 	SELECT * FROM vs_trabajos_listar
 		WHERE idusuario = _idusuario
-		ORDER BY idtrabajo DESC LIMIT _start, _finish;
+		ORDER BY idtrabajo DESC LIMIT _limit OFFSET _offset;
 END $$
 
 
@@ -1419,10 +1446,6 @@ BEGIN
 		WHERE idusuario = _idusuario AND estado = 1;
 END $$
 
-SELECT TOTALTRABAJOS(23);
-SELECT CALIFICACIONTRABAJO(21);
-CALL spu_total_calificacion_trabajos(23);
-CALL spu_estrellas_usuario(23);
 
 -- ESTRELLAS POR USUARIOS
 DELIMITER $$
@@ -1521,4 +1544,13 @@ BEGIN
 			GROUP BY SRV.nombreservicio;
 END $$
 
-
+DELIMITER $$
+CREATE PROCEDURE spu_total_usuarios_servicio_fechas(IN _fechainicio DATE, IN _fechafin DATE)
+BEGIN
+	SELECT SRV.nombreservicio, COUNT(USU.idusuario) AS 'total'
+	FROM servicios SRV
+	INNER JOIN especialidades ESP ON ESP.idservicio = SRV.idservicio
+	INNER JOIN usuarios USU ON USU.idusuario = ESP.idusuario
+	WHERE USU.fechaalta BETWEEN _fechainicio AND LAST_DAY(_fechafin)
+	GROUP BY SRV.nombreservicio;
+END $$

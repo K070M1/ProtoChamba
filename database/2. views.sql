@@ -4,8 +4,9 @@ USE REACTIVACION;
 -- VISTA DE PERSONAS Y DISTRITOS
 -- -------------------------------------------------------------------------------------------------------------
 CREATE VIEW vs_personas_listar AS
-	SELECT 	PRS.idpersona, PRS.apellidos, PRS.nombres, 
-					PRS.fechanac,	PRS.telefono,
+	SELECT 	PRS.idpersona, PRS.apellidos, PRS.nombres, PRS.fechanac,	
+					PRS.telefono, DST.iddistrito, DST.distrito, PRV.idprovincia, 
+					PRV.provincia, DPT.iddepartamento, DPT.departamento,
 					CONCAT(
 						CASE 
 							WHEN PRS.tipocalle LIKE 'CA' THEN 'Calle'
@@ -13,9 +14,16 @@ CREATE VIEW vs_personas_listar AS
 							WHEN PRS.tipocalle LIKE 'UR' THEN 'Urbanización'
 							WHEN PRS.tipocalle LIKE 'PJ' THEN 'Pasaje'
 							WHEN PRS.tipocalle LIKE 'JR' THEN 'Jirón'
-						END, ' ', PRS.nombrecalle, ' #', PRS.numerocalle, ' ', PRS.pisodepa) AS 'direccion',
-					DST.iddistrito, DST.distrito, PRV.idprovincia, PRV.provincia, 
-					DPT.iddepartamento, DPT.departamento					
+							WHEN PRS.tipocalle LIKE 'LT' THEN 'Lote'
+						END, ' ', PRS.nombrecalle, ' #',
+						CASE
+							WHEN PRS.numerocalle IS NULL THEN 'S/N'
+							WHEN PRS.numerocalle IS NOT NULL THEN PRS.numerocalle
+						END, ' ',
+						CASE
+							WHEN PRS.pisodepa IS NULL THEN 'S/N'
+							WHEN PRS.pisodepa IS NOT NULL THEN PRS.pisodepa
+						END) AS 'direccion'								
 		FROM personas PRS
 		INNER JOIN distritos DST ON DST.iddistrito = PRS.iddistrito
 		INNER JOIN provincias PRV ON PRV.idprovincia = DST.idprovincia
@@ -160,3 +168,25 @@ CREATE VIEW vs_listar_foros AS
 		ORDER BY FRS.idforo ASC;
 		
 
+CREATE VIEW `vs_usuarios_listar_quest` AS 
+SELECT
+  `usu`.`idusuario`     AS `idusuario`,
+  `vpl`.`nombres`       AS `nombres`,
+  `vpl`.`apellidos`     AS `apellidos`,
+  `usu`.`email`         AS `email`,
+  `usu`.`emailrespaldo` AS `emailrespaldo`,
+  `usu`.`rol`           AS `rol`,
+  `vpl`.`fechanac`      AS `fechanac`,
+  `usu`.`fechaalta`     AS `fechaalta`,
+  `usu`.`estado`        AS `estado`,
+  `vpl`.`distrito`      AS `distrito`,
+  `vpl`.`provincia`     AS `provincia`,
+  `vpl`.`departamento`  AS `departamento`
+FROM ((`usuarios` `usu`
+    JOIN `vs_personas_listar` `vpl`
+      ON (`vpl`.`idpersona` = `usu`.`idpersona`))
+   LEFT JOIN `establecimientos` `est`
+     ON (`est`.`idusuario` = `usu`.`idusuario`))
+WHERE `usu`.`estado` = 1
+     OR `usu`.`estado` = 2
+ORDER BY `usu`.`rol`

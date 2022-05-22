@@ -26,7 +26,7 @@ class Follower extends ModelMaster{
   //Conteo seguidores
   public function getCountFollowersByUser(array $data){
     try{
-      return parent::execProcedurePerso($data, "spu_seguidores_conteo", true);
+      return parent::execProcedure($data, "spu_seguidores_conteo", true);
     }
     catch(Exception $error){
       die($error->getMessage());
@@ -47,7 +47,7 @@ class Follower extends ModelMaster{
   //Conteo seguidos
   public function getCountFollowedByUser(array $data){
     try{
-      return parent::execProcedurePerso($data, "spu_seguidos_conteo", true);
+      return parent::execProcedure($data, "spu_seguidos_conteo", true);
     }
     catch(Exception $error){
       die($error->getMessage());

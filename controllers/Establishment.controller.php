@@ -71,7 +71,7 @@ if (isset($_GET['op'])) {
   function listarEstablecimiento($data){
 
     if(count($data) <= 0){
-      echo "Sin Establecimiento";
+      echo "<span>Sin establecimientos</span>";
     }
     else{
       foreach($data as $row){
@@ -121,8 +121,8 @@ if (isset($_GET['op'])) {
       foreach($data as $row){
         $services .= $row['nombreservicio'] . ", ";
       }
-    }else{
-      $services =  "Sin servicios, ";
+    } else {
+      $services = "Sin servicios,";
     }
 
     // substr (cadena, indice inicial, tamaño)
@@ -142,7 +142,9 @@ if (isset($_GET['op'])) {
       foreach($data as $row){
         $establishments .= $row['establecimiento'] . ", ";
       }
-    }    
+    } else {
+      $establishments = "Sin establecimiento,";
+    }   
 
     // Cambiando la coma del ultimo elemento por un punto
     $establishments = substr(rtrim($establishments), 0, -1);

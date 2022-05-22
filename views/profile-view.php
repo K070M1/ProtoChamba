@@ -89,12 +89,12 @@ if(isset($_SESSION["login"])){
 <div class="contenedor-perfil">
   <nav style="margin-top: 2rem">
     <div class="nav nav-tabs justify-content-center text-danger" id="nav-tab" role="tablist">
-      <a class="nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
-      <a class="nav-link" id="nav-informacion-tab" data-toggle="tab" href="#nav-informacion" role="tab" aria-controls="nav-informacion" aria-selected="false">Información</a>
-      <a class="nav-link" id="nav-galeria-tab" data-toggle="tab" href="#nav-galeria" role="tab" aria-controls="nav-galeria" aria-selected="false">Galeria</a>
-      <a class="nav-link" id="nav-amigos-tab" data-toggle="tab" href="#nav-amigos" role="tab" aria-controls="nav-amigos" aria-selected="false">Amigos</a>
-      <a class="nav-link" id="nav-configuracion-tab" data-toggle="tab" href="#nav-servicios" role="tab" aria-controls="nav-servicios" aria-selected="false">Servicios</a>
-      <a class="nav-link" id="nav-forum-tab" data-toggle="tab" href="#nav-forum" role="tab" aria-selected="false">Foro</a>
+      <a class="nav-link link-nav-profile active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-general" aria-selected="true">General</a>
+      <a class="nav-link link-nav-profile" id="nav-informacion-tab" data-toggle="tab" href="#nav-informacion" role="tab" aria-controls="nav-informacion" aria-selected="false">Información</a>
+      <a class="nav-link link-nav-profile" id="nav-galeria-tab" data-toggle="tab" href="#nav-galeria" role="tab" aria-controls="nav-galeria" aria-selected="false">Galeria</a>
+      <a class="nav-link link-nav-profile" id="nav-amigos-tab" data-toggle="tab" href="#nav-amigos" role="tab" aria-controls="nav-amigos" aria-selected="false">Amigos</a>
+      <a class="nav-link link-nav-profile" id="nav-configuracion-tab" data-toggle="tab" href="#nav-servicios" role="tab" aria-controls="nav-servicios" aria-selected="false">Servicios</a>
+      <a class="nav-link link-nav-profile" id="nav-forum-tab" data-toggle="tab" href="#nav-forum" role="tab" aria-selected="false">Foro</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
@@ -106,7 +106,7 @@ if(isset($_SESSION["login"])){
           <div class="info-col" >
             <div class="card">
               <div class="card-header">
-                <h5 class="text-bold">Información:</h5>
+                <h5 class="text-bold text-uppercase text-center">Información</h5>
               </div>
               <div class="card-body">
                 <div id="info-empresa">
@@ -120,10 +120,10 @@ if(isset($_SESSION["login"])){
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-9">
-                    <h5 class="text-bold">Descripción: </h5>
+                  <div class="col-9">
+                    <h5 class="text-bold text-uppercase text-center">Biografía</h5>
                   </div>
-                  <div class="col-md-3 text-right">
+                  <div class="col-3 text-right">
                     <a href="javascript:void(0)" id="btn-cancel-edit-description" class="btn btn-sm btn-outline-secondary  d-none"><i class='fas fa-times'></i></a>
                     <a href="javascript:void(0)" id="btn-edit-description" class="btn btn-sm btn-outline-info "><i class='fas fa-edit'></i></a>
                     <a href="javascript:void(0)" id="btn-update-description" class="btn btn-sm btn-outline-info d-none"><i class="far fa-save"></i></a>
@@ -163,7 +163,7 @@ if(isset($_SESSION["login"])){
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
-                      <h5 class="text-bold">Datos Personales</h5>
+                      <h5 class="text-bold text-uppercase">Datos Personales</h5>
                     </div>
                     <div class="col-2  text-right">
                       <button id="btnP" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#containerDatePerson" >
@@ -192,7 +192,7 @@ if(isset($_SESSION["login"])){
                         </div>
                         <div class="col-md-6 form-group">
                           <label for="">Teléfono:</label>
-                          <input type="tel" class="form-control form-control-border" id="telefono">
+                          <input type="tel" class="form-control form-control-border" id="telefono" maxlength="11">
                         </div>
                       </div>  
                       <div class="row">
@@ -243,7 +243,7 @@ if(isset($_SESSION["login"])){
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
-                      <h5 class="text-bold">Información privilegiada</h5>
+                      <h5 class="text-bold text-uppercase">Información privada</h5>
                     </div>
                     <div class="col-2  text-right">
                       <button id="btnEditPrivilegedData" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#contentainerCredentials" >
@@ -304,7 +304,7 @@ if(isset($_SESSION["login"])){
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
-                      <h5 class="text-bold">Especialidades</h5>
+                      <h5 class="text-bold text-uppercase">Especialidades</h5>
                     </div>
                     <div class="col-2  text-right">
                       <button id="btnsd" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseEspecialidad" >
@@ -355,7 +355,7 @@ if(isset($_SESSION["login"])){
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
-                      <h5 class="text-bold">Establecimientos</h5>
+                      <h5 class="text-bold text-uppercase">Establecimientos</h5>
                     </div>
                     <div class="col-2  text-right">
                       <button id="btnEst" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#content-establecimiento" >
@@ -456,7 +456,7 @@ if(isset($_SESSION["login"])){
                 <div class="card-header">
                   <div class="row">
                     <div class="col-10 text-center">
-                      <h5 class="text-bold">Redes Sociales</h5>
+                      <h5 class="text-bold text-uppercase">Redes Sociales</h5>
                     </div>
                     <div class="col-2  text-right">
                       <button id="btnrs" class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseRed" aria-expanded="false" aria-controls="collapseRed">
@@ -549,13 +549,13 @@ if(isset($_SESSION["login"])){
     <!-- Trabajos publicados nav -->
     <div class="tab-pane fade" id="nav-servicios" role="tabpanel" aria-labelledby="nav-servicios-tab">
       <!-- Contenidos -->
-      <div class="container-services row mt-4">
+      <div class="row mt-2 container-services">
 
         <!-- Agregar publicación -->
-        <div class="content-header col-md-12" id="container-add-publication">
+        <div class="content-header col-12" id="container-add-publication">
           <div class="card card-outline card-primary">
             <div class="card-header">
-              <h4>Publicación de trabajos</h4>
+              <h5 class="text-bold text-uppercase">Publicación de trabajos</h5>
             </div>
             <div class="card-body">
               <div class="user-block-publication">
@@ -573,7 +573,10 @@ if(isset($_SESSION["login"])){
 
           <!-- Contenido de las publicaciones -->
           <div class="content-data-publication" id="data-publication-works">
-
+            <!-- sin publicaciones por defecto -->
+            <div class="card card-body mt-2 none-register">
+              <h5>Sin publicaciones</h5>
+            </div>
           </div>
         </div>
       </div>
@@ -600,12 +603,12 @@ if(isset($_SESSION["login"])){
 
           </div>
         </div>
+        <hr>
         <!--./Fotos-->
 
         <!--Albumes-->
         <div class="tab-pane fade" id="pills-album" role="tabpanel">
           <div class="row" id="load-album">
-
 
           </div>
           <hr>
@@ -626,11 +629,11 @@ if(isset($_SESSION["login"])){
 
     <!-- Foro de consultas -->
     <div class="tab-pane fade" id="nav-forum" role="tabpanel">
-      <div class="row mt-4 content-forum">
+      <div class="row mt-2 content-forum">
         <div class="content-header col-md-12">
           <div class="card card-outline card-primary">
             <div class="card-header">
-              <h4>Foro de consultas</h4>
+              <h5 class="text-bold text-uppercase">Foro de consultas</h5>
             </div>
             <div class="card-body p-2 pt-3">
               <!-- Escribir comentario -->
@@ -652,7 +655,7 @@ if(isset($_SESSION["login"])){
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <div class="content-comments" style="max-height: 450px;" id="content-data-forum" onscroll="scrollForoComments()">
+              <div class="content-comments" style="max-height: 450px;" id="content-data-forum" >
                 <!-- dinamicos -->
               </div>
             </div>
@@ -738,7 +741,7 @@ if(isset($_SESSION["login"])){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="añadir-albm">Añadir</button>
+        <button type="button" class="btn btn-primary" id="add-albm">Añadir</button>
       </div>
     </div>
   </div>
@@ -750,7 +753,7 @@ if(isset($_SESSION["login"])){
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-bold" id="title-modal-publication">Crear publicación</h5>
+        <h5 class="modal-title text-bold text-uppercase" id="title-modal-publication">Crear publicación</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -830,14 +833,14 @@ if(isset($_SESSION["login"])){
         <!-- Formulario contiene los inputs (imagen / video)-->
         <form id="form-upload-file">
           <input type="file" id="input-new-image" accept="image/*" max="5" multiple hidden />
-          <input type="file" id="input-new-video" accept="video/*" size="150" hidden />
+          <input type="file" id="input-new-video" accept="video/*" size="35" hidden />
         </form>
         <!-- /. Formulario de etiquetas inputs -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-info" id="btn-modify-publication">Actualizar</button>
-        <button type="button" class="btn btn-primary" id="btn-add-publication">Publicar</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-sm btn-info" id="btn-modify-publication">Actualizar</button>
+        <button type="button" class="btn btn-sm btn-primary" id="btn-add-publication">Publicar</button>
       </div>
     </div>
   </div>
@@ -889,16 +892,14 @@ if(isset($_SESSION["login"])){
 <!--./Modal REPORTAR-->
 
 <!-- ZONA DE SCRIPTS -->
-<!-- Perfil -->
-<script src="dist/js/pages/galeria.js"></script>
-<script src="dist/js/pages/profile.js"></script>
+<script src="dist/js/uploadFile.js"></script>
 
 <!-- video js -->
 <script src="plugins/video-js/video.min.js"></script>
 
-<!--Carga con scroll-->
-<script src="dist/js/ChangeScroll.js"></script>
+<!-- Perfil -->
+<script src="dist/js/pages/galeria.js"></script>
+<script src="dist/js/pages/profile.js"></script>
+
 <!-- scripts propios -->
-<script src="dist/js/utility.js"></script>
 <script src="dist/js/pages/publication-services.js"></script>
-<script src="dist/js/uploadFile.js"></script>

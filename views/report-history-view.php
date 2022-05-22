@@ -15,9 +15,6 @@
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
             <i class="fas fa-minus"></i>
           </button>
-          <button type="button" class="btn btn-tool" data-card-widget="remove">
-            <i class="fas fa-times"></i>
-          </button>
         </div>
       </div>
       <!-- /.card-header -->
@@ -29,7 +26,7 @@
             <span class="input-group-text bg-primary" id="btn-search"><i class="fas fa-search"></i></span>
           </div>
         </div>
-        <div style="max-height: calc(100vh - 285px); overflow-y: auto;" onscroll="scrollReportingData()" id="scrollReportingUser" >
+        <div class="theme-scroll" style="max-height: calc(100vh - 285px); overflow-y: auto;" id="scrollReportingUser" >
           <table class="table projects" >
             <tbody id="tbody-users">
               <!-- Cargado de forma asincrona -->
@@ -69,7 +66,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Archivo adjunto</h5>
+        <h5 class="modal-title text-bold text-uppercase">Archivo adjunto</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -78,7 +75,7 @@
         <img src="" alt="imagen" id="img-report-preview" style="width: 100%; height: 100%;">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar modal</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar modal</button>
       </div>
     </div>
   </div>
@@ -86,5 +83,3 @@
 
 <script src="dist/js/pages/report-history.js"></script>
 
-<!--Carga con scroll-->
-<script src="dist/js/ChangeScroll.js"></script>

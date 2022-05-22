@@ -58,14 +58,14 @@
   <!-- SERVICES RECOMENDADOS -->
   <div class="container-services mt-4 " id="content-carousels">
     <!-- carouseles 1 -->
-    <div class='card d-none'>
+    <div class='card'>
       <div class='card-header'>
         <div class='row'>
           <div class='col-6 col-xs-6'>
-            <h5 class='text-bold'>Más populares <span class='badge badge-primary'>0</span></h5>
+            <h5 class='text-bold text-uppercase'>Más populares</h5>
           </div>
           <div class='col-6 col-xs-6 text-right'>
-            <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='pupular' disabled> Ver más</button>
+            <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='popular' > Ver más</button>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@
       <div class='card-header'>
         <div class='row'>
           <div class='col-6 col-xs-6'>
-            <h5 class='text-bold'>Recomendados </h5>
+            <h5 class='text-bold text-uppercase'>Recomendados </h5>
           </div>
           <div class='col-6 col-xs-6 text-right'>
             <button type='button' class='btn btn-sm btn-dark btn-more-content' data-more='recomendation' > Ver más</button>
@@ -130,6 +130,19 @@
               <div class="collapse" id="fee">
                 <div class="card card-body">
                   <input id="range-money" type="text">
+                  <div class="row mt-1">
+                    <div class="col-6 form-group">
+                      <input type="number" id="money1" class="form-control" value="50" placeholder="Min">
+                    </div>
+                    <div class="col-6 form-group">
+                      <input type="number" id="money2" class="form-control" value="8000" placeholder="Max">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <button class="btn btn-sm btn-block btn-primary" id="btn-filter-money">Filtrar</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -171,7 +184,7 @@
             <div class="container-img-map">
               <img src="dist/img/map.png" >
               <div>
-                <a href="index.php?view=geolocalizacion-view" id="btn-open-map" class="btn btn-sm btn-primary">Ver en el mapa</a>
+                <a href="index.php?view=geolocalizacion-view" class="btn btn-sm btn-primary">Ver en el mapa</a>
               </div>
             </div>
             
@@ -187,7 +200,7 @@
             <div class="row">
               <div class="col-6">
                 <div class="row">
-                  <label for="inputPassword" class="col-4 col-form-label">Ordenar por:</label>
+                  <label for="inputPassword" class="col-4 col-form-label">Ordenar:</label>
                   <div class="col-8">
                     <select class="custom-select" id="order-filtered">
                       <option value="N">Nombre</option>
@@ -209,7 +222,11 @@
           <!-- contenido de los servicios -->
           <div class="card-body container-box">
             <div class="flex-box" id="content-data-filtered">
+<<<<<<< HEAD
         
+=======
+              <!-- Sin registro encontrado por default -->
+>>>>>>> 09697e8f724f7c5fe55a9c72f044aa2835eb0ef8
             </div>     
             <!-- /.Corta sm -->
           </div>
@@ -224,6 +241,3 @@
 <!-- owl carousel -->
 <script src="plugins/owl-carousel/js/owl.carousel.min.js"></script>
 <script src="dist/js/pages/main.js"></script>
-
-<!--Carga con scroll-->
-<script src="dist/js/ChangeScroll.js"></script>

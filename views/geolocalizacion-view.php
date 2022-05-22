@@ -100,7 +100,7 @@
 </div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyBhbKb3BeyxJ-BBV9bsv0nA61dVbpA6E&libraries=places&callback=startMap"></script>
-<script type="text/javascript" src="./dist/js/geolocalizacion-view.js"></script>
+<script type="text/javascript" src="./dist/js/pages/geolocalizacion.js"></script>
 <script>
   var serviciobuscado = localStorage.getItem('serviciobuscado');
 

@@ -1,15 +1,18 @@
 /* CONTENEDOR DE LOS SERVICIOS */
 .container-services {
+  position: relative;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
+  align-items: center;
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+  padding: 0;
 }
 
 .container-services .content-service {
   /* position: sticky; */
-  width: auto;
+  width: 100%;
 }
 
 .content-header .user-block-publication{
@@ -37,12 +40,27 @@
   margin-left: 1em;
 }
 
+
+
 /* TRABAJOS PUBLICADOS */
 .content-service .target-service {
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 6px;
   /* margin-bottom: 2em; */
   width: 100%;
+}
+
+/* SCROLL EN PUBLICACIÓN */
+#data-publication-works{
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  max-height: 850px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+#data-publication-works::-webkit-scrollbar{
+  width: 0;
+  height: 0;
 }
 
 .card .card-header{

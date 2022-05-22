@@ -46,7 +46,7 @@ if (isset($_GET['op'])){
               {$icono}
             </td>
             <td>
-              <a  href='{$row['vinculo']}'>{$red}</a>
+              <a  href='{$row['vinculo']}' target='_blank'>{$red}</a>
             </td>
             <td align='right' {$visible}>
               <a data-idredSocial='{$row['idredsocial']}' class='btn btn-sm btn-outline-info btn-sm modificarRed' href='javascript:void(0)'><i class='fas fa-edit'></i></a>  
@@ -82,7 +82,6 @@ if (isset($_GET['op'])){
 
   //Eliminar RedSocial
   if ($_GET['op'] == 'deleteRedSocial'){
-
     $redsocial->deleteRedSocial(["idredsocial" => $_GET['idredsocial']]);
 
   }
@@ -90,19 +89,17 @@ if (isset($_GET['op'])){
 }
 
 // MÉTODO POST
-
 if (isset($_POST['op'])){
 
   if ($_POST['op'] == 'registerRedSocial'){
 
     $datosEnviar = [
-      "idusuario"      =>  $_SESSION['idusuario'],
+      "idusuario"       =>  $_SESSION['idusuario'],
       "redsocial"       =>  $_POST["redsocial"],
       "vinculo"         =>  $_POST["vinculo"]
     ];
 
     $redsocial->registerRedSocial($datosEnviar);
-
   }
 
   if ($_POST['op'] == 'updateRedSocial'){
@@ -116,8 +113,6 @@ if (isset($_POST['op'])){
 
     $redsocial->updateRedSocial($datosEnviar);
   }
-
-
 }
 
 

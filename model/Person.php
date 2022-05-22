@@ -42,14 +42,5 @@ class Person extends ModelMaster{
       die($error->getMessage());
     }
   }
-  //listar datos de persona
-  /* public function getDataPerson(array $data){
-    try{
-      return parent::execProcedure($data, "spu_personas_getdata", true);
-    }
-    catch(Exception $error){
-      die($error->getMessage());
-    }
-  } */
 }
 ?>
