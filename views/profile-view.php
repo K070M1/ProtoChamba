@@ -608,6 +608,7 @@ if(isset($_SESSION["login"])){
 
 
           </div>
+          <hr>
           <!---Collapse de fotos en los albumes-->
           <div class="collapse" id="img-album-open-collap">
             <h2 id="tittle-collapse"></h2>

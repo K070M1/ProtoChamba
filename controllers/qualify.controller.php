@@ -48,6 +48,7 @@ if(isset($_GET['op'])){
     }
 
     $scoreUser = getScoreUser($idusuario);
+    // Ceil == Redondear al entero proximo
     $scoreUser = ceil($scoreUser);
 
     echo "<div class='stars'>";

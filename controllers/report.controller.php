@@ -69,7 +69,7 @@ if(isset($_POST['op'])){
     ]);
 
 
-    // guardar si existe iamgen
+    // Guardar si existe imagen
     if($image != ""){
       move_uploaded_file($_FILES['fotografia']['tmp_name'], '../dist/img/user/' . $image);
     }

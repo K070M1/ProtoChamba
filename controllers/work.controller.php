@@ -239,7 +239,7 @@ if(isset($_GET['op'])){
     return $data;
   }
 
-  // Obtner comentarios por cada publicación
+  // Obtener comentarios por cada publicación
   function getCommentsPublication($idtrabajo){
     $comment = new Comment();
 
@@ -381,8 +381,6 @@ if(isset($_POST['op'])){
         $result = 'Se agrego un video ' . $_FILES['video']['name'] . " (" . $video . ")";
       };
     }
-
-    echo $result;
   }
 
   // Actualizar trabajo con imagenes o video

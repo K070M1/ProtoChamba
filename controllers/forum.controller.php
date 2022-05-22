@@ -31,14 +31,10 @@ if(isset($_GET['op'])){
             ";
           } 
         }
-         /* else{
-          $options = "<a href='javascript:void(0)' class='text-danger  report-comment' >Denunciar</a>";
-        } */
 
         echo "
           <div class='box-comment'>
             <img src='dist/img/user/{$imageProfile}' />
-
             <div class='box-content-commented'>
               <div class='name-user'>
                 <span>{$row['nombres']}</span>
@@ -58,10 +54,11 @@ if(isset($_GET['op'])){
     $gallery = new Gallery();
     $images = $gallery->getProfilePicture(["idusuario" => $idusuario]);
 
-    return isset($images[0]) ? $images[0]['archivo']: '';
+    // Operador ternario 
+    return isset($images[0]) ? $images[0]['archivo']:'';
   }
 
-  // Listar
+  // Listar Foros
   if($_GET['op'] == 'getQueriesToUser'){
     $idusuario;
 

@@ -18,7 +18,6 @@ if (isset($_GET['op'])){
 
         $icono = "";
         $red = $row['redsocial'];
-        $icono = $red;
 
         if ($red == 'I'){
           $red = "Instagram";
@@ -44,10 +43,10 @@ if (isset($_GET['op'])){
         echo "
           <tr>
             <td align='center'>
-              $icono
+              {$icono}
             </td>
             <td>
-              <a  href='{$row['vinculo']}'>$red</a>
+              <a  href='{$row['vinculo']}'>{$red}</a>
             </td>
             <td align='right' {$visible}>
               <a data-idredSocial='{$row['idredsocial']}' class='btn btn-sm btn-outline-info btn-sm modificarRed' href='javascript:void(0)'><i class='fas fa-edit'></i></a>  

@@ -179,6 +179,7 @@ if (isset($_GET['op'])) {
       foreach ($data as $row) {
 
         $icon = getIconRedSocial($row['redsocial']);
+        // _blank == Abrir en otra pestaña
         echo "<a href='{$row['vinculo']}' target='_blank'>{$icon}</a>";
       }
     }
@@ -231,7 +232,7 @@ if (isset($_GET['op'])) {
     if ($nombreservicio == "Seguridad") $result = "outline-aquamarine";
     if ($nombreservicio == "Soldador") $result = "outline-dark-salmon";
     if ($nombreservicio == "Traductor") $result = "outline-chartreuse";
-
+    
     return $result;
   }
 
@@ -286,7 +287,7 @@ if (isset($_GET['op'])) {
   }
 
 
-  // listar especialidades en un control select
+  // listar especialidades en un control select - Publicacion - Calendario
   function listSpecialtyControlSelect($data)
   {
     if (count($data) == 0) {
@@ -457,6 +458,7 @@ if (isset($_GET['op'])) {
       "limit"           => 10,
       "offset"          => 0
     ]);
+    // Wsize identifica la opcion de vista del filtrado
     generateSpecialtiesFiltered($data, $_GET['wsize']);
   }
 
@@ -477,8 +479,8 @@ if (isset($_GET['op'])) {
   if ($_GET['op'] == 'specialtiesFilteredByServiceAndFee') {
     $data = $specialty->specialtiesFilteredByServiceAndFee([
       "nombreservicio"  => $_GET['nombreservicio'],
-      "tarifa1"         => $_GET['tarifa1'],
-      "tarifa2"         => $_GET['tarifa2'],
+      "tarifa1"         => $_GET['tarifa1'], // Rango de tarifa
+      "tarifa2"         => $_GET['tarifa2'], // Rango de tarifa
       "order"           => $_GET['order'],
       "limit"           => 10,
       "offset"          => 0

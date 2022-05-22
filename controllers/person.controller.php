@@ -80,16 +80,6 @@ if (isset($_GET['op'])){
 if (isset($_POST['op'])){
 
   // Actualizar person
-  if ($_POST['op'] == 'deleteFoller'){
-
-      $datosEnviar = [
-        "idfollower"       =>  1,
-        "idfollowing"      =>  $_POST["idfollowing"]
-      ];
-
-      $follower->deleteFoller($datosEnviar);
-  }
-
   if ($_POST['op'] == 'updatePerson'){
 
     $datosEnviar = [
@@ -105,7 +95,6 @@ if (isset($_POST['op'])){
     ];
 
     $person->updatePerson($datosEnviar);
-    var_dump($datosEnviar);
   }
 }
 ?>

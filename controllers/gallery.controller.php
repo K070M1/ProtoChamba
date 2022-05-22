@@ -19,38 +19,33 @@ if (isset($_GET['op'])) {
                 <figure>
                     <img src='./dist/img/user/{$row['archivo']}'>
                     ";
-                        if($row['idalbum'] == $portada || $row['idalbum'] == $perfil){
-                          echo "
-                                </figure>
-                              </div>
-                          </div>";
-                        }else{
-                          if($NoCollapse === false){
-                              echo "
-                                  </figure>
-                                </div>
-                            </div>";
-                          }else{
-                            echo
-                            "
-                                  <figcaption>
-                                    <ul>
-                                      <li>
-                                          <i class='fas fa-pen-square btn-modif' {$visible}  data-gal-act='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}' ></i>
-                                      </li>
-                                      <li>
-                                          <i class='fas fa-trash-alt btn-elim' {$visible}  data-gal-eli='{$row['idgaleria']}' ></i>
-                                      </li>
-                                      <li>
-                                          <i class='fas fa-eye btn-vw' data-gal-open='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}'></i>
-                                      </li>
-                                    </ul>
-                                    </figcaption>
-                                  </figure>
-                              </div>
-                            </div>";
-                          }
-                        }
+
+                if($NoCollapse === false){
+                    echo "
+                        </figure>
+                      </div>
+                  </div>";
+                }else{
+                  echo
+                  "
+                        <figcaption>
+                          <ul>
+                            <li>
+                                <i class='fas fa-pen-square btn-modif' {$visible}  data-gal-act='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}' ></i>
+                            </li>
+                            <li>
+                                <i class='fas fa-trash-alt btn-elim' {$visible}  data-gal-eli='{$row['idgaleria']}' ></i>
+                            </li>
+                            <li>
+                                <i class='fas fa-eye btn-vw' data-gal-open='{$row['idgaleria']}' data-gal-albm='{$row['idalbum']}'></i>
+                            </li>
+                          </ul>
+                          </figcaption>
+                        </figure>
+                    </div>
+                  </div>";
+                }
+                        
       }
     }else{
       echo
@@ -90,7 +85,7 @@ if (isset($_GET['op'])) {
             </div>
             <div class= 'modal-body'>
                 <div id= 'md-contain-img'>
-                    <img src='./dist/img/User/{$data[0]['archivo']}'>
+                    <img src='./dist/img/user/{$data[0]['archivo']}'>
                 </div>
             </div>
             <div class='md-footer'>
@@ -249,7 +244,7 @@ if (isset($_POST['op'])){
           "estado"        => '1'
       ];
 
-      $data = $gallery->updateGallery($enviard);
+     $gallery->updateGallery($enviard);
   }
   
   if($_POST['op'] == "updateUserPerfilPort"){ 
@@ -261,67 +256,41 @@ if (isset($_POST['op'])){
 
       if(isset($_FILES['archivo'])){
           $ext = explode('.', $_FILES['archivo']['name']);
-          $image = encripPhoto().date('Ymdhis'). '.' . $ext[1];
+          $image = encripPhoto().date('Ymdhis'). '.' . end($ext);
 
+    
           //Portada
           if($_POST['estado'] == 'true'){
-              if(sizeof($dataPor) == '0'){
-                  $datregister = [
-                      "idalbum"       => $regIDAlbumPor[0]['idalbum'],
-                      "idusuario"     => $_SESSION['idusuario'],
-                      "idtrabajo"     => " ",
-                      "tipo"          => "F",
-                      "archivo"       => $image,
-                      "estado"        => "3"
-                  ];
-      
-                  $gallery->registerGallery($datregister);
-                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
-              }else{
-                  $idporgal = $dataPor[0]['idgaleria'];
-                  $idalbumpor = $dataPor[0]['idalbum'];
-      
-                  $enviarDat =
-                  [
-                      'idgaleria' => $idporgal,
-                      'idalbum'   => $idalbumpor,
-                      'estado'    => '1'
-                  ];
-                  
-                  $gallery->updateGallery($enviarDat);
-      
-                  $datregister = [
-                      "idalbum"       => $regIDAlbumPor[0]['idalbum'],
-                      "idusuario"     => $_SESSION['idusuario'],
-                      "idtrabajo"     => " ",
-                      "tipo"          => "F",
-                      "archivo"       => $image,
-                      "estado"        => "3"
-                  ];
-      
-                  $gallery->registerGallery($datregister);
-                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
+
+              if(count($dataPor) != 0){
+                $idporgal = $dataPor[0]['idgaleria'];
+                $idalbumpor = $dataPor[0]['idalbum'];
+    
+                $enviarDat =
+                [
+                    'idgaleria' => $idporgal,
+                    'idalbum'   => $idalbumpor,
+                    'estado'    => '1'
+                ];
+                
+                $gallery->updateGallery($enviarDat);
               }
-              echo $image;
+
+              $datregister = [
+                "idalbum"       => $regIDAlbumPor[0]['idalbum'],
+                "idusuario"     => $_SESSION['idusuario'],
+                "idtrabajo"     => " ",
+                "tipo"          => "F",
+                "archivo"       => $image,
+                "estado"        => "3"
+              ];
+  
+              $gallery->registerGallery($datregister);
+              move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
           
               // Perfil
           }else{
-              if(sizeof($dataPer) == '0'){
-                  $datregister = [
-                      "idalbum"       => $regIDAlbumPer[0]['idalbum'],
-                      "idusuario"     => $_SESSION['idusuario'],
-                      "idtrabajo"     => " ",
-                      "tipo"          => "F",
-                      "archivo"       => $image,
-                      "estado"        => "2"
-                  ];
-                  var_dump($datregister);
-          
-                  $data = $gallery->registerGallery($datregister);
-                  var_dump($data);
-                  move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
-              }else{
-                  echo 'Paso Equivocado';
+              if(count($dataPer) != 0){
                   $idpergal = $dataPer[0]['idgaleria'];
                   $idalbumper = $dataPer[0]['idalbum'];
                   
@@ -332,7 +301,8 @@ if (isset($_POST['op'])){
                       'estado'    => '1'
                   ];
                   $gallery->updateGallery($enviarDat);
-  
+              }
+            
                   $datregister = [
                       "idalbum"       => $regIDAlbumPer[0]['idalbum'],
                       "idusuario"     => $_SESSION['idusuario'],
@@ -344,8 +314,6 @@ if (isset($_POST['op'])){
                   
                   $gallery->registerGallery($datregister);
                   move_uploaded_file($_FILES['archivo']['tmp_name'], "../dist/img/User/" . $image);
-              }
-              echo $image;
           } 
       }else{
           echo "ERROR";

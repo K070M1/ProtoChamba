@@ -112,7 +112,7 @@ if (isset($_GET['op'])) {
     }
   }
 
-  //Cargar modal de paso 1 (email principal)
+  //Cargar modal de paso 1 (email)
   function loadContentModalsRes1()
   {
     echo
@@ -245,7 +245,7 @@ if (isset($_GET['op'])) {
       "<option value='5'>¿Qué mes naciste?</option>",
       "<option value='6'>¿Qué año naciste?</option>"
     );
-
+    // Genera un array de indices a partir de un array
     $random_quest = array_rand($questions, 3);
     for ($i = 0; $i <= 2; $i++) {
       echo $questions[$random_quest[$i]];
@@ -331,8 +331,8 @@ if (isset($_GET['op'])) {
 
   // Logout
   if ($_GET['op'] == 'logout') {
-    session_destroy();
-    session_unset();
+    session_destroy(); // Elimninar la sesión
+    session_unset(); // Eliminar todas las variables de session
     header('Location:../index.php');
   }
   // Busqueda realizada por nombres o apellidos - (Asignar permisos admin)
@@ -602,16 +602,7 @@ if (isset($_POST['op'])) {
       $iduser = $user->registerUser($datosRegistrar);
 
       $album->registerAlbumDefault(["idusuario" => $iduser[0]['idusuario']]);
-      echo $iduser[0]['idusuario'];
 
-      $idusern = $iduser[0]['idusuario'];
-      $data = $user->getAUser(["idusuario" => $idusern]);
-
-      $_SESSION['login'] = true;
-      $_SESSION['email'] = $data[0]['email'];
-      $_SESSION['emailrespaldo'] = $data[0]['emailrespaldo'];
-      $_SESSION['idusuario'] = $data[0]['idusuario'];
-      $_SESSION['rol'] = $data[0]['rol'];
     } else {
       echo ".";
     }
@@ -664,7 +655,7 @@ if (isset($_POST['op'])) {
     if (isset($_FILES['archivo'])) {
 
       $ext = explode('.', $_FILES['archivo']['name']);
-      $image = encripPhoto() . date('Ymdhis') . '.' . $ext[1];
+      $image = encripPhoto() . date('Ymdhis') . '.' . end($ext);
 
       $datregister = [
         "idalbum"       => $regIDAlbumPer[0]['idalbum'],

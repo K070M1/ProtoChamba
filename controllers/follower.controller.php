@@ -22,7 +22,7 @@ if (isset($_GET['op'])){
         echo "
           <tr>
             <td align='center'>
-              <img src='dist/img/default_profile_avatar.svg' alt='Product 1' class='img-circle img-size-32 mr-2'>
+              <img src='dist/img/default_profile_avatar.svg' class='img-circle img-size-32 mr-2'>
             </td>
             <td>{$row['nombres']} {$row['apellidos']}</td>
           </tr>
@@ -48,7 +48,7 @@ if (isset($_GET['op'])){
         echo "
           <tr>
             <td align='center'>
-              <img src='dist/img/default_profile_avatar.svg' alt='' class='img-circle img-size-32 mr-2'>
+              <img src='dist/img/default_profile_avatar.svg' class='img-circle img-size-32 mr-2'>
             </td>
             <td>{$row['nombres']} {$row['apellidos']}</td>
             <td {$visible}>
@@ -135,6 +135,7 @@ if (isset($_GET['op'])){
   // Registrar seguidor
   if ($_GET['op'] == 'registerFollower'){
     if(isset($_SESSION['idusuario'])){
+      // Following == A quien sigues - Follower == Quien lo sigue
       $follower->registerFollower(["idfollowing" => $_GET['idusuarioactivo'], "idfollower" => $_SESSION['idusuario']]);
     } else {
       echo "Iniciar sesión";
@@ -148,6 +149,7 @@ if (isset($_GET['op'])){
     
     if(isset($_SESSION['idusuario'])){
       if(count($data) > 0){
+        // Para encontrar una coincidencia
         foreach($data as $row){
           if ($row['idfollower'] == $_SESSION['idusuario']){
             $value = "Seguido";
