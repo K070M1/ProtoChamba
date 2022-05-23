@@ -514,6 +514,151 @@
 
   });
 
+
+  // Abrir modal - actualizar correo
+  $("#btn-edit-email").click(function(){
+    $("#form-content-credentials")[0].reset();
+    $(".container-password").addClass("d-none");
+    $(".container-emails").removeClass("d-none");
+    $("#title-modal-account").html("Actualizar correo electrónico");
+    $("#modalUpdateAccount .btn-update").removeClass("d-none");
+    $("#modalUpdateAccount .btn-delete").addClass("d-none");
+
+    typeUpdate = "email";
+
+    $.ajax({
+      url: 'controllers/user.controller.php',
+      type: 'GET',
+      data: 'op=getDataUser',
+      success: function(result){
+        var datos = JSON.parse(result);
+        oldEmail = datos[0].email;
+        $("#emailUser").val(datos[0].email);
+        $("#emailBack").val(datos[0].emailrespaldo);
+        $("#modalUpdateAccount").modal("show");
+      }
+    });
+  });
+
+  var oldEmail = "";
+  var typeUpdate = "email";
+  
+  // Abrir modal - actualizar contraseña
+  $("#btn-edit-password").click(function(){
+    $("#form-content-credentials")[0].reset();
+    $(".container-emails").addClass("d-none");
+    $(".container-password").removeClass("d-none");
+    $("#title-modal-account").html("Actualizar contraseña");
+    $("#modalUpdateAccount .btn-update").removeClass("d-none");
+    $("#modalUpdateAccount .btn-delete").addClass("d-none");
+    $("#modalUpdateAccount").modal("show");
+
+    typeUpdate = "password";
+  });
+  
+  // Abrir modal - eliminar cuenta
+  $("#btn-delete-account").click(function(){
+    $("#form-content-credentials")[0].reset();
+    $(".container-emails").addClass("d-none");
+    $(".container-password").addClass("d-none");
+    $("#title-modal-account").html("Eliminar cuenta");
+    $("#modalUpdateAccount .btn-update").addClass("d-none");
+    $("#modalUpdateAccount .btn-delete").removeClass("d-none");
+    $("#modalUpdateAccount").modal("show");
+  });
+
+  // Ejecuta la acción actualizar
+  $("#modalUpdateAccount .btn-update").click(function(){
+    let emailUser = $("#emailUser").val().trim();
+    let emailBack = $("#emailBack").val().trim();
+    let password = $("#passwordVerify").val().trim();
+    let newPassword1 = $("#newPassword1").val().trim();
+    let newPassword2 = $("#newPassword2").val().trim();
+
+    if(typeUpdate == "email"){
+      if(emailUser == "" || password == ""){
+        sweetAlertWarning("Complete los datos", "Complete los datos oblogatorios");
+      } else {
+        sweetAlertConfirmQuestionSave("¿estas seguro de actualizar tu correo electrónico?").then(confirm => {
+          if(confirm.isConfirmed){  
+            $.ajax({
+              url: 'controllers/user.controller.php',
+              type: 'GET',
+              data: {
+                op : 'updateEmailUser',
+                email: emailUser,
+                emailrespaldo: emailBack,
+                password: password
+              },
+              success: function(result){
+                if(result == ""){                  
+                  $("#modalUpdateAccount").modal("hide");
+                  sweetAlertSuccess("Correo actualizado", "");
+                } else {
+                  sweetAlertError("Error", result);
+                }
+              }
+            });
+
+          }
+        });
+      }
+    } else {
+      if(password == "" || newPassword1 == "" || newPassword2 == ""){
+        sweetAlertWarning("Complete los datos", "Complete todos los datos");
+      } else {
+        if(newPassword1 != newPassword2){
+          sweetAlertError("Contraseñas incorrectas", "verifique que su nueva contraseña sea el mismo");
+        } else {
+          // 
+          sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar tu contraseña?").then(confirm => {
+            if(confirm.isConfirmed){
+              $.ajax({
+                url: 'controllers/user.controller.php',
+                type: 'GET',
+                data: {
+                  op: 'updatePasswordUser',
+                  password: password,
+                  newpassword: newPassword1
+                },
+                success: function(result){
+                  if(result == ""){                  
+                    $("#modalUpdateAccount").modal("hide");
+                    sweetAlertSuccess("Contraseña actualizada", "Cierre sesión y vuelva a iniciar");
+                  } else {
+                    sweetAlertError("Error", result);
+                  }
+                }
+              });
+            }
+          });
+        }
+      }
+    }
+  });
+
+  $("#modalUpdateAccount .btn-delete").click(function(){
+    let password = $("#passwordVerify").val().trim();
+
+    sweetAlertConfirmQuestionDelete("¿Estas seguro de eliminar tu cuenta de usuario?").then(confirm => {
+      if(confirm.isConfirmed){
+        $.ajax({
+          url: 'controllers/user.controller.php',
+          type: 'GET',
+          data: 'op=deleteUser&password=' + password,
+          success: function(result){
+            if(result == ""){                  
+              $("#modalUpdateAccount").modal("hide");
+              window.location.href = "controllers/user.controller.php?op=logout";
+            } else {
+              sweetAlertError("Error", result);
+            }
+          }
+        });
+      }
+    });
+  });
+
   function listServices(){
     $.ajax({
       url:'controllers/service.controller.php',
@@ -1012,6 +1157,8 @@
     });
   }
 
+
+  /*  */
   $("#btnEditPrivilegedData").click(function(){
     $.ajax({
       url: 'controllers/user.controller.php',
@@ -1023,43 +1170,6 @@
         $("#emailrespaldo").val(datos[0].emailrespaldo);
       }
     });
-  });
-
-  $("#btnUpdatePrivilegedData").click(function(){
-    let email = $("#email").val();
-    let emailrespaldo = $("#emailrespaldo").val();
-    let clave1 = $("#clave1").val();
-    let clave2 = $("#clave2").val();
-
-    if(email == "" || clave1 == "" || clave2 == ""){
-      sweetAlertWarning("Invalido", "Ingrese su Email y  Password");
-    } else {
-      if( clave1 !== clave2){
-        sweetAlertWarning("Contraseña incorrecta", "Las contraseñas no coinciden");
-      } else {
-        sweetAlertConfirmQuestionSave("¿Estas seguro de actualizar sus credenciales?").then(confirm => {
-          if(confirm.isConfirmed){
-            var data = {
-              op: 'updateUserCredentials',
-              email: email,
-              emailrespaldo: emailrespaldo,
-              clave: clave1
-            }
-        
-            $.ajax({
-              url: 'controllers/user.controller.php',
-              type: 'GET',
-              data: data,
-              success: function(result){
-                sweetAlertInformation("Realizado", "Credenciales actualizados");
-                $("#form-credentials")[0].reset();
-                $("#contentainerCredentials").collapse("hide");
-              }
-            });
-          }
-        });
-      }
-    }
   });
 
   $("#agregarEsp").click(registerSpecialtyUser);
