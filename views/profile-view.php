@@ -269,11 +269,11 @@ if(isset($_SESSION["login"])){
                       </div>
                       <div class="row">
                         <div class="col-md-6 form-group">
-                          <label for="clave1">Password </label>
+                          <label for="clave1">Contraseña </label>
                           <input type="password" class="form-control form-control-border" id="clave1">
                         </div>
                         <div class="col-md-6 form-group">
-                          <label for="clave2">Reescriba su password </label>
+                          <label for="clave2">Reescriba su contraseña </label>
                           <input type="password" class="form-control form-control-border" id="clave2">
                         </div>
                       </div>

@@ -122,14 +122,12 @@ if (isset($_GET['op'])) {
 }
 
 if (isset($_POST['op'])) {
-
-    // Registrar un album
-    if($_POST['op'] == "registerAlbum"){
-        $enviard =   
-        [
-            "idusuario"     => $_SESSION['idusuario'],
-            "nombrealbum"   => $_POST['nombrealbum']
-        ];
+  // Registrar un album
+  if($_POST['op'] == "registerAlbum"){
+    $enviard = [
+        "idusuario"     => $_SESSION['idusuario'],
+        "nombrealbum"   => $_POST['nombrealbum']
+    ];
 
     $data = $album->registerAlbum($enviard);
   }

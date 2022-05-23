@@ -9,7 +9,6 @@ socket.onopen = function () {
 // Mensaje obtenida
 socket.onmessage = function (result) {
   let operation = result.data;
-  console.log(operation)
 
   // Recargar datos del usuario
   if(operation == "loadDataPerson"){

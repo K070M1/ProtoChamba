@@ -504,7 +504,7 @@
                 socket.send("establishment"); // Operación enviada al servidor
                 listEstablishment();
               } else {
-                sweetAlertError("Error", "Evite duplicar el numero de RUC");
+                sweetAlertError("Error", "Revise los datos");
               }
             }
           });

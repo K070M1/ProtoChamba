@@ -66,7 +66,7 @@ class Album extends ModelMaster{
   // Registro de albumes predeterminados
   public function registerAlbumDefault(array $data){
     try{
-      parent::execProcedurePerso($data, "spu_albumes_predeterminados");
+      return parent::execProcedure($data, "spu_albumes_predeterminados", true);
     }
     catch(Exception $error){
       die($error->getMessage());
