@@ -114,6 +114,7 @@ function registerUser() {
                         processData: false,
                         cache: false,
                         success: function(e) {
+                            console.log(e);
                             if(e == '.'){
                                 sweetAlertError('Q tal Chamba', 'Correo ya registrado');
                             }else{

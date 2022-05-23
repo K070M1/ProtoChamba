@@ -257,13 +257,13 @@ if(isset($_SESSION["login"])){
                     <form autocomplete="off" id="form-credentials">
                       <div class="row">
                         <div class="col-md-12 form-group">
-                          <label for="email">Escribir su email</label>
+                          <label for="email">Escriba su correo electrónico</label>
                           <input type="email" class="form-control form-control-border" id="email">
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12 form-group">
-                          <label for="emailrespaldo">Escribir su email de respaldo (opcional)</label>
+                          <label for="emailrespaldo">Escriba su correo de respaldo (opcional)</label>
                           <input type="email" class="form-control form-control-border" id="emailrespaldo">
                         </div>
                       </div>

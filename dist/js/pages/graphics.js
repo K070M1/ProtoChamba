@@ -161,18 +161,8 @@ $("#filtered").click(function () {
   if (datesIsEmpty()) {
     sweetAlertWarning("Fechas no validas", "Complete todas las fechas");
   } else {
-    let yearStart = $("#year-start").val();
-    let yearEnd = $("#year-end").val();
-    let monthStart = $("#month-start").val();
-    let monthEnd = $("#month-end").val();
-  
-    console.log(yearStart)
-    console.log(yearEnd)
-    console.log(monthStart)
-    console.log(monthEnd)
-
     if(!dateIsValid()){
-      sweetAlertError("Fechas no validas", "Fecha de inicio no puede ser mayor o igual");
+      sweetAlertError("Fechas no validas", "Fecha de inicio no puede ser mayor o igual al final");
     } else {
       let dates = getDatesFilter();
   
@@ -237,14 +227,7 @@ function dateIsValid(){
   let monthStart = $("#month-start").val();
   let monthEnd = $("#month-end").val();
 
-  console.log(yearStart)
-  console.log(yearEnd)
-  console.log(monthStart)
-  console.log(monthEnd)
-  console.log((yearStart == yearEnd ))
-  console.log((monthStart < monthEnd ))
-
-  return (yearStart < yearEnd) || (yearStart == yearEnd && monthStart < monthEnd);
+  return (yearStart < yearEnd) || (yearStart == yearEnd && parseInt(monthStart) < parseInt(monthEnd));
 }
 
 // Funciones que cargan de datos a los graficos

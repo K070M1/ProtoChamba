@@ -26,7 +26,7 @@
             <span class="input-group-text bg-primary" id="btn-search"><i class="fas fa-search"></i></span>
           </div>
         </div>
-        <div class="theme-scroll" style="max-height: calc(100vh - 285px); overflow-y: auto;" id="scrollReportingUser" >
+        <div class="theme-scroll" style="max-height: calc(100vh - 285px); overflow-y: auto; padding-bottom: 2em;" id="scrollReportingUser" >
           <table class="table projects" >
             <tbody id="tbody-users">
               <!-- Cargado de forma asincrona -->
