@@ -187,12 +187,18 @@ $("#newUserFile").change(function(){
         newUserImg.push(element);
         var img = URL.createObjectURL(element);
         $("#File-imgUserNew").attr('src', img);
-        sweetAlertConfirmQuestionSave("¿Estas seguro de asignar esta foto de perfil?").then((confirm) => {
-            if(confirm.isConfirmed){
-              sweetAlertSuccess('Realizado', 'Imagen de perfil registrado');
-              newProfileUser();
-            }
-        });
+        setTimeout(() => {
+            sweetAlertConfirmQuestionSave("¿Estas seguro de asignar esta foto de perfil?").then((confirm) => {
+                if(confirm.isConfirmed){
+                  sweetAlertSuccess('Realizado', 'Imagen de perfil registrado');
+                  newProfileUser();
+                  newUserImg = [];
+                }else{
+                    newUserImg = [];
+                    $("#File-imgUserNew").attr('src', 'dist/img/user2-160x160.jpg');
+                }
+            });
+        }, 500);
     }
 });
 
@@ -252,6 +258,7 @@ $("#checkQuestion").click(function(){
                     localStorage.removeItem("idusuarioActivo");
                     window.location.reload();
                 }else{
+                    sweetAlertInformation("Q tal chamba", "Respuesta equivocada");
                     loadSlcQuestions();
                 }
             }

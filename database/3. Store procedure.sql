@@ -177,24 +177,6 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_usuarios_modificar_credenciales
-(
-	IN _idusuario 			INT,
-	IN _email 					VARCHAR(70),
-	IN _emailrespaldo		VARCHAR(70),
-	IN _clave	 					VARCHAR(80)
-)
-BEGIN
-	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
-
-	UPDATE usuarios SET 
-		email 					= _email,
-		emailrespaldo 	= _emailrespaldo,
-		clave 					= _clave
-	WHERE idusuario = _idusuario;
-END $$
-
-DELIMITER $$
 CREATE PROCEDURE spu_usuarios_modificar
 (
 	IN _idusuario 			INT,
@@ -219,10 +201,40 @@ BEGIN
 	WHERE idusuario = _idusuario;
 END $$
 
+-- Actualizar correos
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_modificar_emails
+(
+	IN _idusuario 			INT,
+	IN _email 					VARCHAR(70),
+	IN _emailrespaldo		VARCHAR(70)
+)
+BEGIN
+	IF _emailrespaldo = '' THEN SET _emailrespaldo = NULL; END IF;
+
+	UPDATE usuarios SET 
+		email 					= _email,
+		emailrespaldo 	= _emailrespaldo
+	WHERE idusuario = _idusuario;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_modificar_clave
+(
+	IN _idusuario 			INT,
+	IN _clave 					VARCHAR(80)
+)
+BEGIN
+	UPDATE usuarios SET 
+		clave 					= _clave
+	WHERE idusuario = _idusuario;
+END $$
+
+
 DELIMITER $$
 CREATE PROCEDURE spu_usuarios_eliminar(IN _idusuario INT)
 BEGIN
-	UPDATE usuarios SET estado = 0 
+	UPDATE usuarios SET estado = '0' 
 		WHERE idusuario = _idusuario;
 END $$
 
