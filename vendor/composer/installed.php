@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1a805b8de4d9c30563bdb6346c5c97245782eacf',
+        'reference' => 'c0d8305587d2bdd9f66425df30531a9a1bbab4f8',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1a805b8de4d9c30563bdb6346c5c97245782eacf',
+            'reference' => 'c0d8305587d2bdd9f66425df30531a9a1bbab4f8',
             'dev_requirement' => false,
         ),
         'cboden/ratchet' => array(
