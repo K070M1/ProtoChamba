@@ -119,7 +119,6 @@ function registerUser() {
                             }else{
                                 $("#modalRegister").modal('hide');
                                 $("#modal-perfil-img-new").modal('toggle');
-                                loadPicturePerfil();
                                 socket.send("users"); // Operación enviada al servidor
                                 sweetAlertSuccess('Q tal Chamba', 'Usuario registrado correctamente');
                                 //window.location.reload();
