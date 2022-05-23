@@ -90,7 +90,6 @@ function reactivateUser(idusuario) {
         type: 'GET',
         data: 'op=reactivateUser&idusuario=' + idusuario,
         success: function (result) {
-          console.log(result);
           // Actualizar datos
           $("#modalLoader").modal("hide");
           cleanContentUsersTable();

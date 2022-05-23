@@ -142,6 +142,8 @@ function changeInterfaceToImages(isImages){
 // Llamar al evento change
 $("#btn-add-file").click(function () {
 
+  $("#form-upload-file")[0].reset(); // Limpiar formulario de los input file
+
   if(isLoadImages){
     $("#input-new-image").click();
   } else {
@@ -249,7 +251,7 @@ function deleteAllImagespreview(){
   $(".image-new").remove();
   uploadedImages = [];
   deletedFiles = imagesTemp;     // Pasar datos al nuevo array
-  imagesTemp = [];               // Eliminar
+  imagesTemp = [];               //almacenar los IDs IMAGENES (Traidos del servidor)
   changeInterfaceToOnLoad(true);
 }
 
@@ -348,7 +350,7 @@ function deleteVideoPreview(){
   changeInterfaceToOnLoad(true);
 }
 
-// cambiar los botones (Agregar o Eliminar)
+// Habilitar los botones (Agregar o Eliminar)
 function changeInterfaceToOnLoad(isLoad){
   if(isLoad){
     $("#btn-delete-files").addClass("d-none");

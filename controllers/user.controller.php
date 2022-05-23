@@ -543,17 +543,6 @@ if (isset($_GET['op'])) {
     ]);
   }
 
-  // Actualizar credenciales
-  if($_GET['op'] == 'updateUserCredentials'){
-
-    $user->updateUserCredentials([
-      "idusuario"     => $_SESSION['idusuario'],
-      "email"         => $_GET['email'],
-      "emailrespaldo" => $_GET['emailrespaldo'],
-      "clave"         =>  password_hash($_GET['clave'], PASSWORD_BCRYPT)
-    ]);
-  }
-
   // Level usuario
   if($_GET['op'] == 'getLevelUser'){
     $idusuario;
@@ -567,6 +556,61 @@ if (isset($_GET['op'])) {
     $data = $user->getAUser(["idusuario" => $idusuario]);
     if($data){
       echo $data[0]['nivelusuario'];
+    }
+  }
+
+  // Actualizar correo
+  if($_GET['op'] == 'updateEmailUser'){
+    $data = $user->loginUser(["email" => $_GET['email']]);
+    $password = $data[0]['clave'];
+    $sendpass = $_GET['password'];
+
+    $login = password_verify($sendpass, $password);
+    if($login){
+      $user->updateEmailsUser([
+        "idusuario"       => $_SESSION['idusuario'],
+        "email"           => $_GET['email'],
+        "emailrespaldo"   => $_GET['emailrespaldo']
+      ]);
+    } else {
+      echo "Contraseña actual incorrecta";      
+    }
+  }
+
+  // Actualizar clave
+  if($_GET['op'] == 'updatePasswordUser'){
+    $row = $user->getAUser(["idusuario" => $_SESSION['idusuario']]);
+    $data = $user->loginUser(["email" => $row[0]['email']]);
+
+    $password = $data[0]['clave'];
+    $sendpass = $_GET['password'];
+
+    $login = password_verify($sendpass, $password);
+
+    if($login){
+      $user->updatePasswordUser([
+        "idusuario" => $_SESSION['idusuario'],
+        "clave"     => password_hash($_GET['newpassword'], PASSWORD_BCRYPT)
+      ]);
+    } else {
+      echo "Contraseña actual incorrecta";    
+    }
+  }
+
+  // Eliminar cuenta
+  if($_GET['op'] == 'deleteUser'){
+    $row = $user->getAUser(["idusuario" => $_SESSION['idusuario']]);
+    $data = $user->loginUser(["email" => $row[0]['email']]);
+
+    $password = $data[0]['clave'];
+    $sendpass = $_GET['password'];
+
+    $login = password_verify($sendpass, $password);
+
+    if($login){
+      $user->deleteUser(["idusuario" => $_SESSION['idusuario']]);
+    } else {
+      echo "Contraseña actual incorrecta";
     }
   }
 }
@@ -605,7 +649,6 @@ if (isset($_POST['op'])) {
       ];
 
       $iduser = $user->registerUser($datosRegistrar);
-      var_dump($iduser);
       $album->registerAlbumDefault(["idusuario" => $iduser[0]['idusuario']]);
 
     } else {

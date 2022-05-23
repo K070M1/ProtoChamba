@@ -254,36 +254,17 @@ if(isset($_SESSION["login"])){
                 </div>
                 <div class="collapse" id="contentainerCredentials">
                   <div class="card-body " >
-                    <form autocomplete="off" id="form-credentials">
-                      <div class="row">
-                        <div class="col-md-12 form-group">
-                          <label for="email">Escribir su email</label>
-                          <input type="email" class="form-control form-control-border" id="email">
-                        </div>
+                    <div class="row">
+                      <div class="col-md-4 form-group">
+                        <button type="button" id="btn-edit-email" class="btn btn-md btn-block btn-success">Actualizar correo</button>
                       </div>
-                      <div class="row">
-                        <div class="col-md-12 form-group">
-                          <label for="emailrespaldo">Escribir su email de respaldo (opcional)</label>
-                          <input type="email" class="form-control form-control-border" id="emailrespaldo">
-                        </div>
+                      <div class="col-md-4 form-group">
+                        <button type="button" id="btn-edit-password" class="btn btn-md btn-block btn-primary">Actualizar contraseña</button>
                       </div>
-                      <div class="row">
-                        <div class="col-md-6 form-group">
-                          <label for="clave1">Password </label>
-                          <input type="password" class="form-control form-control-border" id="clave1">
-                        </div>
-                        <div class="col-md-6 form-group">
-                          <label for="clave2">Reescriba su password </label>
-                          <input type="password" class="form-control form-control-border" id="clave2">
-                        </div>
+                      <div class="col-md-4 form-group">
+                        <button type="button" id="btn-delete-account" class="btn btn-md btn-block btn-danger">Eliminar cuenta</button>
                       </div>
-                      <div class="row">
-                        <div class="col-md-12 form-group text-right" >
-                          <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#contentainerCredentials">Cancelar</button>
-                          <button type="button" class="btn btn-sm btn-outline-info"  id="btnUpdatePrivilegedData">Actualizar</button>
-                        </div>
-                      </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -890,6 +871,58 @@ if(isset($_SESSION["login"])){
   </div>
 </div>
 <!--./Modal REPORTAR-->
+
+
+<!-- Modal Actualizar correo, contraseña y eliminar cuenta -->
+<div class="modal fade" id="modalUpdateAccount" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-bold text-uppercase" id="title-modal-account">Actualizar correo electrónico</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off" id="form-content-credentials">
+          <div class="row container-emails">
+            <div class="col-12 form-group">
+              <label for="emailUser">Correo electrónico</label>
+              <input type="email" class="form-control form-control-border" id="emailUser">
+            </div>
+            <div class="col-md-12 form-group">
+              <label for="emailBack">Correo electrónico de respaldo (opcional)</label>
+              <input type="email" class="form-control form-control-border" id="emailBack">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label for="passwordVerify">Escriba su contraseña actual</label>
+              <input type="password" class="form-control form-control-border" id="passwordVerify">
+            </div>
+          </div>
+
+          <div class="row container-password d-none">
+            <div class="col-md-12 form-group">
+              <label for="newPassword1">Escriba su nueva contraseña</label>
+              <input type="password" class="form-control form-control-border" id="newPassword1">
+            </div>
+            <div class="col-md-12 form-group">
+              <label for="newPassword2">Reescriba su nueva contraseña</label>
+              <input type="password" class="form-control form-control-border" id="newPassword2">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-sm btn-info btn-update">Actualizar</button>
+        <button type="button" class="btn btn-sm btn-danger btn-delete d-none">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ZONA DE SCRIPTS -->
 <script src="dist/js/uploadFile.js"></script>

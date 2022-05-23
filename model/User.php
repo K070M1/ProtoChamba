@@ -112,11 +112,21 @@ class User extends ModelMaster{
       die($error->getMessage());
     }
   }
-  
-  // Actualizar credenciales
-  public function updateUserCredentials(array $data){
+
+  // Actualizar correos
+  public function updateEmailsUser(array $data){
     try{
-      parent::execProcedure($data, "spu_usuarios_modificar_credenciales", false);
+      parent::execProcedure($data, "spu_usuarios_modificar_emails", false);
+    }
+    catch(Exception $error){
+      die($error->getMessage());
+    }
+  }
+  
+  // Actualizar clave
+  public function updatePasswordUser(array $data){
+    try{
+      parent::execProcedure($data, "spu_usuarios_modificar_clave", false);
     }
     catch(Exception $error){
       die($error->getMessage());
