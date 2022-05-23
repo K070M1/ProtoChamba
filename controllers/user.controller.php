@@ -561,7 +561,8 @@ if (isset($_GET['op'])) {
 
   // Actualizar correo
   if($_GET['op'] == 'updateEmailUser'){
-    $data = $user->loginUser(["email" => $_GET['email']]);
+    $row = $user->getAUser(["idusuario" => $_SESSION['idusuario']]);
+    $data = $user->loginUser(["email" => $row[0]['email']]);
     $password = $data[0]['clave'];
     $sendpass = $_GET['password'];
 
