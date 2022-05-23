@@ -61,6 +61,23 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modalLoader" data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h5 class="modal-title text-center text-bold text-uppercase">Notificando al usuario</h5>
+      </div>
+      <div class="modal-body" style="padding-bottom: 4em;">
+        <div class="container-loader">
+          <div class="loader"></div>
+          <span class="text-loader" id="text-message-loader">Por favor espere...</span>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal visor de imagen -->
 <div class="modal fade" id="modalImageReport" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

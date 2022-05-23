@@ -5253,7 +5253,8 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_usuarios_quest`(IN _idusuario INT)
 BEGIN
-	SELECT * FROM vs_usuarios_listar_quest
+-- SELECT * FROM vs_usuarios_listar_quest
+	select * from vs_usuarios_listar
 		WHERE idusuario = _idusuario;
 END */$$
 DELIMITER ;
@@ -5504,6 +5505,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar`;
  `apellidos` varchar(40) ,
  `nombres` varchar(40) ,
  `fechanac` date ,
+ `fechaalta` datetime ,
  `iddepartamento` varchar(2) ,
  `departamento` varchar(45) ,
  `idprovincia` varchar(4) ,
@@ -5538,28 +5540,6 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_datos_basicos`;
  `fechanac` date ,
  `fechaalta` datetime ,
  `estado` char(1) 
-)*/;
-
-/*Table structure for table `vs_usuarios_listar_quest` */
-
-DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
-
-/*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar_quest` */;
-/*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar_quest` */;
-
-/*!50001 CREATE TABLE  `vs_usuarios_listar_quest`(
- `idusuario` int(11) ,
- `nombres` varchar(40) ,
- `apellidos` varchar(40) ,
- `email` varchar(70) ,
- `emailrespaldo` varchar(70) ,
- `rol` char(1) ,
- `fechanac` date ,
- `fechaalta` datetime ,
- `estado` char(1) ,
- `distrito` varchar(45) ,
- `provincia` varchar(45) ,
- `departamento` varchar(45) 
 )*/;
 
 /*View structure for view vs_comentarios_listar */
@@ -5630,7 +5610,7 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
 /*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar` */;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`fechanac` AS `fechanac`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`vpl`.`telefono` AS `telefono`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`usu`.`nivelusuario` AS `nivelusuario`,`usu`.`estado` AS `estado` from (`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) where `usu`.`estado` = 1 */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,`vpl`.`apellidos` AS `apellidos`,`vpl`.`nombres` AS `nombres`,`vpl`.`fechanac` AS `fechanac`,`usu`.`fechaalta` AS `fechaalta`,`vpl`.`iddepartamento` AS `iddepartamento`,`vpl`.`departamento` AS `departamento`,`vpl`.`idprovincia` AS `idprovincia`,`vpl`.`provincia` AS `provincia`,`vpl`.`iddistrito` AS `iddistrito`,`vpl`.`distrito` AS `distrito`,`vpl`.`direccion` AS `direccion`,`usu`.`descripcion` AS `descripcion`,`usu`.`horarioatencion` AS `horarioatencion`,`vpl`.`telefono` AS `telefono`,`usu`.`rol` AS `rol`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`clave` AS `clave`,`usu`.`nivelusuario` AS `nivelusuario`,`usu`.`estado` AS `estado` from (`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) where `usu`.`estado` = '1' or `usu`.`estado` = '2' */;
 
 /*View structure for view vs_usuarios_listar_datos_basicos */
 
@@ -5638,13 +5618,6 @@ DROP TABLE IF EXISTS `vs_usuarios_listar_quest`;
 /*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar_datos_basicos` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar_datos_basicos` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`idpersona` AS `idpersona`,concat(`vpl`.`nombres`,' ',`vpl`.`apellidos`) AS `nombres`,`usu`.`email` AS `email`,`usu`.`rol` AS `rol`,`vpl`.`fechanac` AS `fechanac`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado` from (`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) where `usu`.`estado` = 1 or `usu`.`estado` = 2 order by `usu`.`rol` */;
-
-/*View structure for view vs_usuarios_listar_quest */
-
-/*!50001 DROP TABLE IF EXISTS `vs_usuarios_listar_quest` */;
-/*!50001 DROP VIEW IF EXISTS `vs_usuarios_listar_quest` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vs_usuarios_listar_quest` AS select `usu`.`idusuario` AS `idusuario`,`vpl`.`nombres` AS `nombres`,`vpl`.`apellidos` AS `apellidos`,`usu`.`email` AS `email`,`usu`.`emailrespaldo` AS `emailrespaldo`,`usu`.`rol` AS `rol`,`vpl`.`fechanac` AS `fechanac`,`usu`.`fechaalta` AS `fechaalta`,`usu`.`estado` AS `estado`,`vpl`.`distrito` AS `distrito`,`vpl`.`provincia` AS `provincia`,`vpl`.`departamento` AS `departamento` from ((`usuarios` `usu` join `vs_personas_listar` `vpl` on(`vpl`.`idpersona` = `usu`.`idpersona`)) left join `establecimientos` `est` on(`est`.`idusuario` = `usu`.`idusuario`)) where `usu`.`estado` = 1 or `usu`.`estado` = 2 order by `usu`.`rol` */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

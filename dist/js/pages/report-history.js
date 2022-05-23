@@ -61,13 +61,16 @@ function loadReportsTable() {
 function banUser(idusuario) {
   sweetAlertConfirmQuestionDelete("¿Estas seguro de banear al usuario?").then((confirm) => {
     if (confirm.isConfirmed) {
+      $("#modalLoader").modal("show");
       $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
         data: 'op=banUser&idusuario=' + idusuario,
         success: function (result) {
           // Actualizar datos
+          $("#modalLoader").modal("hide");
           cleanContentUsersTable();
+          dataSendController['offset'] = offset;
           loadUsersTable();
           sweetAlertSuccess("Realizado", "La cuenta a sido baneado");
         }
@@ -81,13 +84,16 @@ function banUser(idusuario) {
 function reactivateUser(idusuario) {
   sweetAlertConfirmQuestionSave("¿Estas seguro de reactivar al usuario?").then((confirm) => {
     if (confirm.isConfirmed) {
+      $("#modalLoader").modal("show");
       $.ajax({
         url: 'controllers/user.controller.php',
         type: 'GET',
         data: 'op=reactivateUser&idusuario=' + idusuario,
         success: function (result) {
           // Actualizar datos
+          $("#modalLoader").modal("hide");
           cleanContentUsersTable();
+          dataSendController['offset'] = offset;
           loadUsersTable();
           sweetAlertSuccess("Realizado", "La cuenta a sido restablecido");
         }
