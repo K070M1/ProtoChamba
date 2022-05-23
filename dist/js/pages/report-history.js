@@ -80,7 +80,7 @@ function banUser(idusuario) {
 
 }
 
-// Reacrtivar usuario
+// Reactivar usuario
 function reactivateUser(idusuario) {
   sweetAlertConfirmQuestionSave("¿Estas seguro de reactivar al usuario?").then((confirm) => {
     if (confirm.isConfirmed) {
@@ -90,6 +90,7 @@ function reactivateUser(idusuario) {
         type: 'GET',
         data: 'op=reactivateUser&idusuario=' + idusuario,
         success: function (result) {
+          console.log(result);
           // Actualizar datos
           $("#modalLoader").modal("hide");
           cleanContentUsersTable();

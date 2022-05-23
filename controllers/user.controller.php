@@ -605,6 +605,7 @@ if (isset($_POST['op'])) {
       ];
 
       $iduser = $user->registerUser($datosRegistrar);
+      var_dump($iduser);
       $album->registerAlbumDefault(["idusuario" => $iduser[0]['idusuario']]);
 
     } else {
