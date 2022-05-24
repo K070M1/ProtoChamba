@@ -49,7 +49,7 @@ CREATE TABLE `albumes` (
   PRIMARY KEY (`idalbum`),
   UNIQUE KEY `uk_alb_nombrealbum` (`idusuario`,`nombrealbum`),
   CONSTRAINT `fk_alb_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `albumes` */
 
@@ -113,7 +113,14 @@ insert  into `albumes`(`idalbum`,`idusuario`,`nombrealbum`,`estado`) values
 (57,19,'Publicaciones',''),
 (58,20,'Perfil',''),
 (59,20,'Portada',''),
-(60,20,'Publicaciones','');
+(60,20,'Publicaciones',''),
+(61,21,'Perfil',''),
+(62,21,'Portada',''),
+(63,21,'Publicaciones',''),
+(64,22,'Perfil',''),
+(65,22,'Portada',''),
+(66,22,'Publicaciones',''),
+(67,21,'Favoritos','');
 
 /*Table structure for table `calificaciones` */
 
@@ -129,9 +136,38 @@ CREATE TABLE `calificaciones` (
   KEY `fk_cal_idusuario` (`idusuario`),
   CONSTRAINT `fk_cal_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_cal_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `calificaciones` */
+
+insert  into `calificaciones`(`idcalificacion`,`idtrabajo`,`idusuario`,`puntuacion`) values 
+(1,1,16,5),
+(2,1,1,5),
+(3,1,2,5),
+(4,1,3,5),
+(5,1,4,5),
+(6,1,5,5),
+(7,1,6,5),
+(8,1,7,5),
+(9,1,8,5),
+(10,3,9,5),
+(11,3,10,5),
+(12,3,11,5),
+(13,3,12,5),
+(14,3,13,5),
+(15,3,14,5),
+(16,2,14,5),
+(17,2,15,5),
+(18,2,16,5),
+(19,2,17,5),
+(20,3,18,5),
+(21,4,20,5),
+(22,4,2,5),
+(23,4,3,5),
+(24,4,4,5),
+(25,4,5,5),
+(26,4,6,5),
+(27,3,16,0);
 
 /*Table structure for table `comentarios` */
 
@@ -2103,7 +2139,7 @@ CREATE TABLE `especialidades` (
   KEY `fk_esp_idusuario` (`idusuario`),
   CONSTRAINT `fk_esp_idservicio` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idservicio`),
   CONSTRAINT `fk_esp_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialidades` */
 
@@ -2176,7 +2212,9 @@ insert  into `especialidades`(`idespecialidad`,`idservicio`,`idusuario`,`descrip
 (66,19,12,'Promotor de equipos',17354.44,''),
 (67,20,2,'Asesor tecnico',3954.44,''),
 (68,20,15,'Asesor de ventas',1984.44,''),
-(69,21,20,'Agente de limpieza',684.44,'');
+(69,21,20,'Agente de limpieza',684.44,''),
+(70,4,16,'Soldador universal',563.00,''),
+(71,6,21,'Programador de Frontend',452.00,'');
 
 /*Table structure for table `establecimientos` */
 
@@ -2201,7 +2239,7 @@ CREATE TABLE `establecimientos` (
   KEY `fk_est_iddistrito` (`iddistrito`),
   CONSTRAINT `fk_est_iddistrito` FOREIGN KEY (`iddistrito`) REFERENCES `distritos` (`iddistrito`),
   CONSTRAINT `fk_est_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `establecimientos` */
 
@@ -2215,7 +2253,8 @@ insert  into `establecimientos`(`idestablecimiento`,`idusuario`,`establecimiento
 (7,7,'Tus palabras','10942651811','UR','Los ojos de Dios','765','Al frente de la notaria municipal',-14.00284672,-73.04478455,'030102',''),
 (8,8,'Vigilancia Segura','10942358811','UR','Pedro Caceres','357','Entre Jr Galvez Chipoco y Rosario',-13.87938118,-72.87633514,'030103',''),
 (9,9,'Asesores Unidos','10942678811','LT','San Beata Melchorita','345','Al frente del estadio',-16.40454674,-71.54656219,'040101',''),
-(10,10,'TraducemePe','10942628811','PJ','Juan de Dios','252','A tras de la cancha deportiva Mauro Mina',-16.35787392,-71.54507446,'040102','');
+(10,10,'TraducemePe','10942628811','PJ','Juan de Dios','252','A tras de la cancha deportiva Mauro Mina',-16.35787392,-71.54507446,'040102',''),
+(11,16,'Soldaduras SEC','58589595959','AV','Grau','253','Pasando el grifo Hidra',-13.42117977,-76.13603973,'110201','');
 
 /*Table structure for table `foros` */
 
@@ -2326,9 +2365,24 @@ CREATE TABLE `galerias` (
   CONSTRAINT `fk_galerias_idalbum` FOREIGN KEY (`idalbum`) REFERENCES `albumes` (`idalbum`),
   CONSTRAINT `fk_galerias_idtrabajo` FOREIGN KEY (`idtrabajo`) REFERENCES `trabajos` (`idtrabajo`),
   CONSTRAINT `fk_galerias_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `galerias` */
+
+insert  into `galerias`(`idgaleria`,`idalbum`,`idusuario`,`idtrabajo`,`tipo`,`archivo`,`fechaalta`,`fechabaja`,`estado`) values 
+(1,33,11,1,'F','202205231120150.jpg','2022-05-23 11:20:15',NULL,'1'),
+(2,33,11,1,'F','202205231120151.jpg','2022-05-23 11:20:15',NULL,'1'),
+(3,48,16,2,'F','202205231143320.jpg','2022-05-23 11:43:32',NULL,'1'),
+(4,57,19,4,'F','202205231211350.jpg','2022-05-23 12:11:35',NULL,'1'),
+(5,57,19,4,'F','202205231211351.jfif','2022-05-23 12:11:35',NULL,'1'),
+(6,61,21,NULL,'F','E9IC7DESZ7UC09820220523085707.jpg','2022-05-23 13:57:07',NULL,'1'),
+(7,61,21,NULL,'F','WN7THM5BJ24XQE920220523020424.jpg','2022-05-23 14:04:24',NULL,'2'),
+(8,62,21,NULL,'F','VU3U4AR0MP34EEP20220523020436.jpg','2022-05-23 14:04:36',NULL,'3'),
+(9,67,21,NULL,'F','CIRPM2I1V79H8QK20220523021725.jpg','2022-05-23 14:17:25',NULL,'1'),
+(10,67,21,NULL,'F','8O6KNAVYFIG9Z1Z20220523021725.jpg','2022-05-23 14:17:25',NULL,'1'),
+(11,NULL,21,NULL,'F','KJIAUE55P8C69V220220523021725.jpg','2022-05-23 14:17:25',NULL,'1'),
+(12,NULL,21,NULL,'F','A0F9ZLOK25SZNMC20220523021725.jpg','2022-05-23 14:17:25',NULL,'1'),
+(13,NULL,21,NULL,'F','64WKCZV9TABPPY620220523021725.jpg','2022-05-23 14:17:25',NULL,'0');
 
 /*Table structure for table `personas` */
 
@@ -2348,7 +2402,7 @@ CREATE TABLE `personas` (
   PRIMARY KEY (`idpersona`),
   KEY `fk_per_iddistrito` (`iddistrito`),
   CONSTRAINT `fk_per_iddistrito` FOREIGN KEY (`iddistrito`) REFERENCES `distritos` (`iddistrito`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `personas` */
 
@@ -2372,7 +2426,9 @@ insert  into `personas`(`idpersona`,`iddistrito`,`apellidos`,`nombres`,`fechanac
 (17,'110101','Bravo Galvez','Cristian Gabriel','1990-11-02','','AV','Los Cedros','23456','3'),
 (18,'110102','Castro De la Torres','Victoria Elizabeth','1991-11-29','','AV','Mariscal Caceres','','1'),
 (19,'110103','Yacolca Huaman','Estewil Carlos','1995-09-18','51945357485','UR','Flores de Villa','','2'),
-(20,'110104','Benito Avila','Ericka Dayana','1996-11-22','51968459563','PJ','Apuquio Torres','4568','');
+(20,'110104','Benito Avila','Ericka Dayana','1996-11-22','51968459563','PJ','Apuquio Torres','4568',''),
+(21,'110202','Cueva Canchari','Brick Clinton','2000-01-13','51956742125','AV','Lima','250',NULL),
+(22,'040404','Sanchez','Eduardo','2002-02-15','51585858585','AV','Limas','5',NULL);
 
 /*Table structure for table `provincias` */
 
@@ -2669,7 +2725,7 @@ CREATE TABLE `seguidores` (
   KEY `fk_seg_idfollower` (`idfollower`),
   CONSTRAINT `fk_seg_idfollower` FOREIGN KEY (`idfollower`) REFERENCES `usuarios` (`idusuario`),
   CONSTRAINT `fk_seg_idfollowing` FOREIGN KEY (`idfollowing`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `seguidores` */
 
@@ -2711,7 +2767,8 @@ insert  into `seguidores`(`idseguidor`,`idfollowing`,`idfollower`,`fechaseguido`
 (35,13,17,'2022-05-23 09:03:50',NULL,''),
 (36,14,3,'2022-05-23 09:03:50',NULL,''),
 (37,14,4,'2022-05-23 09:03:50',NULL,''),
-(38,15,20,'2022-05-23 09:03:50',NULL,'');
+(38,15,20,'2022-05-23 09:03:50',NULL,''),
+(39,19,6,'2022-05-23 12:15:12',NULL,'');
 
 /*Table structure for table `servicios` */
 
@@ -2773,9 +2830,15 @@ CREATE TABLE `trabajos` (
   KEY `fk_trab_idusuario` (`idusuario`),
   CONSTRAINT `fk_trab_idespecialidad` FOREIGN KEY (`idespecialidad`) REFERENCES `especialidades` (`idespecialidad`),
   CONSTRAINT `fk_trab_idusuario` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `trabajos` */
+
+insert  into `trabajos`(`idtrabajo`,`idespecialidad`,`idusuario`,`titulo`,`descripcion`,`fechapublicado`,`fechamodificado`,`fechaeliminado`,`estado`) values 
+(1,53,11,'Comida italiana','sabemos que las pastas son características de la comida italiana o las carnes son el ingrediente principal de la cocina argentina, siendo la degustación de comidas típicas muy requerida por los turistas.','2022-05-23 11:20:15',NULL,NULL,''),
+(2,70,16,'Soldadura por láser','El proceso de soldar consiste en la fabricación de un objeto de estructura metálicas, mediante la unión de dos metales, la cual ocurre por la aplicación de intenso calor con la finalidad de crear rigidez y homogeneidad en el trabajo. Por ende, podemos decir que el soldador es el profesional experto en el arte de soldar, conociendo diversas técnicas y los aspectos específicos a la hora de trabajar en campo.','2022-05-23 11:43:32',NULL,NULL,''),
+(3,55,9,'ASISTENTE DE VENTAS','funciones básicamente administrativas del área comercial , realizar ventas telefónicas, prospección de clientes, atencion a clientes , administración de información comercial de precios y productos , rescate de cartera de clientes, apertura de clientes , general clientes potenciales','2022-05-23 12:01:43',NULL,NULL,''),
+(4,4,19,'Argumento oral en los tribunales','Un abogado, también llamado letrado, es un jurista profesional legalmente habilitado para ejercer o practicar el derecho. La profesión del abogado consiste en aplicar teorías jurídicas abstractas a casos concretos','2022-05-23 12:11:35',NULL,NULL,'');
 
 /*Table structure for table `usuarios` */
 
@@ -2799,31 +2862,33 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `uk_usu_idpersoba` (`idpersona`,`idusuario`),
   UNIQUE KEY `uk_usu_idpersona` (`idpersona`),
   CONSTRAINT `fk_usu_idpersona` FOREIGN KEY (`idpersona`) REFERENCES `personas` (`idpersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idusuario`,`idpersona`,`descripcion`,`horarioatencion`,`nivelusuario`,`rol`,`email`,`emailrespaldo`,`clave`,`fechaalta`,`fechabaja`,`estado`) values 
 (1,1,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1000@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
-(2,2,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','I','U','hola1001@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
-(3,3,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las tardes','I','U','hola1002@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
-(4,4,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las noches','I','U','hola1003@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
+(2,2,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las mañanas','E','U','hola1001@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
+(3,3,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las tardes','E','A','hola1002@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
+(4,4,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','Por las noches','E','A','hola1003@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
 (5,5,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 8 am','E','U','hola1004@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
-(6,6,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 12 pm','A','U','hola1005@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
+(6,6,'En la última década del siglo XIX, Rubén Darío dio a Hispanoamérica la independencia literaria al inaugurar la primera corriente poética autóctona, el Modernismo.','De 7 a 12 pm','E','U','hola1005@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
 (7,7,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 7 am a 1 pm','E','U','hola1006@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
 (8,8,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Desde 9 pm a 12 pm','E','U','hola1007@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
-(9,9,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','A','U','hola1008@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
-(10,10,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','I','U','hola1009@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
+(9,9,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','E','U','hola1008@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
+(10,10,'Mediado el siglo XX, correspondió al colombiano Gabriel García Márquez situar la narrativa hispanoamericana en la primera línea de la literatura mundial con la publicación de Cien años de soledad (1967).','Los fines de semana','E','U','hola1009@gmail.com','','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:15',NULL,'1'),
 (11,11,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','I','A','hola1010@gmail.com','hola1020@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(12,12,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','A','A','hola1011@gmail.com','hola1021@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(13,13,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','Desde 9 pm a 12 pm','A','A','hola1012@gmail.com','hola1022@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(14,14,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','Desde 7 am a 1 pm','A','A','hola1013@gmail.com','hola1023@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(15,15,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 12 pm','I','A','hola1014@gmail.com','hola1024@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(16,16,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 8 am','I','A','hola1015@gmail.com','hola1025@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(17,17,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las noches','I','A','hola1016@gmail.com','hola1026@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(18,18,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las tardes','I','A','hola1017@gmail.com','hola1027@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(12,12,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','24 horas del día','E','A','hola1011@gmail.com','hola1021@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(13,13,'En los años de estudiante en Zipaquirá, Gabriel García Márquez se dedicaba a pintar gatos, burros y rosas, y a hacer caricaturas del rector y demás compañeros de curso.','Desde 9 pm a 12 pm','E','A','hola1012@gmail.com','hola1022@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(14,14,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','Desde 7 am a 1 pm','E','A','hola1013@gmail.com','hola1023@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(15,15,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 12 pm','E','A','hola1014@gmail.com','hola1024@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(16,16,'En 1945 escribió unos sonetos y poemas octosílabos inspirados en una novia que tenía: son uno de los pocos intentos del escritor por versificar. En 1946 terminó sus estudios secundarios con magníficas calificaciones.','De 7 a 8 am','E','A','hola1015@gmail.com','hola1025@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(17,17,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las noches','E','A','hola1016@gmail.com','hola1026@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(18,18,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las tardes','E','A','hola1017@gmail.com','hola1027@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
 (19,19,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1018@gmail.com','hola1028@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
-(20,20,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1019@gmail.com','hola1029@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1');
+(20,20,'En 1947, presionado por sus padres, se trasladó a Bogotá para estudiar derecho en la Universidad Nacional, donde tuvo como profesor a Alfonso López Michelsen y se hizo amigo de Camilo Torres Restrepo.','Por las mañanas','E','A','hola1019@gmail.com','hola1029@gmail.com','$2y$10$kKIPHl3VZtI1wMA4SP2S..UJHPyvhwatOzHKgfCmRTlLPoICV2otq','2022-05-23 09:03:20',NULL,'1'),
+(21,21,'Soy un programador experimentado en el ambiente industrial\r\n        ','De lunes a sábado de 8 AM a 6 Pm','E','U','1321063@senati.pe','cuevabill12@gmail.com','$2y$10$Gd/Ttghc57pB3jK5NYsi6uKIzAtp01QPRxp9SprX3iplSaGOLJGmm','2022-05-23 13:56:45',NULL,'1'),
+(22,22,NULL,NULL,'E','U','eduardo@hotmail.com',NULL,'$2y$10$2SH3O/53c1LOLeWHxm4fluOFNSZbQ37sCr6Z5zNeD1ZiKJJSCZWvS','2022-05-23 14:13:04',NULL,'0');
 
 /* Trigger structure for table `calificaciones` */
 
@@ -3290,7 +3355,7 @@ DELIMITER $$
 BEGIN 
 	UPDATE comentarios SET
 		comentario 			= _comentario,
-		fechamodificado = now()
+		fechamodificado = NOW()
 	WHERE idcomentario = _idcomentario;
 END */$$
 DELIMITER ;
@@ -3309,6 +3374,8 @@ DELIMITER $$
 BEGIN 
 	INSERT INTO comentarios (idtrabajo , idusuario , comentario ) VALUES 
 		(_idtrabajo , _idusuario,_comentario);
+		
+	SELECT LAST_INSERT_ID() as 'idcomentario';
 END */$$
 DELIMITER ;
 

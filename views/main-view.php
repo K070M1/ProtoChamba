@@ -222,11 +222,7 @@
           <!-- contenido de los servicios -->
           <div class="card-body container-box">
             <div class="flex-box" id="content-data-filtered">
-<<<<<<< HEAD
-        
-=======
               <!-- Sin registro encontrado por default -->
->>>>>>> 09697e8f724f7c5fe55a9c72f044aa2835eb0ef8
             </div>     
             <!-- /.Corta sm -->
           </div>

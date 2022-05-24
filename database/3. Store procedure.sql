@@ -1214,7 +1214,10 @@ CREATE PROCEDURE spu_comentarios_registrar
 BEGIN 
 	INSERT INTO comentarios (idtrabajo , idusuario , comentario ) VALUES 
 		(_idtrabajo , _idusuario,_comentario);
+		
+	SELECT LAST_INSERT_ID() AS 'idcomentario';
 END $$
+
 
 /* MODIFICAR*/
 DELIMITER $$

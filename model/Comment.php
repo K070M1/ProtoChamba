@@ -17,7 +17,7 @@ class Comment extends ModelMaster{
   // Registrar comentario
   public function registerComment($data){
     try{
-      parent::execProcedure($data, "spu_comentarios_registrar", false);
+      return parent::execProcedure($data, "spu_comentarios_registrar", true);
 
     } catch (Exception $error){
       die($error->getMessage());

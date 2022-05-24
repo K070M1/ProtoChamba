@@ -13,6 +13,7 @@ var remember = localStorage.getItem('remember');
 if(remember == null){
     remember = false;
 }
+
 // Cargar contenido de restablecimiento paso 1
 function updtRes1(){
     $.ajax({
@@ -291,8 +292,6 @@ $("#m-res-lod").on("click", "#btnRes1", function(){
     }
 
 });
-
-
 
 //Envio de codigo al correo
 $("#m-res-lod").on("click", "#btnRes2", function(){

@@ -7,7 +7,7 @@ function disableLineBreaks(element, event){
     event.preventDefault();
   }
 
-  // Maximo de caracteres pemitido
+  // Maximo de caracteres permitido
   if (element.html().length == maxlength || element.val().length == maxlength) {
     return false;
   } else {
@@ -49,7 +49,6 @@ function clearContainer(element) {
     div.removeChild(div.firstChild);
   }
 }
-
 
 // Redireccionar al perfil del usuario
 function redirectProfile(idusuario) {

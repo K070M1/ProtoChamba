@@ -669,7 +669,6 @@ $("#data-publication-works").on("paste", ".contenteditable", function(e){
 /**
  * COMENTARIOS
  */
-
 // MOSTRAR LOS COMENTARIOS REALIZADOS
 $("#data-publication-works").on("click", ".open-comments", function(){
   let containerComments = $(this).parent().parent(".option-menu").next(".content-comments");
@@ -741,6 +740,7 @@ function registerComment(dataSend){
         $(".write-text-comment").html('');
         commentIsVisible = true;
         socket.send("publicationwork"); // Operación enviada al servidor
+        socket.send("historyreport"); // Operación enviada al servidor
         cleanContainerPublication();
         loadPublicationWorks(); // Actualizar datos en la vista
       }
@@ -812,6 +812,7 @@ function updateCommentPublication(dataSend){
     success: function(result){
       if(result == ""){
         socket.send("publicationwork"); // Operación enviada al servidor
+        socket.send("historyreport"); // Operación enviada al servidor
         commentIsVisible = true; // Mostrar contenidos
         cleanContainerPublication(); 
         loadPublicationWorks(); // Actualizar datos
@@ -1119,8 +1120,8 @@ $("#data-publication-works").on("click", ".report-comment", function(){
   if(idusuarioSession == -2){
     sweetAlertWarning("Iniciar sesión", "Debe iniciar sesión o registrese");
   } else {
-    $("#modal-report").modal("show");
     idcomentario = $(this).attr("data-code");
+    $("#modal-report").modal("show");
     clearFormReport();
   }
 });
@@ -1142,18 +1143,18 @@ $("#btn-load-image-report").click(function () {
   $("#input-load-image-report").click();
 });
 
-// cargar iamgenes
+// cargar imagenes
 $("#input-load-image-report").change(function (e) {
   let file = this.files[0];   
   let supportedImages = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
-   // Validar si son imagenes permitidos
+   // Validar si son imagenes permitidos (-1 no se encontro el elemento)
    if (supportedImages.indexOf(file.type) == -1) {
     let index = file.type.indexOf('/');
     let ext = file.type.substr(index + 1);	
     sweetAlertWarning("Archivo " + ext.toUpperCase() + " no permitido", "Permitidos: jpeg, jpg, png, gif");
   } else {                    
-    createAPreviewImage("#container-image-report", file);      // Crear previsualizacion
+    createAPreviewImage("#container-image-report", file);      // Crear previsualización
   }
 });
 
@@ -1189,7 +1190,6 @@ $("#btn-send-report").click(function(){
   }
 });
 
-// enviarReporte
 function registerReport(dataSend){
   $.ajax({
     url: 'controllers/report.controller.php',

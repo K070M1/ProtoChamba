@@ -88,6 +88,7 @@
   // Navegación - SERVICIOS
   $("#nav-configuracion-tab").click(function(){
     loadSpecialtySelect();
+    cleanContainerPublication();
     loadPublicationWorks();
   });
   
@@ -351,7 +352,6 @@
     });
   }
 
-  
   function listDataUser(){
     $.ajax({
       url: 'controllers/user.controller.php',
@@ -1019,7 +1019,6 @@
       }
     });
   }
-
 
   function scoreUser(){
     $.ajax({
