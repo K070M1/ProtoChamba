@@ -644,6 +644,7 @@ function qualifyService(dataSend){
         cleanContainerPublication();
         loadPublicationWorks();
         levelUser();
+        scoreUser();
       }
     }
   });

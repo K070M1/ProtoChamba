@@ -174,7 +174,7 @@ if(isset($_SESSION["login"])){
                 </div>
                 <div class="collapse" id="containerDatePerson">
                   <div class="card-body " >
-                    <form>
+                    <form autocomplete="off">
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label for="">Nombres:</label>

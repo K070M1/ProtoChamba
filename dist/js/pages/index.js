@@ -553,7 +553,7 @@ function loadQuestionCheck(){
 }
 
 // Solo letras y numeros
-$("#inApellidos").bind('keypress', function(e){
+$("#inApellidos").on('keypress', function(e){
     var condicional = new RegExp("^[a-zA-Z ]+$");
     var valor = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (!condicional.test(valor)) {
@@ -562,7 +562,7 @@ $("#inApellidos").bind('keypress', function(e){
     
 });
 
-$("#inNombres").bind('keypress', function(e){
+$("#inNombres").on('keypress', function(e){
     var condicional = new RegExp("^[a-zA-Z ]+$");
     var valor = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (!condicional.test(valor)) {
@@ -571,7 +571,7 @@ $("#inNombres").bind('keypress', function(e){
     
 });
 
-$("#inTelef").bind('keypress', function(e) {
+$("#inTelef").on('keypress', function(e) {
     var condicional = new RegExp("^[0-9]+$");
     var valor = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (!condicional.test(valor)) {
@@ -600,7 +600,7 @@ $("#inPiso").on('input', function(){
 });
 
 // Detectar Arroba
-$("#inCorreoE").bind('keypress', function(e){
+$("#inCorreoE").on('keypress', function(e){
     if(e.charCode == 64){
         e.preventDefault();
     }

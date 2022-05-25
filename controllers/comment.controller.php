@@ -17,7 +17,7 @@ if(isset($_GET['op'])){
     $i = 0;
 
     do{
-      $found = array_search($comments[$i], $phrases);
+      $found = in_array($comments[$i], $phrases);
       $i++;
       
     } while($i < count($comments) && !$found);
@@ -74,6 +74,4 @@ if(isset($_GET['op'])){
   }
 
 }
-
-
 ?>

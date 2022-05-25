@@ -376,7 +376,7 @@ function servicePopularCarousel() {
 
       // Configuración del owl-carousel
       $('.owl-carousel').owlCarousel({
-        loop: false,
+        loop: true,
         dots: false, // Leyenda de pagina
         margin: 10,
         autoplay: true,

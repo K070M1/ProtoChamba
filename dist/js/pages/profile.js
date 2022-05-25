@@ -12,6 +12,8 @@
   var idespecialidad;
   var idestablecimiento;
   var imgUpdtP = [];
+  var oldEmail = "";
+  var typeUpdate = "email";
   
   if(idusuarioActivo != -1 && idusuarioActivo != idusuarioSession){
     disabledButtons();
@@ -539,9 +541,6 @@
       }
     });
   });
-
-  var oldEmail = "";
-  var typeUpdate = "email";
   
   // Abrir modal - actualizar contraseña
   $("#btn-edit-password").click(function(){
@@ -861,6 +860,7 @@
                 socket.send("loadDataPerson");
                 listDataUser();
                 loadNameUser();
+                loadNameUserIndex();
               }
             }
           });

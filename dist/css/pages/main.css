@@ -391,6 +391,7 @@
 .container-box{
   max-height: 80vh;
   overflow: auto;
+  padding-bottom: 2.5em;
 }
 
 .container-filter::-webkit-scrollbar,
